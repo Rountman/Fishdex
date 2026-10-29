@@ -10,7 +10,11 @@ vytažených z Wayback Machine.
 data/          # výstup scrapu — fish.json, areas.json, report.md (NEUPRAVOVAT RUČNĚ)
 images/        # obrázky ryb ze scrapu
 scraper/       # Python scraper (requests + BeautifulSoup), cache/ v .gitignore
-web/           # samotná webovka
+web/           # samotná webovka (Vite + React + TS)
+  scripts/build-data.ts   # data/ + images/ -> src/data/*.json, public/fish/*.webp (generované, v .gitignore)
+  src/styles/tokens.css   # design tokeny (viz prototypes/styleguide.html)
+  src/progress/           # progres v localStorage + testy
+prototypes/    # schválené mockupy a styleguide (fáze 1–2), DECISIONS.md
 ```
 
 ## Pravidla pro data
@@ -18,7 +22,8 @@ web/           # samotná webovka
 - `data/` je jediný zdroj pravdy. Nikdy si nevymýšlej ryby, časy, návnady
   ani rarity. Co v datech chybí, UI zobrazí jako „neznámé", ne odhad.
 - Pokud web potřebuje data v jiném tvaru, napiš transformační skript
-  (`scripts/build-data.ts`), neměň JSON ručně.
+  (`web/scripts/build-data.ts`, spouští se `npm run data` i před dev/build),
+  neměň JSON ručně. Bílé pozadí u 17 obrázků z fishao.cz odstraňuje tentýž skript.
 - Před prací s daty si přečti `data/report.md` — jsou tam známé díry.
 - Scraper: max 1 request/s na web.archive.org, vše cachovat, používat `id_`
   URL varianty pro čisté HTML.
