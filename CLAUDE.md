@@ -73,7 +73,8 @@ prototypes/    # schválené mockupy a styleguide (fáze 1–2), DECISIONS.md
   - Shift+klik nebo klik na ikonku záře → přepne `caughtGlowing`
   - mobil: tap = caught, dlouhý stisk (500 ms) = glowing
 - Progres: celkem / per oblast, normální a zářivé zvlášť; u Backyard i „mám za domem“.
-- Filtry: oblast, místo v oblasti (molo, vor, farma… jen ryby s uvedeným místem),
+- Filtry: oblast a pod ní její místa jako plnohodnotné položky (Laketown › farma; jen ryby
+  s uvedeným místem), u každé volby filtru počet ryb podle ostatních aktivních filtrů,
   rarita, návnada (multi-výběr, NEBO), čas, chyceno / nechyceno /
   chybí zářivá; při vybrané oblasti Backyard i „za domem: mám / nemám“.
 - Délky ryb se jen zobrazují (text), žádné měřítko ani zadávání.

@@ -112,3 +112,8 @@
   .count { margin-left: 0; }
 }
 @media (prefers-reduced-motion: reduce) { .sheet[open] { animation: none; } }
+
+/* live counts next to options (other active filters applied) */
+.n { margin-left: 2px; font-size: var(--fs-xs); font-variant-numeric: tabular-nums; color: var(--color-ink-soft); }
+:global(.chip)[aria-pressed="true"] .n { color: inherit; opacity: 0.8; }
+.checkZero .checkLabel, .checkZero .checkCount { color: var(--color-ink-faint); }

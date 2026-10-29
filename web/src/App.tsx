@@ -1,6 +1,6 @@
 import { MotionConfig } from 'motion/react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { AreaIndex, type AreaStat } from './components/AreaIndex';
+import { AreaIndex } from './components/AreaIndex';
 import { BackupDialog } from './components/BackupDialog';
 import { CARD_HELP_ID } from './components/FishCard';
 import { FishDetail } from './components/FishDetail';
@@ -18,7 +18,7 @@ import { STRINGS } from './i18n/strings';
 import { totals, type ImportPreview } from './progress/progress';
 import type { ProgressField } from './progress/schema';
 import { useProgress } from './progress/useProgress';
-import { applyFilters, areaPatch, EMPTY_FILTERS, parseFilters, serializeFilters, type Filters as FilterState, type View } from './state/filters';
+import { applyFilters, EMPTY_FILTERS, facets as countFacets, locationPatch, parseFilters, serializeFilters, type Filters as FilterState, type View } from './state/filters';
 import { shouldShowHint, usePrefs } from './state/prefs';
 import { buildIndex } from './state/search';
 import { readParams, writeParams } from './url';
@@ -28,8 +28,6 @@ const INDEX = buildIndex(FISH);
 const AREA_IDS = new Set(AREAS.map(a => a.id));
 const AREA_NAMES = new Map(AREAS.map(a => [a.id, a.name]));
 const FISH_BY_ID = new Map(FISH.map(f => [f.id, f]));
-const FISH_BY_AREA = new Map(AREAS.map(a => [a.id, FISH.filter(f => f.areas.includes(a.id)).map(f => f.id)]));
-const YARD_TOTAL = FISH_BY_AREA.get('backyard')?.length ?? 0;
 const areaName = (id: string) => AREA_NAMES.get(id) ?? id;
 
 export default function App() {
@@ -77,13 +75,11 @@ export default function App() {
   }, [toggle, restore, showToast, lang]);
 
   const sum = totals(p.progress, FISH_IDS);
-  const stats: AreaStat[] = useMemo(() => AREAS.map(a => {
-    const ids = FISH_BY_AREA.get(a.id) ?? [];
-    const n = (k: 'caught' | 'caughtGlowing' | 'bred') => ids.filter(id => p.progress.fish[id]?.[k]).length;
-    return { ...a, caught: n('caught'), glow: n('caughtGlowing'), bred: n('bred') };
-  }), [p.progress]);
-
   const visible = useMemo(() => applyFilters(FISH, filters, p.progress, INDEX), [filters, p.progress]);
+  // counts next to filter options follow the other active filters
+  const facets = useMemo(() => countFacets(FISH, filters, p.progress, INDEX), [filters, p.progress]);
+  // the overview is the whole journal, no filters
+  const overall = useMemo(() => countFacets(FISH, EMPTY_FILTERS, p.progress, INDEX), [p.progress]);
 
   const onImport = (how: 'merge' | 'replace', preview: ImportPreview) => {
     if (how === 'merge') p.importMerge(preview.progress);
@@ -92,8 +88,9 @@ export default function App() {
     showToast(how === 'merge' ? t.merged(preview.count) : t.replaced(preview.count));
   };
 
-  const selectArea = (area: string) => {
-    setFilters(f => ({ ...f, ...areaPatch(f, area) }));
+  /** '' = all, an area id, or '<area>:<Spot>' (sets the area too). */
+  const selectArea = (value: string) => {
+    setFilters(f => ({ ...f, ...locationPatch(value) }));
     setView('grid');
     if (view !== 'grid') window.scrollTo({ top: 0 });
   };
@@ -118,21 +115,20 @@ export default function App() {
           {notice && <StorageNotice kind={notice} onBackup={() => setBackupOpen(true)} />}
 
           {(view === 'grid' || mobile) && (
-            <AreaIndex stats={stats} total={FISH.length} caught={sum.caught} active={filters.area} onSelect={selectArea} />
+            <AreaIndex areas={AREAS} facets={facets} area={filters.area} spot={filters.spot} onSelect={selectArea} />
           )}
 
           <main className={styles.log} id="ryby" tabIndex={-1}>
             <p id={CARD_HELP_ID} className="visually-hidden">{t.cardHelp}</p>
             {view === 'progress' ? (
               <Overview
-                stats={stats} total={FISH.length} caught={sum.caught} glow={sum.caughtGlowing}
-                bred={sum.bred} yardTotal={YARD_TOTAL} onArea={selectArea} onBack={() => setView('grid')}
+                areas={AREAS} facets={overall} onArea={selectArea} onBack={() => setView('grid')}
               />
             ) : (
               <>
                 <h2 className="visually-hidden">{t.filters}</h2>
                 <Filters
-                  filters={filters} areas={AREAS} shown={visible.length} total={FISH.length}
+                  filters={filters} facets={facets} areas={AREAS} shown={visible.length} total={FISH.length}
                   mobile={mobile} sheetOpen={sheetOpen} onSheet={setSheetOpen} onChange={changeFilters}
                 />
                 {hint && (

@@ -1,10 +1,9 @@
 import { useId, type ReactNode } from 'react';
 import type { Area } from '../data/types';
-import { FISH } from '../data';
 import { baitLabel, spotLabel } from '../i18n/format';
 import { useI18n } from '../i18n/context';
 import { useModal } from '../hooks/useModal';
-import { activeFilterCount, areaPatch, EMPTY_FILTERS, splitSpot, type Filters as F, type Status } from '../state/filters';
+import { activeFilterCount, EMPTY_FILTERS, locationPatch, splitSpot, type Facets, type Filters as F, type Status } from '../state/filters';
 import { BaitPicker } from './BaitPicker';
 import { FilterIcon, SearchIcon } from './icons';
 import { Stars } from './Stars';
@@ -12,6 +11,7 @@ import styles from './Filters.module.css';
 
 type Props = {
   filters: F;
+  facets: Facets;
   areas: Area[];
   shown: number;
   total: number;
@@ -23,23 +23,10 @@ type Props = {
 
 const STATUSES: Status[] = ['all', 'uncaught', 'caught', 'noglow'];
 
-// fish per '<area>:<Spot>' over the whole data set
-const SPOT_COUNTS = (() => {
-  const c = new Map<string, number>();
-  for (const f of FISH) for (const [a, list] of Object.entries(f.spots)) for (const s of list) c.set(`${a}:${s}`, (c.get(`${a}:${s}`) ?? 0) + 1);
-  return c;
-})();
 
-
-function Controls({ filters: f, areas, mobile, onChange }: Pick<Props, 'filters' | 'areas' | 'mobile' | 'onChange'>) {
-  const { t } = useI18n();
-  const { lang } = useI18n();
-  const ids = { rarity: useId(), status: useId(), bait: useId(), yard: useId(), area: useId(), spot: useId(), hour: useId(), month: useId() };
-  const spotAreas = areas.filter(a => a.spots.length && (!f.area || a.id === f.area));
-  const spotOption = (a: Area, s: Area['spots'][number]) => {
-    const v = `${a.id}:${s}`;
-    return <option key={v} value={v}>{spotLabel(s, lang).text} ({SPOT_COUNTS.get(v) ?? 0})</option>;
-  };
+function Controls({ filters: f, facets, areas, mobile, onChange }: Pick<Props, 'filters' | 'facets' | 'areas' | 'mobile' | 'onChange'>) {
+  const { lang, t } = useI18n();
+  const ids = { rarity: useId(), status: useId(), bait: useId(), yard: useId(), area: useId(), hour: useId(), month: useId() };
   const statusLabel: Record<Status, string> = { all: t.statusAll, uncaught: t.uncaught, caught: t.caught, noglow: t.noglow };
   const toggleRarity = (r: number) => {
     const next = new Set(f.rarity);
@@ -54,7 +41,7 @@ function Controls({ filters: f, areas, mobile, onChange }: Pick<Props, 'filters'
         <span className={styles.label} id={ids.rarity}>{t.rarity}</span>
         {[1, 2, 3, 4, 5].map(r => (
           <button key={r} type="button" className="chip" aria-pressed={f.rarity.has(r)} onClick={() => toggleRarity(r)}>
-            <Stars r={r} />
+            <Stars r={r} /><span className={styles.n}>{facets.rarity.get(r) ?? 0}</span>
           </button>
         ))}
       </div>
@@ -62,37 +49,33 @@ function Controls({ filters: f, areas, mobile, onChange }: Pick<Props, 'filters'
         <span className={styles.label} id={ids.status}>{t.status}</span>
         {STATUSES.map(s => (
           <button key={s} type="button" className="chip" aria-pressed={f.status === s} onClick={() => onChange({ status: s })}>
-            {statusLabel[s]}
+            {statusLabel[s]}<span className={styles.n}>{facets.status[s]}</span>
           </button>
         ))}
       </div>
       <div className={styles.row}>
         <label className={styles.label} htmlFor={ids.area}>{t.area}</label>
-        <select id={ids.area} className={styles.select} value={f.area} onChange={e => onChange(areaPatch(f, e.target.value))}>
-          <option value="">{t.allAreas}</option>
+        {/* areas and, right under each, its spots as full entries */}
+        <select id={ids.area} className={styles.select} value={f.spot || f.area}
+          aria-describedby={f.spot ? `${ids.area}-note` : undefined} onChange={e => onChange(locationPatch(e.target.value))}>
+          <option value="">{t.allAreas} ({facets.all.total})</option>
           {(['area', 'tournament', 'backyard'] as const).map(kind => (
             <optgroup key={kind} label={t.kinds[kind]}>
-              {areas.filter(a => a.kind === kind).map(a => <option key={a.id} value={a.id}>{a.name}</option>)}
+              {areas.filter(a => a.kind === kind).flatMap(a => [
+                <option key={a.id} value={a.id}>{a.name} ({facets.areas.get(a.id)?.total ?? 0})</option>,
+                ...a.spots.map(sp => {
+                  const v = `${a.id}:${sp}`;
+                  return <option key={v} value={v}>{a.name} › {spotLabel(sp, lang).text} ({facets.spots.get(v)?.total ?? 0})</option>;
+                }),
+              ])}
             </optgroup>
           ))}
         </select>
+        {f.spot && <p className={styles.spotNote} id={`${ids.area}-note`}>{t.spotNote}</p>}
       </div>
-      {spotAreas.length > 0 && (
-        <div className={styles.row}>
-          <label className={styles.label} htmlFor={ids.spot}>{t.spot}</label>
-          <select id={ids.spot} className={styles.select} value={f.spot} aria-describedby={f.spot ? `${ids.spot}-note` : undefined}
-            onChange={e => onChange({ spot: e.target.value })}>
-            <option value="">{t.spotAny}</option>
-            {f.area
-              ? spotAreas[0].spots.map(s => spotOption(spotAreas[0], s))
-              : spotAreas.map(a => <optgroup key={a.id} label={a.name}>{a.spots.map(s => spotOption(a, s))}</optgroup>)}
-          </select>
-          {f.spot && <p className={styles.spotNote} id={`${ids.spot}-note`}>{t.spotNote}</p>}
-        </div>
-      )}
       <div className={`${styles.row} ${styles.baitRow}`}>
         <span className={styles.label} id={ids.bait}>{t.bait}</span>
-        <BaitPicker selected={f.bait} onChange={bait => onChange({ bait })} labelId={ids.bait} inline={mobile} />
+        <BaitPicker selected={f.bait} counts={facets.bait} onChange={bait => onChange({ bait })} labelId={ids.bait} inline={mobile} />
       </div>
       {f.area === 'backyard' && (
         <div className={styles.row} role="group" aria-labelledby={ids.yard}>
@@ -133,11 +116,11 @@ function ActiveChips({ filters: f, areas, onChange }: Pick<Props, 'filters' | 'a
   if (q) chips.push({ key: 'q', label: `„${q}“`, text: q, clear: { q: '' } });
   if (f.area) {
     const name = areas.find(a => a.id === f.area)?.name ?? f.area;
-    chips.push({ key: 'area', label: name, text: name, clear: { area: '', bred: '' } });
+    chips.push({ key: 'area', label: name, text: name, clear: { area: '', spot: '', bred: '' } });
   }
   if (f.spot) {
     const { area, spot } = splitSpot(f.spot);
-    const l = `${spotLabel(spot, lang).text} (${areas.find(a => a.id === area)?.name ?? area})`;
+    const l = `${areas.find(a => a.id === area)?.name ?? area} › ${spotLabel(spot, lang).text}`;
     chips.push({ key: 'spot', label: l, text: l, clear: { spot: '' } });
   }
   for (const r of [...f.rarity].sort()) {

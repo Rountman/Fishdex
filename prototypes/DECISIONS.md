@@ -103,3 +103,9 @@ seznam je v `prototypes/screens.js`, screenshoty v `prototypes/screens/1b/`.
 - **Barva pozadí** (přání uživatele): papír posunut ze šedozelené do světle modré
   (`--color-paper` oklch 0.935 0.045 240, nahoře azurová `--color-paper-top`), lístky a
   mřížka v detailu do studeného tónu; `--color-ink-faint` ztmaven na 0.50 kvůli AA (4.95).
+- **Místa jako plnohodnotné filtry** (přání uživatele): v obsahu deníku, ve výběru Oblast
+  i v přehledu je pod oblastí odsazené její místo s vlastním progresem (Laketown › farma).
+  Výběr místa nastaví i oblast; v pruhu jsou pak dva chipy (oblast, oblast › místo).
+- **Počty u filtrů podle ostatních filtrů** (facety): oblasti, místa, rarity, stavy a návnady
+  ukazují, kolik ryb by daly s ostatními aktivními filtry (vlastní skupina se nepočítá).
+  Prázdné volby jsou zešedlé, ale jdou vybrat. Hlavička a přehled oblastí zůstávají globální.

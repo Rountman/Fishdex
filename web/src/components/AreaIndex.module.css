@@ -23,3 +23,10 @@
 @media (max-width: 760px) {
   .index { margin-top: var(--space-6); }
 }
+
+/* spots: full entries nested under their area */
+.spots { list-style: none; margin: 0 0 var(--space-1); padding: 0 0 0 var(--space-4); border-left: 1.5px solid color-mix(in oklch, var(--color-ink) 18%, transparent); margin-left: var(--space-2); }
+.sub { padding-top: 3px !important; padding-bottom: 4px !important; }
+.sub .name { font: italic var(--fw-regular) 15px/1.2 var(--font-display); }
+/* nothing left under the other filters: still clickable, visibly quieter */
+.list button[data-empty="true"]:not([aria-pressed="true"]) .name { color: var(--color-ink-faint); }

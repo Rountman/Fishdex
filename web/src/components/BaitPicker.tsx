@@ -6,23 +6,24 @@ import { useI18n } from '../i18n/context';
 import { ChevronIcon } from './icons';
 import styles from './Filters.module.css';
 
-// how many fish take each bait (whole data set), most common first
-const COUNTS = (() => {
+// stable order: most common bait over the whole data set first
+const ORDER = (() => {
   const c = new Map<Bait, number>();
   for (const f of FISH) for (const b of f.bait) c.set(b, (c.get(b) ?? 0) + 1);
-  return c;
+  return (Object.keys(BAITS) as Bait[]).filter(b => c.has(b)).sort((a, b) => c.get(b)! - c.get(a)!);
 })();
-const ORDER = (Object.keys(BAITS) as Bait[]).filter(b => COUNTS.has(b)).sort((a, b) => COUNTS.get(b)! - COUNTS.get(a)!);
 
 type Props = {
   selected: ReadonlySet<Bait>;
+  /** Fish per bait with the other active filters applied. */
+  counts: ReadonlyMap<Bait, number>;
   onChange: (next: Set<Bait>) => void;
   labelId: string;
   /** Inside the mobile sheet the list is shown directly, without a popover. */
   inline?: boolean;
 };
 
-export function BaitPicker({ selected, onChange, labelId, inline }: Props) {
+export function BaitPicker({ selected, counts, onChange, labelId, inline }: Props) {
   const { lang, t } = useI18n();
   const [open, setOpen] = useState(false);
   const panelId = useId();
@@ -55,11 +56,11 @@ export function BaitPicker({ selected, onChange, labelId, inline }: Props) {
           const l = baitLabel(b, lang);
           return (
             <li key={b}>
-              <label className={styles.check}>
+              <label className={`${styles.check} ${counts.get(b) ? '' : styles.checkZero}`}>
                 <input type="checkbox" checked={selected.has(b)} onChange={() => toggle(b)} />
                 <span className={`${styles.checkLabel} ${l.untranslated ? 'untranslated' : ''}`}>{l.text}</span>
                 <span className={styles.leader} aria-hidden="true" />
-                <span className={styles.checkCount}>{COUNTS.get(b)}</span>
+                <span className={styles.checkCount}>{counts.get(b) ?? 0}</span>
               </label>
             </li>
           );

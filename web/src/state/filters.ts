@@ -76,9 +76,9 @@ function parseSpot(v: string | null, areaIds: ReadonlySet<string>) {
   return areaIds.has(s.area) && s.spot in SPOTS ? s : null;
 }
 
-/** Area change keeps the spot only when it belongs to the new area. */
-export const areaPatch = (f: Pick<Filters, 'spot'>, area: string): Partial<Filters> =>
-  ({ area, bred: '', spot: f.spot && area && splitSpot(f.spot).area !== area ? '' : f.spot });
+/** Picking an area (or "all") clears the spot; picking '<area>:<Spot>' sets both. */
+export const locationPatch = (value: string): Partial<Filters> =>
+  value.includes(':') ? { area: splitSpot(value).area, spot: value, bred: '' } : { area: value, spot: '', bred: '' };
 
 const minutes = (hhmm: string) => Number(hhmm.slice(0, 2)) * 60 + Number(hhmm.slice(3));
 
@@ -110,25 +110,80 @@ export function inSeasonMonth(season: Schedule, m: number): boolean {
 
 const NONE: FishProgress = { caught: false, caughtGlowing: false };
 
-export function applyFilters(fish: readonly Fish[], f: Filters, progress: Progress, index: SearchIndex): Fish[] {
-  return fish.filter(x => {
+/** Filter groups that show counts; a facet's counts ignore its own selection. */
+type FacetKey = 'location' | 'rarity' | 'bait' | 'status';
+
+function predicate(f: Filters, progress: Progress, index: SearchIndex, skip?: FacetKey) {
+  const spot = f.spot ? splitSpot(f.spot) : null;
+  return (x: Fish) => {
     const s = progress.fish[x.id] ?? NONE;
-    if (f.area && !x.areas.includes(f.area)) return false;
-    if (f.spot) {
-      const { area, spot } = splitSpot(f.spot);
-      if (!x.spots[area]?.includes(spot)) return false;
+    if (skip !== 'location') {
+      if (f.area && !x.areas.includes(f.area)) return false;
+      if (spot && !x.spots[spot.area]?.includes(spot.spot)) return false;
+      if (f.area === 'backyard' && f.bred === 'yes' && !s.bred) return false;
+      if (f.area === 'backyard' && f.bred === 'no' && s.bred) return false;
     }
-    if (f.rarity.size && !f.rarity.has(x.rarity)) return false;
-    if (f.bait.size && !x.bait.some(b => f.bait.has(b))) return false;
-    if (f.status === 'caught' && !s.caught) return false;
-    if (f.status === 'uncaught' && s.caught) return false;
-    if (f.status === 'noglow' && s.caughtGlowing) return false;
-    if (f.area === 'backyard' && f.bred === 'yes' && !s.bred) return false;
-    if (f.area === 'backyard' && f.bred === 'no' && s.bred) return false;
+    if (skip !== 'rarity' && f.rarity.size && !f.rarity.has(x.rarity)) return false;
+    if (skip !== 'bait' && f.bait.size && !x.bait.some(b => f.bait.has(b))) return false;
+    if (skip !== 'status' && !statusMatches(f.status, s)) return false;
     if (f.hour !== null && !bitesAtHour(x.time, f.hour)) return false;
     if (f.month !== null && !inSeasonMonth(x.season, f.month)) return false;
     return matches(index, x.id, f.q);
-  });
+  };
+}
+
+const statusMatches = (status: Status, s: FishProgress) =>
+  status === 'caught' ? s.caught : status === 'uncaught' ? !s.caught : status === 'noglow' ? !s.caughtGlowing : true;
+
+export function applyFilters(fish: readonly Fish[], f: Filters, progress: Progress, index: SearchIndex): Fish[] {
+  return fish.filter(predicate(f, progress, index));
+}
+
+export type Tally = { total: number; caught: number; glow: number; bred: number };
+const tally = (): Tally => ({ total: 0, caught: 0, glow: 0, bred: 0 });
+
+export type Facets = {
+  /** Fish matching every filter except area / spot ("Všechny oblasti"). */
+  all: Tally;
+  areas: Map<string, Tally>;
+  /** Keyed '<area>:<Spot>'. */
+  spots: Map<string, Tally>;
+  rarity: Map<number, number>;
+  bait: Map<Bait, number>;
+  status: Record<Status, number>;
+};
+
+/**
+ * Counts shown next to each filter option: how many fish that option would
+ * give together with all the *other* active filters (its own group ignored).
+ */
+export function facets(fish: readonly Fish[], f: Filters, progress: Progress, index: SearchIndex): Facets {
+  const out: Facets = { all: tally(), areas: new Map(), spots: new Map(), rarity: new Map(), bait: new Map(), status: { all: 0, uncaught: 0, caught: 0, noglow: 0 } };
+  const add = (map: Map<string, Tally>, key: string, s: FishProgress) => {
+    let t = map.get(key);
+    if (!t) map.set(key, (t = tally()));
+    t.total++;
+    if (s.caught) t.caught++;
+    if (s.caughtGlowing) t.glow++;
+    if (s.bred) t.bred++;
+  };
+  const loc = predicate(f, progress, index, 'location'), rar = predicate(f, progress, index, 'rarity');
+  const bai = predicate(f, progress, index, 'bait'), sta = predicate(f, progress, index, 'status');
+  for (const x of fish) {
+    const s = progress.fish[x.id] ?? NONE;
+    if (loc(x)) {
+      out.all.total++;
+      if (s.caught) out.all.caught++;
+      if (s.caughtGlowing) out.all.glow++;
+      if (s.bred) out.all.bred++;
+      for (const a of x.areas) add(out.areas, a, s);
+      for (const [a, list] of Object.entries(x.spots)) for (const sp of list) add(out.spots, `${a}:${sp}`, s);
+    }
+    if (rar(x)) out.rarity.set(x.rarity, (out.rarity.get(x.rarity) ?? 0) + 1);
+    if (bai(x)) for (const b of x.bait) out.bait.set(b, (out.bait.get(b) ?? 0) + 1);
+    if (sta(x)) for (const st of STATUSES) if (statusMatches(st, s)) out.status[st]++;
+  }
+  return out;
 }
 
 /** Number of active filters, search excluded (shown on the mobile "Filtry (n)" button). */

@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { AREAS, FISH } from '../data';
 import { emptyProgress, type Progress } from '../progress/schema';
-import { activeFilterCount, applyFilters, areaPatch, bitesAtHour, EMPTY_FILTERS, inSeasonMonth, parseFilters, serializeFilters, type Filters } from './filters';
+import { activeFilterCount, applyFilters, bitesAtHour, facets, locationPatch, EMPTY_FILTERS, inSeasonMonth, parseFilters, serializeFilters, type Filters } from './filters';
 import { buildIndex, fold, matches, nearlyEqual } from './search';
 
 const index = buildIndex(FISH);
@@ -107,10 +107,10 @@ describe('applyFilters', () => {
     expect(ids(pyramidPb).some(id => ids(pyramidMd).includes(id))).toBe(false);
   });
 
-  it('changing the area drops a spot from another area', () => {
-    expect(areaPatch({ spot: 'cool-mountain:Raft' }, 'club')).toEqual({ area: 'club', bred: '', spot: '' });
-    expect(areaPatch({ spot: 'cool-mountain:Raft' }, 'cool-mountain').spot).toBe('cool-mountain:Raft');
-    expect(areaPatch({ spot: 'cool-mountain:Raft' }, '').spot).toBe('cool-mountain:Raft');
+  it('picking a spot sets its area, picking an area clears the spot', () => {
+    expect(locationPatch('cool-mountain:Raft')).toEqual({ area: 'cool-mountain', spot: 'cool-mountain:Raft', bred: '' });
+    expect(locationPatch('club')).toEqual({ area: 'club', spot: '', bred: '' });
+    expect(locationPatch('')).toEqual({ area: '', spot: '', bred: '' });
   });
 
   it('combines with search', () => {
@@ -140,5 +140,31 @@ describe('URL round trip', () => {
 
   it('empty filters produce no query keys', () => {
     expect(Object.values(serializeFilters(EMPTY_FILTERS)).every(v => v === null)).toBe(true);
+  });
+});
+
+describe('facets (counts next to filter options)', () => {
+  const p: Progress = { ...emptyProgress(), fish: { eel: { caught: true, caughtGlowing: true }, 'arctic-char': { caught: true, caughtGlowing: false } } };
+  const fx = (f: Partial<Filters>) => facets(FISH, { ...EMPTY_FILTERS, ...f }, p, index);
+
+  it('without filters they are the plain data counts', () => {
+    const c = fx({});
+    expect(c.all.total).toBe(FISH.length);
+    expect(c.areas.get('pirate-cave')?.total).toBe(7);
+    expect(c.spots.get('cool-mountain:Raft')).toEqual({ total: 19, caught: 1, glow: 0, bred: 0 });
+    expect(c.bait.get('Insects')).toBe(337);
+    expect([1, 2, 3, 4, 5].map(r => c.rarity.get(r))).toEqual([48, 102, 153, 150, 162]);
+    expect(c.status).toEqual({ all: FISH.length, uncaught: FISH.length - 2, caught: 2, noglow: FISH.length - 1 });
+  });
+
+  it('each group follows the other filters but ignores its own', () => {
+    const c = fx({ rarity: new Set([5]), area: 'club' });
+    // areas: only 5-star fish, area selection itself ignored
+    expect(c.all.total).toBe(162);
+    expect(c.areas.get('club')?.total).toBe(run({ rarity: new Set([5]), area: 'club' }).length);
+    // rarity: only club fish, rarity selection itself ignored
+    expect([1, 2, 3, 4, 5].reduce((n, r) => n + (c.rarity.get(r) ?? 0), 0)).toBe(80);
+    // bait: club + 5-star
+    expect(c.bait.get('Fish')).toBe(run({ rarity: new Set([5]), area: 'club', bait: new Set(['Fish']) }).length);
   });
 });

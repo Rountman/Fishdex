@@ -1,51 +1,80 @@
+import type { ReactNode } from 'react';
 import type { Area } from '../data/types';
 import { useI18n } from '../i18n/context';
+import { spotLabel } from '../i18n/format';
+import type { Facets, Tally } from '../state/filters';
 import styles from './AreaIndex.module.css';
 
-export type AreaStat = Area & { caught: number; glow: number; bred: number };
-
 type Props = {
-  stats: AreaStat[];
-  total: number;
-  caught: number;
-  active: string;
-  onSelect: (area: string) => void;
+  areas: Area[];
+  /** Counts with all other active filters applied. */
+  facets: Facets;
+  area: string;
+  spot: string;
+  /** '' = all areas, an area id, or '<area>:<Spot>'. */
+  onSelect: (value: string) => void;
 };
 
-const Bar = ({ n, of }: { n: number; of: number }) => (
-  <span className={`bar ${styles.bar}`}><span style={{ width: `${of ? n / of * 100 : 0}%` }} /></span>
-);
+const EMPTY: Tally = { total: 0, caught: 0, glow: 0, bred: 0 };
 
-export function AreaIndex({ stats, total, caught, active, onSelect }: Props) {
-  const { t } = useI18n();
+function Row({ label, tally, pressed, onClick, sub, extra }: {
+  label: string; tally: Tally; pressed: boolean; onClick: () => void; sub?: boolean; extra?: ReactNode;
+}) {
+  return (
+    <button
+      type="button" aria-pressed={pressed} onClick={onClick} className={sub ? styles.sub : undefined}
+      data-done={tally.total > 0 && tally.caught === tally.total} data-empty={tally.total === 0}
+    >
+      <span className={styles.name}>{label}</span>
+      <span className={styles.count}>{tally.caught}<span className="of">/{tally.total}</span></span>
+      <span className={`bar ${styles.bar}`}><span style={{ width: `${tally.total ? tally.caught / tally.total * 100 : 0}%` }} /></span>
+      {extra}
+    </button>
+  );
+}
+
+export function AreaIndex({ areas, facets, area, spot, onSelect }: Props) {
+  const { lang, t } = useI18n();
   const kinds = ['area', 'tournament', 'backyard'] as const;
   return (
     <nav className={styles.index} aria-labelledby="index-title">
       <h2 className={styles.title} id="index-title">{t.indexTitle}</h2>
       <ul className={styles.list}>
         <li className={styles.all}>
-          <button type="button" aria-pressed={!active} onClick={() => onSelect('')}>
-            <span className={styles.name}>{t.allAreas}</span>
-            <span className={styles.count}>{caught}<span className="of">/{total}</span></span>
-            <Bar n={caught} of={total} />
-          </button>
+          <Row label={t.allAreas} tally={facets.all} pressed={!area} onClick={() => onSelect('')} />
         </li>
         {kinds.map(kind => (
           <li key={kind}>
             <h3 className={styles.kind}>{t.kinds[kind]}</h3>
             <ul className={styles.list}>
-              {stats.filter(a => a.kind === kind).map(a => (
-                <li key={a.id}>
-                  <button type="button" aria-pressed={active === a.id} onClick={() => onSelect(a.id)} data-done={a.caught === a.count}>
-                    <span className={styles.name}>{a.name}</span>
-                    <span className={styles.count}>{a.caught}<span className="of">/{a.count}</span></span>
-                    <Bar n={a.caught} of={a.count} />
-                    {kind === 'backyard' && (
-                      <span className={styles.bred}>{t.bredNote} {a.bred}<span className="of">/{a.count}</span></span>
+              {areas.filter(a => a.kind === kind).map(a => {
+                const tally = facets.areas.get(a.id) ?? EMPTY;
+                return (
+                  <li key={a.id}>
+                    <Row
+                      label={a.name} tally={tally} pressed={area === a.id && !spot} onClick={() => onSelect(a.id)}
+                      extra={kind === 'backyard' && (
+                        <span className={styles.bred}>{t.bredNote} {tally.bred}<span className="of">/{tally.total}</span></span>
+                      )}
+                    />
+                    {a.spots.length > 0 && (
+                      <ul className={styles.spots}>
+                        {a.spots.map(sp => {
+                          const key = `${a.id}:${sp}`;
+                          return (
+                            <li key={key}>
+                              <Row
+                                sub label={spotLabel(sp, lang).text} tally={facets.spots.get(key) ?? EMPTY}
+                                pressed={spot === key} onClick={() => onSelect(key)}
+                              />
+                            </li>
+                          );
+                        })}
+                      </ul>
                     )}
-                  </button>
-                </li>
-              ))}
+                  </li>
+                );
+              })}
             </ul>
           </li>
         ))}
