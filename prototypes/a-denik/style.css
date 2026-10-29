@@ -121,7 +121,7 @@ button { cursor: pointer; }
   font: var(--title-w) 54px/0.9 var(--display);
   letter-spacing: -0.02em;
 }
-.subtitle { margin: var(--s2) 0 0; font: 400 calc(19px * var(--hand-scale))/1.1 var(--hand); color: var(--ink-soft); }
+.subtitle { margin: var(--s2) 0 0; font: 500 19px/1.15 var(--display); color: var(--ink-soft); }
 .tally { display: flex; gap: var(--s7); }
 .tally-item { display: grid; grid-template-columns: auto 1fr; column-gap: var(--s3); align-items: baseline; min-width: 220px; }
 .tally-num { font: 600 40px/1 var(--display); font-variant-numeric: lining-nums; }
