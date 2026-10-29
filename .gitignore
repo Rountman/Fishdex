@@ -1,0 +1,4 @@
+fishdex-data/scraper/cache/
+fishdex-data/scraper/.venv/
+__pycache__/
+.DS_Store

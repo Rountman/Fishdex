@@ -1,0 +1,322 @@
+{
+  "fish": {
+    "white-spotted-damsell": "white-spotted-damsel",
+    "bluespotted-grouper": "blue-spotted-grouper",
+    "long-nosed-chimaera": "long-nosed-chimera",
+    "carchacocles-chubutensis": "carcharocles-chubutensis",
+    "bullshark": "bull-shark",
+    "grammonus-yumokawai": "grammonus-yunokawai",
+    "astrapis": "astraspis",
+    "azul-pracock-bass": "azul-peacock-bass",
+    "goldcarp": "gold-carp"
+  },
+  "areas": {
+    "seagul harbor": "seagull-harbor",
+    "sagul harbor": "seagull-harbor",
+    "seagul": "seagull-harbor",
+    "pinheria beach": "pinheira-beach",
+    "pinheira beach pier)": "pinheira-beach",
+    "tombani town": "thombani-town",
+    "sibiri": "sibiri-city",
+    "lake run tourament": "lake-run-tournament",
+    "magic 15 race tournament": "race-magic-15-tournament",
+    "trout farm": "laketown"
+  },
+  "candidates": {
+    "fish": [
+      {
+        "a": "white-spotted-damsel",
+        "b": "white-spotted-damsell",
+        "ratio": 0.976,
+        "a_names": [
+          "White-Spotted Damsel"
+        ],
+        "b_names": [
+          "White-Spotted Damsell"
+        ],
+        "a_pages": [
+          "all-in-one"
+        ],
+        "b_pages": [
+          "area-fish"
+        ],
+        "complementary": true
+      },
+      {
+        "a": "blue-spotted-grouper",
+        "b": "bluespotted-grouper",
+        "ratio": 0.974,
+        "a_names": [
+          "Blue-Spotted Grouper (U)"
+        ],
+        "b_names": [
+          "Bluespotted Grouper"
+        ],
+        "a_pages": [
+          "all-in-one"
+        ],
+        "b_pages": [
+          "area-fish"
+        ],
+        "complementary": true
+      },
+      {
+        "a": "long-nosed-chimaera",
+        "b": "long-nosed-chimera",
+        "ratio": 0.973,
+        "a_names": [
+          "Long-nosed Chimaera"
+        ],
+        "b_names": [
+          "Long-nosed Chimera"
+        ],
+        "a_pages": [
+          "5-star-fish",
+          "all-in-one"
+        ],
+        "b_pages": [
+          "area-fish"
+        ],
+        "complementary": true
+      },
+      {
+        "a": "carchacocles-chubutensis",
+        "b": "carcharocles-chubutensis",
+        "ratio": 0.958,
+        "a_names": [
+          "Carchacocles Chubutensis"
+        ],
+        "b_names": [
+          "Carcharocles Chubutensis"
+        ],
+        "a_pages": [
+          "all-in-one"
+        ],
+        "b_pages": [
+          "5-star-fish",
+          "area-fish"
+        ],
+        "complementary": true
+      },
+      {
+        "a": "bull-shark",
+        "b": "bullshark",
+        "ratio": 0.947,
+        "a_names": [
+          "Bull Shark"
+        ],
+        "b_names": [
+          "Bullshark"
+        ],
+        "a_pages": [
+          "all-in-one",
+          "breeder-fish"
+        ],
+        "b_pages": [
+          "5-star-fish"
+        ],
+        "complementary": true
+      },
+      {
+        "a": "grammonus-yumokawai",
+        "b": "grammonus-yunokawai",
+        "ratio": 0.947,
+        "a_names": [
+          "Grammonus Yumokawai"
+        ],
+        "b_names": [
+          "Grammonus Yunokawai"
+        ],
+        "a_pages": [
+          "all-in-one",
+          "area-fish"
+        ],
+        "b_pages": [
+          "5-star-fish"
+        ],
+        "complementary": true
+      },
+      {
+        "a": "astrapis",
+        "b": "astraspis",
+        "ratio": 0.941,
+        "a_names": [
+          "Astrapis"
+        ],
+        "b_names": [
+          "Astraspis"
+        ],
+        "a_pages": [
+          "area-fish"
+        ],
+        "b_pages": [
+          "all-in-one"
+        ],
+        "complementary": true
+      },
+      {
+        "a": "azul-peacock-bass",
+        "b": "azul-pracock-bass",
+        "ratio": 0.941,
+        "a_names": [
+          "Azul Peacock Bass"
+        ],
+        "b_names": [
+          "Azul Pracock Bass"
+        ],
+        "a_pages": [
+          "area-fish"
+        ],
+        "b_pages": [
+          "all-in-one"
+        ],
+        "complementary": true
+      },
+      {
+        "a": "gold-carp",
+        "b": "goldcarp",
+        "ratio": 0.941,
+        "a_names": [
+          "Gold Carp"
+        ],
+        "b_names": [
+          "Goldcarp"
+        ],
+        "a_pages": [
+          "5-star-fish"
+        ],
+        "b_pages": [
+          "all-in-one",
+          "area-fish"
+        ],
+        "complementary": true
+      },
+      {
+        "a": "orangespotted-soapfish",
+        "b": "orangespotted-sunfish",
+        "ratio": 0.884,
+        "a_names": [
+          "Orangespotted Soapfish"
+        ],
+        "b_names": [
+          "Orangespotted Sunfish"
+        ],
+        "a_pages": [
+          "5-star-fish",
+          "all-in-one",
+          "area-fish"
+        ],
+        "b_pages": [
+          "all-in-one",
+          "area-fish"
+        ],
+        "complementary": false
+      },
+      {
+        "a": "beluga-sturgeon",
+        "b": "kaluga-sturgeon",
+        "ratio": 0.867,
+        "a_names": [
+          "Beluga Sturgeon"
+        ],
+        "b_names": [
+          "Kaluga Sturgeon"
+        ],
+        "a_pages": [
+          "5-star-fish",
+          "all-in-one",
+          "area-fish"
+        ],
+        "b_pages": [
+          "5-star-fish",
+          "all-in-one",
+          "area-fish"
+        ],
+        "complementary": false
+      },
+      {
+        "a": "green-arowana",
+        "b": "green-red-arowana",
+        "ratio": 0.867,
+        "a_names": [
+          "Green Arowana"
+        ],
+        "b_names": [
+          "Green Red Arowana"
+        ],
+        "a_pages": [
+          "all-in-one",
+          "breeder-fish"
+        ],
+        "b_pages": [
+          "5-star-fish",
+          "all-in-one",
+          "breeder-fish"
+        ],
+        "complementary": false
+      },
+      {
+        "a": "african-arowana",
+        "b": "asian-arowana",
+        "ratio": 0.857,
+        "a_names": [
+          "African Arowana"
+        ],
+        "b_names": [
+          "Asian Arowana"
+        ],
+        "a_pages": [
+          "all-in-one",
+          "breeder-fish"
+        ],
+        "b_pages": [
+          "5-star-fish",
+          "all-in-one",
+          "breeder-fish"
+        ],
+        "complementary": false
+      },
+      {
+        "a": "blackfin-dartfish",
+        "b": "blackfin-pearlfish",
+        "ratio": 0.857,
+        "a_names": [
+          "Blackfin Dartfish"
+        ],
+        "b_names": [
+          "Blackfin Pearlfish"
+        ],
+        "a_pages": [
+          "all-in-one",
+          "area-fish"
+        ],
+        "b_pages": [
+          "all-in-one",
+          "area-fish"
+        ],
+        "complementary": false
+      }
+    ],
+    "areas": [
+      "Beach",
+      "Lake Run",
+      "Race"
+    ],
+    "fishao_cz": []
+  },
+  "fishao_cz": {
+    "duhovka": "rainbowfish",
+    "eurasian-ruffle": "eurasian-ruffe",
+    "jezdik-obecny": "eurasian-ruffe",
+    "freshwater-moray": "fresh-water-moray",
+    "murena-sladkovodni": "fresh-water-moray",
+    "murena-nosata": "ribbon-eel",
+    "okounicek-sklovity": "indian-glassfish",
+    "ostenec-picassuv": "picasso-triggerfish",
+    "parmice-pruhovana": "flourescing-goatfish",
+    "pruhoun-novozelandsky": "gollumshark",
+    "saurichthys": "saurychthis",
+    "tlamovec-celnaty": "frontosa-chiclid",
+    "tlamovec-livingstonuv": "livingstons-chichild"
+  }
+}
