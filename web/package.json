@@ -10,10 +10,12 @@
     "prebuild": "npm run data",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
+    "pretest": "npm run data",
     "test": "vitest run",
     "lint": "oxlint"
   },
   "dependencies": {
+    "motion": "^14.7.1",
     "react": "^19.3.1",
     "react-dom": "^19.3.1"
   },
