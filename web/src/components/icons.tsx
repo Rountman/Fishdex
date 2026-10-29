@@ -34,3 +34,7 @@ export const UploadIcon = () => (
 export const ClockIcon = () => (
   <svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.2" /><path d="M8 4.6V8l2.3 1.5" /></svg>
 );
+
+export const CalendarIcon = () => (
+  <svg viewBox="0 0 16 16" aria-hidden="true"><rect x="2" y="3.2" width="12" height="10.8" rx="1.2" /><path d="M2 6.6h12M5.2 1.8v2.6M10.8 1.8v2.6" /></svg>
+);
