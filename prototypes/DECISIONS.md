@@ -16,6 +16,9 @@ Varianta B (`prototypes/b-kabinet/`) je jen archiv, dál se neudržuje.
 - **Výběr návnad:** tlačítko s panelem (na mobilu bottom sheet), multi-výběr,
   logika NEBO, řazeno podle počtu ryb s počtem u každé návnady. Vybrané návnady
   jsou i jako odebíratelné chipy vedle tlačítka.
+- **Obsah deníku začíná položkou „Všechny oblasti“** (výchozí, celkový progres X/615),
+  pod ní oblasti, turnaje a Backyard. Na mobilu je to první volba selectu oblastí.
+- **Podtitul** „Rybářský deník Fishao“ je ve fontu názvů ryb (ne ručně psaný).
 - **Fonty:** Fraunces a Kalam se mění. Kandidáti (přepínač `?font=1|2|3`):
   1. Alegreya + Patrick Hand (výchozí)
   2. Instrument Serif + Caveat

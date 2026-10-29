@@ -92,7 +92,11 @@ function renderProgress({ total, caught, glow, byArea }) {
       <span class="pencil-bar"><span style="width:${glow / total * 100}%"></span></span>
     </div>`;
   const kinds = { area: 'Oblasti', tournament: 'Turnaje', backyard: 'Za domem' };
-  let html = '', lastKind = '';
+  let html = `<li class="all"><button type="button" data-filter="area" data-value="" aria-pressed="${!current?.area}">
+      <span class="area-name">Všechny oblasti</span>
+      <span class="area-count">${caught}<span class="of">/${total}</span></span>
+      <span class="pencil-bar"><span style="width:${caught / total * 100}%"></span></span>
+    </button></li>`, lastKind = '';
   for (const a of byArea) {
     if (a.kind !== lastKind) { html += `<li class="kind">${kinds[a.kind]}</li>`; lastKind = a.kind; }
     html += `<li><button type="button" data-filter="area" data-value="${a.id}" aria-pressed="${current?.area === a.id}">
@@ -126,7 +130,7 @@ function setup({ all, areas }, filters) {
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && !panel.hidden) { setOpen(false); btn.focus(); } });
   document.addEventListener('click', e => { if (!panel.hidden && !e.target.closest('.bait-picker')) setOpen(false); });
   if (new URLSearchParams(location.search).get('baitpanel')) setOpen(true);
-  document.getElementById('area').innerHTML = `<option value="">Všechny</option>` +
+  document.getElementById('area').innerHTML = `<option value="">Všechny oblasti</option>` +
     areas.map(a => `<option value="${a.id}">${esc(a.name)}</option>`).join('');
 }
 

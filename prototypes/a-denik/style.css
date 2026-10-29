@@ -561,3 +561,7 @@ html { font-synthesis-weight: none; }
   .bait-panel { padding-bottom: 0; }
   .panel-foot { position: sticky; bottom: 0; margin: var(--s3) calc(-1 * var(--s4)) 0; padding: var(--s3) var(--s4) var(--s4); background: var(--slip); }
 }
+
+/* "all areas" entry on top of the index */
+.areas .all { margin-bottom: var(--s2); padding-bottom: var(--s2); border-bottom: 1.5px solid color-mix(in oklch, var(--ink) 25%, transparent); }
+.areas .all .area-name { font: var(--name-w) 16px/1.2 var(--display); }
