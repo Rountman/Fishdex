@@ -1,0 +1,76 @@
+.card {
+  position: relative; display: grid; grid-template-rows: auto 1fr; min-width: 0;
+  padding: var(--space-3) var(--space-3) var(--space-4);
+  border: 1.5px dashed var(--color-ink-faint); border-radius: var(--radius-slip);
+  background: color-mix(in oklch, var(--color-paper) 70%, transparent);
+  /* 615 cards: skip layout/paint off-screen */
+  content-visibility: auto; contain-intrinsic-size: auto 265px;
+}
+.card[data-caught="true"] {
+  border: 1px solid color-mix(in oklch, var(--color-ink) 14%, transparent);
+  background: var(--color-slip); box-shadow: var(--shadow-slip);
+}
+/* masking tape on a glued-in slip */
+.card[data-caught="true"]::before {
+  content: ""; position: absolute; top: -9px; left: 50%; width: 64px; height: 18px; translate: -50% 0; rotate: -2deg;
+  background: var(--color-tape); clip-path: polygon(2% 0, 98% 6%, 100% 92%, 0 100%);
+}
+.card:nth-child(3n)[data-caught="true"]::before { rotate: 3deg; left: 38%; }
+.card:nth-child(4n+1)[data-caught="true"]::before { rotate: -4deg; left: 60%; }
+.card:hover, .hover { border-color: var(--color-ink); }
+.card[data-caught="true"]:hover { box-shadow: var(--shadow-slip-lift); }
+
+.hit {
+  position: absolute; inset: 0; z-index: 1; border: 0; background: none; border-radius: inherit;
+  -webkit-touch-callout: none; user-select: none; touch-action: manipulation;
+}
+/* content-visibility clips paint, so the ring sits inside */
+.hit:focus-visible, .focus .hit { outline: 2.5px solid var(--color-focus); outline-offset: -3px; }
+
+.art { position: relative; aspect-ratio: 3 / 2; margin-bottom: var(--space-3); border-radius: 1px; }
+.art img { position: absolute; inset: 0; margin: auto; width: min(100%, 168px); height: 100%; object-fit: contain; }
+.card[data-caught="false"] .art img { filter: var(--uncaught-filter); opacity: var(--uncaught-opacity); mix-blend-mode: var(--uncaught-blend); }
+.card[data-glow="true"] .art { background: var(--glow-frame); }
+.card[data-glow="true"] .art img { opacity: 1; mix-blend-mode: normal; filter: var(--glow-fish); }
+
+.stamp {
+  position: absolute; right: 6px; bottom: 6px; mix-blend-mode: multiply;
+  opacity: 0; scale: 1.35; transition: opacity var(--dur-fast) ease-out, scale var(--dur-fast) var(--ease-out);
+}
+.card[data-caught="true"] .stamp { opacity: 0.9; scale: 1; }
+.card:nth-child(even) .stamp { rotate: -6deg; right: 10px; }
+.card:nth-child(3n) .stamp { rotate: -13deg; bottom: 10px; }
+.card[data-glow="true"] .stamp { --color-stamp: var(--color-stamp-on-night); mix-blend-mode: normal; }
+:global(:root[data-theme="dark"]) .stamp { mix-blend-mode: screen; }
+@media (prefers-color-scheme: dark) { :global(:root:not([data-theme="light"])) .stamp { mix-blend-mode: screen; } }
+
+.text { min-width: 0; }
+.name { margin: 0; font: var(--fw-name) 18px/1.12 var(--font-display); text-wrap: balance; overflow-wrap: anywhere; }
+.alt { margin: 2px 0 var(--space-2); font-size: var(--fs-sm); color: var(--color-ink-soft); overflow-wrap: anywhere; }
+.meta { display: flex; justify-content: space-between; gap: var(--space-2); margin: 0; font-size: var(--fs-sm); font-variant-numeric: tabular-nums; }
+.len { color: var(--color-ink-soft); white-space: nowrap; }
+.where { margin: 2px 0 0; padding-right: 60px; font-size: var(--fs-sm); color: var(--color-ink-soft); }
+.bred { margin: var(--space-1) 0 0; font: italic var(--fw-regular) 15px/1.1 var(--font-display); }
+.bred::before { content: "✓ "; }
+
+.glow, .bredBtn { position: absolute; right: var(--space-2); z-index: var(--z-card-control); }
+.glow { top: var(--space-2); }
+.bredBtn { top: 46px; }
+.open { position: absolute; right: var(--space-2); bottom: var(--space-2); z-index: var(--z-card-control); padding: var(--space-1) var(--space-2); }
+
+.pressing { scale: 0.98; transition: scale var(--dur-longpress); }
+.pressing .glow { animation: charge var(--dur-longpress) linear forwards; }
+@keyframes charge {
+  from { box-shadow: 0 0 0 0 var(--color-glow-soft); border-color: var(--color-glow); }
+  to { box-shadow: 0 0 0 10px transparent; background: var(--color-night); color: var(--color-glow); border-color: var(--color-glow); }
+}
+
+@media (max-width: 760px) {
+  .card { padding: var(--space-2) var(--space-2) var(--space-3); contain-intrinsic-size: auto 250px; }
+  .name { font-size: 16px; }
+  .alt, .meta, .where { font-size: 12px; }
+  .meta { flex-direction: column; gap: 0; }
+  .glow { top: var(--space-1); right: var(--space-1); }
+  .bredBtn { top: 40px; right: var(--space-1); }
+  .stamp { font-size: 13px; padding: 1px 6px 0; }
+}

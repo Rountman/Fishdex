@@ -1,0 +1,25 @@
+.index { grid-area: index; align-self: start; }
+.title { margin: 0 0 var(--space-3); font: italic 500 22px/1 var(--font-display); }
+.list { list-style: none; margin: 0; padding: 0; }
+.kind { margin: var(--space-4) 0 var(--space-1); font: italic 400 16px/1 var(--font-display); color: var(--color-ink-faint); }
+.list button {
+  display: grid; grid-template-columns: 1fr auto; align-items: baseline; width: 100%;
+  padding: 5px var(--space-2) 6px; border: 0; border-radius: var(--radius-control); background: none; text-align: left;
+}
+.list button:hover { background: var(--color-paper-deep); }
+.list button[aria-pressed="true"] { background: var(--color-ink); color: var(--color-on-ink); }
+.list button[aria-pressed="true"] :global(.of) { color: inherit; opacity: 0.75; }
+.list button[aria-pressed="true"] .bar { background: color-mix(in oklch, var(--color-on-ink) 30%, transparent); }
+.list button[aria-pressed="true"] .bar > span { background: var(--color-on-ink); }
+.name { font-size: var(--fs-ui); }
+.count { font-size: var(--fs-sm); font-variant-numeric: tabular-nums; }
+.list button[data-done="true"] .count::after { content: " ✓"; color: var(--color-stamp); font-weight: 700; }
+.bar { grid-column: 1 / -1; height: 2px; margin-top: 4px; background: color-mix(in oklch, var(--color-ink) 12%, transparent); }
+.bred { grid-column: 1 / -1; margin-top: 3px; font-size: 12px; color: var(--color-ink-soft); }
+.list button[aria-pressed="true"] .bred { color: inherit; }
+.all { margin-bottom: var(--space-2); padding-bottom: var(--space-2); border-bottom: 1.5px solid color-mix(in oklch, var(--color-ink) 25%, transparent); }
+.all .name { font: var(--fw-name) 16px/1.2 var(--font-display); }
+
+@media (max-width: 760px) {
+  .index { margin-top: var(--space-6); }
+}

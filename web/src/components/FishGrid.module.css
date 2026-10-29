@@ -1,0 +1,12 @@
+.grid {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(var(--card-min), 1fr)); gap: var(--space-5) var(--space-4);
+}
+.cell { display: grid; min-width: 0; }
+.empty { padding: var(--space-8) 0; max-width: 460px; }
+.empty p { margin: 0 0 var(--space-4); color: var(--color-ink-soft); }
+.empty .emptyTitle { margin-bottom: var(--space-2); font: italic 500 30px/1.1 var(--font-display); color: var(--color-ink); }
+
+@media (max-width: 760px) {
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4) var(--space-3); }
+}

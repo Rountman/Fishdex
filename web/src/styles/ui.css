@@ -1,0 +1,87 @@
+/* Shared UI primitives on top of tokens.css (reference: prototypes/styleguide.html). */
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2);
+  padding: var(--space-2) var(--space-4); border: 1.5px solid var(--color-ink); border-radius: var(--radius-control);
+  background: var(--color-ink); color: var(--color-on-ink); font-weight: var(--fw-strong); font-size: var(--fs-ui);
+}
+.btn:hover { background: transparent; color: var(--color-ink); }
+.btn--quiet { background: transparent; color: var(--color-ink); }
+.btn--quiet:hover { background: var(--color-ink); color: var(--color-on-ink); }
+
+.link {
+  border: 0; background: none; padding: var(--space-1) 0; font-size: var(--fs-ui); color: var(--color-ink-soft);
+  text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px;
+}
+.link:hover { color: var(--color-ink); }
+.link--note {
+  font: italic var(--fw-regular) var(--fs-note)/1 var(--font-display);
+  text-decoration-style: wavy; text-underline-offset: 4px;
+}
+
+.chip {
+  display: inline-flex; align-items: center; gap: 6px; flex: none;
+  border: 1.5px solid var(--color-ink-faint); background: transparent; color: var(--color-ink);
+  border-radius: var(--radius-pill); padding: 3px var(--space-3); font-size: var(--fs-ui); line-height: 1.3;
+}
+.chip:hover { border-color: var(--color-ink); }
+.chip[aria-pressed="true"], .chip--removable { background: var(--color-ink); border-color: var(--color-ink); color: var(--color-on-ink); }
+.chip[aria-pressed="true"] .stars, .chip--removable .stars { color: inherit; }
+.chip--removable .x { font-size: 16px; line-height: 1; opacity: 0.8; }
+
+.icon-btn {
+  display: grid; place-items: center; width: 32px; height: 32px; padding: 0;
+  border: 1.5px solid transparent; border-radius: var(--radius-round); background: var(--color-slip); color: var(--color-ink-faint);
+}
+.icon-btn svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.icon-btn:hover { color: var(--color-ink); border-color: var(--color-ink-faint); }
+.icon-btn--glow[aria-pressed="true"] { background: var(--color-night); color: var(--color-glow); border-color: var(--color-glow); box-shadow: var(--glow-ring); }
+.icon-btn--glow[aria-pressed="true"] circle { fill: currentColor; }
+.icon-btn--bred .pond { opacity: 0; }
+.icon-btn--bred[aria-pressed="true"] { background: var(--color-ink); color: var(--color-on-ink); border-color: var(--color-ink); }
+.icon-btn--bred[aria-pressed="true"] .pond { opacity: 1; }
+.icon-btn--close { width: 40px; height: 40px; border-color: var(--color-ink-faint); background: none; color: var(--color-ink); font-size: 22px; line-height: 1; }
+.icon-btn--close:hover { border-color: var(--color-ink); }
+
+.toggle {
+  display: flex; align-items: center; gap: var(--space-2); padding: var(--space-3);
+  border: 1.5px solid var(--color-ink); border-radius: var(--radius-control); background: none;
+  font-weight: var(--fw-strong); text-align: left;
+}
+.toggle .box { width: 18px; height: 18px; border: 1.5px solid currentColor; border-radius: var(--radius-slip); flex: none; display: grid; place-items: center; }
+.toggle[aria-pressed="true"] { background: var(--color-ink); color: var(--color-on-ink); }
+.toggle[aria-pressed="true"] .box::after { content: "✓"; font-size: 14px; line-height: 1; }
+.toggle--glow[aria-pressed="true"] { background: var(--color-night); color: var(--color-glow); border-color: var(--color-night); box-shadow: inset 0 0 0 1px var(--color-glow-soft), var(--glow-ring); }
+
+.bar { display: block; height: 3px; background: var(--color-grid-bold); border-radius: 2px; overflow: hidden; }
+.bar > span { display: block; height: 100%; background: var(--color-ink); border-radius: 2px; }
+.bar--glow > span { background: var(--color-glow); box-shadow: 0 0 6px var(--color-glow-soft); }
+.bar--bred > span { background: var(--color-stamp); }
+
+.stars { font-size: var(--fs-xs); letter-spacing: 0.04em; white-space: nowrap; }
+.stars[data-r="1"] { color: var(--rarity-1); }
+.stars[data-r="2"] { color: var(--rarity-2); }
+.stars[data-r="3"] { color: var(--rarity-3); }
+.stars[data-r="4"] { color: var(--rarity-4); }
+.stars[data-r="5"] { color: var(--rarity-5); }
+
+.stamp {
+  display: inline-block; padding: 2px 10px 0; rotate: -9deg;
+  border: 2.5px solid var(--color-stamp); border-radius: 4px; outline: 1px solid var(--color-stamp); outline-offset: 2px;
+  color: var(--color-stamp); font: 800 15px/1.2 var(--font-text); letter-spacing: 0.14em; text-transform: uppercase;
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='40'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.9' numOctaves='2' seed='4'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -2.2 1.7'/%3E%3C/filter%3E%3Crect width='120' height='40' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.9; pointer-events: none; white-space: nowrap;
+}
+
+.note { font: italic var(--fw-regular) 15px/1.1 var(--font-display); color: var(--color-ink-soft); }
+.untranslated { font-style: italic; }
+.unsure {
+  display: inline-grid; place-items: center; width: 18px; height: 18px; margin-left: var(--space-1);
+  border-radius: var(--radius-round); border: 1.5px solid var(--color-stamp); color: var(--color-stamp);
+  font: 700 12px/1 var(--font-text); text-decoration: none; cursor: help; vertical-align: 1px;
+}
+.of { color: var(--color-ink-faint); }
+
+/* native <dialog> base */
+dialog { color: var(--color-ink); }
+dialog::backdrop { background: var(--color-backdrop); }
