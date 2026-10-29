@@ -33,6 +33,8 @@ export const DEMO_PROGRESS = {
   'nassau-grouper': { caught: false, caughtGlowing: true },
   'cherry-salmon': { caught: true, caughtGlowing: false },
   'french-grunt': { caught: true, caughtGlowing: false },
+  'fire-eel': { caught: true, caughtGlowing: false, bred: true },
+  'apache-trout': { caught: true, caughtGlowing: false },
 };
 
 export async function loadSample(base = '../../') {

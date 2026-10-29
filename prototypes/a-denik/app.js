@@ -6,6 +6,9 @@ const stars = r => `<span class="stars r${r}" aria-label="rarita ${r} z 5">${'�
 const unsure = (f, field) => f.uncertain.includes(field)
   ? `<abbr class="unsure" title="Nejisté: zdroje se liší">?</abbr>` : '';
 
+const HOUSE_ICON = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11.5 12 5l8 6.5"/><path d="M6.5 10v8.5h11V10"/><path class="pond" d="M9 15.5c1 .8 2 .8 3 0s2-.8 3 0"/></svg>`;
+const isYard = f => f.areas.includes('backyard');
+
 const GLOW_ICON = `<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v3.2M12 18.3v3.2M2.5 12h3.2M18.3 12h3.2M5.3 5.3l2.2 2.2M16.5 16.5l2.2 2.2M5.3 18.7l2.2-2.2M16.5 7.5l2.2-2.2"/></svg>`;
 
 function where(f, areas) {
@@ -29,8 +32,10 @@ function renderCard(f, s, { areas, img }) {
       <p class="card-en" lang="en">${esc(f.names.en)}</p>
       <p class="card-meta">${stars(f.rarity)}<span class="len">${f.max_length_label ? esc(f.max_length_label) : 'délka neznámá'}</span></p>
       <p class="card-where">${where0[0]}${where0.length > 1 ? ` <span class="more">+${where0.length - 1}</span>` : ''}</p>
+      ${isYard(f) && s.bred ? `<p class="bred-note">mám za domem</p>` : ''}
     </div>
     <button class="card-glow" type="button" aria-pressed="${s.caughtGlowing}" aria-label="Zářivá varianta: ${s.caughtGlowing ? 'ulovena' : 'neulovena'}">${GLOW_ICON}</button>
+    ${isYard(f) ? `<button class="card-bred" type="button" aria-pressed="${!!s.bred}" aria-label="Za domem: ${s.bred ? 'mám' : 'nemám'}">${HOUSE_ICON}</button>` : ''}
     <button class="card-open" type="button">Zápis<span class="visually-hidden"> o rybě ${esc(name)}</span></button>
   </article>`;
 }
@@ -39,12 +44,6 @@ function renderEmpty() {
   return `<div class="empty"><p class="empty-title">Na téhle stránce nic.</p>
     <p>Žádná ryba neodpovídá hledání a filtrům.</p>
     <button class="ink-btn" data-filter="reset" type="button">Zrušit filtry</button></div>`;
-}
-
-function ruler(f) {
-  const cm = f.max_length_cm?.max;
-  if (!cm) return `<p class="ruler-none">Délka neznámá</p>`;
-  return `<div class="ruler" aria-hidden="true"><span>0</span><span class="ruler-line"></span><span>${esc(f.max_length_label)}</span></div>`;
 }
 
 function renderDetail(f, s, { areas, img }) {
@@ -59,7 +58,6 @@ function renderDetail(f, s, { areas, img }) {
     </header>
     <figure class="sheet-art">
       <div class="specimen" data-fish-img><img src="${img(f)}" alt="${esc(f.names.cs)}"></div>
-      ${ruler(f)}
       <span class="stamp" aria-hidden="true">Uloveno</span>
     </figure>
     <div class="sheet-actions">
@@ -67,6 +65,8 @@ function renderDetail(f, s, { areas, img }) {
         <span class="box" aria-hidden="true"></span>Ulovena</button>
       <button class="toggle glow" data-toggle="caughtGlowing" aria-pressed="${s.caughtGlowing}" type="button">
         <span class="box" aria-hidden="true"></span>Zářivá ulovena</button>
+      ${isYard(f) ? `<button class="toggle bred" data-toggle="bred" aria-pressed="${!!s.bred}" type="button">
+        <span class="box" aria-hidden="true"></span>Mám za domem</button>` : ''}
     </div>
     <dl class="facts">
       <dt>Kde</dt><dd>${where(f, areas).join('<br>')}</dd>
@@ -99,6 +99,7 @@ function renderProgress({ total, caught, glow, byArea }) {
       <span class="area-name">${esc(a.name)}</span>
       <span class="area-count">${a.caught}<span class="of">/${a.total}</span></span>
       <span class="pencil-bar"><span style="width:${a.caught / a.total * 100}%"></span></span>
+      ${a.kind === 'backyard' ? `<span class="area-bred">mám za domem ${a.bred}<span class="of">/${a.total}</span></span>` : ''}
     </button></li>`;
   }
   document.getElementById('areas').innerHTML = html;
@@ -107,22 +108,47 @@ function renderProgress({ total, caught, glow, byArea }) {
 let current = null;
 function setup({ all, areas }, filters) {
   current = filters;
-  const baits = [...new Set(all.flatMap(f => f.bait))].sort((a, b) => bait(a).localeCompare(bait(b), 'cs'));
-  document.getElementById('bait').innerHTML = `<option value="">Všechny</option>` +
-    baits.map(b => `<option value="${esc(b)}">${esc(bait(b))}</option>`).join('');
+  // bait list sorted by how many fish take it (counts from the full data set)
+  const counts = {};
+  for (const f of all) for (const b of f.bait) counts[b] = (counts[b] ?? 0) + 1;
+  const baits = Object.keys(counts).sort((a, b) => counts[b] - counts[a] || bait(a).localeCompare(bait(b), 'cs'));
+  document.getElementById('bait-list').innerHTML = baits.map(b => `
+    <li><label class="bait-opt">
+      <input type="checkbox" data-filter="bait" data-value="${esc(b)}">
+      <span class="bait-name ${BAIT_CS[b] ? '' : 'untranslated'}">${esc(bait(b))}</span>
+      <span class="leader" aria-hidden="true"></span>
+      <span class="bait-count">${counts[b]}<span class="visually-hidden"> ryb</span></span>
+    </label></li>`).join('');
+  const btn = document.getElementById('bait-btn'), panel = document.getElementById('bait-panel');
+  const setOpen = open => { panel.hidden = !open; btn.setAttribute('aria-expanded', String(open)); };
+  btn.addEventListener('click', () => setOpen(panel.hidden));
+  panel.querySelector('[data-close-panel]').addEventListener('click', () => { setOpen(false); btn.focus(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && !panel.hidden) { setOpen(false); btn.focus(); } });
+  document.addEventListener('click', e => { if (!panel.hidden && !e.target.closest('.bait-picker')) setOpen(false); });
+  if (new URLSearchParams(location.search).get('baitpanel')) setOpen(true);
   document.getElementById('area').innerHTML = `<option value="">Všechny</option>` +
     areas.map(a => `<option value="${a.id}">${esc(a.name)}</option>`).join('');
-  // keep the area <select> (mobile) and the index buttons (desktop) in sync
-  document.addEventListener('click', e => {
-    const b = e.target.closest('[data-filter="area"]');
-    if (b) setTimeout(() => (document.getElementById('area').value = filters.area));
-  });
 }
 
+function onFilters(filters) {
+  const sel = [...filters.bait];
+  document.getElementById('bait-btn-value').textContent =
+    sel.length === 0 ? 'všechny' : sel.length === 1 ? bait(sel[0]) : `${sel.length} vybrané`;
+  document.getElementById('bait-chips').innerHTML = sel.map(b =>
+    `<button type="button" class="chip removable" data-filter="bait" data-value="${esc(b)}" aria-label="Zrušit návnadu ${esc(bait(b))}">${esc(bait(b))}<span aria-hidden="true">×</span></button>`).join('');
+  document.getElementById('bred-row').hidden = filters.area !== 'backyard';
+  const area = document.getElementById('area');
+  if (area.value !== filters.area) area.value = filters.area;
+}
+
+const font = new URLSearchParams(location.search).get('font');
+if (font) document.documentElement.dataset.font = font;
+
 createApp({
-  renderCard, renderEmpty, renderDetail, renderProgress, setup,
+  renderCard, renderEmpty, renderDetail, renderProgress, setup, onFilters,
   countLabel: (n, total) => n === total ? `${n} ryb` : `${n} z ${total}`,
   toastText: (f, field, on) => field === 'caught'
     ? `${f.names.cs}: ${on ? 'zapsána jako ulovená' : 'ulovení smazáno'}`
+    : field === 'bred' ? `${f.names.cs}: ${on ? 'zapsána za domem' : 'odebrána ze dvorku'}`
     : `${f.names.cs}: ${on ? 'zapsána zářivá' : 'zářivá smazána'}`,
 });

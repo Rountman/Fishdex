@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Fishdex · prototyp A — terénní deník</title>
+<title>Fishdex · prototyp A, terénní deník</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..800,0..100,0..1;1,9..144,300..800,0..100,0..1&family=Kalam:wght@400;700&family=Schibsted+Grotesk:wght@400..800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400..900;1,400..900&family=Patrick+Hand&family=Instrument+Serif:ital@0;1&family=Caveat:wght@400..700&family=Young+Serif&family=Shantell+Sans:wght@300..800&family=Schibsted+Grotesk:wght@400..800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -50,12 +50,32 @@
         <button class="chip" data-filter="status" data-value="caught" aria-pressed="false">Ulovené</button>
         <button class="chip" data-filter="status" data-value="noglow" aria-pressed="false">Chybí zářivá</button>
       </div>
-      <div class="filter-row">
-        <label class="filter-label" for="bait">Návnada</label>
-        <select id="bait" data-select="bait"></select>
+      <div class="filter-row filter-row--bait">
+        <span class="filter-label" id="bait-label">Návnada</span>
+        <div class="bait-picker">
+          <button type="button" class="picker-btn" id="bait-btn" aria-expanded="false" aria-controls="bait-panel" aria-labelledby="bait-label bait-btn-value">
+            <span id="bait-btn-value">všechny</span>
+            <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg>
+          </button>
+          <div class="bait-panel" id="bait-panel" role="group" aria-label="Návnady" hidden>
+            <p class="panel-hint">Ukáže ryby, které berou aspoň jednu z vybraných návnad. Číslo = počet ryb.</p>
+            <ul class="bait-list" id="bait-list"></ul>
+            <div class="panel-foot">
+              <button type="button" class="ghost" data-filter="bait" data-value="">Zrušit výběr</button>
+              <button type="button" class="ink-btn" data-close-panel>Hotovo</button>
+            </div>
+          </div>
+        </div>
+        <span class="bait-chips" id="bait-chips"></span>
         <label class="filter-label area-select-label" for="area">Oblast</label>
         <select id="area" data-select="area" class="area-select"></select>
         <span class="count" id="result-count" aria-live="polite"></span>
+      </div>
+      <div class="filter-row" id="bred-row" role="group" aria-label="Za domem" hidden>
+        <span class="filter-label">Za domem</span>
+        <button class="chip" data-filter="bred" data-value="" aria-pressed="true">Vše</button>
+        <button class="chip" data-filter="bred" data-value="yes" aria-pressed="false">Mám</button>
+        <button class="chip" data-filter="bred" data-value="no" aria-pressed="false">Nemám</button>
       </div>
     </div>
     <div class="hint" id="hint" hidden>

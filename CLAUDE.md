@@ -60,12 +60,17 @@ web/           # samotná webovka
 - Každá ryba má 2 nezávislé stavy: `caught` a `caughtGlowing`.
   Zářivá varianta se počítá zvlášť (ryba jde chytit 2×).
 - Ryby bez zářivé varianty (podle dat) druhý stav nemají a UI ho neukazuje.
+- Ryby z Backyard (`areas` obsahuje `backyard`) mají navíc třetí nezávislý stav
+  `bred` = „mám za domem“ (ikonka domku na kartě, přepínač v detailu).
+  Ostatní ryby ho nemají.
 - Ovládání karty ryby:
   - klik → přepne `caught`
   - Shift+klik nebo klik na ikonku záře → přepne `caughtGlowing`
   - mobil: tap = caught, dlouhý stisk (500 ms) = glowing
-- Progres: celkem / per oblast, normální a zářivé zvlášť.
-- Filtry: oblast, rarita, návnada, čas, chyceno / nechyceno / chybí zářivá.
+- Progres: celkem / per oblast, normální a zářivé zvlášť; u Backyard i „mám za domem“.
+- Filtry: oblast, rarita, návnada (multi-výběr, NEBO), čas, chyceno / nechyceno /
+  chybí zářivá; při vybrané oblasti Backyard i „za domem: mám / nemám“.
+- Délky ryb se jen zobrazují (text), žádné měřítko ani zadávání.
 - Vyhledávání podle jména (fuzzy, bez diakritiky).
 - Undo posledního kliknutí (toast s „Vrátit", 5 s).
 
@@ -73,7 +78,8 @@ web/           # samotná webovka
 
 - Progres je per prohlížeč a zařízení, nesynchronizuje se. Každý
   návštěvník vidí jen svůj.
-- Schéma: `fishdex:progress:v1` → `{ version, updatedAt, fish: { [id]: { caught, caughtGlowing, caughtAt? } } }`.
+- Schéma: `fishdex:progress:v1` → `{ version, updatedAt, fish: { [id]: { caught, caughtGlowing, bred?, caughtAt? } } }`.
+  `bred` jen u ryb z Backyard.
   Ukládej jen ryby s aspoň jedním `true`.
 - Při změně schématu přidej migraci z předchozí verze, nikdy data tiše nezahazuj.
 - Pokud localStorage není dostupný (anonymní režim, blokace), web musí

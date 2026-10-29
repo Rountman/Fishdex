@@ -17,7 +17,10 @@ export async function createApp(view) {
   const data = await loadSample();
   const { fish } = data;
   const progress = structuredClone(DEMO_PROGRESS);
-  const filters = { q: params.get('q') ?? '', rarity: new Set(), area: '', bait: '', status: 'all' };
+  const filters = {
+    q: params.get('q') ?? '', rarity: new Set(), area: params.get('area') ?? '',
+    bait: new Set(params.get('bait')?.split(',') ?? []), status: 'all', bred: '',
+  };
   let undo = null, toastTimer = 0;
 
   const $ = s => document.querySelector(s);
@@ -30,7 +33,10 @@ export async function createApp(view) {
       if (!matches(f, filters.q)) return false;
       if (filters.rarity.size && !filters.rarity.has(f.rarity)) return false;
       if (filters.area && !f.areas.includes(filters.area)) return false;
-      if (filters.bait && !f.bait.includes(filters.bait)) return false;
+      if (filters.bait.size && !f.bait.some(b => filters.bait.has(b))) return false;
+      // "za domem" filter only applies while the Backyard area is selected
+      if (filters.area === 'backyard' && filters.bred === 'yes' && !s.bred) return false;
+      if (filters.area === 'backyard' && filters.bred === 'no' && s.bred) return false;
       if (filters.status === 'caught' && !s.caught) return false;
       if (filters.status === 'uncaught' && s.caught) return false;
       if (filters.status === 'noglow' && s.caughtGlowing) return false;
@@ -46,6 +52,7 @@ export async function createApp(view) {
       total: data.areaTotals[a.id],
       caught: a.fish_ids.filter(id => progress[id]?.caught).length,
       glow: a.fish_ids.filter(id => progress[id]?.caughtGlowing).length,
+      bred: a.fish_ids.filter(id => progress[id]?.bred).length,
     }));
     return { total: data.all.length, caught, glow, byArea };
   }
@@ -56,6 +63,8 @@ export async function createApp(view) {
     view.renderProgress?.(stats(), data);
     const count = $('#result-count');
     if (count) count.textContent = view.countLabel ? view.countLabel(list.length, fish.length) : `${list.length}`;
+    view.onFilters?.(filters, data);
+    syncPressed();
     if (openId) $('#detail-body').innerHTML = view.renderDetail(fish.find(f => f.id === openId), st(openId), data);
   }
 
@@ -112,6 +121,7 @@ export async function createApp(view) {
     const id = card.dataset.id;
     if (e.target.closest('.card-open')) return openDetail(id);
     if (e.target.closest('.card-glow')) return toggle(id, 'caughtGlowing');
+    if (e.target.closest('.card-bred')) return toggle(id, 'bred');
     if (e.target.closest('.card-hit')) {
       if (longPressed) { longPressed = false; return; }
       toggle(id, e.shiftKey ? 'caughtGlowing' : 'caught');
@@ -156,21 +166,30 @@ export async function createApp(view) {
     if (filter === 'rarity') {
       const r = +value;
       filters.rarity.has(r) ? filters.rarity.delete(r) : filters.rarity.add(r);
+    } else if (filter === 'bait') {
+      if (value === '') filters.bait.clear();
+      else filters.bait.has(value) ? filters.bait.delete(value) : filters.bait.add(value);
     } else if (filter === 'reset') {
-      Object.assign(filters, { q: '', area: '', bait: '', status: 'all' });
+      Object.assign(filters, { q: '', area: '', status: 'all', bred: '' });
       filters.rarity.clear();
+      filters.bait.clear();
       if (search) search.value = '';
     } else {
-      filters[filter] = filters[filter] === value && filter !== 'status' ? '' : value;
+      filters[filter] = filters[filter] === value && filter !== 'status' && filter !== 'bred' ? '' : value;
     }
+    render();
+  });
+  function syncPressed() {
     document.querySelectorAll('[data-filter]').forEach(c => {
       const f = c.dataset.filter, v = c.dataset.value;
       if (f === 'reset') return;
-      const on = f === 'rarity' ? filters.rarity.has(+v) : filters[f] === v;
-      c.setAttribute('aria-pressed', String(on));
+      const on = f === 'rarity' ? filters.rarity.has(+v)
+        : f === 'bait' ? (v === '' ? !filters.bait.size : filters.bait.has(v))
+        : filters[f] === v;
+      c.setAttribute(c.type === 'checkbox' ? 'data-checked' : 'aria-pressed', String(on));
+      if (c.type === 'checkbox') c.checked = on;
     });
-    render();
-  });
+  }
   document.querySelectorAll('select[data-select]').forEach(sel =>
     sel.addEventListener('change', () => { filters[sel.dataset.select] = sel.value; render(); }));
 
@@ -192,7 +211,8 @@ export async function createApp(view) {
     if (!strip) return;
     const long = fish.find(f => f.id === 'spotted-tiger-shovelnose-catfish');
     const ara = fish.find(f => f.id === 'arapaima');
-    const S = (caught, caughtGlowing) => ({ caught, caughtGlowing });
+    const S = (caught, caughtGlowing, bred = false) => ({ caught, caughtGlowing, bred });
+    const yard = fish.find(f => f.id === 'fire-eel');
     const states = [
       ['Neuloveno', ara, S(false, false)],
       ['Uloveno', ara, S(true, false)],
@@ -201,6 +221,8 @@ export async function createApp(view) {
       ['Hover', long, S(false, false), 'is-hover'],
       ['Focus (klávesnice)', long, S(true, false), 'is-focus'],
       ['Dlouhý stisk 500 ms', long, S(true, false), 'is-pressing is-frozen'],
+      ['Backyard: nemám za domem', yard, S(true, false, false)],
+      ['Backyard: mám za domem', yard, S(true, false, true)],
     ];
     strip.innerHTML = states.map(([label, f, s, cls = '']) =>
       `<figure class="state"><figcaption>${label}</figcaption>${view.renderCard(f, s, data).replace('class="card"', `class="card ${cls}"`)}</figure>`).join('');
