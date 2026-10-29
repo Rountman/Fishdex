@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fishdex · prototyp A — terénní deník</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..800,0..100,0..1;1,9..144,300..800,0..100,0..1&family=Kalam:wght@400;700&family=Schibsted+Grotesk:wght@400..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="page">
+  <header class="masthead">
+    <div class="title">
+      <h1>Fishdex</h1>
+      <p class="subtitle">Rybářský deník FishAO</p>
+    </div>
+    <div class="tally" id="tally"></div>
+    <div class="tools">
+      <button class="ghost" id="theme-toggle" type="button">Světlo / tma</button>
+      <button class="ghost" type="button">Záloha</button>
+    </div>
+  </header>
+
+  <aside class="index" aria-label="Oblasti">
+    <h2 class="index-title">Obsah deníku</h2>
+    <ol class="areas" id="areas"></ol>
+  </aside>
+
+  <main class="log">
+    <div class="controls">
+      <label class="search">
+        <span class="visually-hidden">Hledat rybu</span>
+        <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4.5 4.5"/></svg>
+        <input id="search" type="search" placeholder="Hledat rybu česky nebo anglicky" autocomplete="off">
+      </label>
+      <div class="filter-row" role="group" aria-label="Rarita">
+        <span class="filter-label">Rarita</span>
+        <button class="chip" data-filter="rarity" data-value="1" aria-pressed="false"><span class="stars r1">★</span></button>
+        <button class="chip" data-filter="rarity" data-value="2" aria-pressed="false"><span class="stars r2">★★</span></button>
+        <button class="chip" data-filter="rarity" data-value="3" aria-pressed="false"><span class="stars r3">★★★</span></button>
+        <button class="chip" data-filter="rarity" data-value="4" aria-pressed="false"><span class="stars r4">★★★★</span></button>
+        <button class="chip" data-filter="rarity" data-value="5" aria-pressed="false"><span class="stars r5">★★★★★</span></button>
+      </div>
+      <div class="filter-row" role="group" aria-label="Stav">
+        <span class="filter-label">Stav</span>
+        <button class="chip" data-filter="status" data-value="all" aria-pressed="true">Vše</button>
+        <button class="chip" data-filter="status" data-value="uncaught" aria-pressed="false">Chybí</button>
+        <button class="chip" data-filter="status" data-value="caught" aria-pressed="false">Ulovené</button>
+        <button class="chip" data-filter="status" data-value="noglow" aria-pressed="false">Chybí zářivá</button>
+      </div>
+      <div class="filter-row">
+        <label class="filter-label" for="bait">Návnada</label>
+        <select id="bait" data-select="bait"></select>
+        <label class="filter-label area-select-label" for="area">Oblast</label>
+        <select id="area" data-select="area" class="area-select"></select>
+        <span class="count" id="result-count" aria-live="polite"></span>
+      </div>
+    </div>
+    <div class="hint" id="hint" hidden>
+      <p>Progres je jen v tomto prohlížeči. Exportuj si zálohu, ať o něj nepřijdeš.</p>
+      <div class="hint-actions">
+        <button type="button" class="ink-btn">Exportovat</button>
+        <button type="button" class="ghost" data-hint-close>Už neukazovat</button>
+      </div>
+    </div>
+    <div class="grid" id="grid"></div>
+    <section class="states-wrap" aria-label="Ukázka stavů karty">
+      <h2 class="index-title">Stavy karty</h2>
+      <div class="states" id="states"></div>
+    </section>
+  </main>
+</div>
+
+<dialog id="detail" class="detail" aria-label="Detail ryby">
+  <div id="detail-body"></div>
+</dialog>
+
+<div class="toast" id="toast" role="status" hidden>
+  <span id="toast-text"></span>
+  <button type="button" id="toast-undo">Vrátit</button>
+</div>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>

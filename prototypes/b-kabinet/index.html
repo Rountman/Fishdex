@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fishdex · prototyp B — kabinet kuriozit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Archivo:wdth,wght@62..125,100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="plate">
+  <div class="plate-title">
+    <h1>Fishdex</h1>
+    <p>Katalog sbírky ryb ze hry FishAO</p>
+  </div>
+  <div class="holdings" id="holdings"></div>
+  <div class="plate-tools">
+    <button type="button" class="link" id="theme-toggle">Přepnout světlo</button>
+    <button type="button" class="link">Export a import</button>
+  </div>
+</header>
+
+<nav class="drawers" aria-label="Oblasti">
+  <div class="drawer-rail" id="drawers"></div>
+</nav>
+
+<section class="toolbar" aria-label="Hledání a filtry">
+  <label class="search">
+    <span class="search-label">Hledat v katalogu</span>
+    <input id="search" type="search" placeholder="např. stika, arapaima, catfish" autocomplete="off">
+  </label>
+  <div class="facets">
+    <div class="facet" role="group" aria-label="Rarita">
+      <span class="facet-name">Rarita</span>
+      <button class="tab" data-filter="rarity" data-value="1" aria-pressed="false"><span class="numeral n1">I</span></button>
+      <button class="tab" data-filter="rarity" data-value="2" aria-pressed="false"><span class="numeral n2">II</span></button>
+      <button class="tab" data-filter="rarity" data-value="3" aria-pressed="false"><span class="numeral n3">III</span></button>
+      <button class="tab" data-filter="rarity" data-value="4" aria-pressed="false"><span class="numeral n4">IV</span></button>
+      <button class="tab" data-filter="rarity" data-value="5" aria-pressed="false"><span class="numeral n5">V</span></button>
+    </div>
+    <div class="facet" role="group" aria-label="Stav sbírky">
+      <span class="facet-name">Ve sbírce</span>
+      <button class="tab" data-filter="status" data-value="all" aria-pressed="true">Vše</button>
+      <button class="tab" data-filter="status" data-value="uncaught" aria-pressed="false">Chybí</button>
+      <button class="tab" data-filter="status" data-value="caught" aria-pressed="false">Uloveno</button>
+      <button class="tab" data-filter="status" data-value="noglow" aria-pressed="false">Chybí zářivá</button>
+    </div>
+    <div class="facet">
+      <label class="facet-name" for="bait">Návnada</label>
+      <select id="bait" data-select="bait"></select>
+    </div>
+  </div>
+</section>
+
+<div class="notice" id="hint" hidden>
+  <p><strong>Sbírka je uložená jen v tomto prohlížeči.</strong> Po vymazání dat prohlížeče zmizí. Stáhni si zálohu do souboru.</p>
+  <button type="button" class="brass-btn">Stáhnout zálohu</button>
+  <button type="button" class="link" data-hint-close>Skrýt natrvalo</button>
+</div>
+
+<main class="cabinet-wrap">
+  <p class="shown" id="result-count" aria-live="polite"></p>
+  <div class="cabinet" id="grid"></div>
+  <section class="states-wrap" aria-label="Ukázka stavů karty">
+    <h2>Stavy karty</h2>
+    <div class="cabinet states" id="states"></div>
+  </section>
+</main>
+
+<dialog id="detail" class="vitrine" aria-label="Detail exponátu">
+  <div id="detail-body"></div>
+</dialog>
+
+<div class="toast" id="toast" role="status" hidden>
+  <span id="toast-text"></span>
+  <button type="button" id="toast-undo">Vrátit</button>
+</div>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>
