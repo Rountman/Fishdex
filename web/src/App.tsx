@@ -18,7 +18,7 @@ import { STRINGS } from './i18n/strings';
 import { totals, type ImportPreview } from './progress/progress';
 import type { ProgressField } from './progress/schema';
 import { useProgress } from './progress/useProgress';
-import { applyFilters, EMPTY_FILTERS, parseFilters, serializeFilters, type Filters as FilterState, type View } from './state/filters';
+import { applyFilters, areaPatch, EMPTY_FILTERS, parseFilters, serializeFilters, type Filters as FilterState, type View } from './state/filters';
 import { shouldShowHint, usePrefs } from './state/prefs';
 import { buildIndex } from './state/search';
 import { readParams, writeParams } from './url';
@@ -93,7 +93,7 @@ export default function App() {
   };
 
   const selectArea = (area: string) => {
-    setFilters(f => ({ ...f, area, bred: '' }));
+    setFilters(f => ({ ...f, ...areaPatch(f, area) }));
     setView('grid');
     if (view !== 'grid') window.scrollTo({ top: 0 });
   };

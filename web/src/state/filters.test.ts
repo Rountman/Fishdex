@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { AREAS, FISH } from '../data';
 import { emptyProgress, type Progress } from '../progress/schema';
-import { activeFilterCount, applyFilters, bitesAtHour, EMPTY_FILTERS, inSeasonMonth, parseFilters, serializeFilters, type Filters } from './filters';
+import { activeFilterCount, applyFilters, areaPatch, bitesAtHour, EMPTY_FILTERS, inSeasonMonth, parseFilters, serializeFilters, type Filters } from './filters';
 import { buildIndex, fold, matches, nearlyEqual } from './search';
 
 const index = buildIndex(FISH);
@@ -97,6 +97,22 @@ describe('applyFilters', () => {
     expect(atNoon.length).toBeLessThan(FISH.length);
   });
 
+  it('spot shows only fish whose data names it, per area', () => {
+    const raft = run({ spot: 'cool-mountain:Raft' });
+    expect(raft).toHaveLength(19);
+    expect(raft.every(f => f.spots['cool-mountain']?.includes('Raft'))).toBe(true);
+    // Pyramid exists in two areas; the filter keeps them apart
+    const pyramidPb = run({ spot: 'pinheira-beach:Pyramid' }), pyramidMd = run({ spot: 'mystic-desert:Pyramid' });
+    expect(pyramidPb.length + pyramidMd.length).toBe(7);
+    expect(ids(pyramidPb).some(id => ids(pyramidMd).includes(id))).toBe(false);
+  });
+
+  it('changing the area drops a spot from another area', () => {
+    expect(areaPatch({ spot: 'cool-mountain:Raft' }, 'club')).toEqual({ area: 'club', bred: '', spot: '' });
+    expect(areaPatch({ spot: 'cool-mountain:Raft' }, 'cool-mountain').spot).toBe('cool-mountain:Raft');
+    expect(areaPatch({ spot: 'cool-mountain:Raft' }, '').spot).toBe('cool-mountain:Raft');
+  });
+
   it('combines with search', () => {
     expect(ids(run({ q: 'stika', area: 'club' }))).toContain('redfin-pickerel');
   });
@@ -105,17 +121,20 @@ describe('applyFilters', () => {
 describe('URL round trip', () => {
   it('serializes and parses back', () => {
     const f: Filters = {
-      q: 'stika', area: 'backyard', rarity: new Set([5, 4]), bait: new Set(['Fish', 'Insects']),
+      q: 'stika', area: 'backyard', spot: '', rarity: new Set([5, 4]), bait: new Set(['Fish', 'Insects']),
       status: 'uncaught', bred: 'no', hour: 22, month: 12,
     };
     const params = new URLSearchParams(Object.entries(serializeFilters(f)).filter(([, v]) => v) as [string, string][]);
     expect(params.toString()).toBe('q=stika&area=backyard&rarity=4%2C5&bait=Fish%2CInsects&status=uncaught&bred=no&hour=22&month=12');
+    const withSpot = parseFilters(new URLSearchParams('spot=laketown:Trout Farm'), areaIds);
+    expect(withSpot.spot).toBe('laketown:Trout Farm');
+    expect(serializeFilters(withSpot).spot).toBe('laketown:Trout Farm');
     expect(parseFilters(params, areaIds)).toEqual(f);
     expect(activeFilterCount(f)).toBe(9);
   });
 
   it('ignores junk instead of guessing', () => {
-    const f = parseFilters(new URLSearchParams('area=atlantis&rarity=0,7,x,3&bait=Worms,Fish&status=maybe&bred=yes&hour=24&month=0'), areaIds);
+    const f = parseFilters(new URLSearchParams('area=atlantis&spot=club:Lava&rarity=0,7,x,3&bait=Worms,Fish&status=maybe&bred=yes&hour=24&month=0'), areaIds);
     expect(f).toEqual({ ...EMPTY_FILTERS, rarity: new Set([3]), bait: new Set(['Fish']) });
   });
 

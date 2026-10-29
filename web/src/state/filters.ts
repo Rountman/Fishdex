@@ -1,6 +1,6 @@
 // Filter state, its URL form (shareable links) and how it applies to the fish list.
 import type { Fish, Schedule } from '../data/types';
-import { BAITS, type Bait } from '../i18n/dictionaries';
+import { BAITS, SPOTS, type Bait, type Spot } from '../i18n/dictionaries';
 import type { FishProgress, Progress } from '../progress/schema';
 import { matches, type SearchIndex } from './search';
 
@@ -11,6 +11,7 @@ export type View = 'grid' | 'progress';
 export type Filters = {
   q: string;
   area: string;                 // '' = all areas
+  spot: string;                 // '' = any, else '<area>:<Spot>' (a spot belongs to one area)
   rarity: ReadonlySet<number>;  // empty = any
   bait: ReadonlySet<Bait>;      // empty = any; otherwise fish takes at least one
   status: Status;
@@ -20,7 +21,7 @@ export type Filters = {
 };
 
 export const EMPTY_FILTERS: Filters = {
-  q: '', area: '', rarity: new Set(), bait: new Set(), status: 'all', bred: '', hour: null, month: null,
+  q: '', area: '', spot: '', rarity: new Set(), bait: new Set(), status: 'all', bred: '', hour: null, month: null,
 };
 
 const STATUSES: Status[] = ['all', 'uncaught', 'caught', 'noglow'];
@@ -35,9 +36,11 @@ export function parseFilters(params: URLSearchParams, areaIds: ReadonlySet<strin
   const area = params.get('area') ?? '';
   const status = params.get('status') as Status;
   const bred = params.get('bred');
+  const spot = parseSpot(params.get('spot'), areaIds);
   return {
     q: params.get('q') ?? '',
     area: areaIds.has(area) ? area : '',
+    spot: spot && (!areaIds.has(area) || spot.area === area) ? `${spot.area}:${spot.spot}` : '',
     rarity: new Set((params.get('rarity') ?? '').split(',').map(r => int(r, 1, 5)).filter((r): r is number => r !== null)),
     bait: new Set((params.get('bait') ?? '').split(',').filter((b): b is Bait => b in BAITS)),
     status: STATUSES.includes(status) ? status : 'all',
@@ -52,6 +55,7 @@ export function serializeFilters(f: Filters): Record<string, string | null> {
   return {
     q: f.q.trim() || null,
     area: f.area || null,
+    spot: f.spot || null,
     rarity: f.rarity.size ? [...f.rarity].sort().join(',') : null,
     bait: f.bait.size ? [...f.bait].join(',') : null,
     status: f.status === 'all' ? null : f.status,
@@ -60,6 +64,21 @@ export function serializeFilters(f: Filters): Record<string, string | null> {
     month: f.month === null ? null : String(f.month),
   };
 }
+
+/** '<area>:<Spot>' → parts. Spots are only those listed in the data (area_spots). */
+export const splitSpot = (v: string) => {
+  const i = v.indexOf(':');
+  return { area: v.slice(0, i), spot: v.slice(i + 1) as Spot };
+};
+function parseSpot(v: string | null, areaIds: ReadonlySet<string>) {
+  if (!v || !v.includes(':')) return null;
+  const s = splitSpot(v);
+  return areaIds.has(s.area) && s.spot in SPOTS ? s : null;
+}
+
+/** Area change keeps the spot only when it belongs to the new area. */
+export const areaPatch = (f: Pick<Filters, 'spot'>, area: string): Partial<Filters> =>
+  ({ area, bred: '', spot: f.spot && area && splitSpot(f.spot).area !== area ? '' : f.spot });
 
 const minutes = (hhmm: string) => Number(hhmm.slice(0, 2)) * 60 + Number(hhmm.slice(3));
 
@@ -95,6 +114,10 @@ export function applyFilters(fish: readonly Fish[], f: Filters, progress: Progre
   return fish.filter(x => {
     const s = progress.fish[x.id] ?? NONE;
     if (f.area && !x.areas.includes(f.area)) return false;
+    if (f.spot) {
+      const { area, spot } = splitSpot(f.spot);
+      if (!x.spots[area]?.includes(spot)) return false;
+    }
     if (f.rarity.size && !f.rarity.has(x.rarity)) return false;
     if (f.bait.size && !x.bait.some(b => f.bait.has(b))) return false;
     if (f.status === 'caught' && !s.caught) return false;
@@ -110,5 +133,5 @@ export function applyFilters(fish: readonly Fish[], f: Filters, progress: Progre
 
 /** Number of active filters, search excluded (shown on the mobile "Filtry (n)" button). */
 export const activeFilterCount = (f: Filters) =>
-  (f.area ? 1 : 0) + f.rarity.size + f.bait.size + (f.status !== 'all' ? 1 : 0) +
+  (f.area ? 1 : 0) + (f.spot ? 1 : 0) + f.rarity.size + f.bait.size + (f.status !== 'all' ? 1 : 0) +
   (f.area === 'backyard' && f.bred ? 1 : 0) + (f.hour !== null ? 1 : 0) + (f.month !== null ? 1 : 0);
