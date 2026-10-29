@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <style>
+    .ink { fill: none; stroke: #1c2a4a; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+    .eye { fill: #1c2a4a; }
+    @media (prefers-color-scheme: dark) { .ink { stroke: #e9ebdc; } .eye { fill: #e9ebdc; } }
+  </style>
+  <path class="ink" d="M4 16c4-6 12-8 18-2l6-5v14l-6-5c-6 6-14 4-18-2z"/>
+  <circle class="eye" cx="9.5" cy="15" r="1.5"/>
+</svg>
