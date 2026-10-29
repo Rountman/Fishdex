@@ -1,7 +1,7 @@
 import { memo, useRef, useState, type KeyboardEvent, type MouseEvent, type PointerEvent } from 'react';
 import { fishImage, isBackyard } from '../data';
 import type { Fish } from '../data/types';
-import { altName, fishName, fmtSeason, fmtTime, spotLabel } from '../i18n/format';
+import { baitLabel, fishName, fmtSeason, fmtTime, spotLabel } from '../i18n/format';
 import { useI18n } from '../i18n/context';
 import type { FishProgress, ProgressField } from '../progress/schema';
 import { CalendarIcon, ClockIcon, GlowIcon, HouseIcon } from './icons';
@@ -84,7 +84,14 @@ function FishCardImpl({ fish, state, areaName, onToggle, onOpen, priority }: Pro
       </div>
       <div className={styles.text}>
         <h3 className={styles.name}>{name}</h3>
-        <p className={styles.alt} lang={lang === 'cs' ? 'en' : 'cs'}>{altName(fish, lang)}</p>
+        <p className={styles.bait}>
+          <span className="visually-hidden">{t.bait}: </span>
+          {fish.bait.map((b, i) => {
+            const l = baitLabel(b, lang);
+            return <span key={b}>{i > 0 && ', '}<span className={l.untranslated ? 'untranslated' : undefined}>{l.text}</span></span>;
+          })}
+          {fish.uncertain.includes('bait') && <abbr className="unsure" title={t.unsure}>?</abbr>}
+        </p>
         <p className={styles.meta}>
           <Stars r={fish.rarity} />
           <span className={styles.len}>{fish.length ?? t.lenUnknown}</span>
