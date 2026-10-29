@@ -51,19 +51,21 @@ function Controls({ filters: f, areas, mobile, onChange }: Pick<Props, 'filters'
           </button>
         ))}
       </div>
+      <div className={styles.row}>
+        <label className={styles.label} htmlFor={ids.area}>{t.area}</label>
+        <select id={ids.area} className={styles.select} value={f.area} onChange={e => onChange({ area: e.target.value, bred: '' })}>
+          <option value="">{t.allAreas}</option>
+          {(['area', 'tournament', 'backyard'] as const).map(kind => (
+            <optgroup key={kind} label={t.kinds[kind]}>
+              {areas.filter(a => a.kind === kind).map(a => <option key={a.id} value={a.id}>{a.name}</option>)}
+            </optgroup>
+          ))}
+        </select>
+      </div>
       <div className={`${styles.row} ${styles.baitRow}`}>
         <span className={styles.label} id={ids.bait}>{t.bait}</span>
         <BaitPicker selected={f.bait} onChange={bait => onChange({ bait })} labelId={ids.bait} inline={mobile} />
       </div>
-      {mobile && (
-        <div className={styles.row}>
-          <label className={styles.label} htmlFor={ids.area}>{t.area}</label>
-          <select id={ids.area} className={styles.select} value={f.area} onChange={e => onChange({ area: e.target.value, bred: '' })}>
-            <option value="">{t.allAreas}</option>
-            {areas.map(a => <option key={a.id} value={a.id}>{a.name}</option>)}
-          </select>
-        </div>
-      )}
       {f.area === 'backyard' && (
         <div className={styles.row} role="group" aria-labelledby={ids.yard}>
           <span className={styles.label} id={ids.yard}>{t.yard}</span>

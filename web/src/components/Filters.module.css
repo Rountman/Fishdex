@@ -17,7 +17,7 @@
 .row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); }
 .label { font: italic var(--fw-regular) 16px/1 var(--font-display); color: var(--color-ink-soft); min-width: 64px; }
 .select {
-  padding: 4px var(--space-2); border: 1.5px solid var(--color-ink-faint); border-radius: var(--radius-control);
+  min-width: 150px; padding: 4px var(--space-2); border: 1.5px solid var(--color-ink-faint); border-radius: var(--radius-control);
   background: var(--color-slip); font-size: var(--fs-ui);
 }
 
