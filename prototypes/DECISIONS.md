@@ -1,7 +1,7 @@
 # Designová rozhodnutí (fáze 1)
 
 Zvolená varianta: **A — terénní deník** (`prototypes/a-denik/`).
-Varianta B (`prototypes/b-kabinet/`) je jen archiv, dál se neudržuje.
+Varianta B (kabinet kuriozit) byla zamítnuta a při úklidu smazána (je v historii gitu, commit fcb2284).
 
 ## Schválené úpravy po výběru A
 
@@ -100,3 +100,5 @@ seznam je v `prototypes/screens.js`, screenshoty v `prototypes/screens/1b/`.
   (`startTransition`). Prvních 8 obrázků se načítá hned, první dva s `fetchpriority=high` (LCP).
 - **Odkaz „Přeskočit na seznam ryb“** na začátku stránky (po prvním Tabu), jinak by se
   klávesnicí ke kartám šlo přes 27 zastávek v obsahu deníku.
+- **Barva pozadí** (přání uživatele): papír posunut ze šedozelené do světle modré
+  (`--color-paper` oklch 0.955 0.02 235), lístky a mřížka v detailu do studeného tónu.

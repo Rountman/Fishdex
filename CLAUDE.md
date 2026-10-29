@@ -101,8 +101,8 @@ prototypes/    # schválené mockupy a styleguide (fáze 1–2), DECISIONS.md
 ## Designový směr
 
 Koncept: **terénní deník rybáře / muzejní katalog** — ne SaaS dashboard.
-Papírová textura nebo hluboká voda, ručně působící typografie, ryby jako
-exponáty. Zářivé varianty = bioluminiscence (jemná záře, ne neon).
+Pozadí je jednotný světle modrý papír s jemným přechodem (bez textury), tmavý
+režim = noční deník. Ryby jako vlepené exponáty s razítkem ULOVENO. Zářivé varianty = bioluminiscence (jemná záře, ne neon).
 
 Tokeny (výchozí návrh, doladit podle obrázků ryb):
 - Fonty (schváleno): **Alegreya** (nadpisy, jména ryb, poznámky kurzívou)

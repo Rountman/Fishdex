@@ -17,7 +17,7 @@
 }
 .card:nth-child(3n)[data-caught="true"]::before { rotate: 3deg; left: 38%; }
 .card:nth-child(4n+1)[data-caught="true"]::before { rotate: -4deg; left: 60%; }
-.card:hover, .hover { border-color: var(--color-ink); }
+.card:hover { border-color: var(--color-ink); }
 .card[data-caught="true"]:hover { box-shadow: var(--shadow-slip-lift); }
 
 .hit {
@@ -25,7 +25,7 @@
   -webkit-touch-callout: none; user-select: none; touch-action: manipulation;
 }
 /* content-visibility clips paint, so the ring sits inside */
-.hit:focus-visible, .focus .hit { outline: 2.5px solid var(--color-focus); outline-offset: -3px; }
+.hit:focus-visible { outline: 2.5px solid var(--color-focus); outline-offset: -3px; }
 
 .art { position: relative; aspect-ratio: 3 / 2; margin-bottom: var(--space-3); border-radius: 1px; }
 .art img { position: absolute; inset: 0; margin: auto; width: min(100%, 168px); height: 100%; object-fit: contain; }

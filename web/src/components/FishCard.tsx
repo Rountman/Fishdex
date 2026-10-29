@@ -17,8 +17,6 @@ type Props = {
   areaName: (id: string) => string;
   onToggle: (id: string, field: ProgressField) => void;
   onOpen: (id: string) => void;
-  /** Static showcase (no handlers, forced visual state). */
-  demo?: 'hover' | 'focus' | 'pressing';
   /** Above the fold: load eagerly (the first image is the LCP element). */
   priority?: 'high' | 'eager';
 };
@@ -37,7 +35,7 @@ export function Where({ fish, areaName, first }: { fish: Fish; areaName: (id: st
   ));
 }
 
-function FishCardImpl({ fish, state, areaName, onToggle, onOpen, demo, priority }: Props) {
+function FishCardImpl({ fish, state, areaName, onToggle, onOpen, priority }: Props) {
   const { lang, t } = useI18n();
   const name = fishName(fish, lang);
   const [pressing, setPressing] = useState(false);
@@ -65,7 +63,7 @@ function FishCardImpl({ fish, state, areaName, onToggle, onOpen, demo, priority 
   };
 
   const yard = isBackyard(fish);
-  const cls = [styles.card, demo && styles[demo], (pressing || demo === 'pressing') && styles.pressing].filter(Boolean).join(' ');
+  const cls = pressing ? `${styles.card} ${styles.pressing}` : styles.card;
 
   return (
     <article className={cls} data-caught={state.caught} data-glow={state.caughtGlowing}>
