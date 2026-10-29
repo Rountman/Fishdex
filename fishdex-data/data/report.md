@@ -10,7 +10,7 @@ Vygenerováno 2026-10-29 skriptem `scraper/scrape.py`. Soubor se přepisuje při
 - **Se zářivou variantou (podle fishao.cz):** 615 — fishaowiki zářivé varianty vůbec neuvádí, viz níže.
 - **S českým názvem (fishao.cz):** 609 / 616
 - **Zdroj obrázků:** fishaowiki: 594, fishao.cz: 22
-- **S konfliktem hodnot mezi tabulkami:** 165
+- **S konfliktem hodnot mezi tabulkami:** 96
 
 ## Zdroje
 
@@ -57,227 +57,23 @@ Párování: anglický název ze stránky (stejná normalizace jako id), pak slu
 
 ### Křížová validace fishaowiki × fishao.cz
 
-Jen report — hodnoty z wiki se nepřepisují. Délka *maximální* na fishao.cz nemusí být totéž co *World record* na wiki.
+Jen report — hodnoty z wiki se nepřepisují (kromě doplnění níže).
 
 | porovnání | rozdílů |
 |---|---|
-| Max Price × Cena v obchodě / maximální | 198 |
 | hvězdy × Výskyt | 0 |
-| Time × čas | 48 |
-| World record × Délka maximální | 30 |
+| Time × čas | 49 |
+| délka: zdroje se liší → rozsah min–max | 92 |
 | konfliktní názvy mezi více stránkami (nevyřešené) | 1 |
 
-**Doplněno z fishao.cz** (na wiki null — chybí, `?` nebo konflikt mezi tabulkami; fishao.cz stránky se shodují a hodnota jde rozparsovat): max_price: 63, rarity: 3, time: 27. U ryby v `extra.filled_from.<pole>` = `{source, reason, wiki_raw}`; `*_raw` pak obsahuje text z fishao.cz. Ostatní pole z fishao.cz se nepřebírají.
-
-<details><summary>Cena (198)</summary>
-
-- `african-knifefish`: wiki `13` × fishao.cz `[12]`
-- `african-mottled-eel`: wiki `1423` × fishao.cz `[1497]`
-- `alpine-bullhead`: wiki `3` × fishao.cz `[2]`
-- `aphyonidae`: wiki `295` × fishao.cz `[282]`
-- `arandaspis`: wiki `22` × fishao.cz `[24]`
-- `arctic-char`: wiki `18` × fishao.cz `[17]`
-- `ariidae`: wiki `21` × fishao.cz `[20]`
-- `arrowhead-soapfish`: wiki `17` × fishao.cz `[21]`
-- `aspidorhynchus`: wiki `41` × fishao.cz `[47]`
-- `astraspis`: wiki `9` × fishao.cz `[20]`
-- `bagarius`: wiki `24` × fishao.cz `[23]`
-- `bagrus-bajad`: wiki `4` × fishao.cz `[3]`
-- `barbel`: wiki `13` × fishao.cz `[12]`
-- `barnards-lanterfish`: wiki `24` × fishao.cz `[26]`
-- `barracuda`: wiki `36` × fishao.cz `[35]`
-- `barramundi`: wiki `207` × fishao.cz `[149]`
-- `betta-brownorum`: wiki `3` × fishao.cz `[1]`
-- `bigmouth-buffalo`: wiki `13` × fishao.cz `[12]`
-- `birdbeak-dogfish`: wiki `100` × fishao.cz `[104]`
-- `black-acara`: wiki `13` × fishao.cz `[12]`
-- `black-crappy`: wiki `3` × fishao.cz `[2]`
-- `blackfin-pearlfish`: wiki `4` × fishao.cz `[3]`
-- `blacktip-reef-shark`: wiki `27` × fishao.cz `[30]`
-- `blue-bellied-night-wanderer`: wiki `747` × fishao.cz `[749]`
-- `blue-lyretail`: wiki `7` × fishao.cz `[6]`
-- `bonnethead-shark`: wiki `27` × fishao.cz `[24, 26]`
-- `boreaspis`: wiki `6` × fishao.cz `[14]`
-- `bream`: wiki `4` × fishao.cz `[3]`
-- `broad-barred-goby`: wiki `4` × fishao.cz `[5]`
-- `catla`: wiki `13` × fishao.cz `[12]`
-- `cherry-salmon`: wiki `13` × fishao.cz `[12]`
-- `chilhuil-sea-catfish`: wiki `142` × fishao.cz `[130, 147]`
-- `chinese-false-gudgeon`: wiki `3` × fishao.cz `[2]`
-- `chinese-paddlefish`: wiki `183` × fishao.cz `[186]`
-- `chinook-salmon`: wiki `40` × fishao.cz `[39]`
-- `chinstrap-jawfish`: wiki `5` × fishao.cz `[6]`
-- `cladoselache`: wiki `68` × fishao.cz `[108]`
-- `clown-featherback`: wiki `40` × fishao.cz `[39]`
-- `clownfish`: wiki `4` × fishao.cz `[3]`
-- `coccosteus`: wiki `16` × fishao.cz `[20]`
-- `common-dolphinfish`: wiki `36` × fishao.cz `[35]`
-- `common-salmon`: wiki `13` × fishao.cz `[12]`
-- `common-sawfish`: wiki `578` × fishao.cz `[804]`
-- `coral-hind`: wiki `7` × fishao.cz `[6]`
-- `crucian-carp`: wiki `4` × fishao.cz `[1]`
-- `ctenurella`: wiki `14` × fishao.cz `[17]`
-- `cyclops-shark`: wiki `2200` × fishao.cz `[1636]`
-- `dab`: wiki `6` × fishao.cz `[5]`
-- `dapedium`: wiki `20` × fishao.cz `[30]`
-- `deepwater-sculpin`: wiki `18` × fishao.cz `[17]`
-- `deltoptychius`: wiki `51` × fishao.cz `[66]`
-- `devils-hole-pupfish`: wiki `4202` × fishao.cz `[3749]`
-- `discus`: wiki `4` × fishao.cz `[3]`
-- `dolly-varden`: wiki `13` × fishao.cz `[12]`
-- `doryaspis-nathorsti`: wiki `10` × fishao.cz `[29]`
-- `dragon-wrasse`: wiki `10` × fishao.cz `[6]`
-- `drepanaspis`: wiki `38` × fishao.cz `[44]`
-- `dunkleosteus`: wiki `1147` × fishao.cz `[1195]`
-- `dwarf-moray`: wiki `58` × fishao.cz `[57, 59]`
-- `eel`: wiki `22` × fishao.cz `[21]`
-- `electric-catfish`: wiki `36` × fishao.cz `[35]`
-- `elegant-firefish`: wiki `10` × fishao.cz `[6]`
-- `elongate-tigerfish`: wiki `18` × fishao.cz `[17]`
-- `enchodus`: wiki `38` × fishao.cz `[54]`
-- `eurasian-ruffe`: wiki `29` × fishao.cz `[36]`
-- `european-chub`: wiki `9` × fishao.cz `[8]`
-- `european-flounder`: wiki `9` × fishao.cz `[6]`
-- `fiddler-ray`: wiki `143` × fishao.cz `[111]`
-- `flame-angelfish`: wiki `9` × fishao.cz `[8]`
-- `florida-gar`: wiki `120` × fishao.cz `[89]`
-- `flourescing-goatfish`: wiki `78` × fishao.cz `[81]`
-- `french-angelfish`: wiki `24` × fishao.cz `[23]`
-- `freshwater-butterflyfish`: wiki `13` × fishao.cz `[12]`
-- `freshwater-drum`: wiki `18` × fishao.cz `[17]`
-- `giant-barb`: wiki `30` × fishao.cz `[29]`
-- `giant-gourami`: wiki `36` × fishao.cz `[35]`
-- `giant-kokopu`: wiki `150` × fishao.cz `[111]`
-- `giant-moray`: wiki `36` × fishao.cz `[35]`
-- `giant-oarfish`: wiki `748` × fishao.cz `[749]`
-- `giant-salmon-carp`: wiki `898` × fishao.cz `[881, 899]`
-- `gloved-snailfish`: wiki `34` × fishao.cz `[36]`
-- `gold-spotted-rabbitfish`: wiki `20` × fishao.cz `[11]`
-- `golden-arowana`: wiki `48` × fishao.cz `[47]`
-- `golden-perch`: wiki `27` × fishao.cz `[26]`
-- `golden-trevally`: wiki `19` × fishao.cz `[18]`
-- `goldentail-moray`: wiki `51` × fishao.cz `[53]`
-- `goldsilk-bream`: wiki `7` × fishao.cz `[6]`
-- `grass-carp`: wiki `30` × fishao.cz `[21]`
-- `grayling`: wiki `7` × fishao.cz `[6]`
-- `great-white-shark`: wiki `356` × fishao.cz `[357]`
-- `green-arowana`: wiki `148` × fishao.cz `[59]`
-- `gyrodus`: wiki `43` × fishao.cz `[44]`
-- `haddock`: wiki `10` × fishao.cz `[9]`
-- `halibut`: wiki `146` × fishao.cz `[147]`
-- `honeycomb-cowfish`: wiki `9` × fishao.cz `[8]`
-- `horse-mackerel`: wiki `6` × fishao.cz `[5]`
-- `horseface-loach`: wiki `7` × fishao.cz `[6]`
-- `hound-needlefish`: wiki `81` × fishao.cz `[63]`
-- `humpback-batfish`: wiki `40` × fishao.cz `[30]`
-- `indian-glassfish`: wiki `6` × fishao.cz `[3]`
-- `indonesian-speckled-carpetshark`: wiki `23` × fishao.cz `[27]`
-- `ischnacanthus`: wiki `75` × fishao.cz `[76]`
-- `jack-dempsey`: wiki `30` × fishao.cz `[28, 35]`
-- `jaguar-guapote`: wiki `28` × fishao.cz `[39]`
-- `largemouth-bass`: wiki `3` × fishao.cz `[2]`
-- `largemouth-yellowfish`: wiki `22` × fishao.cz `[21]`
-- `largetooth-sawfish`: wiki `147` × fishao.cz `[149]`
-- `lavender-mbuna`: wiki `45` × fishao.cz `[34, 36]`
-- `leafscale-gulper-shark`: wiki `61` × fishao.cz `[62]`
-- `leedsichthys`: wiki `1715` × fishao.cz `[1739]`
-- `leerfish`: wiki `22` × fishao.cz `[21]`
-- `lemonpeel-angelfish`: wiki `3` × fishao.cz `[2]`
-- `lesser-weever`: wiki `4` × fishao.cz `[3]`
-- `livingstons-chichild`: wiki `10` × fishao.cz `[9]`
-- `longhorn-cowfish`: wiki `43` × fishao.cz `[33]`
-- `mad-barb`: wiki `22` × fishao.cz `[21]`
-- `malawi-eye-biter`: wiki `12` × fishao.cz `[8]`
-- `marcusenius-furcidens`: wiki `69` × fishao.cz `[58, 72]`
-- `materpiscis`: wiki `85` × fishao.cz `[87]`
-- `megalodon`: wiki `7464` × fishao.cz `[7489]`
-- `midas-cichlid`: wiki `18` × fishao.cz `[17]`
-- `milkfish`: wiki `20` × fishao.cz `[14]`
-- `mrigal-carp`: wiki `24` × fishao.cz `[20]`
-- `murray-cod`: wiki `49` × fishao.cz `[48]`
-- `nassau-grouper`: wiki `22` × fishao.cz `[21]`
-- `nile-perch`: wiki `48` × fishao.cz `[47]`
-- `nile-tilapia`: wiki `4` × fishao.cz `[3]`
-- `north-african-catfish`: wiki `18` × fishao.cz `[17]`
-- `occelate-river-stingray`: wiki `36` × fishao.cz `[35]`
-- `ocellated-pufferfish`: wiki `12` × fishao.cz `[8]`
-- `olive-flounder`: wiki `13` × fishao.cz `[12]`
-- `opah`: wiki `48` × fishao.cz `[47]`
-- `orange-spotted-snakehead`: wiki `40` × fishao.cz `[29]`
-- `orangespotted-soapfish`: wiki `147` × fishao.cz `[146]`
-- `orangespotted-sunfish`: wiki `24` × fishao.cz `[23]`
-- `oriental-sweetlips`: wiki `12` × fishao.cz `[8]`
-- `pacuma-toadfish`: wiki `24` × fishao.cz `[23]`
-- `painted-comber`: wiki `7` × fishao.cz `[6]`
-- `pale-chub`: wiki `3` × fishao.cz `[2]`
-- `panther-grouper`: wiki `138` × fishao.cz `[56]`
-- `pearly-razorfish`: wiki `4` × fishao.cz `[3]`
-- `peled`: wiki `35` × fishao.cz `[33, 36]`
-- `peppermint-angelfish`: wiki `147` × fishao.cz `[148]`
-- `pike`: wiki `36` × fishao.cz `[35]`
-- `pike-cichlid`: wiki `3` × fishao.cz `[2]`
-- `pink-salmon`: wiki `36` × fishao.cz `[35]`
-- `piraiba-catfish`: wiki `258` × fishao.cz `[192]`
-- `piranha`: wiki `24` × fishao.cz `[23]`
-- `potters-angelfish`: wiki `22` × fishao.cz `[20]`
-- `queen-angelfish`: wiki `13` × fishao.cz `[12]`
-- `rainbow-parrotfish`: wiki `24` × fishao.cz `[23]`
-- `rainbow-trout`: wiki `7` × fishao.cz `[6]`
-- `razorback-sucker`: wiki `386` × fishao.cz `[385, 387]`
-- `red-indianfish`: wiki `50` × fishao.cz `[32]`
-- `red-phantom-tetra`: wiki `15` × fishao.cz `[11]`
-- `red-snapper`: wiki `13` × fishao.cz `[12]`
-- `redfin-pickerel`: wiki `84` × fishao.cz `[41]`
-- `ripsaw-catfish`: wiki `9` × fishao.cz `[8]`
-- `sarcastic-fringehead`: wiki `44` × fishao.cz `[32]`
-- `sargassum-triggerfish`: wiki `9` × fishao.cz `[8]`
-- `satanoperca`: wiki `8` × fishao.cz `[5]`
-- `sea-bass`: wiki `6` × fishao.cz `[5]`
-- `semionotus`: wiki `66` × fishao.cz `[121]`
-- `senegal-bichir`: wiki `250` × fishao.cz `[183]`
-- `sergeant-major`: wiki `7` × fishao.cz `[6]`
-- `siamese-tigerfish`: wiki `18` × fishao.cz `[17]`
-- `silver-scabbardfish`: wiki `48` × fishao.cz `[47]`
-- `sleepy-cod`: wiki `16` × fishao.cz `[15]`
-- `smallmouth-bass`: wiki `7` × fishao.cz `[6]`
-- `smalltooth-sawfish`: wiki `900` × fishao.cz `[859]`
-- `southern-bluefin-tuna`: wiki `368` × fishao.cz `[372]`
-- `spinner-shark`: wiki `62` × fishao.cz `[65]`
-- `spotted-bass`: wiki `7` × fishao.cz `[6]`
-- `spotted-eagle-ray`: wiki `87` × fishao.cz `[89]`
-- `sulawesi-coelacanth`: wiki `996` × fishao.cz `[997]`
-- `tailspot-ctenopoma`: wiki `16` × fishao.cz `[15]`
-- `tench`: wiki `7` × fishao.cz `[6]`
-- `thelodus`: wiki `21` × fishao.cz `[20]`
-- `thicklip-grey-mullet`: wiki `6` × fishao.cz `[5]`
-- `tope-shark`: wiki `31` × fishao.cz `[30]`
-- `twin-spot-goby`: wiki `14` × fishao.cz `[17]`
-- `vandellia`: wiki `24` × fishao.cz `[23]`
-- `vimba-bream`: wiki `13` × fishao.cz `[15]`
-- `walleye`: wiki `19` × fishao.cz `[18]`
-- `weedy-seadragon`: wiki `196` × fishao.cz `[147]`
-- `weever-fish`: wiki `9` × fishao.cz `[8]`
-- `wels-catfish`: wiki `30` × fishao.cz `[29]`
-- `wenchman`: wiki `13` × fishao.cz `[12]`
-- `whale-shark`: wiki `662` × fishao.cz `[672]`
-- `white-spotted-puffer`: wiki `20` × fishao.cz `[15]`
-- `white-sturgeon`: wiki `87` × fishao.cz `[88]`
-- `whitebarred-catfish`: wiki `13` × fishao.cz `[12]`
-- `xenacanthus`: wiki `78` × fishao.cz `[79]`
-- `xiphactinus`: wiki `95` × fishao.cz `[104]`
-- `yellow-mouth-moray`: wiki `8` × fishao.cz `[5]`
-- `yellow-perch`: wiki `3` × fishao.cz `[2]`
-- `yellow-tail-arowana`: wiki `238` × fishao.cz `[239]`
-- `zingel-streber`: wiki `7` × fishao.cz `[6]`
-
-</details>
+**Doplněno z fishao.cz** (na wiki chybí, nejde rozparsovat nebo se tabulky neshodují; fishao.cz stránky se shodují a hodnota jde rozparsovat): rarity: 3, time: 27. U ryby v `extra.filled_from.<pole>` = `{source, reason}`; `*_raw` pak obsahuje text z fishao.cz.
 
 <details><summary>Hvězdy (0)</summary>
 
 
 </details>
 
-<details><summary>Čas (48)</summary>
+<details><summary>Čas (49)</summary>
 
 - `african-mottled-eel`: wiki `22:00-04:00` × fishao.cz `['kdykoliv']`
 - `albino-alligator-gar`: wiki `22:00-05:00` × fishao.cz `['22:00+ - 11:00+']`
@@ -294,6 +90,7 @@ Jen report — hodnoty z wiki se nepřepisují. Délka *maximální* na fishao.c
 - `chilhuil-sea-catfish`: wiki `02:00-10:00` × fishao.cz `['kdykoliv']`
 - `chinese-paddlefish`: wiki `13:00-15:00` × fishao.cz `['14:00 - 15:00']`
 - `crested-bullhead-shark`: wiki `23:00-05:30` × fishao.cz `['kdykoliv']`
+- `cylindrical-lanternshark`: wiki `02:00-02:30, 04:00-04:30, 06:00-06:15` × fishao.cz `['02:00 - 07:00']`
 - `dwarf-moray`: wiki `23:00-06:00` × fishao.cz `['kdykoliv']`
 - `fiddler-ray`: wiki `21:00-08:00` × fishao.cz `['kdykoliv']`
 - `gloved-snailfish`: wiki `01:00-10:00` × fishao.cz `['2:00? - 4:00?']`
@@ -330,38 +127,102 @@ Jen report — hodnoty z wiki se nepřepisují. Délka *maximální* na fishao.c
 
 </details>
 
-<details><summary>WR × délka (30)</summary>
+Délky v rozsahu: 92 ryb, z toho 15 s rozdílem > 25 % (podezřelé):
 
-- `african-mottled-eel`: wiki `191` × fishao.cz `[196]`
-- `angler-monkfish`: wiki `209` × fishao.cz `[206]`
-- `aphyonidae`: wiki `21` × fishao.cz `[22]`
-- `arapaima`: wiki `448` × fishao.cz `[449]`
-- `bigeye-barracuda`: wiki `74` × fishao.cz `[73]`
-- `black-marlin`: wiki `459` × fishao.cz `[464]`
-- `chilhuil-sea-catfish`: wiki `50` × fishao.cz `[48]`
-- `common-ponyfish`: wiki `27` × fishao.cz `[26]`
-- `dragon-moray`: wiki `89` × fishao.cz `[91]`
-- `dunkleosteus`: wiki `182` × fishao.cz `[794]`
-- `emperor-red-snapper`: wiki `115` × fishao.cz `[116]`
-- `fiddler-ray`: wiki `89` × fishao.cz `[88]`
-- `fresh-water-moray`: wiki `149` × fishao.cz `[148]`
-- `giant-kokopu`: wiki `57` × fishao.cz `[54]`
-- `golden-pike`: wiki `139` × fishao.cz `[137]`
-- `guapote`: wiki `70` × fishao.cz `[69, 71]`
-- `ischnacanthus`: wiki `201` × fishao.cz `[202]`
-- `lionhead-goldfish`: wiki `21` × fishao.cz `[20]`
-- `narrowhead-catshark`: wiki `299` × fishao.cz `[297]`
-- `nurse-shark`: wiki `429` × fishao.cz `[428]`
-- `pacific-bluefin-tuna`: wiki `300` × fishao.cz `[303]`
-- `piraya`: wiki `49` × fishao.cz `[48]`
-- `platinum-golden-arowana`: wiki `98` × fishao.cz `[97]`
-- `red-tail-golden-arowana`: wiki `93` × fishao.cz `[92]`
-- `ruby-seadragon`: wiki `29` × fishao.cz `[23]`
-- `smalltooth-sawfish`: wiki `708` × fishao.cz `[749]`
-- `spotted-gar`: wiki `149` × fishao.cz `[148]`
-- `striped-marlin`: wiki `418` × fishao.cz `[419]`
-- `titanichthys`: wiki `670` × fishao.cz `[698]`
-- `yellow-mouth-moray`: wiki `181` × fishao.cz `[180]`
+<details><summary>Seznam</summary>
+
+- `african-mottled-eel` 191–196 cm: `191 cm` (fishaowiki all-in-one, fishaowiki area-fish/Thombani Town, fishaowiki 5-star-fish); `196 cm` (fishao.cz african-mottled-eel)
+- `angler-monkfish` 206–209 cm: `209 cm` (fishaowiki all-in-one, fishaowiki area-fish/Pirate Cave, fishaowiki 5-star-fish); `206 cm` (fishao.cz das-morsky)
+- `aphyonidae` 21–22 cm: `21 cm` (fishaowiki all-in-one, fishaowiki area-fish/Club, fishaowiki 5-star-fish); `22 cm` (fishao.cz hlubinar)
+- `arapaima` 448–449 cm: `448 cm` (fishaowiki all-in-one, fishaowiki area-fish/Rio Tropical, fishaowiki area-fish/Aquayama, fishaowiki 5-star-fish); `449 cm` (fishao.cz arapaima-velka)
+- `asp` 118–119 cm: `119 cm` (fishaowiki all-in-one, fishaowiki area-fish/Cool Mountain, fishao.cz bolen-dravy); `118 cm` (fishao.cz asp)
+- `australian-barracuda` 101–102 cm: `102 cm` (fishaowiki all-in-one, fishao.cz soltyn-australsky); `101 cm` (fishaowiki area-fish/Lucky Raft)
+- `barramundi` 184–199 cm: `194 cm` (fishaowiki all-in-one, fishaowiki 5-star-fish); `184 cm` (fishaowiki area-fish/Palm Island); `199 cm` (fishao.cz lates-stribrity)
+- `basking-shark` 1181–1223 cm: `1223 cm` (fishaowiki all-in-one, fishaowiki area-fish/Sibiri City, fishaowiki area-fish/Seagull Harbor, fishaowiki tournament-fish/Boat on Sea Tournament); `1181 cm` (fishaowiki 5-star-fish); `1220 cm` (fishao.cz zralok-veliky)
+- `beluga-sturgeon` 846–851 cm: `850 cm` (fishaowiki all-in-one, fishaowiki area-fish/Cool Mountain); `846 cm` (fishaowiki 5-star-fish); `851 cm` (fishao.cz vyza-velka)
+- `bigeye-barracuda` 73–74 cm: `74 cm` (fishaowiki all-in-one, fishaowiki area-fish/Lucky Raft); `73 cm` (fishao.cz soltyn-velkooky)
+- `black-alligator-gar` 297–298 cm: `298 cm` (fishaowiki all-in-one, fishaowiki area-fish/Club, fishao.cz kostlin-cerny); `297 cm` (fishaowiki 5-star-fish)
+- `black-marlin` 459–464 cm: `459 cm` (fishaowiki all-in-one, fishaowiki area-fish/Lucky Raft, fishaowiki 5-star-fish); `464 cm` (fishao.cz marlin-cerny)
+- `blackbar-soldierfish` 26–34 cm ⚠️: `26 cm` (fishaowiki all-in-one, fishao.cz pruhatec-cernopruhy); `34 cm` (fishaowiki area-fish/Palm Island)
+- `blackfin-dartfish` 9–13 cm ⚠️: `13 cm` (fishaowiki all-in-one, fishao.cz hlavacovec-cernoploutvy); `9 cm` (fishaowiki area-fish/Pinheira Beach)
+- `blind-cave-eel` 37–39 cm: `39 cm` (fishaowiki all-in-one, fishaowiki area-fish/Club, fishaowiki 5-star-fish, fishao.cz hrdlozabrik-belavy); `37 cm` (fishao.cz blind-cave-eel)
+- `blue-marlin` 428–429 cm: `429 cm` (fishaowiki all-in-one, fishaowiki area-fish/Seagull Harbor, fishao.cz marlin-modry); `428 cm` (fishaowiki 5-star-fish)
+- `bonnethead-shark` 145–149 cm: `149 cm` (fishaowiki all-in-one, fishaowiki area-fish/Club, fishao.cz kladivoun-tiburo); `145 cm` (fishao.cz bonnethead-shark)
+- `boulengerella-cuvieri` 85–87 cm: `87 cm` (fishaowiki all-in-one, fishaowiki area-fish/Rio Tropical, fishao.cz stikovka-brazilska); `85 cm` (fishao.cz boulengerella-cuvieri)
+- `bull-shark` 400–401 cm: `401 cm` (fishaowiki all-in-one, fishaowiki breeder-fish/Backyard fish, fishao.cz zralok-belavy); `400 cm` (fishaowiki 5-star-fish)
+- `carcharocles-chubutensis` 1158–1214 cm: `1158 cm` (fishaowiki all-in-one, fishaowiki area-fish/Lost Valley 2); `???` (fishaowiki 5-star-fish); `1214 cm` (fishao.cz Carcharocles-chubutensis, fishao.cz carcharocles-chubutensis)
+- `chilhuil-sea-catfish` 48–50 cm: `50 cm` (fishaowiki all-in-one, fishaowiki area-fish/Seagull Harbor); `48 cm` (fishao.cz chilhuil-sea-catfish, fishao.cz krizovec-panamsky)
+- `common-ponyfish` 26–27 cm: `27 cm` (fishaowiki all-in-one, fishaowiki area-fish/Club); `26 cm` (fishao.cz plosak-stribrity)
+- `cyclops-shark` 49–55 cm: `55 cm` (fishaowiki all-in-one, fishaowiki 5-star-fish, fishao.cz zralok-kyklop); `49 cm` (fishaowiki area-fish/Pirate Cave)
+- `danube-salmon` 163–164 cm: `164 cm` (fishaowiki all-in-one, fishaowiki breeder-fish/Backyard fish, fishao.cz hlavatka-obecna); `163 cm` (fishaowiki 5-star-fish)
+- `dragon-moray` 89–91 cm: `89 cm` (fishaowiki all-in-one, fishaowiki 5-star-fish, fishaowiki tournament-fish/Moray Tournament); `91 cm` (fishao.cz murena-pardali)
+- `dunkleosteus` 182–794 cm ⚠️: `182 cm` (fishaowiki all-in-one, fishaowiki area-fish/Lost Valley 2, fishaowiki 5-star-fish); `794 cm` (fishao.cz dunkleosteus)
+- `emperor-red-snapper` 115–116 cm: `115 cm` (fishaowiki all-in-one, fishaowiki area-fish/Club); `116 cm` (fishao.cz chnapal-cisarsky)
+- `fangtooth-moray` 118–119 cm: `118 cm` (fishaowiki all-in-one, fishao.cz murena-tygrovita); `119 cm` (fishaowiki tournament-fish/Moray Tournament)
+- `fiddler-ray` 88–89 cm: `89 cm` (fishaowiki all-in-one, fishaowiki area-fish/Club, fishaowiki 5-star-fish); `88 cm` (fishao.cz pilohrbet-jihoaustralsky)
+- `fire-eel` 118–119 cm: `119 cm` (fishaowiki all-in-one, fishaowiki breeder-fish/Backyard fish, fishao.cz hrotocelec-ohnivy); `118 cm` (fishaowiki 5-star-fish)
+- `florida-gar` 130–131 cm: `131 cm` (fishaowiki all-in-one, fishaowiki 5-star-fish); `130 cm` (fishaowiki area-fish/Club, fishao.cz kostlin-floridsky)
+- `fresh-water-moray` 148–149 cm: `149 cm` (fishaowiki all-in-one, fishaowiki area-fish/Aquayama); `148 cm` (fishao.cz freshwater-moray, fishao.cz murena-sladkovodni)
+- `frilled-shark` 194–213 cm: `213 cm` (fishaowiki all-in-one, fishaowiki area-fish/Seagull Harbor); `194 cm` (fishaowiki 5-star-fish, fishao.cz zralok-limcovy)
+- `giant-freshwater-stingray` 457–459 cm: `459 cm` (fishaowiki all-in-one, fishaowiki breeder-fish/Backyard fish); `457 cm` (fishaowiki 5-star-fish); `458 cm` (fishao.cz trnucha-thajska)
+- `giant-kokopu` 54–57 cm: `57 cm` (fishaowiki all-in-one, fishaowiki area-fish/Club, fishaowiki 5-star-fish); `54 cm` (fishao.cz galaxie-velka)
+- `giant-oarfish` 1409–1754 cm: `1754 cm` (fishaowiki all-in-one, fishaowiki area-fish/Pinheira Beach, fishaowiki area-fish/Sibiri City, fishaowiki area-fish/Seagull Harbor, fishaowiki tournament-fish/Boat on Sea Tournament, fishao.cz hlistoun-cervenohrivy); `1409 cm` (fishaowiki 5-star-fish)
+- `giant-oceanic-manta-ray` 908–909 cm: `909 cm` (fishaowiki all-in-one, fishaowiki 5-star-fish, fishao.cz manta-obrovska); `908 cm` (fishaowiki area-fish/Lost Valley 1)
+- `giant-salmon-carp` 112–129 cm: `128cm` (fishaowiki all-in-one, fishaowiki area-fish/Aquayama); `???` (fishaowiki 5-star-fish); `112 cm` (fishao.cz giant-salmon-carp); `129 cm` (fishao.cz sanak-asijsky)
+- `goblin-shark` 324–610 cm ⚠️: `610 cm` (fishaowiki all-in-one, fishaowiki area-fish/Sibiri City, fishao.cz zralok-sotek); `324 cm` (fishaowiki 5-star-fish)
+- `gold-carp` 118–119 cm: `119 cm` (fishaowiki all-in-one, fishaowiki area-fish/Laketown, fishao.cz kapr-zlaty); `118 cm` (fishaowiki 5-star-fish)
+- `golden-cave-catfish` 15–16 cm: `16cm` (fishaowiki all-in-one, fishaowiki area-fish/Mystic Desert); `???` (fishaowiki 5-star-fish); `15 cm` (fishao.cz golden-cave-catfish); `16 cm` (fishao.cz kerickovec-jeskynni)
+- `golden-pike` 137–139 cm: `139 cm` (fishaowiki all-in-one, fishaowiki area-fish/Club, fishaowiki 5-star-fish); `137 cm` (fishao.cz stika-zlata)
+- `golden-trevally` 115–119 cm: `118 cm` (fishaowiki all-in-one); `119 cm` (fishaowiki area-fish/Club, fishao.cz kranas-zlaty); `115 cm` (fishao.cz golden-trevally)
+- `goliath-tigerfish` 149–197 cm ⚠️: `149 cm` (fishaowiki all-in-one, fishaowiki tournament-fish/Race (Magic 15) Tournament, fishao.cz binga-tygri); `197 cm` (fishaowiki 5-star-fish)
+- `great-white-shark` 785–790 cm: `790 cm` (fishaowiki all-in-one, fishaowiki area-fish/Seagull Harbor, fishao.cz zralok-bily); `785 cm` (fishaowiki 5-star-fish)
+- `green-red-arowana` 123–124 cm: `124 cm` (fishaowiki all-in-one, fishaowiki 5-star-fish); `123 cm` (fishaowiki breeder-fish/Backyard fish, fishao.cz zeleno-cervena-arowana)
+- `green-sawfish` 726–729 cm: `729 cm` (fishaowiki all-in-one, fishaowiki area-fish/Pinheira Beach); `728 cm` (fishaowiki 5-star-fish); `726 cm` (fishao.cz piloun-mnohozuby)
+- `guapote` 69–71 cm: `70 cm` (fishaowiki all-in-one, fishaowiki 5-star-fish, fishaowiki breeder-fish/Backyard fish); `69 cm` (fishao.cz guapote); `71 cm` (fishao.cz kancik-doviuv)
+- `gyrosteus` 514–515 cm: `514 cm` (fishaowiki all-in-one, fishaowiki area-fish/Lost Valley 2); `???` (fishaowiki 5-star-fish); `515 cm` (fishao.cz gyrosteus)
+- `halibut` 364–365 cm: `365 cm` (fishaowiki all-in-one, fishaowiki 5-star-fish); `364 cm` (fishaowiki area-fish/Seagull Harbor, fishao.cz platys-tichomorsky)
+- `ischnacanthus` 201–202 cm: `201 cm` (fishaowiki all-in-one, fishaowiki area-fish/Lost Valley 2); `202 cm` (fishao.cz Ischnacanthus, fishao.cz ischnacanthus)
+- `largetooth-sawfish` 703–704 cm: `704 cm` (fishaowiki all-in-one, fishaowiki 5-star-fish, fishao.cz piloun-mikrodon); `703 cm` (fishaowiki breeder-fish/Backyard fish)
+- `leedsichthys` 1208–1381 cm: `1381 cm` (fishaowiki all-in-one, fishaowiki area-fish/Lost Valley 2, fishao.cz leedsichthys); `1208 cm` (fishaowiki 5-star-fish)
+- `lionhead-goldfish` 20–21 cm: `21 cm` (fishaowiki all-in-one, fishaowiki 5-star-fish, fishaowiki tournament-fish/Lake Run Tournament); `20 cm` (fishao.cz karas-lvi-hlava)
+- `long-finned-eel` 119–120 cm: `119 cm` (fishaowiki all-in-one, fishaowiki area-fish/Marshville, fishao.cz uhor-novozelandsky); `120 cm` (fishaowiki area-fish/Laketown)
+- `mariana-snailfish` 22–28 cm ⚠️: `28 cm` (fishaowiki all-in-one, fishaowiki area-fish/Seagull Harbor, fishaowiki 5-star-fish, fishao.cz pseudoliparis-swirei); `22 cm` (fishao.cz mariana-snailfish)
+- `meadia-roseni` 70–75 cm: `75 cm` (fishaowiki all-in-one, fishaowiki 5-star-fish); `74 cm` (fishaowiki area-fish/Pirate Cave); `70 cm` (fishao.cz tupohlavec-rosenuv)
+- `megamouth-shark` 599–705 cm: `705 cm` (fishaowiki all-in-one, fishaowiki area-fish/Sibiri City); `599 cm` (fishaowiki 5-star-fish); `702 cm` (fishao.cz zralok-velkousty)
+- `narrowhead-catshark` 297–299 cm: `299 cm` (fishaowiki all-in-one, fishaowiki area-fish/Pinheira Beach); `297 cm` (fishao.cz macka-uzkohlava, fishao.cz narrowhead-catshark)
+- `nurse-shark` 428–429 cm: `429 cm` (fishaowiki all-in-one, fishaowiki area-fish/Pinheira Beach); `428 cm` (fishao.cz zralok-vouskaty)
+- `pacific-barracuda` 143–144 cm: `144 cm` (fishaowiki all-in-one, fishao.cz soltyn-stribrity); `143 cm` (fishaowiki area-fish/Lucky Raft)
+- `pacific-bluefin-tuna` 300–303 cm: `300 cm` (fishaowiki all-in-one, fishaowiki area-fish/Lucky Raft, fishaowiki 5-star-fish); `303 cm` (fishao.cz tunak-tichomorsky)
+- `peled` 48–49 cm: `49 cm` (fishaowiki all-in-one, fishao.cz peled, fishao.cz sih-peled); `48 cm` (fishaowiki breeder-fish/Backyard fish)
+- `piraya` 48–49 cm: `49 cm` (fishaowiki all-in-one, fishaowiki area-fish/Club); `48 cm` (fishao.cz pirana-tmava)
+- `platinum-golden-arowana` 97–98 cm: `98 cm` (fishaowiki all-in-one, fishaowiki 5-star-fish, fishaowiki breeder-fish/Backyard fish); `97 cm` (fishao.cz arowana-platinova)
+- `razorback-sucker` 89–90 cm: `90 cm` (fishaowiki all-in-one, fishaowiki 5-star-fish, fishao.cz pakaprovec-ostrohrbety); `89 cm` (fishaowiki breeder-fish/Backyard fish, fishao.cz razorback-sucker)
+- `red-tail-golden-arowana` 92–93 cm: `93 cm` (fishaowiki all-in-one, fishaowiki 5-star-fish, fishaowiki breeder-fish/Backyard fish); `92 cm` (fishao.cz arowana-zlata-cervenoocasa)
+- `ruby-seadragon` 23–29 cm ⚠️: `29 cm` (fishaowiki all-in-one, fishaowiki area-fish/Palm Island, fishaowiki 5-star-fish); `23 cm` (fishao.cz rasovnik-rubinovy)
+- `salpa-maggiore` 16–23 cm ⚠️: `23 cm` (fishaowiki all-in-one, fishaowiki 5-star-fish, fishao.cz salpa-maggiore); `16 cm` (fishaowiki tournament-fish/Moray Tournament)
+- `saurychthis` 127–128 cm: `127 cm` (fishaowiki all-in-one, fishaowiki area-fish/Lost Valley 2); `???` (fishaowiki 5-star-fish); `128 cm` (fishao.cz saurichthys)
+- `schoolmaster-snapper` 44–45 cm: `44 cm` (fishaowiki all-in-one, fishao.cz chnapal-zlutoploutvy); `45 cm` (fishaowiki area-fish/Palm Island)
+- `siberian-sturgeon` 201–202 cm: `202 cm` (fishaowiki all-in-one, fishaowiki 5-star-fish); `201 cm` (fishaowiki area-fish/Club, fishao.cz jeseter-sibirsky)
+- `silver-carp` 138–139 cm: `139 cm` (fishaowiki all-in-one, fishaowiki 5-star-fish, fishao.cz tolstolobik-bily); `138 cm` (fishaowiki breeder-fish/Backyard fish)
+- `smalltooth-sawfish` 708–749 cm: `708 cm` (fishaowiki all-in-one, fishaowiki area-fish/Club, fishaowiki 5-star-fish); `749 cm` (fishao.cz piloun-malozuby)
+- `smoothtail-mobula` 188–219 cm: `219 cm` (fishaowiki all-in-one, fishao.cz manta-mexicka); `188 cm` (fishaowiki 5-star-fish, fishaowiki tournament-fish/Boat on Sea Tournament, fishao.cz smoothtail-mobula)
+- `spot-tail-shark` 163–164 cm: `164 cm` (fishaowiki all-in-one, fishao.cz zralok-zapadoaustralsky); `163 cm` (fishaowiki area-fish/Palm Island)
+- `spotted-eagle-ray` 485–499 cm: `499 cm` (fishaowiki all-in-one, fishaowiki 5-star-fish, fishao.cz siba-skvrnita); `485 cm` (fishaowiki area-fish/Palm Island)
+- `spotted-gar` 148–149 cm: `149 cm` (fishaowiki all-in-one, fishaowiki area-fish/Club, fishaowiki 5-star-fish); `148 cm` (fishao.cz kostlin-skvrnity)
+- `spotted-tiger-shovelnose-catfish` 138–139 cm: `139cm` (fishaowiki all-in-one, fishaowiki area-fish/Rio Tropical); `139 cm` (fishao.cz antenovec-skvrnity); `138 cm` (fishao.cz spotted-tiger-shovelnose-catfish)
+- `stethacanthus` 55–189 cm ⚠️: `188 cm` (fishaowiki all-in-one, fishaowiki area-fish/Lost Valley 2); `55 cm` (fishaowiki 5-star-fish); `189 cm` (fishao.cz stethacanthus)
+- `striped-marlin` 418–419 cm: `418 cm` (fishaowiki all-in-one, fishaowiki area-fish/Lucky Raft); `419 cm` (fishao.cz marlin-pruhovany)
+- `thresher-shark` 602–759 cm ⚠️: `759 cm` (fishaowiki all-in-one, fishaowiki tournament-fish/Boat on Sea Tournament, fishao.cz liskoun-obecny); `602 cm` (fishaowiki 5-star-fish)
+- `tiger-shark` 703–747 cm: `747 cm` (fishaowiki all-in-one, fishaowiki area-fish/Seagull Harbor, fishao.cz zralok-tygri); `703 cm` (fishaowiki 5-star-fish)
+- `titanichthys` 670–698 cm: `670 cm` (fishaowiki all-in-one, fishaowiki area-fish/Lost Valley 2, fishaowiki 5-star-fish); `698 cm` (fishao.cz titanichthys)
+- `viper-moray` 117–285 cm ⚠️: `285 cm` (fishaowiki all-in-one, fishaowiki 5-star-fish); `117 cm` (fishaowiki tournament-fish/Moray Tournament); `252 cm` (fishao.cz murena-psi)
+- `whale-shark` 856–1974 cm ⚠️: `1859 cm` (fishaowiki all-in-one, fishaowiki tournament-fish/Boat on Sea Tournament); `856 cm` (fishaowiki 5-star-fish); `1974 cm` (fishao.cz zralok-obrovsky)
+- `white-bass` 24–49 cm ⚠️: `48 cm` (fishaowiki all-in-one, fishao.cz morcak-stribrity); `24 cm` (fishaowiki area-fish/Laketown); `49 cm` (fishaowiki area-fish/Cool Mountain)
+- `white-crappie` 48–49 cm: `48 cm` (fishaowiki all-in-one, fishao.cz okounek-svetly); `49 cm` (fishaowiki breeder-fish/Backyard fish)
+- `white-sturgeon` 405–609 cm ⚠️: `609 cm` (fishaowiki all-in-one, fishaowiki breeder-fish/Backyard fish, fishao.cz jeseter-bily); `405 cm` (fishaowiki 5-star-fish)
+- `whitebar-eelpout` 75–76 cm: `76cm` (fishaowiki all-in-one); `75 cm` (fishaowiki area-fish/Seagull Harbor, fishao.cz slimule-belopruha, fishao.cz whitebar-eelpout)
+- `xiphactinus` 62–620 cm ⚠️: `620 cm` (fishaowiki all-in-one, fishao.cz xiphactinus); `62 cm` (fishaowiki area-fish/Lost Valley 2)
+- `yellow-mouth-moray` 180–181 cm: `181 cm` (fishaowiki all-in-one, fishaowiki tournament-fish/Moray Tournament); `180 cm` (fishao.cz murena-zlutotlama)
 
 </details>
 
@@ -444,9 +305,23 @@ Neřešitelné konflikty názvů (název = null):
 - `sulawesi-coelacanth` (5-star-fish, all-in-one, area-fish)
 - `taylors-inflator-filefish` (all-in-one, area-fish)
 
+## Ruční doplnění — `manual/resolutions.csv`
+
+Zbylé konflikty a díry (návnada, sezóna, čas, rarita, český název), které žádný zdroj jednoznačně neřeší. CSV (`;`, UTF-8) jde otevřít v Excelu: sloupec `options` = hodnoty z wiki s tabulkami, odkud jsou, `fishao_cz` = co uvádí fishao.cz (česky, jako nápověda). Vyplněná `value` se při dalším buildu použije (`extra.filled_from.<pole>.source = "manual"`) a při přegenerování CSV se nikdy nepřepíše.
+
+| pole | problém | celkem | otevřeno |
+|---|---|---|---|
+| bait | conflict | 45 | 45 |
+| name_cs | missing | 7 | 7 |
+| season | conflict | 34 | 34 |
+| time | conflict | 9 | 9 |
+| time | unparsed | 2 | 2 |
+
+Použito ručních hodnot: 0; otevřeno: 97.
+
 ## Chybějící pole
 
-`null` = hodnota není ani na wiki, ani (u ceny, času, rarity) na fishao.cz, **nebo** se zdroje neshodují. Pole `weather` ve zdroji neexistuje vůbec → null u všech ryb.
+`null` = hodnota není ani na wiki, ani (u času a rarity) na fishao.cz, **nebo** se zdroje neshodují. Ceny a počasí nejsou součástí datasetu (rozhodnutí uživatele) — sloupec *Max Price* se při parsování zahazuje.
 
 | pole | chybí u |
 |---|---|
@@ -455,17 +330,14 @@ Neřešitelné konflikty názvů (název = null):
 | `season` | 34 |
 | `rarity` | 0 |
 | `bait_raw` | 45 |
-| `max_price_raw` | 2 |
-| `world_record_raw` | 61 |
+| `max_length_cm` | 2 |
 | `image` | 0 |
 
 ### Raw hodnota existuje, ale nejde jednoznačně rozparsovat
 
 Parsované pole je null, `*_raw` obsahuje text ze zdroje.
 
-- **time** (3): `flathead-catfish`=`22:00-?`, `pangio-mariarum`=`17:00-?`, `shortdorsal-cutthroat-eel`=`02:00-?`
-- **max_price** (0): —
-- **world_record_cm** (3): `golden-gar`=`?`, `grammonus-yunokawai`=`?`, `shortdorsal-cutthroat-eel`=`?`
+- **time** (2): `flathead-catfish`=`22:00-?`, `shortdorsal-cutthroat-eel`=`02:00-?`
 
 ### Ryby s chybějícími poli
 
@@ -473,123 +345,84 @@ Parsované pole je null, `*_raw` obsahuje text ze zdroje.
 |---|---|
 | `angel-shark` | bait_raw |
 | `angler-snake-eel` | time_raw, season |
-| `australian-barracuda` | world_record_raw |
 | `barbel` | bait_raw |
 | `barracuda` | bait_raw |
-| `barramundi` | world_record_raw |
 | `basketfish` | bait_raw |
-| `basking-shark` | season, world_record_raw |
-| `beluga-sturgeon` | world_record_raw |
+| `basking-shark` | season |
 | `bigeye-tuna` | season |
 | `bighead-carp` | time_raw |
-| `black-alligator-gar` | world_record_raw |
-| `blackbar-soldierfish` | world_record_raw |
-| `blackfin-dartfish` | world_record_raw |
-| `blind-cave-eel` | max_price_raw |
-| `blue-marlin` | season, world_record_raw |
+| `blue-marlin` | season |
 | `blue-spotted-grouper` | bait_raw |
 | `bramble-shark` | bait_raw |
-| `bull-shark` | season, bait_raw, world_record_raw |
-| `carcharocles-chubutensis` | world_record_raw |
-| `cobelodus` | world_record_raw |
+| `bull-shark` | season, bait_raw |
 | `cookiecutter-shark` | bait_raw |
 | `cornish-jack` | bait_raw |
-| `cretoxyrhina` | bait_raw, world_record_raw |
-| `cyclops-shark` | world_record_raw |
+| `cretoxyrhina` | bait_raw |
 | `cylindrical-lanternshark` | bait_raw |
-| `danube-salmon` | season, bait_raw, world_record_raw |
+| `danube-salmon` | season, bait_raw |
 | `deepsea-lizardfish` | bait_raw |
 | `doryaspis-arctica` | bait_raw |
 | `emperor-red-snapper` | bait_raw |
-| `fangtooth-moray` | bait_raw, world_record_raw |
-| `fire-eel` | time_raw, season, world_record_raw |
-| `florida-gar` | season, bait_raw, world_record_raw |
+| `fangtooth-moray` | bait_raw |
+| `fire-eel` | time_raw, season |
+| `florida-gar` | season, bait_raw |
 | `french-grunt` | bait_raw |
 | `fresh-water-moray` | season |
 | `freshwater-lionfish` | bait_raw |
-| `frilled-shark` | season, world_record_raw |
-| `giant-freshwater-stingray` | world_record_raw |
+| `frilled-shark` | season |
 | `giant-grouper` | season |
-| `giant-oarfish` | world_record_raw |
-| `giant-oceanic-manta-ray` | world_record_raw |
-| `giant-salmon-carp` | season, world_record_raw |
-| `goblin-shark` | season, world_record_raw |
-| `gold-carp` | world_record_raw |
-| `golden-cave-catfish` | season, world_record_raw |
+| `giant-salmon-carp` | season |
+| `goblin-shark` | season |
+| `golden-cave-catfish` | season |
 | `golden-dorado` | season |
-| `golden-trevally` | world_record_raw |
-| `goliath-tigerfish` | world_record_raw |
+| `golden-gar` | max_length_cm |
 | `grammonus-yunokawai` | time_raw, season |
-| `great-white-shark` | world_record_raw |
 | `green-moray` | bait_raw |
-| `green-red-arowana` | world_record_raw |
-| `green-sawfish` | world_record_raw |
-| `guapote` | season, max_price_raw |
-| `gyrosteus` | world_record_raw |
-| `halibut` | world_record_raw |
+| `guapote` | season |
 | `hammerhead-shark` | bait_raw |
 | `hellers-barracuda` | bait_raw |
 | `humpback-anglerfish` | season |
-| `largetooth-sawfish` | season, world_record_raw |
-| `leedsichthys` | world_record_raw |
+| `largetooth-sawfish` | season |
 | `lemon-shark` | bait_raw |
 | `lionhead-goldfish` | bait_raw |
-| `long-finned-eel` | world_record_raw |
 | `longnose-sawshark` | bait_raw |
 | `mandarinfish` | season |
 | `marine-betta` | time_raw |
-| `meadia-roseni` | world_record_raw |
-| `megamouth-shark` | season, world_record_raw |
+| `megamouth-shark` | season |
 | `moon-wrasse` | bait_raw |
 | `northern-lampfish` | bait_raw |
 | `oceanic-whitetip-shark` | bait_raw |
 | `orangespotted-soapfish` | bait_raw |
-| `orthacanthus` | world_record_raw |
-| `pacific-barracuda` | world_record_raw |
 | `pacific-bluefin-tuna` | season |
 | `parachaenichthys-charcoti` | season |
 | `paroon-shark` | season, bait_raw |
-| `payara` | world_record_raw |
 | `peacock-flounder` | bait_raw |
-| `peled` | world_record_raw |
 | `pelican-barracuda` | time_raw |
 | `pineapplefish` | bait_raw |
 | `pinktail-triggerfish` | bait_raw |
 | `rainbow-darter` | season |
 | `rainbow-runner` | season |
-| `razorback-sucker` | world_record_raw |
 | `red-bellied-pacu` | bait_raw |
 | `red-lipped-batfish` | bait_raw |
 | `red-striped-goby` | bait_raw |
 | `rock-bass` | bait_raw |
 | `ruby-seadragon` | bait_raw |
-| `salpa-maggiore` | world_record_raw |
 | `sandbar-shark` | bait_raw |
-| `saurychthis` | world_record_raw |
-| `schoolmaster-snapper` | world_record_raw |
-| `siberian-sturgeon` | world_record_raw |
+| `shortdorsal-cutthroat-eel` | max_length_cm |
 | `silver-arowana` | bait_raw |
-| `silver-carp` | world_record_raw |
 | `smalltooth-sawfish` | bait_raw |
-| `smoothtail-mobula` | season, world_record_raw |
-| `spot-tail-shark` | bait_raw, world_record_raw |
-| `spotted-eagle-ray` | world_record_raw |
+| `smoothtail-mobula` | season |
+| `spot-tail-shark` | bait_raw |
 | `spotted-handfish` | season |
 | `starry-sturgeon` | time_raw |
-| `stethacanthus` | world_record_raw |
-| `thresher-shark` | time_raw, season, world_record_raw |
-| `tiger-shark` | season, world_record_raw |
+| `thresher-shark` | time_raw, season |
+| `tiger-shark` | season |
 | `treefish` | season |
-| `unicorn-crestfish` | season, world_record_raw |
-| `viper-moray` | world_record_raw |
-| `whale-shark` | bait_raw, world_record_raw |
-| `white-bass` | world_record_raw |
-| `white-crappie` | world_record_raw |
-| `white-sturgeon` | time_raw, world_record_raw |
-| `whitebar-eelpout` | world_record_raw |
+| `unicorn-crestfish` | season |
+| `whale-shark` | bait_raw |
+| `white-sturgeon` | time_raw |
 | `whitemouth-moray` | bait_raw |
 | `winghead-shark` | season, bait_raw |
-| `xiphactinus` | world_record_raw |
 | `yellow-tail-arowana` | season |
 
 ## Konflikty mezi tabulkami
@@ -598,160 +431,82 @@ Ryba je ve více tabulkách (každá oblast, 5-star, all-in-one) a hodnoty se li
 
 | pole | ryb s konfliktem |
 |---|---|
-| Max Price | 62 |
-| World record | 61 |
 | Bait | 45 |
-| Time | 36 |
+| Time | 35 |
 | Season | 34 |
 | rarity | 3 |
 
 <details><summary>Všechny konflikty</summary>
 
-- `african-butter-catfish` **Max Price**: `6` / `5`
 - `angel-shark` **Bait**: `Shark Bait` / `Shark Lure`
 - `angler-snake-eel` **Time**: `Always` / `02:00-02:15`
 - `angler-snake-eel` **Season**: `02:00-02:15` / `Always`
-- `australian-barracuda` **World record**: `102 cm` / `101 cm`
 - `banded-butterflyfish` **Time**: `Always` / `14:00-19:00`
 - `barbel` **Bait**: `Dough, Fish, Insects, Vegetal` / `Dough, Insects, Lures, Vegetal`
 - `barracuda` **Bait**: `Barracuda Lure, Fish, Lures` / `Fish, Lures`
-- `barramundi` **World record**: `194 cm` / `184 cm`
 - `basketfish` **Bait**: `Dough, Vegetal` / `Fish, Insects`
 - `basking-shark` **Season**: `Always` / `May - ?`
-- `basking-shark` **World record**: `1223 cm` / `1181 cm`
-- `beluga-sturgeon` **World record**: `850 cm` / `846 cm`
 - `bigeye-tuna` **Season**: `March-May, Aug-Dec` / `Always`
-- `bigeye-tuna` **Max Price**: `72` / `70`
 - `bigfin-reef-squid` **Time**: `Always` / `23:00-14:00`
 - `bighead-carp` **Time**: `11:00-15:00` / `11:00-05:00`
-- `black-alligator-gar` **Max Price**: `1558` / `1509`
-- `black-alligator-gar` **World record**: `298 cm` / `297 cm`
-- `black-dragonfish` **Max Price**: `954` / `901`
 - `blackbar-soldierfish` **Time**: `22:00-05:00` / `22:00-04:30`
-- `blackbar-soldierfish` **World record**: `26 cm` / `34 cm`
-- `blackfin-dartfish` **World record**: `13 cm` / `9 cm`
-- `blind-cave-eel` **Max Price**: `111` / `110`
-- `blobfish` **Max Price**: `9870` / `9978`
 - `blue-marlin` **Season**: `July-September` / `July-?`
-- `blue-marlin` **Max Price**: `134` / `131`
-- `blue-marlin` **World record**: `429 cm` / `428 cm`
 - `blue-spotted-grouper` **Bait**: `Fish, Insects, Lures` / `Insects, Lures`
-- `blue-tang` **Max Price**: `6` / `3`
 - `bramble-shark` **Bait**: `Shark Bait` / `Shark Lure`
-- `brook-trout` **Max Price**: `4` / `1`
 - `bull-shark` **Bait**: `Fish, Meat, Shark Lure` / `Fish, Meat`
 - `bull-shark` **Season**: `Always` / `???`
-- `bull-shark` **World record**: `401 cm` / `400 cm`
-- `carcharocles-chubutensis` **Max Price**: `130` / `???`
-- `carcharocles-chubutensis` **World record**: `1158 cm` / `???`
-- `cobelodus` **Max Price**: `65` / `265` / `???`
-- `cobelodus` **World record**: `207 cm` / `???`
 - `coelacanth` **Time**: `16:00-02:00` / `23:00-?`
-- `coelacanth` **Max Price**: `135` / `125`
-- `common-carp` **Max Price**: `6` / `7`
 - `cookiecutter-shark` **Bait**: `Shark Bait` / `Shark Lure`
 - `cornish-jack` **Bait**: `Fish, Insects` / `Fish, Insect`
 - `cretoxyrhina` **Bait**: `Prehistoric Bait` / `Prehistoirc Bait`
-- `cretoxyrhina` **Max Price**: `166` / `???`
-- `cretoxyrhina` **World record**: `602 cm` / `???`
-- `cyclops-shark` **World record**: `55 cm` / `49 cm`
 - `cylindrical-lanternshark` **Bait**: `Shark Bait` / `Shark Lure`
-- `cylindrical-lanternshark` **Time**: `02:00-02:30, 04:00-04:30, 06:00-06:15` / `02:00-02:30, 04:00-04:30, 06:00-06:15,`
 - `danube-salmon` **Bait**: `Fish, Insects, Lures` / `Fish, Insects`
 - `danube-salmon` **Time**: `Always` / `???`
 - `danube-salmon` **Season**: `Always` / `???`
-- `danube-salmon` **World record**: `164 cm` / `163 cm`
-- `dartmuthia` **Max Price**: `?` / `???`
 - `deepsea-lizardfish` **Bait**: `Fish, Lures` / `Fish. Lures`
 - `doryaspis-arctica` **Bait**: `Prehistoric Bait` / `Prehisoric Bait`
-- `doryaspis-arctica` **Max Price**: `?` / `???`
-- `dragon-moray` **Max Price**: `86` / `87`
 - `emperor-red-snapper` **Bait**: `Fish, Lures` / `Fish, Insects`
 - `evermannella-balbo` **Time**: `Always?` / `Always`
 - `fairy-basslet` **Time**: `11:00-01:00` / `Always`
 - `fangtooth-moray` **Bait**: `Insects, Meat` / `Meat`
-- `fangtooth-moray` **World record**: `118 cm` / `119 cm`
 - `fire-eel` **Time**: `23:00-04:00` / `???`
 - `fire-eel` **Season**: `Always` / `???`
-- `fire-eel` **World record**: `119 cm` / `118 cm`
 - `florida-gar` **Bait**: `Fish, Lures` / `Fish, Insects`
 - `florida-gar` **Season**: `Jan-Feb, May-Dec` / `Always` / `Janurary-February, May - December`
-- `florida-gar` **World record**: `131 cm` / `130 cm`
-- `flying-fish` **Max Price**: `6` / `7`
 - `french-grunt` **Bait**: `Lures` / `Fish, Lures`
 - `french-grunt` **Time**: `21:00-05:00` / `21:00-06:00`
-- `french-grunt` **Max Price**: `11` / `8`
 - `fresh-water-moray` **Time**: `Always` / `01:00-06:00`
 - `fresh-water-moray` **Season**: `01:00-06:00` / `Always`
-- `freshwater-goby` **Max Price**: `5` / `6`
 - `freshwater-lionfish` **Bait**: `Fish, Insects, Meat` / `Fish, Insects`
 - `frilled-shark` **Time**: `05:00-06:00` / `???`
 - `frilled-shark` **Season**: `April - December` / `???`
-- `frilled-shark` **Max Price**: `442` / `42`
-- `frilled-shark` **World record**: `213 cm` / `194 cm`
-- `garish-hind` **Max Price**: `148` / `147`
-- `giant-devil-ray` **Max Price**: `398` / `61-?`
-- `giant-freshwater-stingray` **World record**: `459 cm` / `457 cm`
 - `giant-grouper` **Season**: `Sept - March` / `September - March`
-- `giant-oarfish` **World record**: `1754 cm` / `1409 cm`
-- `giant-oceanic-manta-ray` **World record**: `909 cm` / `908 cm`
 - `giant-salmon-carp` **Season**: `Always` / `October - ?`
-- `giant-salmon-carp` **World record**: `128cm` / `???`
-- `giant-snakehead` **Max Price**: `22` / `21`
 - `goblin-shark` **Time**: `09:00-12:00` / `???`
 - `goblin-shark` **Season**: `Always` / `May - ?`
-- `goblin-shark` **Max Price**: `748` / `531`
-- `goblin-shark` **World record**: `610 cm` / `324 cm`
-- `gold-carp` **World record**: `119 cm` / `118 cm`
 - `golden-arowana` **rarity**: `4` / `4star.png` / `5star.png`
 - `golden-cave-catfish` **Season**: `Always` / `Sept - ?`
-- `golden-cave-catfish` **World record**: `16cm` / `???`
 - `golden-dorado` **Time**: `05:00-00:00` / `00:00-05:00`
 - `golden-dorado` **Season**: `June-Sep` / `June-???`
-- `golden-trevally` **World record**: `118 cm` / `119 cm`
-- `golden-trout` **Max Price**: `52` / `51`
 - `goldfish` **Time**: `Always` / `23:00-04:00`
-- `goldfish` **Max Price**: `13` / `12`
-- `goliath-tigerfish` **World record**: `149 cm` / `197 cm`
 - `grammonus-yunokawai` **Time**: `Oct 1 - Oct 30` / `23:00-06:00`
 - `grammonus-yunokawai` **Season**: `02:00-06:00` / `Always`
-- `grass-pickerel` **Max Price**: `54` / `45`
-- `great-white-shark` **World record**: `790 cm` / `785 cm`
 - `green-moray` **Bait**: `Insects, Lures` / `Fish, Insects, Lures`
-- `green-moray` **Max Price**: `45` / `44`
 - `green-red-arowana` **Time**: `Always` / `14:00-00:00`
-- `green-red-arowana` **World record**: `124 cm` / `123 cm`
-- `green-sawfish` **World record**: `729 cm` / `728 cm`
 - `guapote` **Season**: `Always` / `Aug - ??`
-- `guapote` **Max Price**: `80` / `80-?`
-- `gyrosteus` **Max Price**: `429` / `???`
-- `gyrosteus` **World record**: `514 cm` / `???`
-- `halibut` **World record**: `365 cm` / `364 cm`
 - `hammerhead-shark` **Bait**: `Fish, Meat, Shark Lure` / `Fish, Meat, Shark Bait`
 - `hellers-barracuda` **Bait**: `Barracuda Lure` / `Barrauda Lure`
-- `hellers-barracuda` **Max Price**: `9` / `8`
 - `horn-shark` **Time**: `23:00-?` / `Always`
 - `humpback-anglerfish` **Season**: `28 Oct - 3 Nov` / `Halloween; 28 October - 3 November`
-- `lake-sturgeon` **Max Price**: `74` / `42`
 - `largetooth-sawfish` **Season**: `Always` / `March - ?`
-- `largetooth-sawfish` **World record**: `704 cm` / `703 cm`
 - `lavender-mbuna` **Time**: `13:00-15:00` / `Always`
-- `leedsichthys` **World record**: `1381 cm` / `1208 cm`
 - `lemon-shark` **Bait**: `Shark Bait` / `Shark Lure`
 - `lionhead-goldfish` **Bait**: `Dough, Insects, Vegetal` / `Dough`
-- `long-finned-eel` **World record**: `119 cm` / `120 cm`
-- `long-snouted-lancetfish` **Max Price**: `236` / `160` / `260`
 - `longnose-sawshark` **Bait**: `Shark Lure` / `Fish, Insects`
-- `macropoma` **Max Price**: `110` / `109`
 - `mandarinfish` **Season**: `July-September` / `July-???`
 - `marine-betta` **Time**: `00:00-05:00` / `Always`
-- `masked-angelfish` **Max Price**: `145` / `136`
-- `meadia-roseni` **Max Price**: `1131` / `1200`
-- `meadia-roseni` **World record**: `75 cm` / `74 cm`
 - `megamouth-shark` **Time**: `Always` / `???`
 - `megamouth-shark` **Season**: `Always` / `May-?`
-- `megamouth-shark` **Max Price**: `298` / `299`
-- `megamouth-shark` **World record**: `705 cm` / `599 cm`
 - `mexican-hogfish` **Time**: `08:00-19:00` / `07:00-19:00`
 - `moon-wrasse` **Bait**: `Insects` / `Fish, Insects`
 - `muraena-augusti` **Time**: `Always` / `23:00-00:00`
@@ -760,94 +515,46 @@ Ryba je ve více tabulkách (každá oblast, 5-star, all-in-one) a hodnoty se li
 - `northern-lampfish` **Time**: `00:00-08:00` / `Always`
 - `oceanic-whitetip-shark` **Bait**: `Shark Bait` / `Shark Lure`
 - `orangespotted-soapfish` **Bait**: `Dough, Insects, Vegetables` / `Dough, Insects, Vegetal`
-- `orthacanthus` **Max Price**: `178` / `???`
-- `orthacanthus` **World record**: `302 cm` / `???`
-- `osteolepis` **Max Price**: `76` / `26`
-- `pacific-barracuda` **World record**: `144 cm` / `143 cm`
 - `pacific-bluefin-tuna` **Season**: `Sep-Dec, Jan-March` / `Sept-Dec, Jan-March` / `September - December, January - March`
 - `parachaenichthys-charcoti` **Season**: `Oct 20 - Dec 10` / `October 20 - December 10`
-- `parachaenichthys-charcoti` **Max Price**: `85` / `89`
 - `paroon-shark` **Bait**: `Dough, Insects, Fish, Meat, Shark Lures, Vegetal` / `Fish, Insects, Shark Bait`
 - `paroon-shark` **Season**: `Sept-March` / `Always`
-- `payara` **World record**: `119 cm` / `? cm`
 - `peacock-flounder` **Bait**: `Insects, Lures` / `Lures`
-- `peled` **World record**: `49 cm` / `48 cm`
 - `pelican-barracuda` **Time**: `15:00-22:00` / `Always`
-- `pelican-eel` **Max Price**: `336` / `450`
-- `phantom-bannerfish` **Max Price**: `1` / `3`
-- `pickhandle-barracuda` **Max Price**: `24` / `22`
 - `pineapplefish` **Bait**: `Insects` / `Fish, Insects`
 - `pinktail-triggerfish` **Bait**: `Fishm, Insects, Vegetal` / `Fish, Insects, Vegetal`
 - `platinum-golden-arowana` **Time**: `Always` / `00:00-?`
-- `platysomus` **Max Price**: `36` / `49`
 - `rainbow-darter` **Season**: `March-October` / `May-October`
 - `rainbow-runner` **Season**: `March-?` / `March-August`
-- `razorback-sucker` **World record**: `90 cm` / `89 cm`
 - `red-bellied-pacu` **Bait**: `Fish, Insects, Vegetal, Meat` / `Vegetal, Insects, Meat`
 - `red-lipped-batfish` **Bait**: `Fish, Insects` / `Insects`
 - `red-striped-goby` **Bait**: `Dough, Vegetal` / `Fish, Insects`
 - `rock-bass` **Bait**: `Fish, Insects, Lures` / `Dough, Fish, Insects, Lures`
-- `rock-bass` **Max Price**: `7` / `6`
 - `ruby-seadragon` **Bait**: `Isnects` / `Insects`
 - `ruby-seadragon` **Time**: `03:00-08:00` / `03:00-07:00`
-- `ruby-seadragon` **Max Price**: `748` / `457`
-- `salpa-maggiore` **World record**: `23 cm` / `16 cm`
 - `sandbar-shark` **Bait**: `Shark bait` / `Shark Lure`
-- `saurychthis` **Max Price**: `99` / `???`
-- `saurychthis` **World record**: `127 cm` / `???`
 - `schoolmaster-snapper` **Time**: `Always` / `17:00-05:00`
-- `schoolmaster-snapper` **World record**: `44 cm` / `45 cm`
-- `siberian-sturgeon` **World record**: `202 cm` / `201 cm`
 - `silver-arowana` **Bait**: `Fish, Insects, Meat` / `Fish, Insects`
-- `silver-carp` **Max Price**: `224` / `222`
-- `silver-carp` **World record**: `139 cm` / `138 cm`
 - `smalltooth-sawfish` **Bait**: `Monster Bait` / `Monster bait` / `Moster Bait`
 - `smoothtail-mobula` **Time**: `Always` / `?`
 - `smoothtail-mobula` **Season**: `Always` / `Feb - ?`
-- `smoothtail-mobula` **Max Price**: `238` / `?`
-- `smoothtail-mobula` **World record**: `219 cm` / `188 cm`
-- `sockeye-salmon` **Max Price**: `30` / `34`
 - `spot-tail-shark` **Bait**: `Shark bait` / `Shark Lure`
-- `spot-tail-shark` **Max Price**: `57` / `165`
-- `spot-tail-shark` **World record**: `164 cm` / `163 cm`
-- `spotted-eagle-ray` **World record**: `499 cm` / `485 cm`
 - `spotted-handfish` **Season**: `Always` / `Sep - ?`
-- `spotted-handfish` **Max Price**: `137` / `122`
 - `starry-sturgeon` **Time**: `23:00-05:00?` / `23:00-05:00`
-- `stethacanthus` **Max Price**: `270` / `???`
-- `stethacanthus` **World record**: `188 cm` / `55 cm`
-- `tadpole-snailfish` **Max Price**: `1193` / `543`
 - `thresher-shark` **Time**: `Always` / `???`
 - `thresher-shark` **Season**: `Always` / `May-?`
-- `thresher-shark` **World record**: `759 cm` / `602 cm`
 - `tiger-shark` **Time**: `Always` / `???`
 - `tiger-shark` **Season**: `Always` / `May-?`
-- `tiger-shark` **World record**: `747 cm` / `703 cm`
-- `titanichthys` **Max Price**: `510` / `491`
 - `treefish` **Season**: `March - ?` / `Always`
 - `unicorn-crestfish` **Time**: `Always` / `???`
 - `unicorn-crestfish` **Season**: `Always` / `October - ?`
-- `unicorn-crestfish` **World record**: `148cm` / `?` / `???`
-- `viper-moray` **World record**: `285 cm` / `117 cm`
 - `whale-shark` **Bait**: `Shark Bait` / `Shark Lure`
-- `whale-shark` **World record**: `1859 cm` / `856 cm`
-- `white-bass` **World record**: `48 cm` / `24 cm` / `49 cm`
-- `white-crappie` **Max Price**: `3` / `2`
-- `white-crappie` **World record**: `48 cm` / `49 cm`
-- `white-marlin` **Max Price**: `44` / `42`
 - `white-sturgeon` **Time**: `12:00-17:00` / `Always`
-- `white-sturgeon` **World record**: `609 cm` / `405 cm`
-- `whitebar-eelpout` **World record**: `76cm` / `75 cm`
 - `whitemouth-moray` **Bait**: `Fish, Insects` / `Fish, Insects, Meat`
 - `winghead-shark` **Bait**: `Shark` / `Shark Lure`
 - `winghead-shark` **Season**: `?July-March?` / `July(?)-March(?)` / `? July - March ?`
-- `winghead-shark` **Max Price**: `111` / `106`
 - `xenacanthus` **rarity**: `2` / `4star.png`
-- `xiphactinus` **World record**: `620 cm` / `62 cm`
-- `yangtze-sturgeon` **Max Price**: `497` / `493`
 - `yellow-tail-arowana` **Season**: `Dec - March` / `December - April` / `December - March`
-- `yellowfin-tuna` **Max Price**: `15` / `14`
-- `yellowtail-wrasse` **Max Price**: `5` / `3`
 
 </details>
 
@@ -988,8 +695,8 @@ Počet: 17
 | Bait | `bait[]`, `bait_raw` |
 | Season | `season` (raw text, neparsováno) |
 | Time | `time` (`"always"` nebo `[{from,to}]`), `time_raw` |
-| World record | `world_record_cm`, `world_record_raw` |
-| Max Price (fishbucks) | `max_price`, `max_price_raw` |
+| World record + fishao.cz Délka / maximální | `max_length_cm` `{min, max}`, `max_length_raw` (hodnoty + zdroje) |
+| Max Price, fishao.cz ceny | **zahozeno** (jen `has_glowing_variant` z existence zářivé ceny) |
 | hvězdy (obrázek `Nstar.png`) / Stars | `rarity` 1–5, `rarity_raw` |
 | Area (all-in-one, 5-star) | → `areas[]` při přesné shodě, raw v `extra.occurrences` |
 | Pool (Club) | `extra.pool` |

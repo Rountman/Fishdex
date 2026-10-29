@@ -5,8 +5,8 @@ from __future__ import annotations
 from collections import Counter
 from datetime import date
 
-CHECK_FIELDS = ["areas", "time_raw", "season", "rarity", "bait_raw", "max_price_raw", "world_record_raw", "image"]
-PARSED_PAIRS = [("time", "time_raw"), ("max_price", "max_price_raw"), ("world_record_cm", "world_record_raw")]
+CHECK_FIELDS = ["areas", "time_raw", "season", "rarity", "bait_raw", "max_length_cm", "image"]
+PARSED_PAIRS = [("time", "time_raw")]
 
 
 def _md_list(items, fmt=str, limit=None):
@@ -19,7 +19,7 @@ def _md_list(items, fmt=str, limit=None):
 
 
 def write_report(path, fish, areas, snaps, disc, sections, notes, unmatched_area_tokens,
-                 candidates, aliases, image_failures, fetch_failures, with_images, cz):
+                 candidates, aliases, image_failures, fetch_failures, with_images, cz, man):
     L = []
     w = L.append
     by_id = Counter(f["id"] for f in fish)
@@ -101,11 +101,13 @@ def write_report(path, fish, areas, snaps, disc, sections, notes, unmatched_area
         w("\n".join(_md_list(cleaned, lambda f: f"`{f['id']}`: {f['extra']['image_note']}")))
         w("")
 
+    _manual_section(w, man)
+
     # ------------------------------------------------------------ missing fields
     w("## Chybějící pole")
     w("")
-    w("`null` = hodnota není ani na wiki, ani (u ceny, času, rarity) na fishao.cz, **nebo** se zdroje neshodují. "
-      "Pole `weather` ve zdroji neexistuje vůbec → null u všech ryb.")
+    w("`null` = hodnota není ani na wiki, ani (u času a rarity) na fishao.cz, **nebo** se zdroje neshodují. "
+      "Ceny a počasí nejsou součástí datasetu (rozhodnutí uživatele) — sloupec *Max Price* se při parsování zahazuje.")
     w("")
     w("| pole | chybí u |")
     w("|---|---|")
@@ -253,8 +255,8 @@ def write_report(path, fish, areas, snaps, disc, sections, notes, unmatched_area
     w("| Bait | `bait[]`, `bait_raw` |")
     w("| Season | `season` (raw text, neparsováno) |")
     w("| Time | `time` (`\"always\"` nebo `[{from,to}]`), `time_raw` |")
-    w("| World record | `world_record_cm`, `world_record_raw` |")
-    w("| Max Price (fishbucks) | `max_price`, `max_price_raw` |")
+    w("| World record + fishao.cz Délka / maximální | `max_length_cm` `{min, max}`, `max_length_raw` (hodnoty + zdroje) |")
+    w("| Max Price, fishao.cz ceny | **zahozeno** (jen `has_glowing_variant` z existence zářivé ceny) |")
     w("| hvězdy (obrázek `Nstar.png`) / Stars | `rarity` 1–5, `rarity_raw` |")
     w("| Area (all-in-one, 5-star) | → `areas[]` při přesné shodě, raw v `extra.occurrences` |")
     w("| Pool (Club) | `extra.pool` |")
@@ -305,22 +307,20 @@ def _cz_section(w, fish, cz):
     w("")
     w("### Křížová validace fishaowiki × fishao.cz")
     w("")
-    w("Jen report — hodnoty z wiki se nepřepisují. Délka *maximální* na fishao.cz nemusí být totéž co *World record* na wiki.")
+    w("Jen report — hodnoty z wiki se nepřepisují (kromě doplnění níže).")
     w("")
     w("| porovnání | rozdílů |")
     w("|---|---|")
-    w(f"| Max Price × Cena v obchodě / maximální | {len(v['price'])} |")
     w(f"| hvězdy × Výskyt | {len(v['rarity'])} |")
     w(f"| Time × čas | {len(v['time'])} |")
-    w(f"| World record × Délka maximální | {len(v['length_vs_wr'])} |")
+    w(f"| délka: zdroje se liší → rozsah min–max | {len(v['length_range'])} |")
     w(f"| konfliktní názvy mezi více stránkami (nevyřešené) | {len(v['names_conflict'])} |")
     w("")
-    w("**Doplněno z fishao.cz** (na wiki null — chybí, `?` nebo konflikt mezi tabulkami; fishao.cz stránky se shodují "
+    w("**Doplněno z fishao.cz** (na wiki chybí, nejde rozparsovat nebo se tabulky neshodují; fishao.cz stránky se shodují "
       "a hodnota jde rozparsovat): " + ", ".join(f"{k}: {n}" for k, n in v["filled_by_cz"].items())
-      + ". U ryby v `extra.filled_from.<pole>` = `{source, reason, wiki_raw}`; `*_raw` pak obsahuje text z fishao.cz. "
-      "Ostatní pole z fishao.cz se nepřebírají.")
+      + ". U ryby v `extra.filled_from.<pole>` = `{source, reason}`; `*_raw` pak obsahuje text z fishao.cz.")
     w("")
-    for key, title in (("price", "Cena"), ("rarity", "Hvězdy"), ("time", "Čas"), ("length_vs_wr", "WR × délka")):
+    for key, title in (("rarity", "Hvězdy"), ("time", "Čas")):
         w(f"<details><summary>{title} ({len(v[key])})</summary>")
         w("")
         for fid, a, b in v[key]:
@@ -328,6 +328,17 @@ def _cz_section(w, fish, cz):
         w("")
         w("</details>")
         w("")
+    big = [x for x in v["length_range"] if x[1]["max"] > 1.25 * x[1]["min"]]
+    w(f"Délky v rozsahu: {len(v['length_range'])} ryb, z toho {len(big)} s rozdílem > 25 % (podezřelé):")
+    w("")
+    w("<details><summary>Seznam</summary>")
+    w("")
+    for fid, rng, raws in v["length_range"]:
+        flag = " ⚠️" if rng["max"] > 1.25 * rng["min"] else ""
+        w(f"- `{fid}` {rng['min']}–{rng['max']} cm{flag}: " + "; ".join(f"`{r['value']}` ({', '.join(r['sources'])})" for r in raws))
+    w("")
+    w("</details>")
+    w("")
     w(f"Názvy ze dvou stránek, kde jedna má jen nepřeložené anglické jméno → vzat přeložený ({len(v['names_resolved'])}):")
     w("")
     w("<details><summary>Seznam</summary>")
@@ -353,3 +364,22 @@ def _cz_section(w, fish, cz):
         for x in cz["image_failures"]:
             w(f"- `{x['fish_id']}`: `{x['url']}` → {x['error']}")
         w("")
+
+
+def _manual_section(w, man):
+    w("## Ruční doplnění — `manual/resolutions.csv`")
+    w("")
+    w("Zbylé konflikty a díry (návnada, sezóna, čas, rarita, český název), které žádný zdroj jednoznačně neřeší. "
+      "CSV (`;`, UTF-8) jde otevřít v Excelu: sloupec `options` = hodnoty z wiki s tabulkami, odkud jsou, "
+      "`fishao_cz` = co uvádí fishao.cz (česky, jako nápověda). Vyplněná `value` se při dalším buildu použije "
+      "(`extra.filled_from.<pole>.source = \"manual\"`) a při přegenerování CSV se nikdy nepřepíše.")
+    w("")
+    by = Counter((r["field"], r["problem"]) for r in man["rows"])
+    open_by = Counter((r["field"], r["problem"]) for r in man["open"])
+    w("| pole | problém | celkem | otevřeno |")
+    w("|---|---|---|---|")
+    for (fld, prob), n in sorted(by.items()):
+        w(f"| {fld} | {prob} | {n} | {open_by.get((fld, prob), 0)} |")
+    w("")
+    w(f"Použito ručních hodnot: {man['applied']}; otevřeno: {len(man['open'])}.")
+    w("")

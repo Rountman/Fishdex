@@ -5,8 +5,9 @@ Run:  .venv/bin/python scrape.py            (everything; resumable, all fetches 
 
 The wiki has no per-fish pages: every fish is a row in TablePress tables on five
 pages. One fish can appear in several tables (one per area + 5-star + all-in-one).
-Each row is kept verbatim in extra.occurrences; top-level fields are filled only
-where all occurrences agree, otherwise null + extra.conflicts.
+Each row is kept verbatim in extra.occurrences (minus the price column, which is
+deliberately dropped); top-level fields are filled only where all occurrences agree,
+otherwise null + extra.conflicts.
 """
 
 from __future__ import annotations
@@ -25,8 +26,10 @@ from urllib.parse import quote, urlsplit
 from bs4 import BeautifulSoup
 
 import fishao_cz
+import manual
 import merge_cz
 from fetch import FetchFailed, failures, fetch, fetch_meta
+from timefmt import norm_time, parse_time
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = ROOT / "data"
@@ -49,8 +52,8 @@ PAGES = {
 SOURCE_ORDER = ["all-in-one", "area-fish", "5-star-fish", "breeder-fish", "tournament-fish"]
 IMAGE_SOURCE_ORDER = ["area-fish", "5-star-fish", "breeder-fish", "tournament-fish"]
 
+DROPPED_COLUMN = "Max Price"  # prices are deliberately not part of the dataset
 STAR_RE = re.compile(r"^([1-5])star\.png$")
-TIME_RANGE_RE = re.compile(r"^(\d{2}:\d{2})\s*-\s*(\d{2}:\d{2})$")
 UNLOCKABLE_RE = re.compile(r"\s+Unlockable$", re.I)
 PAREN_RE = re.compile(r"\(([^)]*)\)?")
 
@@ -135,6 +138,7 @@ def parse_page(key: str, snap: dict) -> tuple[list[dict], list[dict], list[str]]
             if len(cells) != len(headers):
                 notes.append(f"{key} / {section}: row with {len(cells)} cells vs {len(headers)} headers: {ws(tr.get_text(' '))[:80]}")
             row = {h: ws(c.get_text(" ")) for h, c in zip(headers, cells)}
+            row.pop(DROPPED_COLUMN, None)
             first = cells[0]
             strong = first.find("strong")
             name_raw = ws(strong.get_text(" ")) if strong else row.get("Fish", "")
@@ -210,20 +214,6 @@ def bait_tokens(raw: str) -> list[str]:
 
 def norm_bait(raw: str) -> str:
     return "|".join(sorted(t.lower() for t in bait_tokens(raw)))
-
-
-def parse_time(raw: str | None):
-    if raw is None:
-        return None
-    if raw == "Always":
-        return "always"
-    ranges = []
-    for part in raw.split(","):
-        m = TIME_RANGE_RE.match(part.strip())
-        if not m:
-            return None
-        ranges.append({"from": m.group(1), "to": m.group(2)})
-    return ranges
 
 
 def int_or_none(raw: str | None, pattern: str):
@@ -401,10 +391,8 @@ def build(with_images: bool) -> None:
             return raw
 
         bait_raw = field("Bait", norm_bait)
-        time_raw = field("Time")
+        time_raw = field("Time", norm_time)
         season_raw = field("Season")
-        price_raw = field("Max Price")
-        wr_raw = field("World record")
 
         # rarity: Stars column (all-in-one) + star images
         star_vals = [(o["page"], o["cells"]["Stars"]) for o in occs if "Stars" in o["cells"]]
@@ -450,20 +438,17 @@ def build(with_images: bool) -> None:
         fish_list.append({
             "id": fid,
             "name": names[0],
-            "names": None,  # filled by merge_cz: {en, cs, sk}
+            "names": None,  # filled by merge_cz: {en, cs, sk, es}
             "areas": sorted(area_sources),
             "time": parse_time(time_raw),
             "time_raw": time_raw,
-            "weather": None,
             "season": season_raw,
             "rarity": rarity,
             "rarity_raw": rarity_raw,
             "bait": bait_tokens(bait_raw) if bait_raw is not None else None,
             "bait_raw": bait_raw,
-            "max_price": int_or_none(price_raw, r"(\d+)"),
-            "max_price_raw": price_raw,
-            "world_record_cm": int_or_none(wr_raw, r"(\d+)\s*cm"),
-            "world_record_raw": wr_raw,
+            "max_length_cm": None,  # filled by merge_cz: {min, max} over wiki World record + fishao.cz max length
+            "max_length_raw": None,
             "has_glowing_variant": None,
             "glowing_info": None,
             "image": image,
@@ -473,9 +458,12 @@ def build(with_images: bool) -> None:
             "extra": extra,
         })
 
-    # ---- second source: fishao.cz (names cs/sk, glowing price, image fallback, validation)
+    # ---- second source: fishao.cz (names, glowing variant, lengths, image fallback, validation)
     cz_pages = fishao_cz.run()
     cz = merge_cz.merge(fish_list, cz_pages, slugify, split_name, aliases, IMG_DIR, image_ext, with_images)
+
+    # ---- human-filled values from manual/resolutions.csv
+    man = manual.run(fish_list)
 
     if with_images:
         ids = {f["id"] for f in fish_list}
@@ -504,7 +492,7 @@ def build(with_images: bool) -> None:
 
     from report import write_report
     write_report(DATA_DIR / "report.md", fish_list, list(areas.values()), snaps, disc, sections,
-                 notes, unmatched_area_tokens, candidates, aliases, image_failures, failures(), with_images, cz)
+                 notes, unmatched_area_tokens, candidates, aliases, image_failures, failures(), with_images, cz, man)
     print(f"fish: {len(fish_list)}  areas: {len(areas)}  images: {sum(1 for f in fish_list if f['image'])}")
 
 

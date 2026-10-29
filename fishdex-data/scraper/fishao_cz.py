@@ -3,8 +3,9 @@
 Run standalone to (re)download + parse:  .venv/bin/python fishao_cz.py
 Writes data/fishao_cz.json. scrape.py merges it into fish.json for names/validation.
 
-Deliberately NOT stored: player usernames ("Hráči u kterých lze ulovit", fossil offers)
-and the free-form catching guide — personal data / prose, not fish data.
+Deliberately NOT stored: player usernames ("Hráči u kterých lze ulovit", fossil offers),
+the free-form catching guide, and all prices (only `glowing_listed` = the page has a
+glowing price row, i.e. the fish has a glowing variant).
 """
 
 from __future__ import annotations
@@ -24,6 +25,7 @@ WAYBACK = "https://web.archive.org/web"
 CDX_URL = ("https://web.archive.org/cdx/search/cdx?url=fishao.cz/ryba/*&output=json"
            "&filter=statuscode:200&filter=mimetype:text/html&fl=timestamp,original")
 
+GLOW_FIELD = "Cena v obchodě / zářivá"
 SKIP_SECTIONS = {"Hráči u kterých lze ulovit", "Nabídka fosilií této ryby"}
 
 
@@ -61,7 +63,7 @@ def parse(html: bytes, slug: str, ts: str, url: str) -> dict:
         "slug": slug, "source_url": url, "snapshot_timestamp": ts,
         "title": ws(soup.title.get_text()) if soup.title else None,
         "fields": {}, "image_src": None, "categories": None, "notes_raw": None,
-        "sections": [], "parse_warnings": [],
+        "sections": [], "glowing_listed": False, "parse_warnings": [],
     }
     img = soup.select_one(".ryba-nahled img")
     if img:
@@ -117,6 +119,9 @@ def parse(html: bytes, slug: str, ts: str, url: str) -> dict:
                     rec["parse_warnings"].append(f"duplicate key {key!r}")
                     key = f"{key} #2"
                 rec["fields"][key] = val
+    # prices are not part of the dataset — keep only the fact that a glowing price row exists
+    rec["glowing_listed"] = bool(rec["fields"].get(GLOW_FIELD))
+    rec["fields"] = {k: v for k, v in rec["fields"].items() if "Cena" not in k}
     return rec
 
 
