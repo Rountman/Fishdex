@@ -100,8 +100,8 @@ Papírová textura nebo hluboká voda, ručně působící typografie, ryby jako
 exponáty. Zářivé varianty = bioluminiscence (jemná záře, ne neon).
 
 Tokeny (výchozí návrh, doladit podle obrázků ryb):
-- Fonty: display serif (např. Fraunces nebo Instrument Serif) + čitelný
-  grotesk pro data (např. General Sans z Fontshare). NIKDY Inter, Roboto, Arial.
+- Fonty (schváleno): **Alegreya** (nadpisy, jména ryb, poznámky kurzívou)
+  + **Schibsted Grotesk** (data). Žádné ručně psané písmo. NIKDY Inter, Roboto, Arial.
 - Barvy definuj jako CSS custom properties v OKLCH na `:root`, s dark mode.
 - Rarity mají vlastní barvy, ale nespoléhej jen na barvu — i ikona/text.
 - Spacing škála: 4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 / 96.

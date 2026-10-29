@@ -19,12 +19,9 @@ Varianta B (`prototypes/b-kabinet/`) je jen archiv, dál se neudržuje.
 - **Obsah deníku začíná položkou „Všechny oblasti“** (výchozí, celkový progres X/615),
   pod ní oblasti, turnaje a Backyard. Na mobilu je to první volba selectu oblastí.
 - **Podtitul** „Rybářský deník Fishao“ je ve fontu názvů ryb (ne ručně psaný).
-- **Fonty:** Fraunces a Kalam se mění. Kandidáti (přepínač `?font=1|2|3`):
-  1. Alegreya + Patrick Hand (výchozí)
-  2. Instrument Serif + Caveat
-  3. Young Serif + Shantell Sans
-
-  Data dál ve Schibsted Grotesk. **Čeká na výběr uživatele.**
+- **Fonty (schváleno):** Alegreya na nadpisy, jména ryb a poznámky (poznámky,
+  popisky filtrů a „Zápis“ kurzívou), Schibsted Grotesk na data. Žádné ručně psané
+  písmo. Hlavní nadpis zůstává „Fishdex“.
 
 ## Rozhodnutí, která uživatel nezadal (k potvrzení)
 

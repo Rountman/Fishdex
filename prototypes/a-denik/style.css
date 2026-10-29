@@ -24,10 +24,8 @@
 
   --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px; --s7: 48px; --s8: 64px; --s9: 96px;
   --text: "Schibsted Grotesk", "Avenir Next", "Segoe UI", sans-serif;
-  /* font pairing 1 (default): Alegreya + Patrick Hand */
   --display: "Alegreya", "Iowan Old Style", Georgia, serif;
-  --title-w: 800; --name-w: 700; --name-scale: 1;
-  --hand: "Patrick Hand", "Bradley Hand", cursive; --hand-scale: 1.05;
+  --title-w: 800; --name-w: 700;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
@@ -148,7 +146,7 @@ button { cursor: pointer; }
 .index { grid-area: index; align-self: start; }
 .index-title { margin: 0 0 var(--s3); font: 500 22px/1 var(--display); font-style: italic; }
 .areas { list-style: none; margin: 0; padding: 0; }
-.areas .kind { margin: var(--s4) 0 var(--s1); font: 400 calc(16px * var(--hand-scale))/1 var(--hand); color: var(--ink-faint); }
+.areas .kind { margin: var(--s4) 0 var(--s1); font: italic 400 16px/1 var(--display); color: var(--ink-faint); }
 .areas button {
   display: grid; grid-template-columns: 1fr auto; align-items: baseline; width: 100%;
   padding: 5px var(--s2) 6px; border: 0; background: none; text-align: left; border-radius: 3px;
@@ -166,7 +164,7 @@ button { cursor: pointer; }
 .hint {
   display: flex; flex-wrap: wrap; align-items: center; gap: var(--s2) var(--s5);
   max-width: 640px; margin: 0 0 var(--s5); padding: var(--s3) var(--s4);
-  font: 400 calc(16px * var(--hand-scale))/1.35 var(--hand); color: var(--ink);
+  font: italic 400 16px/1.35 var(--display); color: var(--ink);
   background: var(--slip);
   border-left: 3px solid var(--stamp);
   transform: rotate(-0.6deg);
@@ -191,7 +189,7 @@ button { cursor: pointer; }
 .search input::placeholder { color: var(--ink-faint); font-style: italic; }
 .search:focus-within { border-color: var(--focus); }
 .filter-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s2); }
-.filter-label { font: 400 calc(16px * var(--hand-scale))/1 var(--hand); color: var(--ink-soft); min-width: 64px; }
+.filter-label { font: italic 400 16px/1 var(--display); color: var(--ink-soft); min-width: 64px; }
 .chip {
   border: 1.5px solid var(--ink-faint); background: transparent; color: var(--ink);
   border-radius: 999px; padding: 3px var(--s3); font-size: 14px; line-height: 1.3;
@@ -273,14 +271,14 @@ select {
 }
 
 .card-name {
-  margin: 0; font: var(--name-w) calc(18px * var(--name-scale))/1.12 var(--display);
+  margin: 0; font: var(--name-w) 18px/1.12 var(--display);
   text-wrap: balance; overflow-wrap: anywhere;
 }
 .card-en { margin: 2px 0 var(--s2); font-size: 13px; color: var(--ink-soft); overflow-wrap: anywhere; }
 .card-meta { display: flex; justify-content: space-between; gap: var(--s2); margin: 0; font-size: 13px; font-variant-numeric: tabular-nums; }
 .len { color: var(--ink-soft); white-space: nowrap; }
 .card-where { margin: 2px 0 0; font-size: 13px; color: var(--ink-soft); }
-.note { font: 400 calc(15px * var(--hand-scale))/1 var(--hand); color: var(--ink-soft); }
+.note { font: italic 400 15px/1 var(--display); color: var(--ink-soft); }
 .more { font-size: 12px; color: var(--ink-faint); }
 
 .stamp {
@@ -316,7 +314,7 @@ select {
 .card-open {
   position: absolute; right: var(--s2); bottom: var(--s2); z-index: 2;
   border: 0; background: none; padding: var(--s1) var(--s2);
-  font: 400 calc(16px * var(--hand-scale))/1 var(--hand); color: var(--ink-soft);
+  font: italic 400 16px/1 var(--display); color: var(--ink-soft);
   text-decoration: underline; text-decoration-style: wavy; text-decoration-thickness: 1px; text-underline-offset: 4px;
 }
 .card-open:hover { color: var(--ink); }
@@ -348,7 +346,7 @@ select {
 .sheet-rarity .stars { font-size: 16px; }
 .sheet h2 {
   margin: 0; padding-right: var(--s7);
-  font: var(--name-w) calc(38px * var(--name-scale))/1.02 var(--display);
+  font: var(--name-w) 38px/1.02 var(--display);
   text-wrap: balance;
 }
 .sheet-en { margin: var(--s2) 0 0; color: var(--ink-soft); font-size: 16px; }
@@ -377,7 +375,7 @@ select {
 .toggle[aria-pressed="true"] .box::after { content: "✓"; font-size: 14px; line-height: 1; }
 .toggle.glow[aria-pressed="true"] { background: var(--night); color: var(--glow); border-color: var(--night); box-shadow: inset 0 0 0 1px var(--glow-soft), 0 0 10px -2px var(--glow-soft); }
 .facts { display: grid; grid-template-columns: 96px 1fr; gap: var(--s3) var(--s4); margin: 0; border-top: 1px solid color-mix(in oklch, var(--ink) 20%, transparent); padding-top: var(--s4); }
-.facts dt { font: 400 calc(17px * var(--hand-scale))/1.25 var(--hand); color: var(--ink-soft); }
+.facts dt { font: italic 400 17px/1.25 var(--display); color: var(--ink-soft); }
 .facts dd { margin: 0; font-size: 15px; }
 .facts .unknown { color: var(--ink-faint); font-style: italic; }
 .untranslated { font-style: italic; }
@@ -461,7 +459,7 @@ select {
 .states-wrap { margin-top: var(--s8); padding-top: var(--s5); border-top: 2px solid var(--ink); }
 .states { display: grid; grid-template-columns: repeat(auto-fill, minmax(176px, 1fr)); gap: var(--s5) var(--s4); }
 .state { margin: 0; display: grid; grid-template-rows: auto 1fr; gap: var(--s3); }
-.state figcaption { font: 400 calc(16px * var(--hand-scale))/1 var(--hand); color: var(--ink-soft); }
+.state figcaption { font: italic 400 16px/1 var(--display); color: var(--ink-soft); }
 .card.is-hover { border-color: var(--ink); }
 .card.is-focus .card-hit { outline: 2.5px solid var(--focus); outline-offset: 3px; }
 .card.is-pressing .card-glow { animation: charge .5s linear forwards; }
@@ -479,18 +477,7 @@ select {
 :root[data-theme="dark"] .card[data-caught="false"] .card-art img { mix-blend-mode: normal; filter: grayscale(0.7) brightness(1.1); opacity: 0.42; }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .card[data-caught="false"] .card-art img { mix-blend-mode: normal; filter: grayscale(0.7) brightness(1.1); opacity: 0.42; } }
 
-/* ---------- font pairings (?font=2 / ?font=3) ---------- */
 html { font-synthesis-weight: none; }
-:root[data-font="2"] {
-  --display: "Instrument Serif", Georgia, serif;
-  --title-w: 400; --name-w: 400; --name-scale: 1.18;
-  --hand: "Caveat", cursive; --hand-scale: 1.22;
-}
-:root[data-font="3"] {
-  --display: "Young Serif", Georgia, serif;
-  --title-w: 400; --name-w: 400; --name-scale: 0.94;
-  --hand: "Shantell Sans", cursive; --hand-scale: 0.86;
-}
 
 /* ---------- bait picker ---------- */
 .filter-row--bait { position: relative; }
@@ -539,7 +526,7 @@ html { font-synthesis-weight: none; }
 .card-bred:hover { color: var(--ink); border-color: var(--ink-faint); }
 .card-bred[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
 .card-bred[aria-pressed="true"] .pond { opacity: 1; }
-.bred-note { margin: var(--s1) 0 0; font: 400 calc(15px * var(--hand-scale))/1.1 var(--hand); color: var(--ink); }
+.bred-note { margin: var(--s1) 0 0; font: italic 400 15px/1.1 var(--display); color: var(--ink); }
 .bred-note::before { content: "✓ "; }
 .toggle.bred { grid-column: 1 / -1; }
 .area-bred { grid-column: 1 / -1; margin-top: 3px; font-size: 12px; color: var(--ink-soft); }

@@ -145,9 +145,6 @@ function onFilters(filters) {
   if (area.value !== filters.area) area.value = filters.area;
 }
 
-const font = new URLSearchParams(location.search).get('font');
-if (font) document.documentElement.dataset.font = font;
-
 createApp({
   renderCard, renderEmpty, renderDetail, renderProgress, setup, onFilters,
   countLabel: (n, total) => n === total ? `${n} ryb` : `${n} z ${total}`,
