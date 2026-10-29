@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fishdex · mockupy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400..900;1,400..900&family=Schibsted+Grotesk:wght@400..800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: oklch(0.955 0.018 128); --slip: oklch(0.985 0.008 110);
+    --ink: oklch(0.28 0.06 258); --ink-soft: oklch(0.44 0.045 258); --ink-faint: oklch(0.62 0.03 258);
+    --rule: oklch(0.80 0.05 150 / 0.3); --focus: oklch(0.55 0.19 250);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --paper: oklch(0.225 0.03 238); --slip: oklch(0.275 0.03 238); --ink: oklch(0.93 0.02 110);
+      --ink-soft: oklch(0.80 0.025 120); --ink-faint: oklch(0.64 0.025 200); --rule: oklch(0.6 0.05 200 / 0.2); --focus: oklch(0.8 0.14 240); }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font: 400 15px/1.5 "Schibsted Grotesk", sans-serif; }
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 48px 48px 96px; }
+  h1 { margin: 0; font: 800 48px/1 "Alegreya", serif; }
+  .lead { max-width: 68ch; margin: 12px 0 32px; color: var(--ink-soft); }
+  .lead code { font-size: 13px; }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+  section { display: grid; grid-template-columns: 56px 1fr; column-gap: 24px; padding: 24px 0; border-top: 1.5px solid var(--ink); }
+  .num { font: 700 32px/1 "Alegreya", serif; color: var(--ink-faint); }
+  h2 { margin: 0 0 12px; font: 700 24px/1.1 "Alegreya", serif; }
+  .items { display: grid; gap: 20px; }
+  .item { display: grid; grid-template-columns: minmax(0, 1fr) 260px 110px; gap: 16px; align-items: start; }
+  .item h3 { margin: 0; font: 600 16px/1.3 "Schibsted Grotesk", sans-serif; }
+  .item p { margin: 4px 0 8px; color: var(--ink-soft); font-size: 14px; }
+  .links { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 14px; }
+  .links a { text-underline-offset: 3px; }
+  .thumb { display: block; border: 1px solid var(--rule); background: var(--slip); }
+  .thumb img { display: block; width: 100%; height: auto; }
+  .thumb.m img { aspect-ratio: 375 / 812; object-fit: cover; object-position: top; }
+  .thumb.d img { aspect-ratio: 1440 / 900; object-fit: cover; object-position: top; }
+  @media (max-width: 760px) {
+    .wrap { padding: 24px 16px 64px; }
+    h1 { font-size: 36px; }
+    section { grid-template-columns: 1fr; }
+    .num { margin-bottom: 4px; }
+    .item { grid-template-columns: 1fr 96px; }
+    .item > div:first-child { grid-column: 1 / -1; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Fishdex, mockupy</h1>
+  <p class="lead">Fáze 1b, varianta A (terénní deník). Každá obrazovka je jedna URL prototypu nad reálnými daty z <code>data/</code>.
+    Odkazy otevírají živou stránku (změň šířku okna pro mobil), náhledy vedou na screenshoty v <code>screens/1b/</code>.
+    Server spusť z kořene repa: <code>python3 -m http.server 8765</code>.</p>
+  <div id="list"></div>
+</div>
+<script type="module">
+  import { SCREENS } from './screens.js';
+  const titles = {
+    1: 'Hlavní mřížka', 2: 'Detail ryby', 3: 'Otevřené filtry', 4: 'Vyhledávání', 5: 'Přehled progresu podle oblastí',
+    6: 'Export a import', 7: 'Toast „Vrátit“ a hint o záloze', 8: 'Prázdné a extrémní stavy', 9: 'Přepínač CZ / EN', 10: 'Karta ve všech stavech',
+  };
+  const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+  const groups = Object.keys(titles).map(n => {
+    const items = SCREENS.filter(s => s.n === +n).map(s => {
+      const live = `a-denik/${s.url}`;
+      const sep = s.url.includes('?') && s.url.length > 1 ? '&' : '';
+      return `<div class="item">
+        <div>
+          <h3>${esc(s.title)}</h3>
+          <p>${esc(s.note)}</p>
+          <div class="links">
+            <a href="${live}">Otevřít</a>
+            ${s.dark ? `<a href="${live}${sep}theme=dark">Tmavě</a>` : ''}
+            <a href="screens/1b/${s.id}-1440.png">Screenshot 1440</a>
+            <a href="screens/1b/${s.id}-375.png">Screenshot 375</a>
+          </div>
+        </div>
+        <a class="thumb d" href="screens/1b/${s.id}-1440.png"><img src="screens/1b/${s.id}-1440.png" alt="${esc(s.title)}, 1440 px"></a>
+        <a class="thumb m" href="screens/1b/${s.id}-375.png"><img src="screens/1b/${s.id}-375.png" alt="${esc(s.title)}, 375 px"></a>
+      </div>`;
+    }).join('');
+    return `<section><span class="num">${n}</span><div><h2>${titles[n]}</h2><div class="items">${items}</div></div></section>`;
+  });
+  document.getElementById('list').innerHTML = groups.join('');
+</script>
+</body>
+</html>

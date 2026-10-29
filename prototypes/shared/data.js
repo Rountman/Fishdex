@@ -43,7 +43,9 @@ export async function loadSample(base = '../../') {
     fetch(base + 'data/areas.json').then(r => r.json()),
   ]);
   const byId = new Map(fish.map(f => [f.id, f]));
-  const sample = SAMPLE_IDS.map(id => byId.get(id)).filter(Boolean);
+  // ?all=1 shows all 615 fish (search screens), otherwise the 40-fish sample
+  const sample = new URLSearchParams(location.search).get('all')
+    ? fish : SAMPLE_IDS.map(id => byId.get(id)).filter(Boolean);
   // area totals are computed from the full data set, like the real app will
   const areaTotals = Object.fromEntries(areas.map(a => [a.id, a.fish_ids.length]));
   return { fish: sample, all: fish, areas, areaTotals, img: f => base + f.image };
@@ -81,18 +83,27 @@ export function fmtSeason(season) {
   return { text: season.map(w => `${dm(w.from)}–${dm(w.to)}`).join(', ') };
 }
 
-export const fold = s => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+export const fold = s => s.normalize('NFD').replace(/\p{M}/gu, '').toLowerCase();
 
-// tiny fuzzy match: every query char appears in order (subsequence), on cs or en name
+// fuzzy match without diacritics: every query word must hit some word of the cs or
+// en name as a prefix / substring, or within 1 typo for words of 4+ letters
+function near(a, b) {
+  if (Math.abs(a.length - b.length) > 1) return false;
+  let i = 0, j = 0, edits = 0;
+  while (i < a.length && j < b.length) {
+    if (a[i] === b[j]) { i++; j++; continue; }
+    if (++edits > 1) return false;
+    if (a.length > b.length) i++; else if (b.length > a.length) j++; else { i++; j++; }
+  }
+  return edits + (a.length - i) + (b.length - j) <= 1;
+}
 export function matches(f, q) {
-  if (!q) return true;
-  const needle = fold(q).replace(/\s+/g, '');
-  return [f.names.cs, f.names.en].some(name => {
-    const hay = fold(name);
-    if (hay.includes(fold(q).trim())) return true;
-    let i = 0;
-    for (const ch of hay) if (ch === needle[i]) i++;
-    return i === needle.length;
+  const words = fold(q).split(/[\s-]+/).filter(Boolean);
+  if (!words.length) return true;
+  return [f.names.cs, f.names.en].some(n => {
+    const hay = fold(n), tokens = hay.split(/[\s-]+/);
+    return words.every(w => hay.includes(w) ||
+      (w.length >= 4 && tokens.some(tok => near(w, tok) || near(w, tok.slice(0, w.length)))));
   });
 }
 

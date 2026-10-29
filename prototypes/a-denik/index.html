@@ -14,92 +14,126 @@
   <header class="masthead">
     <div class="title">
       <h1>Fishdex</h1>
-      <p class="subtitle">Rybářský deník Fishao</p>
+      <p class="subtitle" data-t="subtitle"></p>
     </div>
     <div class="tally" id="tally"></div>
     <div class="tools">
-      <button class="ghost" id="theme-toggle" type="button">Světlo / tma</button>
-      <button class="ghost" type="button">Záloha</button>
+      <nav class="lang" aria-label="Jazyk / Language">
+        <a data-lang="cs" lang="cs">CZ</a><a data-lang="en" lang="en">EN</a>
+      </nav>
+      <button class="ghost" id="theme-toggle" type="button" data-t="theme"></button>
+      <button class="ghost" type="button" data-open-backup data-t="backup"></button>
     </div>
   </header>
 
-  <aside class="index" aria-label="Oblasti">
-    <h2 class="index-title">Obsah deníku</h2>
+  <p class="storage-note" id="storage-note" role="status" hidden>
+    <span data-t="storageOff"></span>
+    <button type="button" class="ghost" data-open-backup data-t="storageAction"></button>
+  </p>
+
+  <aside class="index" aria-labelledby="index-title">
+    <h2 class="index-title" id="index-title" data-t="indexTitle"></h2>
     <ol class="areas" id="areas"></ol>
   </aside>
 
   <main class="log">
-    <div class="controls">
-      <label class="search">
-        <span class="visually-hidden">Hledat rybu</span>
-        <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4.5 4.5"/></svg>
-        <input id="search" type="search" placeholder="Hledat rybu česky nebo anglicky" autocomplete="off">
-      </label>
-      <div class="filter-row" role="group" aria-label="Rarita">
-        <span class="filter-label">Rarita</span>
-        <button class="chip" data-filter="rarity" data-value="1" aria-pressed="false"><span class="stars r1">★</span></button>
-        <button class="chip" data-filter="rarity" data-value="2" aria-pressed="false"><span class="stars r2">★★</span></button>
-        <button class="chip" data-filter="rarity" data-value="3" aria-pressed="false"><span class="stars r3">★★★</span></button>
-        <button class="chip" data-filter="rarity" data-value="4" aria-pressed="false"><span class="stars r4">★★★★</span></button>
-        <button class="chip" data-filter="rarity" data-value="5" aria-pressed="false"><span class="stars r5">★★★★★</span></button>
-      </div>
-      <div class="filter-row" role="group" aria-label="Stav">
-        <span class="filter-label">Stav</span>
-        <button class="chip" data-filter="status" data-value="all" aria-pressed="true">Vše</button>
-        <button class="chip" data-filter="status" data-value="uncaught" aria-pressed="false">Chybí</button>
-        <button class="chip" data-filter="status" data-value="caught" aria-pressed="false">Ulovené</button>
-        <button class="chip" data-filter="status" data-value="noglow" aria-pressed="false">Chybí zářivá</button>
-      </div>
-      <div class="filter-row filter-row--bait">
-        <span class="filter-label" id="bait-label">Návnada</span>
-        <div class="bait-picker">
-          <button type="button" class="picker-btn" id="bait-btn" aria-expanded="false" aria-controls="bait-panel" aria-labelledby="bait-label bait-btn-value">
-            <span id="bait-btn-value">všechny</span>
-            <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg>
+    <section class="browse">
+      <div class="controls">
+        <div class="search-row">
+          <label class="search">
+            <span class="visually-hidden" data-t="searchLabel"></span>
+            <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4.5 4.5"/></svg>
+            <input id="search" type="search" data-t-ph="searchPh" autocomplete="off">
+          </label>
+          <button type="button" class="filters-btn" id="filters-btn" aria-expanded="false" aria-controls="filters">
+            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M6 10h8M8.5 15h3"/></svg>
+            <span data-t="filters"></span><span id="filters-count"></span>
           </button>
-          <div class="bait-panel" id="bait-panel" role="group" aria-label="Návnady" hidden>
-            <p class="panel-hint">Ukáže ryby, které berou aspoň jednu z vybraných návnad. Číslo = počet ryb.</p>
-            <ul class="bait-list" id="bait-list"></ul>
-            <div class="panel-foot">
-              <button type="button" class="ghost" data-filter="bait" data-value="">Zrušit výběr</button>
-              <button type="button" class="ink-btn" data-close-panel>Hotovo</button>
+        </div>
+
+        <div class="filters" id="filters" role="group" aria-labelledby="filters-title">
+          <div class="sheet-bar">
+            <h2 id="filters-title" data-t="filters"></h2>
+            <button type="button" class="sheet-close" data-close-sheet aria-label="Zavřít">×</button>
+          </div>
+          <div class="filter-row" role="group" aria-labelledby="l-rarity">
+            <span class="filter-label" id="l-rarity" data-t="rarity"></span>
+            <button class="chip" data-filter="rarity" data-value="1" aria-pressed="false"><span class="stars r1" aria-label="1">★</span></button>
+            <button class="chip" data-filter="rarity" data-value="2" aria-pressed="false"><span class="stars r2" aria-label="2">★★</span></button>
+            <button class="chip" data-filter="rarity" data-value="3" aria-pressed="false"><span class="stars r3" aria-label="3">★★★</span></button>
+            <button class="chip" data-filter="rarity" data-value="4" aria-pressed="false"><span class="stars r4" aria-label="4">★★★★</span></button>
+            <button class="chip" data-filter="rarity" data-value="5" aria-pressed="false"><span class="stars r5" aria-label="5">★★★★★</span></button>
+          </div>
+          <div class="filter-row" role="group" aria-labelledby="l-status">
+            <span class="filter-label" id="l-status" data-t="status"></span>
+            <button class="chip" data-filter="status" data-value="all" aria-pressed="true" data-t="statusAll"></button>
+            <button class="chip" data-filter="status" data-value="uncaught" aria-pressed="false" data-t="uncaught"></button>
+            <button class="chip" data-filter="status" data-value="caught" aria-pressed="false" data-t="caught"></button>
+            <button class="chip" data-filter="status" data-value="noglow" aria-pressed="false" data-t="noglow"></button>
+          </div>
+          <div class="filter-row filter-row--bait">
+            <span class="filter-label" id="bait-label" data-t="bait"></span>
+            <div class="bait-picker">
+              <button type="button" class="picker-btn" id="bait-btn" aria-expanded="false" aria-controls="bait-panel" aria-labelledby="bait-label bait-btn-value">
+                <span id="bait-btn-value"></span>
+                <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg>
+              </button>
+              <div class="bait-panel" id="bait-panel" role="group" aria-labelledby="bait-label" hidden>
+                <p class="panel-hint" data-t="baitHint"></p>
+                <ul class="bait-list" id="bait-list"></ul>
+                <div class="panel-foot">
+                  <button type="button" class="ghost" data-filter="bait" data-value="" data-t="clearSel"></button>
+                  <button type="button" class="ink-btn" data-close-panel data-t="done"></button>
+                </div>
+              </div>
             </div>
+            <label class="filter-label area-select-label" for="area" data-t="area"></label>
+            <select id="area" data-select="area" class="area-select"></select>
+          </div>
+          <div class="filter-row" id="bred-row" role="group" aria-labelledby="l-yard" hidden>
+            <span class="filter-label" id="l-yard" data-t="yard"></span>
+            <button class="chip" data-filter="bred" data-value="" aria-pressed="true" data-t="statusAll"></button>
+            <button class="chip" data-filter="bred" data-value="yes" aria-pressed="false" data-t="yardHave"></button>
+            <button class="chip" data-filter="bred" data-value="no" aria-pressed="false" data-t="yardNot"></button>
+          </div>
+          <div class="sheet-foot">
+            <button type="button" class="ink-btn" data-close-sheet id="show-n"></button>
           </div>
         </div>
-        <span class="bait-chips" id="bait-chips"></span>
-        <label class="filter-label area-select-label" for="area">Oblast</label>
-        <select id="area" data-select="area" class="area-select"></select>
-        <span class="count" id="result-count" aria-live="polite"></span>
+
+        <div class="active-row">
+          <div class="active" id="active" hidden></div>
+          <span class="count" id="result-count" aria-live="polite"></span>
+        </div>
       </div>
-      <div class="filter-row" id="bred-row" role="group" aria-label="Za domem" hidden>
-        <span class="filter-label">Za domem</span>
-        <button class="chip" data-filter="bred" data-value="" aria-pressed="true">Vše</button>
-        <button class="chip" data-filter="bred" data-value="yes" aria-pressed="false">Mám</button>
-        <button class="chip" data-filter="bred" data-value="no" aria-pressed="false">Nemám</button>
+
+      <div class="hint" id="hint" hidden>
+        <p data-t="hint"></p>
+        <div class="hint-actions">
+          <button type="button" class="ink-btn" data-open-backup data-t="exportNow"></button>
+          <button type="button" class="ghost" data-hint-close data-t="dontShow"></button>
+        </div>
       </div>
-    </div>
-    <div class="hint" id="hint" hidden>
-      <p>Progres je jen v tomto prohlížeči. Exportuj si zálohu, ať o něj nepřijdeš.</p>
-      <div class="hint-actions">
-        <button type="button" class="ink-btn">Exportovat</button>
-        <button type="button" class="ghost" data-hint-close>Už neukazovat</button>
-      </div>
-    </div>
-    <div class="grid" id="grid"></div>
-    <section class="states-wrap" aria-label="Ukázka stavů karty">
-      <h2 class="index-title">Stavy karty</h2>
-      <div class="states" id="states"></div>
+      <div class="grid" id="grid"></div>
     </section>
+
+    <section class="overview" id="overview" aria-live="polite"></section>
+    <section class="stickers" id="stickers"></section>
   </main>
 </div>
 
-<dialog id="detail" class="detail" aria-label="Detail ryby">
+<dialog id="detail" class="detail" aria-label="Detail">
   <div id="detail-body"></div>
+</dialog>
+
+<dialog id="backup" class="backup" aria-labelledby="backup-title">
+  <div id="backup-body"></div>
+  <input type="file" id="import-file" accept="application/json,.json" hidden>
 </dialog>
 
 <div class="toast" id="toast" role="status" hidden>
   <span id="toast-text"></span>
-  <button type="button" id="toast-undo">Vrátit</button>
+  <button type="button" id="toast-undo" data-t="undo"></button>
 </div>
 
 <script type="module" src="app.js"></script>
