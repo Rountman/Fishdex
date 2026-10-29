@@ -8,7 +8,7 @@
   --grid-bold: oklch(0.72 0.06 150 / 0.30);
   --ink: oklch(0.28 0.06 258);
   --ink-soft: oklch(0.44 0.045 258);
-  --ink-faint: oklch(0.62 0.03 258);
+  --ink-faint: oklch(0.53 0.03 258);
   --pencil: oklch(0.55 0.01 258);
   --stamp: oklch(0.46 0.17 305);
   --tape: oklch(0.90 0.05 92 / 0.72);
@@ -37,7 +37,7 @@
     --grid-bold: oklch(0.60 0.05 200 / 0.16);
     --ink: oklch(0.93 0.02 110);
     --ink-soft: oklch(0.80 0.025 120);
-    --ink-faint: oklch(0.64 0.025 200);
+    --ink-faint: oklch(0.67 0.025 200);
     --pencil: oklch(0.62 0.02 220);
     --stamp: oklch(0.76 0.13 305);
     --tape: oklch(0.78 0.04 92 / 0.28);
@@ -59,7 +59,7 @@
   --grid-bold: oklch(0.60 0.05 200 / 0.16);
   --ink: oklch(0.93 0.02 110);
   --ink-soft: oklch(0.80 0.025 120);
-  --ink-faint: oklch(0.64 0.025 200);
+  --ink-faint: oklch(0.67 0.025 200);
   --pencil: oklch(0.62 0.02 220);
   --stamp: oklch(0.76 0.13 305);
   --tape: oklch(0.78 0.04 92 / 0.28);
