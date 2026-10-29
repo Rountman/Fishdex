@@ -101,4 +101,5 @@ seznam je v `prototypes/screens.js`, screenshoty v `prototypes/screens/1b/`.
 - **Odkaz „Přeskočit na seznam ryb“** na začátku stránky (po prvním Tabu), jinak by se
   klávesnicí ke kartám šlo přes 27 zastávek v obsahu deníku.
 - **Barva pozadí** (přání uživatele): papír posunut ze šedozelené do světle modré
-  (`--color-paper` oklch 0.955 0.02 235), lístky a mřížka v detailu do studeného tónu.
+  (`--color-paper` oklch 0.935 0.045 240, nahoře azurová `--color-paper-top`), lístky a
+  mřížka v detailu do studeného tónu; `--color-ink-faint` ztmaven na 0.50 kvůli AA (4.95).
