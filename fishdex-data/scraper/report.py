@@ -5,8 +5,8 @@ from __future__ import annotations
 from collections import Counter
 from datetime import date
 
-CHECK_FIELDS = ["areas", "time_raw", "season", "rarity", "bait_raw", "max_length_cm", "image"]
-PARSED_PAIRS = [("time", "time_raw")]
+CHECK_FIELDS = ["areas", "time", "season", "rarity", "bait", "max_length_cm", "image"]
+PARSED_PAIRS = [("time", "time_raw"), ("season", "season_raw")]
 
 
 def _md_list(items, fmt=str, limit=None):
@@ -101,6 +101,7 @@ def write_report(path, fish, areas, snaps, disc, sections, notes, unmatched_area
         w("\n".join(_md_list(cleaned, lambda f: f"`{f['id']}`: {f['extra']['image_note']}")))
         w("")
 
+    _resolve_section(w, cz.get("resolve_stats", {}))
     _manual_section(w, man)
 
     # ------------------------------------------------------------ missing fields
@@ -136,15 +137,17 @@ def write_report(path, fish, areas, snaps, disc, sections, notes, unmatched_area
     # ------------------------------------------------------------ conflicts
     w("## Konflikty mezi tabulkami")
     w("")
-    w("Ryba je ve více tabulkách (každá oblast, 5-star, all-in-one) a hodnoty se liší. Hlavní pole je pak null; "
-      "všechny varianty jsou v `extra.conflicts`, celé řádky v `extra.occurrences`. Často jde o reálně odlišné "
-      "hodnoty podle oblasti (např. cena), jindy o zastaralou tabulku — nerozhodováno.")
+    w("Ryba je ve více tabulkách (každá oblast, 5-star, all-in-one) a hodnoty se liší (porovnáno po normalizaci "
+      "formátu). Varianty jsou v `extra.conflicts`, celé řádky v `extra.occurrences`. Většinu řeší pravidla "
+      "(sekce Automatické řešení) nebo ruční CSV; jinak zůstává hlavní pole null.")
     w("")
     cc = Counter(k for f in fish for k in f["extra"]["conflicts"])
-    w("| pole | ryb s konfliktem |")
-    w("|---|---|")
+    field_of = {"Time": "time", "Season": "season", "Bait": "bait", "rarity": "rarity"}
+    still = Counter(k for f in fish for k in f["extra"]["conflicts"] if f[field_of.get(k, k)] is None)
+    w("| pole | ryb s konfliktem | z toho nevyřešeno |")
+    w("|---|---|---|")
     for k, v in cc.most_common():
-        w(f"| {k} | {v} |")
+        w(f"| {k} | {v} | {still.get(k, 0)} |")
     w("")
     w("<details><summary>Všechny konflikty</summary>")
     w("")
@@ -252,8 +255,8 @@ def write_report(path, fish, areas, snaps, disc, sections, notes, unmatched_area
     w("| wiki | JSON |")
     w("|---|---|")
     w("| Fish | `name` (+ `extra.name_variants`, `extra.qualifiers`) |")
-    w("| Bait | `bait[]`, `bait_raw` |")
-    w("| Season | `season` (raw text, neparsováno) |")
+    w("| Bait | `bait[]` (kanonické: opravené překlepy, Shark Lure = Shark Bait), `bait_raw` (text ze zdroje) |")
+    w("| Season | `season` (`\"always\"` nebo `[{from: \"MM-DD\", to}]`), `season_raw` |")
     w("| Time | `time` (`\"always\"` nebo `[{from,to}]`), `time_raw` |")
     w("| World record + fishao.cz Délka / maximální | `max_length_cm` `{min, max}`, `max_length_raw` (hodnoty + zdroje) |")
     w("| Max Price, fishao.cz ceny | **zahozeno** (jen `has_glowing_variant` z existence zářivé ceny) |")
@@ -382,4 +385,22 @@ def _manual_section(w, man):
         w(f"| {fld} | {prob} | {n} | {open_by.get((fld, prob), 0)} |")
     w("")
     w(f"Použito ručních hodnot: {man['applied']}; otevřeno: {len(man['open'])}.")
+    w("")
+
+
+def _resolve_section(w, stats):
+    w("## Automatické řešení konfliktů (`scraper/resolve.py`)")
+    w("")
+    w("Čas, sezóna a návnada, kde se tabulky wiki neshodují nebo je hodnota nejistá. Pořadí pravidel: "
+      "**certain_consensus** (zahodit `?`/`???`/datum ve sloupci času; zbylé jisté hodnoty se shodují) → "
+      "**fishao_cz_tiebreak** (jisté hodnoty se liší, vybrána ta, se kterou souhlasí fishao.cz) → "
+      "**fishao_cz_fill** (wiki nemá jistou hodnotu, fishao.cz má jednoznačnou). "
+      "Porovnává se rozparsovaný tvar, takže `Sept - March` = `Sep-Dec, Jan-March` = `01.09. - 31.03.`. "
+      "Řádky s prohozeným Season/Time jsou opravené (`fix` v `extra.occurrences`). "
+      "Rozhodnutí je u ryby v `extra.filled_from.<pole>` včetně kandidátů.")
+    w("")
+    w("| pole | pravidlo | ryb |")
+    w("|---|---|---|")
+    for (fld, rule), n in sorted(stats.items()):
+        w(f"| {fld} | {rule} | {n} |")
     w("")

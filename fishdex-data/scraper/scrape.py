@@ -28,7 +28,10 @@ from bs4 import BeautifulSoup
 import fishao_cz
 import manual
 import merge_cz
+import resolve
+from baitfmt import canonical as bait_canonical, norm_bait
 from fetch import FetchFailed, failures, fetch, fetch_meta
+from seasonfmt import norm_season, parse_season
 from timefmt import norm_time, parse_time
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -208,14 +211,6 @@ def norm_text(v: str) -> str:
     return re.sub(r"\s+", "", v).lower()
 
 
-def bait_tokens(raw: str) -> list[str]:
-    return [ws(t) for t in raw.split(",") if ws(t)]
-
-
-def norm_bait(raw: str) -> str:
-    return "|".join(sorted(t.lower() for t in bait_tokens(raw)))
-
-
 def int_or_none(raw: str | None, pattern: str):
     if raw is None:
         return None
@@ -379,6 +374,14 @@ def build(with_images: bool) -> None:
                     else:
                         unmatched_area_tokens[tok] += 1
 
+        # some rows have Season and Time swapped (a time range in the Season column)
+        for o in occs:
+            sv, tv = o["cells"].get("Season"), o["cells"].get("Time")
+            if sv and isinstance(parse_time(sv), list) and not isinstance(parse_time(tv), list):
+                o["fix"] = {"swapped": "Season<->Time", "Season": sv, "Time": tv}
+                o["cells"]["Season"], o["cells"]["Time"] = tv, sv
+                notes.append(f"{fid}: Season/Time swapped in {o['page']} row ({sv!r} / {tv!r})")
+
         def col(name):
             return [(o["page"], o["cells"].get(name)) for o in occs]
 
@@ -392,7 +395,7 @@ def build(with_images: bool) -> None:
 
         bait_raw = field("Bait", norm_bait)
         time_raw = field("Time", norm_time)
-        season_raw = field("Season")
+        season_raw = field("Season", norm_season)
 
         # rarity: Stars column (all-in-one) + star images
         star_vals = [(o["page"], o["cells"]["Stars"]) for o in occs if "Stars" in o["cells"]]
@@ -422,7 +425,7 @@ def build(with_images: bool) -> None:
             "conflicts": conflicts,
             "occurrences": [
                 {k: o[k] for k in ("page", "section", "table_id", "source_url", "snapshot_timestamp",
-                                   "name_raw", "cells", "fish_images", "star_images")}
+                                   "name_raw", "cells", "fish_images", "star_images", "fix") if k in o}
                 for o in occs
             ],
         }
@@ -442,10 +445,11 @@ def build(with_images: bool) -> None:
             "areas": sorted(area_sources),
             "time": parse_time(time_raw),
             "time_raw": time_raw,
-            "season": season_raw,
+            "season": parse_season(season_raw),
+            "season_raw": season_raw,
             "rarity": rarity,
             "rarity_raw": rarity_raw,
-            "bait": bait_tokens(bait_raw) if bait_raw is not None else None,
+            "bait": bait_canonical(bait_raw)[0] if bait_raw is not None else None,
             "bait_raw": bait_raw,
             "max_length_cm": None,  # filled by merge_cz: {min, max} over wiki World record + fishao.cz max length
             "max_length_raw": None,
@@ -461,6 +465,16 @@ def build(with_images: bool) -> None:
     # ---- second source: fishao.cz (names, glowing variant, lengths, image fallback, validation)
     cz_pages = fishao_cz.run()
     cz = merge_cz.merge(fish_list, cz_pages, slugify, split_name, aliases, IMG_DIR, image_ext, with_images)
+
+    # ---- rule-based resolution of remaining time / season / bait conflicts
+    resolve_stats: dict = {}
+    for f in fish_list:
+        resolve.resolve(f, resolve_stats)
+    unknown_bait = Counter(t for f in fish_list for o in f["extra"]["occurrences"]
+                           for t in bait_canonical(o["cells"].get("Bait") or "")[1])
+    for t, n in unknown_bait.items():
+        notes.append(f"bait token not in vocabulary (kept as-is): {t!r} ({n}x)")
+    cz["resolve_stats"] = resolve_stats
 
     # ---- human-filled values from manual/resolutions.csv
     man = manual.run(fish_list)

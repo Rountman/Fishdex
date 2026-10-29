@@ -8,9 +8,9 @@ Vygenerováno 2026-10-29 skriptem `scraper/scrape.py`. Soubor se přepisuje při
 - **Oblastí:** 23 (area: 18, backyard: 1, tournament: 4)
 - **S obrázkem:** 616 / 616
 - **Se zářivou variantou (podle fishao.cz):** 615 — fishaowiki zářivé varianty vůbec neuvádí, viz níže.
-- **S českým názvem (fishao.cz):** 609 / 616
+- **S českým názvem (fishao.cz):** 616 / 616
 - **Zdroj obrázků:** fishaowiki: 594, fishao.cz: 22
-- **S konfliktem hodnot mezi tabulkami:** 96
+- **S konfliktem hodnot mezi tabulkami:** 72
 
 ## Zdroje
 
@@ -62,23 +62,24 @@ Jen report — hodnoty z wiki se nepřepisují (kromě doplnění níže).
 | porovnání | rozdílů |
 |---|---|
 | hvězdy × Výskyt | 0 |
-| Time × čas | 49 |
+| Time × čas | 51 |
 | délka: zdroje se liší → rozsah min–max | 92 |
-| konfliktní názvy mezi více stránkami (nevyřešené) | 1 |
+| konfliktní názvy mezi více stránkami (nevyřešené) | 0 |
 
-**Doplněno z fishao.cz** (na wiki chybí, nejde rozparsovat nebo se tabulky neshodují; fishao.cz stránky se shodují a hodnota jde rozparsovat): rarity: 3, time: 27. U ryby v `extra.filled_from.<pole>` = `{source, reason}`; `*_raw` pak obsahuje text z fishao.cz.
+**Doplněno z fishao.cz** (na wiki chybí, nejde rozparsovat nebo se tabulky neshodují; fishao.cz stránky se shodují a hodnota jde rozparsovat): rarity: 3. U ryby v `extra.filled_from.<pole>` = `{source, reason}`; `*_raw` pak obsahuje text z fishao.cz.
 
 <details><summary>Hvězdy (0)</summary>
 
 
 </details>
 
-<details><summary>Čas (49)</summary>
+<details><summary>Čas (51)</summary>
 
 - `african-mottled-eel`: wiki `22:00-04:00` × fishao.cz `['kdykoliv']`
 - `albino-alligator-gar`: wiki `22:00-05:00` × fishao.cz `['22:00+ - 11:00+']`
 - `albino-catfish`: wiki `22:00-06:00` × fishao.cz `['23:00 - 06:00?']`
 - `amur-sturgeon`: wiki `Always` × fishao.cz `['22:00? - 14:00?']`
+- `angler-snake-eel`: wiki `02:00-02:15` × fishao.cz `['02:00 - ?']`
 - `banggai-cardinalfish`: wiki `08:00-19:00` × fishao.cz `['6:00 - 19:00']`
 - `bird-wrasse`: wiki `15:00-03:00` × fishao.cz `['kdykoliv']`
 - `black-dragonfish`: wiki `00:00-07:00` × fishao.cz `['0:00 - 4:00']`
@@ -93,6 +94,7 @@ Jen report — hodnoty z wiki se nepřepisují (kromě doplnění níže).
 - `cylindrical-lanternshark`: wiki `02:00-02:30, 04:00-04:30, 06:00-06:15` × fishao.cz `['02:00 - 07:00']`
 - `dwarf-moray`: wiki `23:00-06:00` × fishao.cz `['kdykoliv']`
 - `fiddler-ray`: wiki `21:00-08:00` × fishao.cz `['kdykoliv']`
+- `fresh-water-moray`: wiki `01:00-06:00` × fishao.cz `['kdykoliv']`
 - `gloved-snailfish`: wiki `01:00-10:00` × fishao.cz `['2:00? - 4:00?']`
 - `gold-spotted-rabbitfish`: wiki `22:00-05:00` × fishao.cz `['22:00 - 06:00?']`
 - `hellers-barracuda`: wiki `Always` × fishao.cz `['10:00? - 18:00?']`
@@ -226,7 +228,7 @@ Délky v rozsahu: 92 ryb, z toho 15 s rozdílem > 25 % (podezřelé):
 
 </details>
 
-Názvy ze dvou stránek, kde jedna má jen nepřeložené anglické jméno → vzat přeložený (27):
+Názvy ze dvou stránek, kde jedna má jen nepřeložené anglické jméno → vzat přeložený (28):
 
 <details><summary>Seznam</summary>
 
@@ -242,6 +244,7 @@ Názvy ze dvou stránek, kde jedna má jen nepřeložené anglické jméno → v
 - cs `freshwater-angelfish`: Freshwater Angelfish / Skalára amazonská → **Skalára amazonská**
 - cs `golden-trevally`: Golden Trevally / Kranas zlatý → **Kranas zlatý**
 - cs `grideye-fish`: Grideye Fish / Ipnops → **Ipnops**
+- cs `guapote`: Kančík Doviúv / Kančík Doviův → **Kančík Doviův**
 - cs `gulf-signal-blenny`: Gulf Signal Blenny / Slizoun znamenitý → **Slizoun znamenitý**
 - cs `inlecypris-jayarami`: Dánio jayarami / Inlecypris Jayarami → **Dánio jayarami**
 - cs `isichthys-henryi`: Isichthys Henryi / Rypoun západoafrický → **Rypoun západoafrický**
@@ -259,10 +262,6 @@ Názvy ze dvou stránek, kde jedna má jen nepřeložené anglické jméno → v
 - cs `winghead-shark`: Kladivoun křídlohlavý / Winghead Shark → **Kladivoun křídlohlavý**
 
 </details>
-
-Neřešitelné konflikty názvů (název = null):
-
-- název cs `guapote`: Kančík Doviúv / Kančík Doviův
 
 ### Názvy oblastí na fishao.cz
 
@@ -305,19 +304,34 @@ Neřešitelné konflikty názvů (název = null):
 - `sulawesi-coelacanth` (5-star-fish, all-in-one, area-fish)
 - `taylors-inflator-filefish` (all-in-one, area-fish)
 
+## Automatické řešení konfliktů (`scraper/resolve.py`)
+
+Čas, sezóna a návnada, kde se tabulky wiki neshodují nebo je hodnota nejistá. Pořadí pravidel: **certain_consensus** (zahodit `?`/`???`/datum ve sloupci času; zbylé jisté hodnoty se shodují) → **fishao_cz_tiebreak** (jisté hodnoty se liší, vybrána ta, se kterou souhlasí fishao.cz) → **fishao_cz_fill** (wiki nemá jistou hodnotu, fishao.cz má jednoznačnou). Porovnává se rozparsovaný tvar, takže `Sept - March` = `Sep-Dec, Jan-March` = `01.09. - 31.03.`. Řádky s prohozeným Season/Time jsou opravené (`fix` v `extra.occurrences`). Rozhodnutí je u ryby v `extra.filled_from.<pole>` včetně kandidátů.
+
+| pole | pravidlo | ryb |
+|---|---|---|
+| bait | fishao_cz_tiebreak | 24 |
+| season | certain_consensus | 21 |
+| season | fishao_cz_fill | 4 |
+| season | fishao_cz_tiebreak | 2 |
+| time | certain_consensus | 14 |
+| time | fishao_cz_fill | 1 |
+| time | fishao_cz_tiebreak | 13 |
+
 ## Ruční doplnění — `manual/resolutions.csv`
 
 Zbylé konflikty a díry (návnada, sezóna, čas, rarita, český název), které žádný zdroj jednoznačně neřeší. CSV (`;`, UTF-8) jde otevřít v Excelu: sloupec `options` = hodnoty z wiki s tabulkami, odkud jsou, `fishao_cz` = co uvádí fishao.cz (česky, jako nápověda). Vyplněná `value` se při dalším buildu použije (`extra.filled_from.<pole>.source = "manual"`) a při přegenerování CSV se nikdy nepřepíše.
 
 | pole | problém | celkem | otevřeno |
 |---|---|---|---|
-| bait | conflict | 45 | 45 |
-| name_cs | missing | 7 | 7 |
-| season | conflict | 34 | 34 |
-| time | conflict | 9 | 9 |
-| time | unparsed | 2 | 2 |
+| bait | conflict | 1 | 1 |
+| name_cs | fallback_en | 6 | 6 |
+| season | conflict | 5 | 5 |
+| season | uncertain | 1 | 1 |
+| time | conflict | 6 | 6 |
+| time | uncertain | 2 | 2 |
 
-Použito ručních hodnot: 0; otevřeno: 97.
+Použito ručních hodnot: 0; otevřeno: 21.
 
 ## Chybějící pole
 
@@ -326,10 +340,10 @@ Použito ručních hodnot: 0; otevřeno: 97.
 | pole | chybí u |
 |---|---|
 | `areas` | 0 |
-| `time_raw` | 9 |
-| `season` | 34 |
+| `time` | 8 |
+| `season` | 6 |
 | `rarity` | 0 |
-| `bait_raw` | 45 |
+| `bait` | 1 |
 | `max_length_cm` | 2 |
 | `image` | 0 |
 
@@ -338,109 +352,42 @@ Použito ručních hodnot: 0; otevřeno: 97.
 Parsované pole je null, `*_raw` obsahuje text ze zdroje.
 
 - **time** (2): `flathead-catfish`=`22:00-?`, `shortdorsal-cutthroat-eel`=`02:00-?`
+- **season** (1): `apache-trout`=`March - September?`
 
 ### Ryby s chybějícími poli
 
 | ryba | chybí |
 |---|---|
-| `angel-shark` | bait_raw |
-| `angler-snake-eel` | time_raw, season |
-| `barbel` | bait_raw |
-| `barracuda` | bait_raw |
-| `basketfish` | bait_raw |
-| `basking-shark` | season |
+| `apache-trout` | season |
+| `basketfish` | bait |
 | `bigeye-tuna` | season |
-| `bighead-carp` | time_raw |
-| `blue-marlin` | season |
-| `blue-spotted-grouper` | bait_raw |
-| `bramble-shark` | bait_raw |
-| `bull-shark` | season, bait_raw |
-| `cookiecutter-shark` | bait_raw |
-| `cornish-jack` | bait_raw |
-| `cretoxyrhina` | bait_raw |
-| `cylindrical-lanternshark` | bait_raw |
-| `danube-salmon` | season, bait_raw |
-| `deepsea-lizardfish` | bait_raw |
-| `doryaspis-arctica` | bait_raw |
-| `emperor-red-snapper` | bait_raw |
-| `fangtooth-moray` | bait_raw |
-| `fire-eel` | time_raw, season |
-| `florida-gar` | season, bait_raw |
-| `french-grunt` | bait_raw |
-| `fresh-water-moray` | season |
-| `freshwater-lionfish` | bait_raw |
-| `frilled-shark` | season |
-| `giant-grouper` | season |
-| `giant-salmon-carp` | season |
-| `goblin-shark` | season |
-| `golden-cave-catfish` | season |
-| `golden-dorado` | season |
+| `bighead-carp` | time |
+| `flathead-catfish` | time |
+| `florida-gar` | season |
 | `golden-gar` | max_length_cm |
-| `grammonus-yunokawai` | time_raw, season |
-| `green-moray` | bait_raw |
-| `guapote` | season |
-| `hammerhead-shark` | bait_raw |
-| `hellers-barracuda` | bait_raw |
-| `humpback-anglerfish` | season |
-| `largetooth-sawfish` | season |
-| `lemon-shark` | bait_raw |
-| `lionhead-goldfish` | bait_raw |
-| `longnose-sawshark` | bait_raw |
-| `mandarinfish` | season |
-| `marine-betta` | time_raw |
-| `megamouth-shark` | season |
-| `moon-wrasse` | bait_raw |
-| `northern-lampfish` | bait_raw |
-| `oceanic-whitetip-shark` | bait_raw |
-| `orangespotted-soapfish` | bait_raw |
-| `pacific-bluefin-tuna` | season |
-| `parachaenichthys-charcoti` | season |
-| `paroon-shark` | season, bait_raw |
-| `peacock-flounder` | bait_raw |
-| `pelican-barracuda` | time_raw |
-| `pineapplefish` | bait_raw |
-| `pinktail-triggerfish` | bait_raw |
-| `rainbow-darter` | season |
-| `rainbow-runner` | season |
-| `red-bellied-pacu` | bait_raw |
-| `red-lipped-batfish` | bait_raw |
-| `red-striped-goby` | bait_raw |
-| `rock-bass` | bait_raw |
-| `ruby-seadragon` | bait_raw |
-| `sandbar-shark` | bait_raw |
-| `shortdorsal-cutthroat-eel` | max_length_cm |
-| `silver-arowana` | bait_raw |
-| `smalltooth-sawfish` | bait_raw |
-| `smoothtail-mobula` | season |
-| `spot-tail-shark` | bait_raw |
-| `spotted-handfish` | season |
-| `starry-sturgeon` | time_raw |
-| `thresher-shark` | time_raw, season |
-| `tiger-shark` | season |
-| `treefish` | season |
-| `unicorn-crestfish` | season |
-| `whale-shark` | bait_raw |
-| `white-sturgeon` | time_raw |
-| `whitemouth-moray` | bait_raw |
-| `winghead-shark` | season, bait_raw |
-| `yellow-tail-arowana` | season |
+| `grammonus-yunokawai` | season |
+| `marine-betta` | time |
+| `mexican-hogfish` | time |
+| `muraena-augusti` | time |
+| `paroon-shark` | season |
+| `pelican-barracuda` | time |
+| `shortdorsal-cutthroat-eel` | time, max_length_cm |
+| `white-sturgeon` | time |
+| `winghead-shark` | season |
 
 ## Konflikty mezi tabulkami
 
-Ryba je ve více tabulkách (každá oblast, 5-star, all-in-one) a hodnoty se liší. Hlavní pole je pak null; všechny varianty jsou v `extra.conflicts`, celé řádky v `extra.occurrences`. Často jde o reálně odlišné hodnoty podle oblasti (např. cena), jindy o zastaralou tabulku — nerozhodováno.
+Ryba je ve více tabulkách (každá oblast, 5-star, all-in-one) a hodnoty se liší (porovnáno po normalizaci formátu). Varianty jsou v `extra.conflicts`, celé řádky v `extra.occurrences`. Většinu řeší pravidla (sekce Automatické řešení) nebo ruční CSV; jinak zůstává hlavní pole null.
 
-| pole | ryb s konfliktem |
-|---|---|
-| Bait | 45 |
-| Time | 35 |
-| Season | 34 |
-| rarity | 3 |
+| pole | ryb s konfliktem | z toho nevyřešeno |
+|---|---|---|
+| Time | 33 | 6 |
+| Season | 28 | 5 |
+| Bait | 25 | 1 |
+| rarity | 3 | 0 |
 
 <details><summary>Všechny konflikty</summary>
 
-- `angel-shark` **Bait**: `Shark Bait` / `Shark Lure`
-- `angler-snake-eel` **Time**: `Always` / `02:00-02:15`
-- `angler-snake-eel` **Season**: `02:00-02:15` / `Always`
 - `banded-butterflyfish` **Time**: `Always` / `14:00-19:00`
 - `barbel` **Bait**: `Dough, Fish, Insects, Vegetal` / `Dough, Insects, Lures, Vegetal`
 - `barracuda` **Bait**: `Barracuda Lure, Fish, Lures` / `Fish, Lures`
@@ -452,19 +399,12 @@ Ryba je ve více tabulkách (každá oblast, 5-star, all-in-one) a hodnoty se li
 - `blackbar-soldierfish` **Time**: `22:00-05:00` / `22:00-04:30`
 - `blue-marlin` **Season**: `July-September` / `July-?`
 - `blue-spotted-grouper` **Bait**: `Fish, Insects, Lures` / `Insects, Lures`
-- `bramble-shark` **Bait**: `Shark Bait` / `Shark Lure`
 - `bull-shark` **Bait**: `Fish, Meat, Shark Lure` / `Fish, Meat`
 - `bull-shark` **Season**: `Always` / `???`
 - `coelacanth` **Time**: `16:00-02:00` / `23:00-?`
-- `cookiecutter-shark` **Bait**: `Shark Bait` / `Shark Lure`
-- `cornish-jack` **Bait**: `Fish, Insects` / `Fish, Insect`
-- `cretoxyrhina` **Bait**: `Prehistoric Bait` / `Prehistoirc Bait`
-- `cylindrical-lanternshark` **Bait**: `Shark Bait` / `Shark Lure`
 - `danube-salmon` **Bait**: `Fish, Insects, Lures` / `Fish, Insects`
 - `danube-salmon` **Time**: `Always` / `???`
 - `danube-salmon` **Season**: `Always` / `???`
-- `deepsea-lizardfish` **Bait**: `Fish, Lures` / `Fish. Lures`
-- `doryaspis-arctica` **Bait**: `Prehistoric Bait` / `Prehisoric Bait`
 - `emperor-red-snapper` **Bait**: `Fish, Lures` / `Fish, Insects`
 - `evermannella-balbo` **Time**: `Always?` / `Always`
 - `fairy-basslet` **Time**: `11:00-01:00` / `Always`
@@ -475,12 +415,9 @@ Ryba je ve více tabulkách (každá oblast, 5-star, all-in-one) a hodnoty se li
 - `florida-gar` **Season**: `Jan-Feb, May-Dec` / `Always` / `Janurary-February, May - December`
 - `french-grunt` **Bait**: `Lures` / `Fish, Lures`
 - `french-grunt` **Time**: `21:00-05:00` / `21:00-06:00`
-- `fresh-water-moray` **Time**: `Always` / `01:00-06:00`
-- `fresh-water-moray` **Season**: `01:00-06:00` / `Always`
 - `freshwater-lionfish` **Bait**: `Fish, Insects, Meat` / `Fish, Insects`
 - `frilled-shark` **Time**: `05:00-06:00` / `???`
 - `frilled-shark` **Season**: `April - December` / `???`
-- `giant-grouper` **Season**: `Sept - March` / `September - March`
 - `giant-salmon-carp` **Season**: `Always` / `October - ?`
 - `goblin-shark` **Time**: `09:00-12:00` / `???`
 - `goblin-shark` **Season**: `Always` / `May - ?`
@@ -489,18 +426,14 @@ Ryba je ve více tabulkách (každá oblast, 5-star, all-in-one) a hodnoty se li
 - `golden-dorado` **Time**: `05:00-00:00` / `00:00-05:00`
 - `golden-dorado` **Season**: `June-Sep` / `June-???`
 - `goldfish` **Time**: `Always` / `23:00-04:00`
-- `grammonus-yunokawai` **Time**: `Oct 1 - Oct 30` / `23:00-06:00`
-- `grammonus-yunokawai` **Season**: `02:00-06:00` / `Always`
+- `grammonus-yunokawai` **Time**: `02:00-06:00` / `23:00-06:00`
+- `grammonus-yunokawai` **Season**: `Oct 1 - Oct 30` / `Always`
 - `green-moray` **Bait**: `Insects, Lures` / `Fish, Insects, Lures`
 - `green-red-arowana` **Time**: `Always` / `14:00-00:00`
 - `guapote` **Season**: `Always` / `Aug - ??`
-- `hammerhead-shark` **Bait**: `Fish, Meat, Shark Lure` / `Fish, Meat, Shark Bait`
-- `hellers-barracuda` **Bait**: `Barracuda Lure` / `Barrauda Lure`
 - `horn-shark` **Time**: `23:00-?` / `Always`
-- `humpback-anglerfish` **Season**: `28 Oct - 3 Nov` / `Halloween; 28 October - 3 November`
 - `largetooth-sawfish` **Season**: `Always` / `March - ?`
 - `lavender-mbuna` **Time**: `13:00-15:00` / `Always`
-- `lemon-shark` **Bait**: `Shark Bait` / `Shark Lure`
 - `lionhead-goldfish` **Bait**: `Dough, Insects, Vegetal` / `Dough`
 - `longnose-sawshark` **Bait**: `Shark Lure` / `Fish, Insects`
 - `mandarinfish` **Season**: `July-September` / `July-???`
@@ -513,16 +446,11 @@ Ryba je ve více tabulkách (každá oblast, 5-star, all-in-one) a hodnoty se li
 - `murray-cod` **rarity**: `4` / `3star.png`
 - `northern-lampfish` **Bait**: `Dough, Insects, Vegetal` / `Fish, Insects`
 - `northern-lampfish` **Time**: `00:00-08:00` / `Always`
-- `oceanic-whitetip-shark` **Bait**: `Shark Bait` / `Shark Lure`
-- `orangespotted-soapfish` **Bait**: `Dough, Insects, Vegetables` / `Dough, Insects, Vegetal`
-- `pacific-bluefin-tuna` **Season**: `Sep-Dec, Jan-March` / `Sept-Dec, Jan-March` / `September - December, January - March`
-- `parachaenichthys-charcoti` **Season**: `Oct 20 - Dec 10` / `October 20 - December 10`
 - `paroon-shark` **Bait**: `Dough, Insects, Fish, Meat, Shark Lures, Vegetal` / `Fish, Insects, Shark Bait`
 - `paroon-shark` **Season**: `Sept-March` / `Always`
 - `peacock-flounder` **Bait**: `Insects, Lures` / `Lures`
 - `pelican-barracuda` **Time**: `15:00-22:00` / `Always`
 - `pineapplefish` **Bait**: `Insects` / `Fish, Insects`
-- `pinktail-triggerfish` **Bait**: `Fishm, Insects, Vegetal` / `Fish, Insects, Vegetal`
 - `platinum-golden-arowana` **Time**: `Always` / `00:00-?`
 - `rainbow-darter` **Season**: `March-October` / `May-October`
 - `rainbow-runner` **Season**: `March-?` / `March-August`
@@ -530,15 +458,11 @@ Ryba je ve více tabulkách (každá oblast, 5-star, all-in-one) a hodnoty se li
 - `red-lipped-batfish` **Bait**: `Fish, Insects` / `Insects`
 - `red-striped-goby` **Bait**: `Dough, Vegetal` / `Fish, Insects`
 - `rock-bass` **Bait**: `Fish, Insects, Lures` / `Dough, Fish, Insects, Lures`
-- `ruby-seadragon` **Bait**: `Isnects` / `Insects`
 - `ruby-seadragon` **Time**: `03:00-08:00` / `03:00-07:00`
-- `sandbar-shark` **Bait**: `Shark bait` / `Shark Lure`
 - `schoolmaster-snapper` **Time**: `Always` / `17:00-05:00`
 - `silver-arowana` **Bait**: `Fish, Insects, Meat` / `Fish, Insects`
-- `smalltooth-sawfish` **Bait**: `Monster Bait` / `Monster bait` / `Moster Bait`
 - `smoothtail-mobula` **Time**: `Always` / `?`
 - `smoothtail-mobula` **Season**: `Always` / `Feb - ?`
-- `spot-tail-shark` **Bait**: `Shark bait` / `Shark Lure`
 - `spotted-handfish` **Season**: `Always` / `Sep - ?`
 - `starry-sturgeon` **Time**: `23:00-05:00?` / `23:00-05:00`
 - `thresher-shark` **Time**: `Always` / `???`
@@ -548,10 +472,8 @@ Ryba je ve více tabulkách (každá oblast, 5-star, all-in-one) a hodnoty se li
 - `treefish` **Season**: `March - ?` / `Always`
 - `unicorn-crestfish` **Time**: `Always` / `???`
 - `unicorn-crestfish` **Season**: `Always` / `October - ?`
-- `whale-shark` **Bait**: `Shark Bait` / `Shark Lure`
 - `white-sturgeon` **Time**: `12:00-17:00` / `Always`
 - `whitemouth-moray` **Bait**: `Fish, Insects` / `Fish, Insects, Meat`
-- `winghead-shark` **Bait**: `Shark` / `Shark Lure`
 - `winghead-shark` **Season**: `?July-March?` / `July(?)-March(?)` / `? July - March ?`
 - `xenacanthus` **rarity**: `2` / `4star.png`
 - `yellow-tail-arowana` **Season**: `Dec - March` / `December - April` / `December - March`
@@ -681,19 +603,21 @@ Počet: 17
 
 ### Slovník návnad (bez oprav překlepů)
 
-`Barracuda Lure` (8), `Dough` (110), `Fish` (281), `Hook` (5), `Insect` (1), `Insects` (314), `Insects Vegetal` (1), `Lures` (99), `Marlin Lure` (3), `Meat` (29), `Monkfish lure` (1), `Monster Bait` (2), `Pelican lure` (1), `Prehistoric Bait` (26), `Prehistoric bait` (17), `Shark Bait` (19), `Shark Lure` (11), `Shark bait` (1), `Shark lure` (1), `Star lure` (1), `Tuna Lure` (9), `Vegeal` (1), `Vegetal` (123)
+`Barracuda Lure` (10), `Dough` (116), `Fish` (300), `Hook` (5), `Insects` (337), `Lures` (109), `Marlin Lure` (3), `Meat` (37), `Monkfish Lure` (1), `Monster Bait` (3), `Pelican Lure` (1), `Prehistoric Bait` (45), `Shark Bait` (46), `Star Lure` (1), `Tuna Lure` (9), `Vegetal` (133)
 
 ### Ostatní poznámky parseru
 
-- (nic)
+- angler-snake-eel: Season/Time swapped in all-in-one row ('02:00-02:15' / 'Always')
+- fresh-water-moray: Season/Time swapped in all-in-one row ('01:00-06:00' / 'Always')
+- grammonus-yunokawai: Season/Time swapped in all-in-one row ('02:00-06:00' / 'Oct 1 - Oct 30')
 
 ### Pole na wiki → JSON
 
 | wiki | JSON |
 |---|---|
 | Fish | `name` (+ `extra.name_variants`, `extra.qualifiers`) |
-| Bait | `bait[]`, `bait_raw` |
-| Season | `season` (raw text, neparsováno) |
+| Bait | `bait[]` (kanonické: opravené překlepy, Shark Lure = Shark Bait), `bait_raw` (text ze zdroje) |
+| Season | `season` (`"always"` nebo `[{from: "MM-DD", to}]`), `season_raw` |
 | Time | `time` (`"always"` nebo `[{from,to}]`), `time_raw` |
 | World record + fishao.cz Délka / maximální | `max_length_cm` `{min, max}`, `max_length_raw` (hodnoty + zdroje) |
 | Max Price, fishao.cz ceny | **zahozeno** (jen `has_glowing_variant` z existence zářivé ceny) |

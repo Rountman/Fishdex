@@ -12,6 +12,8 @@ from __future__ import annotations
 import csv
 from pathlib import Path
 
+from baitfmt import canonical
+from seasonfmt import parse_season
 from timefmt import parse_time
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -65,20 +67,23 @@ def issues(f: dict) -> list[dict]:
     out = []
     filled = f["extra"].get("filled_from", {})
     checks = {
-        "bait": f["bait_raw"] is None,
+        "bait": f["bait"] is None,
         "season": f["season"] is None,
-        "time": f["time_raw"] is None or f["time"] is None,
+        "time": f["time"] is None,
         "rarity": f["rarity"] is None,
-        "name_cs": f["names"]["cs"] is None,
+        "name_cs": f["names"]["cs"] is None or "cs" in f["extra"].get("names_fallback", {}),
     }
     for field, is_open in checks.items():
         if not is_open or field in filled:
             continue
         column, cz_field = FIELDS[field]
-        if column and column in f["extra"]["conflicts"]:
+        raw_attr = {"time": "time_raw", "season": "season_raw", "bait": "bait_raw"}.get(field)
+        if field == "name_cs" and "cs" in f["extra"].get("names_fallback", {}):
+            problem = "fallback_en"
+        elif column and column in f["extra"]["conflicts"]:
             problem = "conflict"
-        elif field == "time" and f["time_raw"] is not None:
-            problem = "unparsed"
+        elif raw_attr and f[raw_attr] is not None:
+            problem = "uncertain"  # value exists but contains '?' or similar
         else:
             problem = "missing"
         out.append({
@@ -91,13 +96,14 @@ def issues(f: dict) -> list[dict]:
 
 def apply(f: dict, field: str, value: str) -> None:
     value = value.strip()
-    prev = {"bait": f["bait_raw"], "season": f["season"], "time": f["time_raw"],
+    prev = {"bait": f["bait_raw"], "season": f["season_raw"], "time": f["time_raw"],
             "rarity": f["rarity_raw"], "name_cs": f["names"]["cs"]}[field]
     if field == "bait":
         f["bait_raw"] = value
-        f["bait"] = [t.strip() for t in value.split(",") if t.strip()]
+        f["bait"] = canonical(value)[0]
     elif field == "season":
-        f["season"] = value
+        f["season_raw"] = value
+        f["season"] = parse_season(value)
     elif field == "time":
         f["time_raw"] = value
         f["time"] = parse_time(value)
@@ -106,6 +112,7 @@ def apply(f: dict, field: str, value: str) -> None:
         f["rarity"] = int(value) if value in {"1", "2", "3", "4", "5"} else None
     elif field == "name_cs":
         f["names"]["cs"] = value
+        f["extra"].pop("names_fallback", None)
     f["extra"].setdefault("filled_from", {})[field] = {"source": "manual", "reason": "manual", "previous_raw": prev}
 
 

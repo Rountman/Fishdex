@@ -4,7 +4,8 @@ fishaowiki stays the primary source for every top-level field. fishao.cz adds:
 - names.cs / names.sk / names.es (and names.en_fishao_cz when it differs)
 - has_glowing_variant / glowing_info — the page lists a "zářivá" (glowing) shop price row
 - max_length_cm {min, max} over wiki World record + fishao.cz "Délka / maximální"
-- time / rarity where the wiki has none (or its tables conflict) and fishao.cz pages agree
+- rarity where the wiki has none (or its tables conflict) and fishao.cz pages agree
+- names.cs falls back to English when no Czech name exists (extra.names_fallback)
 - image fallback when fishaowiki has no image
 - raw page data in extra.fishao_cz, and a cross-source comparison for the report
 """
@@ -15,7 +16,7 @@ import difflib
 import re
 
 from fetch import FetchFailed, fetch_meta
-from timefmt import norm_time, parse_time
+from timefmt import norm_time
 
 WAYBACK = "https://web.archive.org/web"
 TARGET_TS = "20230718084642"
@@ -103,11 +104,18 @@ def download_cz_image(fish_id, page, img_dir, image_ext):
     return f"images/fish/{dest.name}", {"url": meta.get("final_url") or url, "timestamp": m.group(1) if m else None}
 
 
+def _cs_fallback(f):
+    """User decision: a fish without a Czech name shows the English one."""
+    if f["names"]["cs"] is None:
+        f["names"]["cs"] = f["names"]["en"]
+        f["extra"]["names_fallback"] = {"cs": "en"}
+
+
 def merge(fish_list, cz_pages, slugify, split_name, aliases, img_dir, image_ext, with_images):
     approved = aliases.get("fishao_cz", {})
     matched, unmatched, candidates = match_pages(cz_pages, fish_list, slugify, split_name, approved)
     validation = {"rarity": [], "time": [], "length_range": [], "names_conflict": [], "names_resolved": [],
-                  "filled_by_cz": {"rarity": 0, "time": 0}}
+                  "filled_by_cz": {"rarity": 0}}
     image_failures = []
 
     for f in fish_list:
@@ -118,6 +126,7 @@ def merge(fish_list, cz_pages, slugify, split_name, aliases, img_dir, image_ext,
             validation["length_range"].append((f["id"], f["max_length_cm"], f["max_length_raw"]))
         if not pages:
             f["extra"]["fishao_cz"] = None
+            _cs_fallback(f)
             continue
 
         def distinct(field):
@@ -136,6 +145,14 @@ def merge(fish_list, cz_pages, slugify, split_name, aliases, img_dir, image_ext,
                     validation["names_resolved"].append((f["id"], lang, vals, translated[0]))
                 else:
                     validation["names_conflict"].append((f["id"], lang, vals))
+        if f["names"]["cs"] is None:
+            vals = distinct(F_CS)
+            # Czech orthography: 'ú' only starts a word, inside a word it is 'ů' -> 'Doviúv' is a typo of 'Doviův'
+            ok = [v for v in vals if not re.search(r"\wú", v)]
+            if len(vals) > 1 and len(ok) == 1 and all(v.replace("ú", "ů") == ok[0] for v in vals if v != ok[0]):
+                f["names"]["cs"] = ok[0]
+                validation["names_conflict"] = [c for c in validation["names_conflict"] if c[:2] != (f["id"], "cs")]
+                validation["names_resolved"].append((f["id"], "cs", vals, ok[0]))
         en_cz = distinct(F_EN)
         if en_cz and en_cz != [f["name"]]:
             f["names"]["en_fishao_cz"] = en_cz[0] if len(en_cz) == 1 else en_cz
@@ -167,14 +184,8 @@ def merge(fish_list, cz_pages, slugify, split_name, aliases, img_dir, image_ext,
         if f["rarity"] is None and len(raw) == 1 and re.fullmatch(r"\*{1,5}", raw[0]):
             _fill(f, "rarity", len(raw[0]), "rarity_raw", raw[0], gap_reason("rarity"))
             validation["filled_by_cz"]["rarity"] += 1
-        # time: also replaces wiki text that does not parse (e.g. '22:00-?') when fishao.cz has a clean value
-        raw = distinct(F_TIME)
-        if f["time"] is None and len(raw) == 1 and parse_time(raw[0]) is not None:
-            reason = gap_reason("Time") if f["time_raw"] is None else "wiki_unparsed"
-            prev = f["time_raw"]
-            _fill(f, "time", parse_time(raw[0]), "time_raw", raw[0], reason)
-            f["extra"]["filled_from"]["time"]["wiki_raw"] = prev
-            validation["filled_by_cz"]["time"] += 1
+
+        _cs_fallback(f)
 
         # ---- image fallback
         if with_images and not f["image"]:
