@@ -7,6 +7,7 @@ const csPlural = (n: number, one: string, few: string, many: string) =>
 
 const cs = {
   subtitle: 'Rybářský deník Fishao',
+  skip: 'Přeskočit na seznam ryb',
   themeToDark: 'Tmavý režim',
   themeToLight: 'Světlý režim',
   backup: 'Záloha',
@@ -105,6 +106,7 @@ export type Strings = typeof cs;
 
 const en: Strings = {
   subtitle: 'Fishao angler’s journal',
+  skip: 'Skip to the fish list',
   themeToDark: 'Dark mode',
   themeToLight: 'Light mode',
   backup: 'Backup',

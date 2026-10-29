@@ -86,3 +86,17 @@ seznam je v `prototypes/screens.js`, screenshoty v `prototypes/screens/1b/`.
 14. **Toast** je dole uprostřed, na mobilu přes celou šířku nad spodním okrajem.
 15. **Sticker sheet** (`?view=stickers`) ukazuje i chybu dat: bílé pozadí obrázku v zářivém
     rámečku (allis-shad) jako bílý obdélník. Řeší se ve fázi 3.
+
+# Fáze 4–5: změny po schválení
+
+- **Pozadí stránky** (přání uživatele): místo milimetrového papíru jednotná barva papíru
+  s jemným svislým přechodem (token `--page-bg`). Přechod jde jen do světlejšího odstínu
+  nahoře, dole je přesně `--color-paper`, takže kontrast textu (ladený na papír) platí všude.
+  Mřížka zůstala jen v rámečku ryby v detailu (měřítko). Mockupy v `prototypes/a-denik/`
+  mají ještě starou mřížku.
+- **Fonty hostované lokálně** (`@fontsource-variable/alegreya`, `…/schibsted-grotesk`) místo
+  Google Fonts: odstraní blokující požadavek na cizí server (Lighthouse výkon 79 → 95).
+- **Mřížka se vykreslí ve dvou krocích**: prvních 40 karet hned, zbytek po prvním snímku
+  (`startTransition`). Prvních 8 obrázků se načítá hned, první dva s `fetchpriority=high` (LCP).
+- **Odkaz „Přeskočit na seznam ryb“** na začátku stránky (po prvním Tabu), jinak by se
+  klávesnicí ke kartám šlo přes 27 zastávek v obsahu deníku.

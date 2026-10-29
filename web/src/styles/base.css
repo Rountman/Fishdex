@@ -4,9 +4,8 @@ body {
   margin: 0;
   color: var(--color-ink);
   font: var(--fw-regular) var(--fs-body)/var(--lh-body) var(--font-text);
-  background-color: var(--color-paper);
-  background-image: var(--texture-graph);
-  background-size: var(--texture-graph-size);
+  background: var(--page-bg);
+  min-height: 100vh;
 }
 button, input, select { font: inherit; color: inherit; }
 button { cursor: pointer; }

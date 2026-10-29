@@ -19,6 +19,8 @@ type Props = {
   onOpen: (id: string) => void;
   /** Static showcase (no handlers, forced visual state). */
   demo?: 'hover' | 'focus' | 'pressing';
+  /** Above the fold: load eagerly (the first image is the LCP element). */
+  priority?: 'high' | 'eager';
 };
 
 export function Where({ fish, areaName, first }: { fish: Fish; areaName: (id: string) => string; first?: boolean }) {
@@ -35,7 +37,7 @@ export function Where({ fish, areaName, first }: { fish: Fish; areaName: (id: st
   ));
 }
 
-function FishCardImpl({ fish, state, areaName, onToggle, onOpen, demo }: Props) {
+function FishCardImpl({ fish, state, areaName, onToggle, onOpen, demo, priority }: Props) {
   const { lang, t } = useI18n();
   const name = fishName(fish, lang);
   const [pressing, setPressing] = useState(false);
@@ -78,7 +80,7 @@ function FishCardImpl({ fish, state, areaName, onToggle, onOpen, demo }: Props) 
         <img
           src={fishImage(fish.id)} alt="" width={fish.img.w} height={fish.img.h}
           style={{ maxWidth: fish.img.w * 2, maxHeight: fish.img.h * 2 }}
-          loading="lazy" decoding="async"
+          loading={priority ? 'eager' : 'lazy'} fetchPriority={priority === 'high' ? 'high' : undefined} decoding="async"
         />
         <span className={`stamp ${styles.stamp}`} aria-hidden="true">{t.stamp}</span>
       </div>

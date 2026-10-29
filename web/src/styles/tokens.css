@@ -50,8 +50,9 @@
   --rarity-5: oklch(0.50 0.18 25);    /* ★★★★★ madder red */
 
   /* ---------- typography ---------- */
-  --font-display: "Alegreya", "Iowan Old Style", Georgia, serif;   /* names, headings, notes (italic) */
-  --font-text: "Schibsted Grotesk", "Avenir Next", "Segoe UI", sans-serif; /* data, controls */
+  /* self-hosted via @fontsource-variable (see main.tsx); "Alegreya" kept for the prototypes */
+  --font-display: "Alegreya Variable", "Alegreya", "Iowan Old Style", Georgia, serif;   /* names, headings, notes (italic) */
+  --font-text: "Schibsted Grotesk Variable", "Schibsted Grotesk", "Avenir Next", "Segoe UI", sans-serif; /* data, controls */
 
   --fw-regular: 400;
   --fw-medium: 500;
@@ -118,7 +119,11 @@
     radial-gradient(ellipse 60% 50% at 50% 52%, oklch(0.55 0.10 190 / 0.45), transparent 75%),
     var(--color-night);
 
-  /* ---------- paper texture ---------- */
+  /* ---------- page background: one paper colour, barely-there vertical fade ---------- */
+  /* lighter at the top, exactly paper at the bottom: never darker than paper, so text contrast holds */
+  --page-bg: linear-gradient(180deg, color-mix(in oklch, var(--color-paper), var(--color-slip) 45%) 0%, var(--color-paper) 70%) fixed var(--color-paper);
+
+  /* ---------- paper texture (only inside the specimen frame in the detail) ---------- */
   --texture-graph:
     linear-gradient(var(--color-grid-bold) 1px, transparent 1px),
     linear-gradient(90deg, var(--color-grid-bold) 1px, transparent 1px),

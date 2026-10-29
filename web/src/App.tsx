@@ -105,6 +105,7 @@ export default function App() {
   return (
     <I18nProvider lang={lang}>
       <MotionConfig reducedMotion="user">
+        <a className={styles.skip} href="#ryby">{t.skip}</a>
         <div className={styles.page} data-view={view}>
           <Masthead
             total={FISH.length} caught={sum.caught} glow={sum.caughtGlowing} dark={dark}
@@ -120,7 +121,8 @@ export default function App() {
             <AreaIndex stats={stats} total={FISH.length} caught={sum.caught} active={filters.area} onSelect={selectArea} />
           )}
 
-          <main className={styles.log}>
+          <main className={styles.log} id="ryby" tabIndex={-1}>
+            <p id={CARD_HELP_ID} className="visually-hidden">{t.cardHelp}</p>
             {view === 'progress' ? (
               <Overview
                 stats={stats} total={FISH.length} caught={sum.caught} glow={sum.caughtGlowing}
@@ -149,7 +151,6 @@ export default function App() {
           </main>
         </div>
 
-        <p id={CARD_HELP_ID} className="visually-hidden">{t.cardHelp}</p>
         <FishDetail
           fish={openFish} state={openId ? p.state(openId) : { caught: false, caughtGlowing: false }}
           areaName={areaName} onToggle={onToggle} onClose={() => setOpenId(null)}

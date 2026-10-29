@@ -1,3 +1,4 @@
+import { startTransition, useEffect, useState } from 'react';
 import type { Fish } from '../data/types';
 import { useI18n } from '../i18n/context';
 import type { Progress, ProgressField } from '../progress/schema';
@@ -5,6 +6,8 @@ import { FishCard } from './FishCard';
 import styles from './FishGrid.module.css';
 
 const NONE = { caught: false, caughtGlowing: false };
+/** More than fits above the fold on a large screen; the rest renders right after first paint. */
+const FIRST_PAINT = 40;
 
 type Props = {
   fish: Fish[];
@@ -18,6 +21,13 @@ type Props = {
 
 export function FishGrid({ fish, progress, query, areaName, onToggle, onOpen, onReset }: Props) {
   const { t } = useI18n();
+  const [limit, setLimit] = useState(FIRST_PAINT);
+  useEffect(() => {
+    // one frame for the first screen, then the rest as a low-priority update
+    const id = requestAnimationFrame(() => setTimeout(() => startTransition(() => setLimit(Infinity))));
+    return () => cancelAnimationFrame(id);
+  }, []);
+
   if (!fish.length) {
     const q = query.trim();
     return (
@@ -30,9 +40,12 @@ export function FishGrid({ fish, progress, query, areaName, onToggle, onOpen, on
   }
   return (
     <ul className={styles.grid}>
-      {fish.map(f => (
+      {fish.slice(0, limit).map((f, i) => (
         <li key={f.id} className={styles.cell}>
-          <FishCard fish={f} state={progress.fish[f.id] ?? NONE} areaName={areaName} onToggle={onToggle} onOpen={onOpen} />
+          <FishCard
+            fish={f} state={progress.fish[f.id] ?? NONE} areaName={areaName} onToggle={onToggle} onOpen={onOpen}
+            priority={i < 2 ? 'high' : i < 8 ? 'eager' : undefined}
+          />
         </li>
       ))}
     </ul>
