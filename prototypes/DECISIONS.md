@@ -83,6 +83,6 @@ seznam je v `prototypes/screens.js`, screenshoty v `prototypes/screens/1b/`.
     Původní „podposloupnost znaků“ byla moc benevolentní.
 12. **Placeholder hledání** zkrácen na „Jméno ryby, česky i anglicky“ (na 375 px se nevešel).
 13. **Česká typografie:** jednopísmenné předložky v místech mají nezlomitelnou mezeru („z mola“).
-14. **Toast** vlevo dole na desktopu? Ne: dole uprostřed, na mobilu přes celou šířku nad okrajem.
+14. **Toast** je dole uprostřed, na mobilu přes celou šířku nad spodním okrajem.
 15. **Sticker sheet** (`?view=stickers`) ukazuje i chybu dat: bílé pozadí obrázku v zářivém
     rámečku (allis-shad) jako bílý obdélník. Řeší se ve fázi 3.
