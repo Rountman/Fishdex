@@ -4,13 +4,15 @@ Vygenerováno 2026-10-29 skriptem `scraper/scrape.py`. Soubor se přepisuje při
 
 ## Souhrn
 
-- **Ryb:** 616
-- **Oblastí:** 23 (area: 18, backyard: 1, tournament: 4)
-- **S obrázkem:** 616 / 616
+- **Ryb:** 615
+- **Oblastí:** 22 (area: 17, backyard: 1, tournament: 4)
+- **S obrázkem:** 615 / 615
 - **Se zářivou variantou (podle fishao.cz):** 615 — fishaowiki zářivé varianty vůbec neuvádí, viz níže.
-- **S českým názvem (fishao.cz):** 616 / 616
-- **Zdroj obrázků:** fishaowiki: 594, fishao.cz: 22
+- **S českým názvem (fishao.cz):** 615 / 615
+- **Zdroj obrázků:** fishaowiki: 594, fishao.cz: 21
 - **S konfliktem hodnot mezi tabulkami:** 72
+- **S nejistým polem (`uncertain`, UI ukáže „?"):** 78 — time: 54, season: 16, bait: 12
+- **S přesným místem v oblasti (`area_spots`):** 291
 
 ## Zdroje
 
@@ -37,7 +39,7 @@ fishaowiki zářivé varianty neuvádí vůbec (žádné „glow" / „shiny" na
 Archiv fishao.cz (živá doména dnes přesměrovává na cizí web — brán jen Wayback). Každá ryba má stránku `/ryba/<slug>/` s blokem *Informace o rybě*. Uloženo surově v `data/fishao_cz.json` a u ryby v `extra.fishao_cz`. **Hlavní pole ryby zůstávají z fishaowiki**; fishao.cz doplňuje jen `names.cs`/`names.sk`, zářivou variantu a chybějící obrázky. Neukládají se jména hráčů (seznam „u kterých lze ulovit", nabídky fosilií) ani text návodů.
 
 - stránek ryb v archivu: 685, spárováno 685 stránek na 615 ryb z wiki
-- ryb z wiki bez stránky na fishao.cz: 1
+- ryb z wiki bez stránky na fishao.cz: 0
 - ryb s více stránkami na fishao.cz: 70 — `astraspis` (Astraspis, astraspis), `boreaspis` (Boreaspis, boreaspis), `carcharocles-chubutensis` (Carcharocles-chubutensis, carcharocles-chubutensis), `ctenurella` (Ctenurella, ctenurella), `dartmuthia` (Dartmuthia, dartmuthia), `deltoptychius` (Deltoptychius, deltoptychius), `doryaspis-arctica` (Doryaspis-arctica, doryaspis-arctica), `doryaspis-nathorsti` (Doryaspis-nathorsti, doryaspis-nathorsti), `ischnacanthus` (Ischnacanthus, ischnacanthus), `green-birdmouth-wrasse` (akilolo-nosaty, green-birdmouth-wrasse), `allis-shad` (allis-shad, placka-pomoranska), `angler-snake-eel` (angler-snake-eel, hadar-zubatkovy), `pictus-catfish` (antenovec-ozdobny, pictus-catfish), `spotted-tiger-shovelnose-catfish` (antenovec-skvrnity, spotted-tiger-shovelnose-catfish), `asp` (asp, bolen-dravy), `atlantic-mackerel` (atlantic-mackerel, makrela-obecna), `austrolebias-adloffi` (austrolebias-adloffi, vejirovka-pricnopruha), `azul-peacock-bass` (azul-peacock-bass, cichlida-piquiti), `black-diamond-cichlid` (black-diamond-cichlid, cichlida-madagaskarska), `blind-cave-eel` (blind-cave-eel, hrdlozabrik-belavy), `bonnethead-shark` (bonnethead-shark, kladivoun-tiburo), `boulengerella-cuvieri` (boulengerella-cuvieri, stikovka-brazilska), `bridled-leatherjacket` (bridled-leatherjacket, pilnikotrn-slepeny), `broad-barred-goby` (broad-barred-goby, hlavac-sirokopruhy), `chilhuil-sea-catfish` (chilhuil-sea-catfish, krizovec-panamsky), `inlecypris-jayarami` (danio-jayarami, inlecypris-jayarami), `evermannella-balbo` (dlouhozubec-dravy, evermannella-balbo), `red-rainbowfish` (duhovka-lososova, red-rainbowfish), `dwarf-moray` (dwarf-moray, murena-zlata), `eurasian-ruffe` (eurasian-ruffle, jezdik-obecny), `european-sprat` (european-sprat, sprot-obecny), `freshwater-angelfish` (freshwater-angelfish, skalara-amazonska), `fresh-water-moray` (freshwater-moray, murena-sladkovodni), `giant-salmon-carp` (giant-salmon-carp, sanak-asijsky), `golden-cave-catfish` (golden-cave-catfish, kerickovec-jeskynni), `golden-trevally` (golden-trevally, kranas-zlaty), `grammonus-yunokawai` (grammonus-yunokawai, jeskynovka-yunokawa), `grideye-fish` (grideye-fish, ipnops), `guapote` (guapote, kancik-doviuv), `gulf-signal-blenny` (gulf-signal-blenny, slizoun-znamenity), `isichthys-henryi` (isichthys-henryi, rypoun-zapadoafricky), `jack-dempsey` (jack-dempsey, kancik-perletovy), `jaguar-guapote` (jaguar-guapote, kancik-managujsky), `redhead-cichlid` (kancik-cervenohlavy, redhead-cichlid), `parrot-cichlid` (kancik-papousci, parrot-cichlid), `winghead-shark` (kladivoun-kridlohlavy, winghead-shark), `three-spined-stickleback` (koljuska-triostna, three-spined-stickleback), `lavender-mbuna` (lavender-mbuna, tlamovec-sprengerae), `spotted-sicklefish` (lesklec-africky, spotted-sicklefish), `narrowhead-catshark` (macka-uzkohlava, narrowhead-catshark), `smoothtail-mobula` (manta-mexicka, smoothtail-mobula), `marcusenius-furcidens` (marcusenius-furcidens, rypoun-vidlozuby), `mariana-snailfish` (mariana-snailfish, pseudoliparis-swirei), `midwater-eelpout` (midwater-eelpout, slimule-pelagicka), `stone-loach` (mrenka-mramorovana, stone-loach), `painted-electric-ray` (narcina-surinamska, painted-electric-ray), `razorback-sucker` (pakaprovec-ostrohrbety, razorback-sucker), `pangio-mariarum` (pangio-mariarum, sekavec-sabazsky), `unicorn-crestfish` (paskoun-pruhovany, unicorn-crestfish), `peled` (peled, sih-peled), `taylors-inflator-filefish` (pilnikotrn-tayloruv, taylors-inflator-filefish), `piraya` (pirana-tmava, piraya), `vimba-bream` (podoustev-ricni, vimba-bream), `red-phantom-tetra` (red-phantom-tetra, tetra-sweglesova), `red-wolf-fish` (red-wolf-fish, trahir-kratkoocasy), `rissos-smooth-head` (rissos-smooth-head, uzlatka-vychodoatlantska), `shortdorsal-cutthroat-eel` (shortdorsal-cutthroat-eel, tupohlavec-kraktochvosty), `whitebar-eelpout` (slimule-belopruha, whitebar-eelpout), `sunbleak` (slunka-obecna, sunbleak), `tadpole-snailfish` (tadpole-snailfish, tercovka-pulcovita)
 - nespárovaných stránek fishao.cz (ryba na wiki není nebo jiné jméno): 0
 
@@ -278,7 +280,7 @@ Názvy ze dvou stránek, kde jedna má jen nepřeložené anglické jméno → v
 
 - `kitefin-shark`: `https://web.archive.org/web/20230718084642im_/http://fishaowiki.com/wp-content/uploads/2018/02/Kitefin_Shark.png class=` → previously failed: HTTP 404; `https://web.archive.org/web/20230718084642im_/http://fishaowiki.com/wp-content/uploads/2018/02/Kitefin_Shark.png` → previously failed: HTTP 404
 
-### Ryby bez obrázku ve zdroji (21)
+### Ryby bez obrázku ve zdroji (20)
 
 Řádek tabulky obrázek ryby nemá (nebo je ryba jen v textové tabulce all-in-one).
 
@@ -289,7 +291,6 @@ Názvy ze dvou stránek, kde jedna má jen nepřeložené anglické jméno → v
 - `birdbeak-dogfish` (all-in-one)
 - `blue-panchax` (all-in-one, area-fish)
 - `bluestripe-pipefish` (all-in-one, area-fish)
-- `bullet-tuna` (all-in-one)
 - `crocodile-tooth-pipefish` (all-in-one, area-fish)
 - `dwarf-moray` (all-in-one, area-fish)
 - `flourescing-goatfish` (5-star-fish, all-in-one, area-fish)
@@ -306,32 +307,36 @@ Názvy ze dvou stránek, kde jedna má jen nepřeložené anglické jméno → v
 
 ## Automatické řešení konfliktů (`scraper/resolve.py`)
 
-Čas, sezóna a návnada, kde se tabulky wiki neshodují nebo je hodnota nejistá. Pořadí pravidel: **certain_consensus** (zahodit `?`/`???`/datum ve sloupci času; zbylé jisté hodnoty se shodují) → **fishao_cz_tiebreak** (jisté hodnoty se liší, vybrána ta, se kterou souhlasí fishao.cz) → **fishao_cz_fill** (wiki nemá jistou hodnotu, fishao.cz má jednoznačnou). Porovnává se rozparsovaný tvar, takže `Sept - March` = `Sep-Dec, Jan-March` = `01.09. - 31.03.`. Řádky s prohozeným Season/Time jsou opravené (`fix` v `extra.occurrences`). Rozhodnutí je u ryby v `extra.filled_from.<pole>` včetně kandidátů.
+Čas, sezóna a návnada, kde se tabulky wiki neshodují nebo je hodnota nejistá. Pořadí pravidel: **certain_consensus** (zahodit `?`/`???`/datum ve sloupci času; zbylé jisté hodnoty se shodují) → **fishao_cz_tiebreak** (jisté hodnoty se liší, vybrána ta, se kterou souhlasí fishao.cz) → **fishao_cz_fill** (wiki nemá jistou hodnotu, fishao.cz má jednoznačnou). Porovnává se rozparsovaný tvar, takže `Sept - March` = `Sep-Dec, Jan-March` = `01.09. - 31.03.`. Řádky s prohozeným Season/Time jsou opravené (`fix` v `extra.occurrences`). Rozhodnutí je u ryby v `extra.filled_from.<pole>` včetně kandidátů. Nakonec **newer_source**: kde se wiki a fishao.cz pořád neshodují, vyhrává novější fishao.cz a pole jde do `uncertain` (UI „?"); **uncertain_value**: použita hodnota s `?` ze zdroje (taky `uncertain`). Oblasti: když fishao.cz uvádí jinou sadu oblastí, použije se ta (`extra.areas_wiki` drží původní).
 
 | pole | pravidlo | ryb |
 |---|---|---|
 | bait | fishao_cz_tiebreak | 24 |
+| bait | newer_source | 12 |
 | season | certain_consensus | 21 |
 | season | fishao_cz_fill | 4 |
 | season | fishao_cz_tiebreak | 2 |
+| season | newer_source | 14 |
+| season | uncertain_value | 2 |
 | time | certain_consensus | 14 |
 | time | fishao_cz_fill | 1 |
 | time | fishao_cz_tiebreak | 13 |
+| time | newer_source | 54 |
 
-## Ruční doplnění — `manual/resolutions.csv`
+## Ruční doplnění — `scraper/resolutions.csv`
 
 Zbylé konflikty a díry (návnada, sezóna, čas, rarita, český název), které žádný zdroj jednoznačně neřeší. CSV (`;`, UTF-8) jde otevřít v Excelu: sloupec `options` = hodnoty z wiki s tabulkami, odkud jsou, `fishao_cz` = co uvádí fishao.cz (česky, jako nápověda). Vyplněná `value` se při dalším buildu použije (`extra.filled_from.<pole>.source = "manual"`) a při přegenerování CSV se nikdy nepřepíše.
 
 | pole | problém | celkem | otevřeno |
 |---|---|---|---|
-| bait | conflict | 1 | 1 |
-| name_cs | fallback_en | 6 | 6 |
-| season | conflict | 5 | 5 |
-| season | uncertain | 1 | 1 |
-| time | conflict | 6 | 6 |
+| bait | newer_source | 12 | 12 |
+| name_cs | fallback_en | 5 | 5 |
+| season | newer_source | 14 | 14 |
+| season | uncertain | 2 | 2 |
+| time | newer_source | 54 | 54 |
 | time | uncertain | 2 | 2 |
 
-Použito ručních hodnot: 0; otevřeno: 21.
+Použito ručních hodnot: 0; otevřeno: 89.
 
 ## Chybějící pole
 
@@ -340,10 +345,10 @@ Použito ručních hodnot: 0; otevřeno: 21.
 | pole | chybí u |
 |---|---|
 | `areas` | 0 |
-| `time` | 8 |
-| `season` | 6 |
+| `time` | 2 |
+| `season` | 0 |
 | `rarity` | 0 |
-| `bait` | 1 |
+| `bait` | 0 |
 | `max_length_cm` | 2 |
 | `image` | 0 |
 
@@ -352,28 +357,15 @@ Použito ručních hodnot: 0; otevřeno: 21.
 Parsované pole je null, `*_raw` obsahuje text ze zdroje.
 
 - **time** (2): `flathead-catfish`=`22:00-?`, `shortdorsal-cutthroat-eel`=`02:00-?`
-- **season** (1): `apache-trout`=`March - September?`
+- **season** (0): —
 
 ### Ryby s chybějícími poli
 
 | ryba | chybí |
 |---|---|
-| `apache-trout` | season |
-| `basketfish` | bait |
-| `bigeye-tuna` | season |
-| `bighead-carp` | time |
 | `flathead-catfish` | time |
-| `florida-gar` | season |
 | `golden-gar` | max_length_cm |
-| `grammonus-yunokawai` | season |
-| `marine-betta` | time |
-| `mexican-hogfish` | time |
-| `muraena-augusti` | time |
-| `paroon-shark` | season |
-| `pelican-barracuda` | time |
 | `shortdorsal-cutthroat-eel` | time, max_length_cm |
-| `white-sturgeon` | time |
-| `winghead-shark` | season |
 
 ## Konflikty mezi tabulkami
 
@@ -381,9 +373,9 @@ Ryba je ve více tabulkách (každá oblast, 5-star, all-in-one) a hodnoty se li
 
 | pole | ryb s konfliktem | z toho nevyřešeno |
 |---|---|---|
-| Time | 33 | 6 |
-| Season | 28 | 5 |
-| Bait | 25 | 1 |
+| Time | 33 | 0 |
+| Season | 28 | 0 |
+| Bait | 25 | 0 |
 | rarity | 3 | 0 |
 
 <details><summary>Všechny konflikty</summary>
@@ -485,8 +477,8 @@ Ryba je ve více tabulkách (každá oblast, 5-star, all-in-one) a hodnoty se li
 ID = slug jména po odstranění kvalifikátorů v závorce a slova `Unlockable` (např. `Arctic Char (Raft only)` → `arctic-char`). Kvalifikátory jsou v `extra.qualifiers`, původní zápisy v `extra.name_variants`.
 
 - Duplicitní id ve výstupu: žádné
-- Ryb sloučených z různě zapsaných jmen: 35
-- Ručně schválené aliasy (`scraper/aliases.json` → `fish`): 9
+- Ryb sloučených z různě zapsaných jmen: 36
+- Ručně schválené aliasy (`scraper/aliases.json` → `fish`): 10
   - `white-spotted-damsell` → `white-spotted-damsel`
   - `bluespotted-grouper` → `blue-spotted-grouper`
   - `long-nosed-chimaera` → `long-nosed-chimera`
@@ -496,6 +488,7 @@ ID = slug jména po odstranění kvalifikátorů v závorce a slova `Unlockable`
   - `astrapis` → `astraspis`
   - `azul-pracock-bass` → `azul-peacock-bass`
   - `goldcarp` → `gold-carp`
+  - `bullet-barracuda` → `bullet-tuna`
 
 ### Podezřelé duplicity — kandidáti na alias (14, z toho 9 komplementárních)
 
@@ -518,11 +511,11 @@ Podobná id (difflib ≥ 0.85). *Komplementární* = jedno id je jen v all-in-on
 | `african-arowana` | `asian-arowana` | 0.857 |  | African Arowana | Asian Arowana |
 | `blackfin-dartfish` | `blackfin-pearlfish` | 0.857 |  | Blackfin Dartfish | Blackfin Pearlfish |
 
-### Jen v all-in-one (5) / chybí v all-in-one (1)
+### Jen v all-in-one (4) / chybí v all-in-one (0)
 
-Jen v all-in-one: `arrowhead-soapfish`, `barnards-lanterfish`, `birdbeak-dogfish`, `bullet-tuna`, `golden-gar`
+Jen v all-in-one: `arrowhead-soapfish`, `barnards-lanterfish`, `birdbeak-dogfish`, `golden-gar`
 
-Chybí v all-in-one: `bullet-barracuda`
+Chybí v all-in-one: —
 
 ## Struktura a podezřelé věci
 
@@ -539,71 +532,54 @@ Chybí v all-in-one: `bullet-barracuda`
 
 Oblast = sekce (`<h2>` + tabulka) na area-fish (`kind: area`), tournament-fish (`kind: tournament`) a breeder-fish (`kind: backyard`). Popis ani obrázek oblasti wiki nemá → `description`/`image` null.
 
-| id | název | kind | ryb |
-|---|---|---|---|
-| `laketown` | Laketown | area | 23 |
-| `rio-tropical` | Rio Tropical | area | 19 |
-| `little-rio` | Little Rio | area | 12 |
-| `pinheira-beach` | Pinheira Beach | area | 44 |
-| `cool-mountain` | Cool Mountain | area | 21 |
-| `mystic-desert` | Mystic Desert | area | 20 |
-| `sibiri-city` | Sibiri City | area | 16 |
-| `aquayama` | Aquayama | area | 20 |
-| `seagull-harbor` | Seagull Harbor | area | 40 |
-| `thombani-town` | Thombani Town | area | 15 |
-| `marshville` | Marshville | area | 18 |
-| `lost-valley-1` | Lost Valley 1 | area | 9 |
-| `lost-valley-2` | Lost Valley 2 | area | 45 |
-| `palm-island` | Palm Island | area | 84 |
-| `pirate-cave` | Pirate Cave | area | 7 |
-| `club` | Club | area | 80 |
-| `lucky-raft` | Lucky Raft | area | 22 |
-| `furniture-factory` | Furniture Factory | area | 5 |
-| `boat-on-sea-tournament` | Boat on Sea Tournament | tournament | 29 |
-| `lake-run-tournament` | Lake Run Tournament | tournament | 16 |
-| `race-magic-15-tournament` | Race (Magic 15) Tournament | tournament | 14 |
-| `moray-tournament` | Moray Tournament | tournament | 18 |
-| `backyard` | Backyard | backyard | 83 |
+Přesné místo uvnitř oblasti (molo, loď, pyramida, …) je u ryby v `area_spots` `{area_id: [spot]}` — filtruje se podle oblasti, místo se ukazuje jako poznámka. Furniture Factory je místo v Mystic Desert.
 
-### Hodnoty sloupce Area (all-in-one, 5-star), které neodpovídají žádné oblasti (3)
+| id | název | kind | ryb | místa |
+|---|---|---|---|---|
+| `laketown` | Laketown | area | 23 | Trout Farm |
+| `rio-tropical` | Rio Tropical | area | 19 |  |
+| `little-rio` | Little Rio | area | 12 |  |
+| `pinheira-beach` | Pinheira Beach | area | 44 | Pier, Pyramid |
+| `cool-mountain` | Cool Mountain | area | 21 | Raft |
+| `mystic-desert` | Mystic Desert | area | 20 | Furniture Factory, Pyramid |
+| `sibiri-city` | Sibiri City | area | 16 |  |
+| `aquayama` | Aquayama | area | 20 |  |
+| `seagull-harbor` | Seagull Harbor | area | 40 | Boat |
+| `thombani-town` | Thombani Town | area | 15 | Enclosure |
+| `marshville` | Marshville | area | 18 |  |
+| `lost-valley-1` | Lost Valley 1 | area | 9 |  |
+| `lost-valley-2` | Lost Valley 2 | area | 45 |  |
+| `palm-island` | Palm Island | area | 84 | Inside, Outside |
+| `pirate-cave` | Pirate Cave | area | 7 |  |
+| `club` | Club | area | 80 | Fresh Water Pond, Monster Pond, Salt Water Pond |
+| `lucky-raft` | Lucky Raft | area | 21 |  |
+| `boat-on-sea-tournament` | Boat on Sea Tournament | tournament | 29 |  |
+| `lake-run-tournament` | Lake Run Tournament | tournament | 16 |  |
+| `race-magic-15-tournament` | Race (Magic 15) Tournament | tournament | 14 |  |
+| `moray-tournament` | Moray Tournament | tournament | 18 |  |
+| `backyard` | Backyard | backyard | 83 |  |
+
+### Hodnoty sloupce Area (all-in-one, 5-star), které neodpovídají žádné oblasti (0)
 
 Překlepy nebo jiný název; do `areas[]` ryby se nepočítají. Lze schválit v `aliases.json` → `areas` (`"text": "area-id"`).
 
-- `Race` (1×)
-- `Beach` (1×)
-- `Lake Run` (1×)
+- (nic)
 
 ### Oblasti podle tabulek vs. podle sloupce Area
 
 Ryba je v tabulce oblasti, ale text Area ji tam neuvádí (nebo naopak). `extra.area_sources` říká, odkud která oblast je.
 
-Počet: 17
+Počet: 0
 
 <details><summary>Seznam</summary>
 
-- `arrowhead-soapfish` — `club` jen podle sloupce Area
-- `barnards-lanterfish` — `club` jen podle sloupce Area
-- `birdbeak-dogfish` — `club` jen podle sloupce Area
-- `bullet-tuna` — `lucky-raft` jen podle sloupce Area
-- `candy-basslet` — `furniture-factory` jen podle tabulky
-- `candy-basslet` — `mystic-desert` jen podle sloupce Area
-- `common-dace` — `race-magic-15-tournament` jen podle tabulky
-- `dwarf-moray` — `pinheira-beach` jen podle tabulky
-- `garish-hind` — `furniture-factory` jen podle tabulky
-- `garish-hind` — `mystic-desert` jen podle sloupce Area
-- `golden-gar` — `club` jen podle sloupce Area
-- `masked-angelfish` — `furniture-factory` jen podle tabulky
-- `masked-angelfish` — `mystic-desert` jen podle sloupce Area
-- `orangespotted-soapfish` — `furniture-factory` jen podle tabulky
-- `orangespotted-soapfish` — `mystic-desert` jen podle sloupce Area
-- `peppermint-angelfish` — `furniture-factory` jen podle tabulky
-- `peppermint-angelfish` — `mystic-desert` jen podle sloupce Area
+- (nic)
 
 </details>
 
 ### Slovník návnad (bez oprav překlepů)
 
-`Barracuda Lure` (10), `Dough` (116), `Fish` (300), `Hook` (5), `Insects` (337), `Lures` (109), `Marlin Lure` (3), `Meat` (37), `Monkfish Lure` (1), `Monster Bait` (3), `Pelican Lure` (1), `Prehistoric Bait` (45), `Shark Bait` (46), `Star Lure` (1), `Tuna Lure` (9), `Vegetal` (133)
+`Barracuda Lure` (10), `Dough` (118), `Fish` (302), `Hook` (5), `Insects` (337), `Lures` (110), `Marlin Lure` (3), `Meat` (37), `Monkfish Lure` (1), `Monster Bait` (3), `Pelican Lure` (1), `Prehistoric Bait` (45), `Shark Bait` (46), `Star Lure` (1), `Tuna Lure` (8), `Vegetal` (135)
 
 ### Ostatní poznámky parseru
 

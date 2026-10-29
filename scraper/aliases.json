@@ -8,7 +8,8 @@
     "grammonus-yumokawai": "grammonus-yunokawai",
     "astrapis": "astraspis",
     "azul-pracock-bass": "azul-peacock-bass",
-    "goldcarp": "gold-carp"
+    "goldcarp": "gold-carp",
+    "bullet-barracuda": "bullet-tuna"
   },
   "areas": {
     "seagul harbor": "seagull-harbor",
@@ -20,7 +21,10 @@
     "sibiri": "sibiri-city",
     "lake run tourament": "lake-run-tournament",
     "magic 15 race tournament": "race-magic-15-tournament",
-    "trout farm": "laketown"
+    "trout farm": "laketown",
+    "beach": "pinheira-beach",
+    "race": "race-magic-15-tournament",
+    "lake run": "lake-run-tournament"
   },
   "candidates": {
     "fish": [
@@ -297,11 +301,7 @@
         "complementary": false
       }
     ],
-    "areas": [
-      "Beach",
-      "Lake Run",
-      "Race"
-    ],
+    "areas": [],
     "fishao_cz": []
   },
   "fishao_cz": {

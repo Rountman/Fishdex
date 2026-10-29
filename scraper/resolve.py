@@ -11,6 +11,7 @@ Every decision is recorded in extra.filled_from.<field> = {source, rule, candida
 from __future__ import annotations
 
 import json
+import re
 
 from baitfmt import canonical, from_czech
 from seasonfmt import parse_season
@@ -74,3 +75,72 @@ def resolve(f: dict, stats: dict) -> None:
             "source": source, "rule": rule, "candidates": candidates, "fishao_cz": cz_vals,
         }
         stats[(field, rule)] = stats.get((field, rule), 0) + 1
+
+
+# ---------------------------------------------------------------- newer source wins
+
+MARKERS = re.compile(r"[?+]")
+
+
+def _lenient(field: str, raw: str):
+    """Parse after removing uncertainty markers ('22:00? - 14:00?' -> 22:00-14:00). None if still unparseable."""
+    if field == "bait":
+        toks = from_czech(raw)
+        return sorted(toks) if toks else None
+    if field == "rarity":
+        stars = MARKERS.sub("", raw).strip()
+        return len(stars) if re.fullmatch(r"\*{1,5}", stars) else None
+    parse = parse_time if field == "time" else parse_season
+    return parse(MARKERS.sub("", raw))
+
+
+def _comparable(field: str, value):
+    return sorted(value) if field == "bait" and value is not None else value
+
+
+NEWER = {
+    # field: (fishao.cz field, raw attr, wiki column)
+    "time": ("Výskyt / čas", "time_raw", "Time"),
+    "season": ("Výskyt / období", "season_raw", "Season"),
+    "bait": ("Návnada", "bait_raw", "Bait"),
+    "rarity": ("Výskyt / hvězdy", "rarity_raw", "rarity"),
+}
+
+
+def prefer_newer(f: dict, stats: dict) -> None:
+    """User decision: where sources disagree, take the newer website (fishao.cz, ~2019-2023 content vs.
+    fishaowiki ~2018) and mark the field uncertain ('?'). Without a usable fishao.cz value, an uncertain
+    wiki value ('March - September?') is still used, also marked uncertain."""
+    pages = f["extra"].get("fishao_cz") or []
+    for field, (cz_field, raw_attr, col) in NEWER.items():
+        cz_vals = list(dict.fromkeys(p["fields"][cz_field] for p in pages if p["fields"].get(cz_field)))
+        parsed = [_lenient(field, v) for v in cz_vals]
+        cz_ok = bool(cz_vals) and None not in parsed and len({_key(_comparable(field, p)) for p in parsed}) == 1
+        wiki_value = f[field]
+        wiki_disputed = col in f["extra"]["conflicts"] or f[raw_attr] is not None and wiki_value is None
+
+        if cz_ok:
+            new = parsed[0]
+            if wiki_value is not None and _key(_comparable(field, wiki_value)) == _key(_comparable(field, new)):
+                continue  # sources agree
+            marked = any(MARKERS.search(v) for v in cz_vals)
+            prev = {"raw": f[raw_attr], "value": wiki_value}
+            f[field] = new if field != "bait" else from_czech(cz_vals[0])
+            f[raw_attr] = cz_vals[0]
+            if wiki_value is not None or wiki_disputed or marked:
+                f["uncertain"].append(field)
+            f["extra"].setdefault("filled_from", {})[field] = {
+                "source": "fishao.cz", "rule": "newer_source", "wiki": prev, "fishao_cz": cz_vals}
+            stats[(field, "newer_source")] = stats.get((field, "newer_source"), 0) + 1
+        elif wiki_value is None and field in ("time", "season"):
+            occs = sorted(f["extra"]["occurrences"], key=lambda o: SOURCE_ORDER.index(o["page"]))
+            for o in occs:
+                raw = o["cells"].get(col)
+                val = _lenient(field, raw) if raw else None
+                if val is not None:
+                    f[field], f[raw_attr] = val, raw
+                    f["uncertain"].append(field)
+                    f["extra"].setdefault("filled_from", {})[field] = {
+                        "source": "fishaowiki", "rule": "uncertain_value", "fishao_cz": cz_vals}
+                    stats[(field, "uncertain_value")] = stats.get((field, "uncertain_value"), 0) + 1
+                    break

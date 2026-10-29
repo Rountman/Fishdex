@@ -41,6 +41,9 @@
       "Time",
       "World record",
       "Max Price"
+    ],
+    "spots": [
+      "Trout Farm"
     ]
   },
   {
@@ -81,7 +84,8 @@
       "Time",
       "World record",
       "Max Price"
-    ]
+    ],
+    "spots": []
   },
   {
     "id": "little-rio",
@@ -114,7 +118,8 @@
       "Time",
       "World record",
       "Max Price"
-    ]
+    ],
+    "spots": []
   },
   {
     "id": "pinheira-beach",
@@ -179,6 +184,10 @@
       "Time",
       "World record",
       "Max Price"
+    ],
+    "spots": [
+      "Pier",
+      "Pyramid"
     ]
   },
   {
@@ -221,6 +230,9 @@
       "Time",
       "World record",
       "Max Price"
+    ],
+    "spots": [
+      "Raft"
     ]
   },
   {
@@ -262,6 +274,10 @@
       "Time",
       "World record",
       "Max Price"
+    ],
+    "spots": [
+      "Furniture Factory",
+      "Pyramid"
     ]
   },
   {
@@ -299,7 +315,8 @@
       "Time",
       "World record",
       "Max Price"
-    ]
+    ],
+    "spots": []
   },
   {
     "id": "aquayama",
@@ -340,7 +357,8 @@
       "Time",
       "World record",
       "Max Price"
-    ]
+    ],
+    "spots": []
   },
   {
     "id": "seagull-harbor",
@@ -401,6 +419,9 @@
       "Time",
       "World record",
       "Max Price"
+    ],
+    "spots": [
+      "Boat"
     ]
   },
   {
@@ -437,6 +458,9 @@
       "Time",
       "World record",
       "Max Price"
+    ],
+    "spots": [
+      "Enclosure"
     ]
   },
   {
@@ -476,7 +500,8 @@
       "Time",
       "World record",
       "Max Price"
-    ]
+    ],
+    "spots": []
   },
   {
     "id": "lost-valley-1",
@@ -506,7 +531,8 @@
       "Time",
       "World record",
       "Max Price"
-    ]
+    ],
+    "spots": []
   },
   {
     "id": "lost-valley-2",
@@ -572,7 +598,8 @@
       "Time",
       "World record",
       "Max Price"
-    ]
+    ],
+    "spots": []
   },
   {
     "id": "palm-island",
@@ -677,6 +704,10 @@
       "Time",
       "World record",
       "Max Price"
+    ],
+    "spots": [
+      "Inside",
+      "Outside"
     ]
   },
   {
@@ -705,7 +736,8 @@
       "Time",
       "World record",
       "Max Price"
-    ]
+    ],
+    "spots": []
   },
   {
     "id": "club",
@@ -807,6 +839,11 @@
       "World record",
       "Max Price",
       "Pool"
+    ],
+    "spots": [
+      "Fresh Water Pond",
+      "Monster Pond",
+      "Salt Water Pond"
     ]
   },
   {
@@ -823,7 +860,6 @@
       "bigeye-tuna",
       "black-marlin",
       "blackfin-tuna",
-      "bullet-barracuda",
       "bullet-tuna",
       "guachanche-barracuda",
       "hellers-barracuda",
@@ -850,33 +886,8 @@
       "Time",
       "World record",
       "Max Price"
-    ]
-  },
-  {
-    "id": "furniture-factory",
-    "name": "Furniture Factory",
-    "kind": "area",
-    "heading_raw": "Furniture Factory",
-    "description": null,
-    "fish_ids": [
-      "candy-basslet",
-      "garish-hind",
-      "masked-angelfish",
-      "orangespotted-soapfish",
-      "peppermint-angelfish"
     ],
-    "image": null,
-    "source_url": "http://fishaowiki.com/fishdex/area-fish/",
-    "snapshot_timestamp": "20230718084642",
-    "table_id": "tablepress-46",
-    "columns": [
-      "Fish",
-      "Bait",
-      "Season",
-      "Time",
-      "World record",
-      "Max Price"
-    ]
+    "spots": []
   },
   {
     "id": "boat-on-sea-tournament",
@@ -926,7 +937,8 @@
       "Time",
       "World record",
       "Max Price"
-    ]
+    ],
+    "spots": []
   },
   {
     "id": "lake-run-tournament",
@@ -963,7 +975,8 @@
       "Time",
       "World record",
       "Max Price"
-    ]
+    ],
+    "spots": []
   },
   {
     "id": "race-magic-15-tournament",
@@ -998,7 +1011,8 @@
       "Time",
       "World record",
       "Max Price"
-    ]
+    ],
+    "spots": []
   },
   {
     "id": "moray-tournament",
@@ -1037,7 +1051,8 @@
       "Time",
       "World record",
       "Max Price"
-    ]
+    ],
+    "spots": []
   },
   {
     "id": "backyard",
@@ -1142,6 +1157,7 @@
       "World record",
       "Max Price",
       "Home points"
-    ]
+    ],
+    "spots": []
   }
 ]

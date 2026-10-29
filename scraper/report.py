@@ -44,6 +44,10 @@ def write_report(path, fish, areas, snaps, disc, sections, notes, unmatched_area
     src = Counter(f["extra"].get("image_source") for f in fish if f["image"])
     w("- **Zdroj obrázků:** " + ", ".join(f"{k}: {v}" for k, v in src.most_common()))
     w(f"- **S konfliktem hodnot mezi tabulkami:** {sum(1 for f in fish if f['extra']['conflicts'])}")
+    unc = Counter(u for f in fish for u in f["uncertain"])
+    w(f"- **S nejistým polem (`uncertain`, UI ukáže „?\"):** {sum(1 for f in fish if f['uncertain'])} — "
+      + ", ".join(f"{k}: {v}" for k, v in unc.most_common()))
+    w(f"- **S přesným místem v oblasti (`area_spots`):** {sum(1 for f in fish if f['area_spots'])}")
     w("")
 
     w("## Zdroje")
@@ -209,10 +213,13 @@ def write_report(path, fish, areas, snaps, disc, sections, notes, unmatched_area
     w("Oblast = sekce (`<h2>` + tabulka) na area-fish (`kind: area`), tournament-fish (`kind: tournament`) a "
       "breeder-fish (`kind: backyard`). Popis ani obrázek oblasti wiki nemá → `description`/`image` null.")
     w("")
-    w("| id | název | kind | ryb |")
-    w("|---|---|---|---|")
+    w("Přesné místo uvnitř oblasti (molo, loď, pyramida, …) je u ryby v `area_spots` `{area_id: [spot]}` — "
+      "filtruje se podle oblasti, místo se ukazuje jako poznámka. Furniture Factory je místo v Mystic Desert.")
+    w("")
+    w("| id | název | kind | ryb | místa |")
+    w("|---|---|---|---|---|")
     for a in areas:
-        w(f"| `{a['id']}` | {a['name']} | {a['kind']} | {len(a['fish_ids'])} |")
+        w(f"| `{a['id']}` | {a['name']} | {a['kind']} | {len(a['fish_ids'])} | {', '.join(a.get('spots', []))} |")
     w("")
     w(f"### Hodnoty sloupce Area (all-in-one, 5-star), které neodpovídají žádné oblasti ({len(unmatched_area_tokens)})")
     w("")
@@ -370,7 +377,7 @@ def _cz_section(w, fish, cz):
 
 
 def _manual_section(w, man):
-    w("## Ruční doplnění — `manual/resolutions.csv`")
+    w("## Ruční doplnění — `scraper/resolutions.csv`")
     w("")
     w("Zbylé konflikty a díry (návnada, sezóna, čas, rarita, český název), které žádný zdroj jednoznačně neřeší. "
       "CSV (`;`, UTF-8) jde otevřít v Excelu: sloupec `options` = hodnoty z wiki s tabulkami, odkud jsou, "
@@ -397,7 +404,10 @@ def _resolve_section(w, stats):
       "**fishao_cz_fill** (wiki nemá jistou hodnotu, fishao.cz má jednoznačnou). "
       "Porovnává se rozparsovaný tvar, takže `Sept - March` = `Sep-Dec, Jan-March` = `01.09. - 31.03.`. "
       "Řádky s prohozeným Season/Time jsou opravené (`fix` v `extra.occurrences`). "
-      "Rozhodnutí je u ryby v `extra.filled_from.<pole>` včetně kandidátů.")
+      "Rozhodnutí je u ryby v `extra.filled_from.<pole>` včetně kandidátů. "
+      "Nakonec **newer_source**: kde se wiki a fishao.cz pořád neshodují, vyhrává novější fishao.cz a pole jde do "
+      "`uncertain` (UI „?\"); **uncertain_value**: použita hodnota s `?` ze zdroje (taky `uncertain`). "
+      "Oblasti: když fishao.cz uvádí jinou sadu oblastí, použije se ta (`extra.areas_wiki` drží původní).")
     w("")
     w("| pole | pravidlo | ryb |")
     w("|---|---|---|")

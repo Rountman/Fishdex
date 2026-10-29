@@ -1,7 +1,7 @@
 """Merge fishao.cz pages into the fishaowiki fish list.
 
 fishaowiki stays the primary source for every top-level field. fishao.cz adds:
-- names.cs / names.sk / names.es (and names.en_fishao_cz when it differs)
+- names.cs (and names.en_fishao_cz when it differs); sk/es stay only in extra.fishao_cz
 - has_glowing_variant / glowing_info — the page lists a "zářivá" (glowing) shop price row
 - max_length_cm {min, max} over wiki World record + fishao.cz "Délka / maximální"
 - rarity where the wiki has none (or its tables conflict) and fishao.cz pages agree
@@ -120,7 +120,7 @@ def merge(fish_list, cz_pages, slugify, split_name, aliases, img_dir, image_ext,
 
     for f in fish_list:
         pages = matched.get(f["id"], [])
-        f["names"] = {"en": f["name"], "cs": None, "sk": None, "es": None}
+        f["names"] = {"en": f["name"], "cs": None}
         _length(f, pages)
         if f["max_length_cm"] and f["max_length_cm"]["min"] != f["max_length_cm"]["max"]:
             validation["length_range"].append((f["id"], f["max_length_cm"], f["max_length_raw"]))
@@ -134,7 +134,7 @@ def merge(fish_list, cz_pages, slugify, split_name, aliases, img_dir, image_ext,
 
         # older English-slug pages often carry the English name as an untranslated placeholder
         en_slugs = {slugify(split_name(n)[0]) for n in [f["name"], *f["extra"]["name_variants"], *distinct(F_EN)]}
-        for lang, field in (("cs", F_CS), ("sk", F_SK), ("es", F_ES)):
+        for lang, field in (("cs", F_CS),):
             vals = distinct(field)
             if len(vals) == 1:
                 f["names"][lang] = vals[0]

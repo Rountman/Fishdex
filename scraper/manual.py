@@ -1,7 +1,10 @@
 """Manual resolutions: a CSV worklist of remaining conflicts / gaps that a human fills in.
 
-fishdex-data/manual/resolutions.csv  (UTF-8 with BOM, ';' separated — opens directly in Excel)
-  fish_id;name;field;problem;options;fishao_cz;value;note
+scraper/resolutions.csv  (UTF-8 with BOM, ';' separated — opens directly in Excel)
+  fish_id;name;field;problem;current;options;fishao_cz;value;note
+
+problem: conflict / missing / uncertain (value has '?') / newer_source (sources disagreed, fishao.cz
+used, shown with '?') / fallback_en (no Czech name). `current` = what fish.json has now.
 
 Each build regenerates the worklist but keeps every filled `value` and `note`.
 A filled value is applied to fish.json with extra.filled_from.<field> = {"source": "manual", ...}.
@@ -16,9 +19,8 @@ from baitfmt import canonical
 from seasonfmt import parse_season
 from timefmt import parse_time
 
-ROOT = Path(__file__).resolve().parent.parent
-CSV_PATH = ROOT / "manual" / "resolutions.csv"
-COLUMNS = ["fish_id", "name", "field", "problem", "options", "fishao_cz", "value", "note"]
+CSV_PATH = Path(__file__).resolve().parent / "resolutions.csv"
+COLUMNS = ["fish_id", "name", "field", "problem", "current", "options", "fishao_cz", "value", "note"]
 
 # worklist field -> (column name in wiki tables / conflicts key, fishao.cz field used as a hint)
 FIELDS = {
@@ -87,9 +89,20 @@ def issues(f: dict) -> list[dict]:
         else:
             problem = "missing"
         out.append({
-            "fish_id": f["id"], "name": f["name"], "field": field, "problem": problem,
+            "fish_id": f["id"], "name": f["name"], "field": field, "problem": problem, "current": "",
             "options": _options(f, column) if column else "",
             "fishao_cz": _cz_hint(f, cz_field),
+        })
+    raw_of = {"time": "time_raw", "season": "season_raw", "bait": "bait_raw", "rarity": "rarity_raw"}
+    for field in f["uncertain"]:
+        if field not in raw_of or any(r["field"] == field for r in out):
+            continue
+        column, cz_field = FIELDS[field]
+        rule = f["extra"].get("filled_from", {}).get(field, {}).get("rule")
+        out.append({
+            "fish_id": f["id"], "name": f["name"], "field": field,
+            "problem": "newer_source" if rule == "newer_source" else "uncertain",
+            "current": f[raw_of[field]] or "", "options": _options(f, column), "fishao_cz": _cz_hint(f, cz_field),
         })
     return out
 
@@ -114,6 +127,8 @@ def apply(f: dict, field: str, value: str) -> None:
         f["names"]["cs"] = value
         f["extra"].pop("names_fallback", None)
     f["extra"].setdefault("filled_from", {})[field] = {"source": "manual", "reason": "manual", "previous_raw": prev}
+    if field in f["uncertain"]:
+        f["uncertain"].remove(field)
 
 
 def run(fish_list: list[dict]) -> dict:

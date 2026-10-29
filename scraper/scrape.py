@@ -28,6 +28,7 @@ from bs4 import BeautifulSoup
 import fishao_cz
 import manual
 import merge_cz
+import places
 import resolve
 from baitfmt import canonical as bait_canonical, norm_bait
 from fetch import FetchFailed, failures, fetch, fetch_meta
@@ -303,10 +304,13 @@ def build(with_images: bool) -> None:
 
     # ---- areas: one per table section on area pages
     areas: dict[str, dict] = {}
-    section_area: dict[tuple, str] = {}
+    section_area: dict[tuple, tuple] = {}
     for s in sections:
         kind = PAGES[s["page"]][1]
         if not kind:
+            continue
+        if s["heading"] in places.SECTION_AS_SPOT:  # e.g. Furniture Factory -> spot in Mystic Desert
+            section_area[(s["page"], s["table_id"])] = places.SECTION_AS_SPOT[s["heading"]]
             continue
         name = "Backyard" if kind == "backyard" else s["heading"]
         aid = slugify(name)
@@ -319,21 +323,21 @@ def build(with_images: bool) -> None:
             "snapshot_timestamp": snaps[s["page"]]["snapshot_timestamp"],
             "table_id": s["table_id"], "columns": s["headers"],
         }
-        section_area[(s["page"], s["table_id"])] = aid
+        section_area[(s["page"], s["table_id"])] = (aid, None)
 
-    # lookup for free-text Area column (all-in-one, 5-star): exact match after removing (...) and case
-    area_lookup = {}
+    # lookup for free-text locations (wiki Area column, fishao.cz): base name -> (area, spot)
+    area_names = {}
     for a in areas.values():
         for n in {a["name"], a["heading_raw"], split_name(a["heading_raw"])[0]}:
-            area_lookup[n.lower()] = a["id"]
-    for raw, target in aliases.get("areas", {}).items():
-        area_lookup[raw.lower()] = target
+            area_names[n.lower()] = a["id"]
+    area_lookup = places.build_lookup(area_names, aliases.get("areas", {}))
 
     # ---- group occurrences into fish
     groups: dict[str, list] = defaultdict(list)
     for o in occurrences:
-        name, quals = split_name(o["name_raw"])
-        o["name"], o["qualifiers"] = name, quals
+        name, _ = split_name(o["name_raw"])
+        # qualifiers like '(Pier only)' sit outside <strong> in the cell, so read them from the full cell text
+        o["name"], o["qualifiers"] = name, split_name(o["cells"].get("Fish") or o["name_raw"])[1]
         o["key"] = slugify(name)
         groups[o["key"]].append(o)
 
@@ -359,20 +363,34 @@ def build(with_images: bool) -> None:
                 notes.append(f"fish {fid!r} appears {c}x in {page} table {tid}: "
                              + ", ".join(repr(o["name_raw"]) for o in occs if o["table_id"] == tid))
 
-        # areas: membership in area tables + exact matches from Area text columns
+        # areas: membership in area tables + Area text columns; spots from sections, Pool, name qualifiers
         area_sources: dict[str, set] = defaultdict(set)
+        area_spots: dict[str, set] = defaultdict(set)
         for o in occs:
-            aid = section_area.get((o["page"], o["table_id"]))
-            if aid:
+            row_areas = []
+            sec = section_area.get((o["page"], o["table_id"]))
+            if sec:
+                aid, spot = sec
                 area_sources[aid].add(o["page"])
+                row_areas.append(aid)
+                if spot:
+                    area_spots[aid].add(spot)
+                if o["cells"].get("Pool") and places.spot_of(o["cells"]["Pool"]):
+                    area_spots[aid].add(places.spot_of(o["cells"]["Pool"]))
             if "Area" in o["cells"]:
                 for tok in [ws(t) for t in o["cells"]["Area"].split(",") if ws(t)]:
-                    base = split_name(tok)[0].lower()
-                    aid2 = area_lookup.get(tok.lower()) or area_lookup.get(base)
+                    aid2, spots, leftover = places.place(tok, area_lookup)
                     if aid2:
                         area_sources[aid2].add(f"{o['page']}:Area")
+                        area_spots[aid2].update(spots)
+                        row_areas.append(aid2)
                     else:
                         unmatched_area_tokens[tok] += 1
+                    for lo in leftover:
+                        notes.append(f"{fid}: unknown spot {lo!r} in {tok!r}")
+            name_spots = [places.spot_of(q) for q in o["qualifiers"] if places.spot_of(q)]
+            if name_spots and len(set(row_areas)) == 1:
+                area_spots[row_areas[0]].update(name_spots)
 
         # some rows have Season and Time swapped (a time range in the Season column)
         for o in occs:
@@ -441,8 +459,9 @@ def build(with_images: bool) -> None:
         fish_list.append({
             "id": fid,
             "name": names[0],
-            "names": None,  # filled by merge_cz: {en, cs, sk, es}
+            "names": None,  # filled by merge_cz: {en, cs}
             "areas": sorted(area_sources),
+            "area_spots": {a: sorted(area_spots[a]) for a in sorted(area_spots) if area_spots[a] and a in area_sources},
             "time": parse_time(time_raw),
             "time_raw": time_raw,
             "season": parse_season(season_raw),
@@ -455,6 +474,7 @@ def build(with_images: bool) -> None:
             "max_length_raw": None,
             "has_glowing_variant": None,
             "glowing_info": None,
+            "uncertain": [],  # fields where sources disagree -> newer source (fishao.cz) used, show '?'
             "image": image,
             "image_glowing": None,
             "source_url": first["source_url"],
@@ -466,10 +486,13 @@ def build(with_images: bool) -> None:
     cz_pages = fishao_cz.run()
     cz = merge_cz.merge(fish_list, cz_pages, slugify, split_name, aliases, IMG_DIR, image_ext, with_images)
 
-    # ---- rule-based resolution of remaining time / season / bait conflicts
+    # ---- rule-based resolution of remaining time / season / bait conflicts,
+    # then the newer source (fishao.cz) wins every remaining disagreement, marked uncertain
     resolve_stats: dict = {}
     for f in fish_list:
         resolve.resolve(f, resolve_stats)
+        resolve.prefer_newer(f, resolve_stats)
+        places.apply_cz(f, area_lookup, resolve_stats, notes)
     unknown_bait = Counter(t for f in fish_list for o in f["extra"]["occurrences"]
                            for t in bait_canonical(o["cells"].get("Bait") or "")[1])
     for t, n in unknown_bait.items():
@@ -489,6 +512,8 @@ def build(with_images: bool) -> None:
     for f in fish_list:
         for a in f["areas"]:
             areas[a]["fish_ids"].append(f["id"])
+    for a in areas.values():
+        a["spots"] = sorted({s for f in fish_list for s in f["area_spots"].get(a["id"], [])})
 
     (DATA_DIR / "fish.json").write_text(json.dumps(fish_list, indent=2, ensure_ascii=False) + "\n")
     (DATA_DIR / "areas.json").write_text(json.dumps(list(areas.values()), indent=2, ensure_ascii=False) + "\n")
