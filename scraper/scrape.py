@@ -472,6 +472,7 @@ def build(with_images: bool) -> None:
             "bait_raw": bait_raw,
             "max_length_cm": None,  # filled by merge_cz: {min, max} over wiki World record + fishao.cz max length
             "max_length_raw": None,
+            "max_length_label": None,  # '449 cm' or '(448–449 cm)?' when sources disagree
             "has_glowing_variant": None,
             "glowing_info": None,
             "uncertain": [],  # fields where sources disagree -> newer source (fishao.cz) used, show '?'

@@ -11,7 +11,7 @@ Vygenerováno 2026-10-29 skriptem `scraper/scrape.py`. Soubor se přepisuje při
 - **S českým názvem (fishao.cz):** 615 / 615
 - **Zdroj obrázků:** fishaowiki: 594, fishao.cz: 21
 - **S konfliktem hodnot mezi tabulkami:** 72
-- **S nejistým polem (`uncertain`, UI ukáže „?"):** 78 — time: 54, season: 16, bait: 12
+- **S nejistým polem (`uncertain`, UI ukáže „?"):** 159 — max_length: 92, time: 54, season: 16, bait: 12
 - **S přesným místem v oblasti (`area_spots`):** 291
 
 ## Zdroje
@@ -595,7 +595,7 @@ Počet: 0
 | Bait | `bait[]` (kanonické: opravené překlepy, Shark Lure = Shark Bait), `bait_raw` (text ze zdroje) |
 | Season | `season` (`"always"` nebo `[{from: "MM-DD", to}]`), `season_raw` |
 | Time | `time` (`"always"` nebo `[{from,to}]`), `time_raw` |
-| World record + fishao.cz Délka / maximální | `max_length_cm` `{min, max}`, `max_length_raw` (hodnoty + zdroje) |
+| World record + fishao.cz Délka / maximální | `max_length_cm` `{min, max}`, `max_length_label` (`449 cm` / při neshodě `(448–449 cm)?`), `max_length_raw` (hodnoty + zdroje) |
 | Max Price, fishao.cz ceny | **zahozeno** (jen `has_glowing_variant` z existence zářivé ceny) |
 | hvězdy (obrázek `Nstar.png`) / Stars | `rarity` 1–5, `rarity_raw` |
 | Area (all-in-one, 5-star) | → `areas[]` při přesné shodě, raw v `extra.occurrences` |

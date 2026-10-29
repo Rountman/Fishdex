@@ -52,6 +52,14 @@ def _length(f, pages):
     nums = [n for n in (_int(v) for v, _ in raws) if n is not None]
     f["max_length_cm"] = {"min": min(nums), "max": max(nums)} if nums else None
     f["max_length_raw"] = [{"value": v, "sources": srcs} for v, srcs in grouped.items()] or None
+    # display form; user decision: a disagreement shows the whole range in brackets followed by '?'
+    if not nums:
+        f["max_length_label"] = None
+    elif min(nums) == max(nums):
+        f["max_length_label"] = f"{min(nums)} cm"
+    else:
+        f["max_length_label"] = f"({min(nums)}–{max(nums)} cm)?"
+        f["uncertain"].append("max_length")
 
 
 def match_pages(pages, fish_list, slugify, split_name, approved: dict):

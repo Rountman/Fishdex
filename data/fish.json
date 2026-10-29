@@ -34,6 +34,7 @@
         ]
       }
     ],
+    "max_length_label": "57 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -171,6 +172,7 @@
         ]
       }
     ],
+    "max_length_label": "24 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -307,6 +309,7 @@
         ]
       }
     ],
+    "max_length_label": "109 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -454,6 +457,7 @@
         ]
       }
     ],
+    "max_length_label": "39 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -613,6 +617,7 @@
         ]
       }
     ],
+    "max_length_label": "164 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -760,9 +765,11 @@
         ]
       }
     ],
+    "max_length_label": "(191–196 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
+      "max_length",
       "time"
     ],
     "image": "images/fish/african-mottled-eel.png",
@@ -936,6 +943,7 @@
         ]
       }
     ],
+    "max_length_label": "78 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -1092,6 +1100,7 @@
         ]
       }
     ],
+    "max_length_label": "139 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -1231,6 +1240,7 @@
         ]
       }
     ],
+    "max_length_label": "298 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -1416,6 +1426,7 @@
         ]
       }
     ],
+    "max_length_label": "619 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -1597,6 +1608,7 @@
         ]
       }
     ],
+    "max_length_label": "299 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -1756,6 +1768,7 @@
         ]
       }
     ],
+    "max_length_label": "82 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -1912,6 +1925,7 @@
         ]
       }
     ],
+    "max_length_label": "10 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -2050,6 +2064,7 @@
         ]
       }
     ],
+    "max_length_label": "11 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -2192,6 +2207,7 @@
         ]
       }
     ],
+    "max_length_label": "90 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -2329,6 +2345,7 @@
         ]
       }
     ],
+    "max_length_label": "114 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -2476,6 +2493,7 @@
         ]
       }
     ],
+    "max_length_label": "319 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -2650,6 +2668,7 @@
         ]
       }
     ],
+    "max_length_label": "242 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -2811,9 +2830,12 @@
         ]
       }
     ],
+    "max_length_label": "(206–209 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/angler-monkfish.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -2977,6 +2999,7 @@
         ]
       }
     ],
+    "max_length_label": "12 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -3135,6 +3158,7 @@
         ]
       }
     ],
+    "max_length_label": "103 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -3279,6 +3303,7 @@
         ]
       }
     ],
+    "max_length_label": "41 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -3475,9 +3500,12 @@
         ]
       }
     ],
+    "max_length_label": "(21–22 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/aphyonidae.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -3632,6 +3660,7 @@
         ]
       }
     ],
+    "max_length_label": "15 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -3782,9 +3811,12 @@
         ]
       }
     ],
+    "max_length_label": "(448–449 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/arapaima.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -3987,6 +4019,7 @@
         ]
       }
     ],
+    "max_length_label": "106 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -4125,6 +4158,7 @@
         ]
       }
     ],
+    "max_length_label": "59 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -4261,6 +4295,7 @@
         ]
       }
     ],
+    "max_length_label": "14 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -4372,6 +4407,7 @@
         ]
       }
     ],
+    "max_length_label": "89 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -4540,6 +4576,7 @@
         ]
       }
     ],
+    "max_length_label": "103 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -4707,9 +4744,12 @@
         ]
       }
     ],
+    "max_length_label": "(118–119 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/asp.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -4863,6 +4903,7 @@
         ]
       }
     ],
+    "max_length_label": "80 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -4995,6 +5036,7 @@
         ]
       }
     ],
+    "max_length_label": "19 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -5153,6 +5195,7 @@
         ]
       }
     ],
+    "max_length_label": "457 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -5286,6 +5329,7 @@
         ]
       }
     ],
+    "max_length_label": "44 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -5427,6 +5471,7 @@
         ]
       }
     ],
+    "max_length_label": "59 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -5584,6 +5629,7 @@
         ]
       }
     ],
+    "max_length_label": "110 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -5722,6 +5768,7 @@
         ]
       }
     ],
+    "max_length_label": "149 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -5885,9 +5932,12 @@
         ]
       }
     ],
+    "max_length_label": "(101–102 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/australian-barracuda.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -6026,6 +6076,7 @@
         ]
       }
     ],
+    "max_length_label": "149 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -6167,6 +6218,7 @@
         ]
       }
     ],
+    "max_length_label": "4 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -6324,6 +6376,7 @@
         ]
       }
     ],
+    "max_length_label": "69 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -6468,6 +6521,7 @@
         ]
       }
     ],
+    "max_length_label": "59 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -6627,6 +6681,7 @@
         ]
       }
     ],
+    "max_length_label": "204 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -6767,6 +6822,7 @@
         ]
       }
     ],
+    "max_length_label": "111 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -6909,6 +6965,7 @@
         ]
       }
     ],
+    "max_length_label": "65 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -7048,6 +7105,7 @@
         ]
       }
     ],
+    "max_length_label": "14 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -7210,6 +7268,7 @@
         ]
       }
     ],
+    "max_length_label": "7 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -7371,6 +7430,7 @@
         ]
       }
     ],
+    "max_length_label": "119 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -7551,6 +7611,7 @@
         ]
       }
     ],
+    "max_length_label": "81 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -7688,6 +7749,7 @@
         ]
       }
     ],
+    "max_length_label": "11 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -7800,6 +7862,7 @@
         ]
       }
     ],
+    "max_length_label": "199 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -7991,9 +8054,12 @@
         ]
       }
     ],
+    "max_length_label": "(184–199 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/barramundi.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -8147,6 +8213,7 @@
         ]
       }
     ],
+    "max_length_label": "34 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -8309,6 +8376,7 @@
         ]
       }
     ],
+    "max_length_label": "14 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -8483,9 +8551,12 @@
         ]
       }
     ],
+    "max_length_label": "(1181–1223 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/basking-shark.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -8726,9 +8797,12 @@
         ]
       }
     ],
+    "max_length_label": "(846–851 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/beluga-sturgeon.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -8889,6 +8963,7 @@
         ]
       }
     ],
+    "max_length_label": "75 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -9028,6 +9103,7 @@
         ]
       }
     ],
+    "max_length_label": "3 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -9167,9 +9243,12 @@
         ]
       }
     ],
+    "max_length_label": "(73–74 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/bigeye-barracuda.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -9300,6 +9379,7 @@
         ]
       }
     ],
+    "max_length_label": "29 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -9437,6 +9517,7 @@
         ]
       }
     ],
+    "max_length_label": "250 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -9593,6 +9674,7 @@
         ]
       }
     ],
+    "max_length_label": "39 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -9750,6 +9832,7 @@
         ]
       }
     ],
+    "max_length_label": "149 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -9902,6 +9985,7 @@
         ]
       }
     ],
+    "max_length_label": "122 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -10039,6 +10123,7 @@
         ]
       }
     ],
+    "max_length_label": "34 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -10195,6 +10280,7 @@
         ]
       }
     ],
+    "max_length_label": "120 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -10304,6 +10390,7 @@
         ]
       }
     ],
+    "max_length_label": "8 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -10436,6 +10523,7 @@
         ]
       }
     ],
+    "max_length_label": "34 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -10579,9 +10667,12 @@
         ]
       }
     ],
+    "max_length_label": "(297–298 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/black-alligator-gar.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -10748,6 +10839,7 @@
         ]
       }
     ],
+    "max_length_label": "89 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -10908,6 +11000,7 @@
         ]
       }
     ],
+    "max_length_label": "122 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -11049,6 +11142,7 @@
         ]
       }
     ],
+    "max_length_label": "64 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -11187,6 +11281,7 @@
         ]
       }
     ],
+    "max_length_label": "48 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -11330,6 +11425,7 @@
         ]
       }
     ],
+    "max_length_label": "28 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -11520,6 +11616,7 @@
         ]
       }
     ],
+    "max_length_label": "52 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -11699,6 +11796,7 @@
         ]
       }
     ],
+    "max_length_label": "52 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -11857,9 +11955,12 @@
         ]
       }
     ],
+    "max_length_label": "(459–464 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/black-marlin.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -12013,6 +12114,7 @@
         ]
       }
     ],
+    "max_length_label": "8 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -12151,6 +12253,7 @@
         ]
       }
     ],
+    "max_length_label": "89 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -12290,6 +12393,7 @@
         ]
       }
     ],
+    "max_length_label": "45 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -12437,9 +12541,12 @@
         ]
       }
     ],
+    "max_length_label": "(26–34 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/blackbar-soldierfish.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -12590,6 +12697,7 @@
         ]
       }
     ],
+    "max_length_label": "99 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -12733,9 +12841,12 @@
         ]
       }
     ],
+    "max_length_label": "(9–13 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/blackfin-dartfish.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -12866,6 +12977,7 @@
         ]
       }
     ],
+    "max_length_label": "6 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -12998,6 +13110,7 @@
         ]
       }
     ],
+    "max_length_label": "109 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -13139,6 +13252,7 @@
         ]
       }
     ],
+    "max_length_label": "203 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -13309,9 +13423,12 @@
         ]
       }
     ],
+    "max_length_label": "(37–39 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/blind-cave-eel.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -13492,6 +13609,7 @@
         ]
       }
     ],
+    "max_length_label": "45 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -13654,6 +13772,7 @@
         ]
       }
     ],
+    "max_length_label": "2 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -13816,6 +13935,7 @@
         ]
       }
     ],
+    "max_length_label": "239 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -13964,6 +14084,7 @@
         ]
       }
     ],
+    "max_length_label": "9 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -14120,6 +14241,7 @@
         ]
       }
     ],
+    "max_length_label": "9 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -14261,6 +14383,7 @@
         ]
       }
     ],
+    "max_length_label": "6 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -14400,6 +14523,7 @@
         ]
       }
     ],
+    "max_length_label": "131 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -14576,9 +14700,12 @@
         ]
       }
     ],
+    "max_length_label": "(428–429 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/blue-marlin.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -14752,6 +14879,7 @@
         ]
       }
     ],
+    "max_length_label": "8 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -14892,6 +15020,7 @@
         ]
       }
     ],
+    "max_length_label": "119 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -15034,6 +15163,7 @@
         ]
       }
     ],
+    "max_length_label": "30 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -15172,6 +15302,7 @@
         ]
       }
     ],
+    "max_length_label": "399 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -15312,6 +15443,7 @@
         ]
       }
     ],
+    "max_length_label": "59 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -15472,6 +15604,7 @@
         ]
       }
     ],
+    "max_length_label": "27 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -15609,6 +15742,7 @@
         ]
       }
     ],
+    "max_length_label": "37 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -15747,6 +15881,7 @@
         ]
       }
     ],
+    "max_length_label": "116 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -15891,6 +16026,7 @@
         ]
       }
     ],
+    "max_length_label": "40 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -16082,6 +16218,7 @@
         ]
       }
     ],
+    "max_length_label": "14 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -16225,6 +16362,7 @@
         ]
       }
     ],
+    "max_length_label": "71 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -16362,6 +16500,7 @@
         ]
       }
     ],
+    "max_length_label": "6 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -16506,6 +16645,7 @@
         ]
       }
     ],
+    "max_length_label": "39 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -16653,9 +16793,12 @@
         ]
       }
     ],
+    "max_length_label": "(145–149 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/bonnethead-shark.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -16813,6 +16956,7 @@
         ]
       }
     ],
+    "max_length_label": "12 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -16975,9 +17119,12 @@
         ]
       }
     ],
+    "max_length_label": "(85–87 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/boulengerella-cuvieri.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -17136,6 +17283,7 @@
         ]
       }
     ],
+    "max_length_label": "108 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -17277,6 +17425,7 @@
         ]
       }
     ],
+    "max_length_label": "306 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -17414,6 +17563,7 @@
         ]
       }
     ],
+    "max_length_label": "309 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -17571,6 +17721,7 @@
         ]
       }
     ],
+    "max_length_label": "84 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -17708,6 +17859,7 @@
         ]
       }
     ],
+    "max_length_label": "13 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -17893,6 +18045,7 @@
         ]
       }
     ],
+    "max_length_label": "3 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -18057,6 +18210,7 @@
         ]
       }
     ],
+    "max_length_label": "85 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -18221,6 +18375,7 @@
         ]
       }
     ],
+    "max_length_label": "49 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -18363,6 +18518,7 @@
         ]
       }
     ],
+    "max_length_label": "99 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -18531,9 +18687,12 @@
         ]
       }
     ],
+    "max_length_label": "(400–401 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/bull-shark.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -18742,6 +18901,7 @@
         ]
       }
     ],
+    "max_length_label": "102 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -18879,6 +19039,7 @@
         ]
       }
     ],
+    "max_length_label": "49 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -19023,6 +19184,7 @@
         ]
       }
     ],
+    "max_length_label": "59 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -19167,6 +19329,7 @@
         ]
       }
     ],
+    "max_length_label": "3 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -19310,6 +19473,7 @@
         ]
       }
     ],
+    "max_length_label": "5 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -19479,9 +19643,12 @@
         ]
       }
     ],
+    "max_length_label": "(1158–1214 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/carcharocles-chubutensis.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -19661,6 +19828,7 @@
         ]
       }
     ],
+    "max_length_label": "131 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -19799,6 +19967,7 @@
         ]
       }
     ],
+    "max_length_label": "31 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -19932,6 +20101,7 @@
         ]
       }
     ],
+    "max_length_label": "164 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -20070,6 +20240,7 @@
         ]
       }
     ],
+    "max_length_label": "26 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -20228,6 +20399,7 @@
         ]
       }
     ],
+    "max_length_label": "37 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -20359,6 +20531,7 @@
         ]
       }
     ],
+    "max_length_label": "64 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -20500,6 +20673,7 @@
         ]
       }
     ],
+    "max_length_label": "78 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -20638,6 +20812,7 @@
         ]
       }
     ],
+    "max_length_label": "19 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -20783,9 +20958,11 @@
         ]
       }
     ],
+    "max_length_label": "(48–50 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
+      "max_length",
       "time"
     ],
     "image": "images/fish/chilhuil-sea-catfish.png",
@@ -20962,6 +21139,7 @@
         ]
       }
     ],
+    "max_length_label": "18 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -21105,6 +21283,7 @@
         ]
       }
     ],
+    "max_length_label": "700 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -21280,6 +21459,7 @@
         ]
       }
     ],
+    "max_length_label": "399 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -21419,6 +21599,7 @@
         ]
       }
     ],
+    "max_length_label": "149 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -21557,6 +21738,7 @@
         ]
       }
     ],
+    "max_length_label": "10 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -21688,6 +21870,7 @@
         ]
       }
     ],
+    "max_length_label": "171 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -21819,6 +22002,7 @@
         ]
       }
     ],
+    "max_length_label": "99 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -21958,6 +22142,7 @@
         ]
       }
     ],
+    "max_length_label": "14 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -22114,6 +22299,7 @@
         ]
       }
     ],
+    "max_length_label": "3 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -22252,6 +22438,7 @@
         ]
       }
     ],
+    "max_length_label": "51 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -22394,6 +22581,7 @@
         ]
       }
     ],
+    "max_length_label": "17 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -22532,6 +22720,7 @@
         ]
       }
     ],
+    "max_length_label": "207 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -22686,6 +22875,7 @@
         ]
       }
     ],
+    "max_length_label": "39 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -22822,6 +23012,7 @@
         ]
       }
     ],
+    "max_length_label": "179 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -23016,6 +23207,7 @@
         ]
       }
     ],
+    "max_length_label": "98 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -23175,6 +23367,7 @@
         ]
       }
     ],
+    "max_length_label": "24 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -23324,6 +23517,7 @@
         ]
       }
     ],
+    "max_length_label": "119 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -23537,6 +23731,7 @@
         ]
       }
     ],
+    "max_length_label": "39 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -23674,6 +23869,7 @@
         ]
       }
     ],
+    "max_length_label": "189 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -23810,6 +24006,7 @@
         ]
       }
     ],
+    "max_length_label": "13 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -23944,6 +24141,7 @@
         ]
       }
     ],
+    "max_length_label": "49 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -24089,6 +24287,7 @@
         ]
       }
     ],
+    "max_length_label": "399 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -24233,9 +24432,12 @@
         ]
       }
     ],
+    "max_length_label": "(26–27 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/common-ponyfish.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -24370,6 +24572,7 @@
         ]
       }
     ],
+    "max_length_label": "50 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -24508,6 +24711,7 @@
         ]
       }
     ],
+    "max_length_label": "50 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -24641,6 +24845,7 @@
         ]
       }
     ],
+    "max_length_label": "75 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -24780,6 +24985,7 @@
         ]
       }
     ],
+    "max_length_label": "750 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -24938,6 +25144,7 @@
         ]
       }
     ],
+    "max_length_label": "17 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -25080,6 +25287,7 @@
         ]
       }
     ],
+    "max_length_label": "55 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -25217,6 +25425,7 @@
         ]
       }
     ],
+    "max_length_label": "69 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -25354,6 +25563,7 @@
         ]
       }
     ],
+    "max_length_label": "44 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -25494,6 +25704,7 @@
         ]
       }
     ],
+    "max_length_label": "149 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -25682,6 +25893,7 @@
         ]
       }
     ],
+    "max_length_label": "15 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -25819,6 +26031,7 @@
         ]
       }
     ],
+    "max_length_label": "5 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -25960,6 +26173,7 @@
         ]
       }
     ],
+    "max_length_label": "149 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -26118,6 +26332,7 @@
         ]
       }
     ],
+    "max_length_label": "602 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -26270,6 +26485,7 @@
         ]
       }
     ],
+    "max_length_label": "17 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -26402,6 +26618,7 @@
         ]
       }
     ],
+    "max_length_label": "52 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -26535,6 +26752,7 @@
         ]
       }
     ],
+    "max_length_label": "12 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -26697,9 +26915,12 @@
         ]
       }
     ],
+    "max_length_label": "(49–55 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/cyclops-shark.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -26862,6 +27083,7 @@
         ]
       }
     ],
+    "max_length_label": "20 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -27053,6 +27275,7 @@
         ]
       }
     ],
+    "max_length_label": "39 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -27193,9 +27416,12 @@
         ]
       }
     ],
+    "max_length_label": "(163–164 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/danube-salmon.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -27401,6 +27627,7 @@
         ]
       }
     ],
+    "max_length_label": "39 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -27533,6 +27760,7 @@
         ]
       }
     ],
+    "max_length_label": "23 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -27695,6 +27923,7 @@
         ]
       }
     ],
+    "max_length_label": "7 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -27869,6 +28098,7 @@
         ]
       }
     ],
+    "max_length_label": "68 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -28031,6 +28261,7 @@
         ]
       }
     ],
+    "max_length_label": "22 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -28165,6 +28396,7 @@
         ]
       }
     ],
+    "max_length_label": "44 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -28322,6 +28554,7 @@
         ]
       }
     ],
+    "max_length_label": "2 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -28488,6 +28721,7 @@
         ]
       }
     ],
+    "max_length_label": "14 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -28629,6 +28863,7 @@
         ]
       }
     ],
+    "max_length_label": "159 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -28763,6 +28998,7 @@
         ]
       }
     ],
+    "max_length_label": "60 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -28897,6 +29133,7 @@
         ]
       }
     ],
+    "max_length_label": "14 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -29055,6 +29292,7 @@
         ]
       }
     ],
+    "max_length_label": "14 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -29217,9 +29455,12 @@
         ]
       }
     ],
+    "max_length_label": "(89–91 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/dragon-moray.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -29377,6 +29618,7 @@
         ]
       }
     ],
+    "max_length_label": "29 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -29512,6 +29754,7 @@
         ]
       }
     ],
+    "max_length_label": "95 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -29649,9 +29892,12 @@
         ]
       }
     ],
+    "max_length_label": "(182–794 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/dunkleosteus.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -29812,6 +30058,7 @@
         ]
       }
     ],
+    "max_length_label": "419 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -29949,6 +30196,7 @@
         ]
       }
     ],
+    "max_length_label": "28 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -30133,6 +30381,7 @@
         ]
       }
     ],
+    "max_length_label": "2 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -30270,6 +30519,7 @@
         ]
       }
     ],
+    "max_length_label": "14 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -30415,6 +30665,7 @@
         ]
       }
     ],
+    "max_length_label": "149 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -30581,6 +30832,7 @@
         ]
       }
     ],
+    "max_length_label": "121 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -30718,6 +30970,7 @@
         ]
       }
     ],
+    "max_length_label": "199 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -30878,6 +31131,7 @@
         ]
       }
     ],
+    "max_length_label": "8 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -31013,6 +31267,7 @@
         ]
       }
     ],
+    "max_length_label": "41 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -31154,6 +31409,7 @@
         ]
       }
     ],
+    "max_length_label": "77 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -31318,6 +31574,7 @@
         ]
       }
     ],
+    "max_length_label": "40 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -31461,9 +31718,12 @@
         ]
       }
     ],
+    "max_length_label": "(115–116 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/emperor-red-snapper.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -31614,6 +31874,7 @@
         ]
       }
     ],
+    "max_length_label": "154 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -31747,6 +32008,7 @@
         ]
       }
     ],
+    "max_length_label": "24 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -31913,6 +32175,7 @@
         ]
       }
     ],
+    "max_length_label": "19 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -32049,6 +32312,7 @@
         ]
       }
     ],
+    "max_length_label": "59 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -32182,6 +32446,7 @@
         ]
       }
     ],
+    "max_length_label": "299 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -32339,6 +32604,7 @@
         ]
       }
     ],
+    "max_length_label": "59 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -32473,6 +32739,7 @@
         ]
       }
     ],
+    "max_length_label": "59 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -32610,6 +32877,7 @@
         ]
       }
     ],
+    "max_length_label": "599 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -32787,6 +33055,7 @@
         ]
       }
     ],
+    "max_length_label": "15 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -32949,6 +33218,7 @@
         ]
       }
     ],
+    "max_length_label": "16 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -33129,6 +33399,7 @@
         ]
       }
     ],
+    "max_length_label": "7 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -33286,9 +33557,12 @@
         ]
       }
     ],
+    "max_length_label": "(118–119 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/fangtooth-moray.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -33441,6 +33715,7 @@
         ]
       }
     ],
+    "max_length_label": "11 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -33589,9 +33864,11 @@
         ]
       }
     ],
+    "max_length_label": "(88–89 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
+      "max_length",
       "time"
     ],
     "image": "images/fish/fiddler-ray.png",
@@ -33779,9 +34056,12 @@
         ]
       }
     ],
+    "max_length_label": "(118–119 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/fire-eel.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -33973,6 +34253,7 @@
         ]
       }
     ],
+    "max_length_label": "14 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -34110,6 +34391,7 @@
         ]
       }
     ],
+    "max_length_label": "154 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -34263,9 +34545,11 @@
         ]
       }
     ],
+    "max_length_label": "(130–131 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
+      "max_length",
       "season"
     ],
     "image": "images/fish/florida-gar.png",
@@ -34464,6 +34748,7 @@
         ]
       }
     ],
+    "max_length_label": "39 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -34616,6 +34901,7 @@
         ]
       }
     ],
+    "max_length_label": "44 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -34748,6 +35034,7 @@
         ]
       }
     ],
+    "max_length_label": "29 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -34890,6 +35177,7 @@
         ]
       }
     ],
+    "max_length_label": "40 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -35032,6 +35320,7 @@
         ]
       }
     ],
+    "max_length_label": "29 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -35205,9 +35494,11 @@
         ]
       }
     ],
+    "max_length_label": "(148–149 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
+      "max_length",
       "time"
     ],
     "image": "images/fish/fresh-water-moray.png",
@@ -35384,6 +35675,7 @@
         ]
       }
     ],
+    "max_length_label": "7 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -35580,6 +35872,7 @@
         ]
       }
     ],
+    "max_length_label": "12 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -35723,6 +36016,7 @@
         ]
       }
     ],
+    "max_length_label": "94 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -35858,6 +36152,7 @@
         ]
       }
     ],
+    "max_length_label": "26 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -35994,6 +36289,7 @@
         ]
       }
     ],
+    "max_length_label": "8 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -36134,6 +36430,7 @@
         ]
       }
     ],
+    "max_length_label": "31 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -36328,9 +36625,11 @@
         ]
       }
     ],
+    "max_length_label": "(194–213 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
+      "max_length",
       "time",
       "season"
     ],
@@ -36533,6 +36832,7 @@
         ]
       }
     ],
+    "max_length_label": "39 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -36671,6 +36971,7 @@
         ]
       }
     ],
+    "max_length_label": "199 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -36809,6 +37110,7 @@
         ]
       }
     ],
+    "max_length_label": "42 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -36967,6 +37269,7 @@
         ]
       }
     ],
+    "max_length_label": "294 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -37109,6 +37412,7 @@
         ]
       }
     ],
+    "max_length_label": "519 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -37284,9 +37588,12 @@
         ]
       }
     ],
+    "max_length_label": "(457–459 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/giant-freshwater-stingray.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -37447,6 +37754,7 @@
         ]
       }
     ],
+    "max_length_label": "69 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -37616,6 +37924,7 @@
         ]
       }
     ],
+    "max_length_label": "304 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -37778,9 +38087,12 @@
         ]
       }
     ],
+    "max_length_label": "(54–57 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/giant-kokopu.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -37946,6 +38258,7 @@
         ]
       }
     ],
+    "max_length_label": "299 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -38104,9 +38417,12 @@
         ]
       }
     ],
+    "max_length_label": "(1409–1754 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/giant-oarfish.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -38350,9 +38666,12 @@
         ]
       }
     ],
+    "max_length_label": "(908–909 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/giant-oceanic-manta-ray.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -38522,9 +38841,12 @@
         ]
       }
     ],
+    "max_length_label": "(112–129 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/giant-salmon-carp.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -38725,6 +39047,7 @@
         ]
       }
     ],
+    "max_length_label": "129 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -38885,6 +39208,7 @@
         ]
       }
     ],
+    "max_length_label": "1294 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -39053,6 +39377,7 @@
         ]
       }
     ],
+    "max_length_label": "52 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -39195,6 +39520,7 @@
         ]
       }
     ],
+    "max_length_label": "41 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -39360,9 +39686,12 @@
         ]
       }
     ],
+    "max_length_label": "(324–610 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/goblin-shark.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -39562,9 +39891,12 @@
         ]
       }
     ],
+    "max_length_label": "(118–119 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/gold-carp.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -39722,6 +40054,7 @@
         ]
       }
     ],
+    "max_length_label": "30 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -39887,6 +40220,7 @@
         ]
       }
     ],
+    "max_length_label": "42 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -40048,6 +40382,7 @@
         ]
       }
     ],
+    "max_length_label": "129 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -40240,9 +40575,12 @@
         ]
       }
     ],
+    "max_length_label": "(15–16 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/golden-cave-catfish.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -40449,6 +40787,7 @@
         ]
       }
     ],
+    "max_length_label": "99 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -40655,6 +40994,7 @@
         ]
       }
     ],
+    "max_length_label": null,
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -40780,6 +41120,7 @@
         ]
       }
     ],
+    "max_length_label": "75 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -40924,9 +41265,12 @@
         ]
       }
     ],
+    "max_length_label": "(137–139 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/golden-pike.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -41099,9 +41443,12 @@
         ]
       }
     ],
+    "max_length_label": "(115–119 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/golden-trevally.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -41268,6 +41615,7 @@
         ]
       }
     ],
+    "max_length_label": "70 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -41455,6 +41803,7 @@
         ]
       }
     ],
+    "max_length_label": "69 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -41617,6 +41966,7 @@
         ]
       }
     ],
+    "max_length_label": "37 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -41800,6 +42150,7 @@
         ]
       }
     ],
+    "max_length_label": "89 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -41941,9 +42292,12 @@
         ]
       }
     ],
+    "max_length_label": "(149–197 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/goliath-tigerfish.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -42102,6 +42456,7 @@
         ]
       }
     ],
+    "max_length_label": "109 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -42257,6 +42612,7 @@
         ]
       }
     ],
+    "max_length_label": "9 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -42475,6 +42831,7 @@
         ]
       }
     ],
+    "max_length_label": "159 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -42613,6 +42970,7 @@
         ]
       }
     ],
+    "max_length_label": "37 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -42749,6 +43107,7 @@
         ]
       }
     ],
+    "max_length_label": "59 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -42892,6 +43251,7 @@
         ]
       }
     ],
+    "max_length_label": "43 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -43034,9 +43394,12 @@
         ]
       }
     ],
+    "max_length_label": "(785–790 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/great-white-shark.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -43195,6 +43558,7 @@
         ]
       }
     ],
+    "max_length_label": "4 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -43327,6 +43691,7 @@
         ]
       }
     ],
+    "max_length_label": "61 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -43470,6 +43835,7 @@
         ]
       }
     ],
+    "max_length_label": "31 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -43624,6 +43990,7 @@
         ]
       }
     ],
+    "max_length_label": "252 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -43804,9 +44171,12 @@
         ]
       }
     ],
+    "max_length_label": "(123–124 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/green-red-arowana.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -43998,9 +44368,12 @@
         ]
       }
     ],
+    "max_length_label": "(726–729 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/green-sawfish.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -44162,6 +44535,7 @@
         ]
       }
     ],
+    "max_length_label": "722 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -44327,6 +44701,7 @@
         ]
       }
     ],
+    "max_length_label": "15 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -44507,6 +44882,7 @@
         ]
       }
     ],
+    "max_length_label": "198 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -44675,9 +45051,12 @@
         ]
       }
     ],
+    "max_length_label": "(69–71 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/guapote.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -44885,6 +45264,7 @@
         ]
       }
     ],
+    "max_length_label": "4 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -45041,6 +45421,7 @@
         ]
       }
     ],
+    "max_length_label": "6 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -45178,6 +45559,7 @@
         ]
       }
     ],
+    "max_length_label": "54 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -45320,9 +45702,12 @@
         ]
       }
     ],
+    "max_length_label": "(514–515 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/gyrosteus.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -45475,6 +45860,7 @@
         ]
       }
     ],
+    "max_length_label": "111 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -45608,6 +45994,7 @@
         ]
       }
     ],
+    "max_length_label": "11 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -45755,9 +46142,12 @@
         ]
       }
     ],
+    "max_length_label": "(364–365 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/halibut.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -45922,6 +46312,7 @@
         ]
       }
     ],
+    "max_length_label": "599 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -46061,6 +46452,7 @@
         ]
       }
     ],
+    "max_length_label": "28 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -46195,6 +46587,7 @@
         ]
       }
     ],
+    "max_length_label": "419 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -46354,6 +46747,7 @@
         ]
       }
     ],
+    "max_length_label": "78 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -46506,6 +46900,7 @@
         ]
       }
     ],
+    "max_length_label": "90 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -46649,6 +47044,7 @@
         ]
       }
     ],
+    "max_length_label": "49 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -46790,6 +47186,7 @@
         ]
       }
     ],
+    "max_length_label": "199 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -46946,6 +47343,7 @@
         ]
       }
     ],
+    "max_length_label": "99 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -47078,6 +47476,7 @@
         ]
       }
     ],
+    "max_length_label": "29 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -47215,6 +47614,7 @@
         ]
       }
     ],
+    "max_length_label": "149 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -47355,6 +47755,7 @@
         ]
       }
     ],
+    "max_length_label": "209 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -47504,6 +47905,7 @@
         ]
       }
     ],
+    "max_length_label": "19 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -47666,6 +48068,7 @@
         ]
       }
     ],
+    "max_length_label": "64 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -47830,6 +48233,7 @@
         ]
       }
     ],
+    "max_length_label": "150 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -47969,6 +48373,7 @@
         ]
       }
     ],
+    "max_length_label": "54 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -48103,6 +48508,7 @@
         ]
       }
     ],
+    "max_length_label": "545 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -48239,6 +48645,7 @@
         ]
       }
     ],
+    "max_length_label": "8 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -48383,6 +48790,7 @@
         ]
       }
     ],
+    "max_length_label": "45 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -48538,6 +48946,7 @@
         ]
       }
     ],
+    "max_length_label": "9 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -48722,9 +49131,12 @@
         ]
       }
     ],
+    "max_length_label": "(201–202 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/ischnacanthus.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -48889,6 +49301,7 @@
         ]
       }
     ],
+    "max_length_label": "28 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -49046,6 +49459,7 @@
         ]
       }
     ],
+    "max_length_label": "24 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -49227,6 +49641,7 @@
         ]
       }
     ],
+    "max_length_label": "54 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -49412,6 +49827,7 @@
         ]
       }
     ],
+    "max_length_label": "101 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -49550,6 +49966,7 @@
         ]
       }
     ],
+    "max_length_label": "99 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -49694,6 +50111,7 @@
         ]
       }
     ],
+    "max_length_label": "559 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -49854,6 +50272,7 @@
         ]
       }
     ],
+    "max_length_label": "179 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -49992,6 +50411,7 @@
         ]
       }
     ],
+    "max_length_label": "10 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -50146,6 +50566,7 @@
         ]
       }
     ],
+    "max_length_label": "273 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -50312,6 +50733,7 @@
         ]
       }
     ],
+    "max_length_label": "150 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -50481,6 +50903,7 @@
         ]
       }
     ],
+    "max_length_label": "74 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -50646,6 +51069,7 @@
         ]
       }
     ],
+    "max_length_label": "82 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -50798,9 +51222,12 @@
         ]
       }
     ],
+    "max_length_label": "(703–704 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/largetooth-sawfish.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -50987,6 +51414,7 @@
         ]
       }
     ],
+    "max_length_label": "10 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -51188,6 +51616,7 @@
         ]
       }
     ],
+    "max_length_label": "157 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -51325,6 +51754,7 @@
         ]
       }
     ],
+    "max_length_label": "44 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -51487,9 +51917,12 @@
         ]
       }
     ],
+    "max_length_label": "(1208–1381 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/leedsichthys.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -51642,6 +52075,7 @@
         ]
       }
     ],
+    "max_length_label": "199 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -51783,6 +52217,7 @@
         ]
       }
     ],
+    "max_length_label": "339 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -51945,6 +52380,7 @@
         ]
       }
     ],
+    "max_length_label": "13 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -52081,6 +52517,7 @@
         ]
       }
     ],
+    "max_length_label": "91 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -52214,6 +52651,7 @@
         ]
       }
     ],
+    "max_length_label": "14 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -52357,6 +52795,7 @@
         ]
       }
     ],
+    "max_length_label": "41 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -52521,9 +52960,12 @@
         ]
       }
     ],
+    "max_length_label": "(20–21 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/lionhead-goldfish.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -52696,6 +53138,7 @@
         ]
       }
     ],
+    "max_length_label": "24 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -52842,9 +53285,11 @@
         ]
       }
     ],
+    "max_length_label": "(119–120 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
+      "max_length",
       "time"
     ],
     "image": "images/fish/long-finned-eel.png",
@@ -53023,6 +53468,7 @@
         ]
       }
     ],
+    "max_length_label": "139 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -53188,6 +53634,7 @@
         ]
       }
     ],
+    "max_length_label": "214 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -53370,6 +53817,7 @@
         ]
       }
     ],
+    "max_length_label": "416 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -53508,6 +53956,7 @@
         ]
       }
     ],
+    "max_length_label": "52 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -53649,6 +54098,7 @@
         ]
       }
     ],
+    "max_length_label": "22 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -53787,6 +54237,7 @@
         ]
       }
     ],
+    "max_length_label": "12 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -53926,6 +54377,7 @@
         ]
       }
     ],
+    "max_length_label": "136 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -54079,6 +54531,7 @@
         ]
       }
     ],
+    "max_length_label": "144 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -54211,6 +54664,7 @@
         ]
       }
     ],
+    "max_length_label": "60 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -54344,6 +54798,7 @@
         ]
       }
     ],
+    "max_length_label": "99 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -54481,6 +54936,7 @@
         ]
       }
     ],
+    "max_length_label": "22 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -54632,6 +55088,7 @@
         ]
       }
     ],
+    "max_length_label": "7 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -54807,6 +55264,7 @@
         ]
       }
     ],
+    "max_length_label": "13 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -54950,6 +55408,7 @@
         ]
       }
     ],
+    "max_length_label": "99 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -55113,6 +55572,7 @@
         ]
       }
     ],
+    "max_length_label": "28 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -55310,9 +55770,12 @@
         ]
       }
     ],
+    "max_length_label": "(22–28 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/mariana-snailfish.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -55494,6 +55957,7 @@
         ]
       }
     ],
+    "max_length_label": "19 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -55655,6 +56119,7 @@
         ]
       }
     ],
+    "max_length_label": "20 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -55812,6 +56277,7 @@
         ]
       }
     ],
+    "max_length_label": "27 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -55943,6 +56409,7 @@
         ]
       }
     ],
+    "max_length_label": "66 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -56086,9 +56553,12 @@
         ]
       }
     ],
+    "max_length_label": "(70–75 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/meadia-roseni.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -56241,6 +56711,7 @@
         ]
       }
     ],
+    "max_length_label": "1799 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -56409,9 +56880,12 @@
         ]
       }
     ],
+    "max_length_label": "(599–705 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/megamouth-shark.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -56602,6 +57076,7 @@
         ]
       }
     ],
+    "max_length_label": "319 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -56744,6 +57219,7 @@
         ]
       }
     ],
+    "max_length_label": "75 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -56901,6 +57377,7 @@
         ]
       }
     ],
+    "max_length_label": "24 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -57048,6 +57525,7 @@
         ]
       }
     ],
+    "max_length_label": "105 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -57210,6 +57688,7 @@
         ]
       }
     ],
+    "max_length_label": "16 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -57371,6 +57850,7 @@
         ]
       }
     ],
+    "max_length_label": "174 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -57508,6 +57988,7 @@
         ]
       }
     ],
+    "max_length_label": "169 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -57648,6 +58129,7 @@
         ]
       }
     ],
+    "max_length_label": "4 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -57808,6 +58290,7 @@
         ]
       }
     ],
+    "max_length_label": "151 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -57970,6 +58453,7 @@
         ]
       }
     ],
+    "max_length_label": "44 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -58134,6 +58618,7 @@
         ]
       }
     ],
+    "max_length_label": "22 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -58267,6 +58752,7 @@
         ]
       }
     ],
+    "max_length_label": "10 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -58398,6 +58884,7 @@
         ]
       }
     ],
+    "max_length_label": "100 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -58539,6 +59026,7 @@
         ]
       }
     ],
+    "max_length_label": "130 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -58695,6 +59183,7 @@
         ]
       }
     ],
+    "max_length_label": "179 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -58848,9 +59337,12 @@
         ]
       }
     ],
+    "max_length_label": "(297–299 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/narrowhead-catshark.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -59020,6 +59512,7 @@
         ]
       }
     ],
+    "max_length_label": "121 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -59159,6 +59652,7 @@
         ]
       }
     ],
+    "max_length_label": "4 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -59302,6 +59796,7 @@
         ]
       }
     ],
+    "max_length_label": "195 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -59466,6 +59961,7 @@
         ]
       }
     ],
+    "max_length_label": "44 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -59634,6 +60130,7 @@
         ]
       }
     ],
+    "max_length_label": "169 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -59803,6 +60300,7 @@
         ]
       }
     ],
+    "max_length_label": "12 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -59990,9 +60488,12 @@
         ]
       }
     ],
+    "max_length_label": "(428–429 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/nurse-shark.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -60129,6 +60630,7 @@
         ]
       }
     ],
+    "max_length_label": "99 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -60262,6 +60764,7 @@
         ]
       }
     ],
+    "max_length_label": "332 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -60404,6 +60907,7 @@
         ]
       }
     ],
+    "max_length_label": "401 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -60562,6 +61066,7 @@
         ]
       }
     ],
+    "max_length_label": "14 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -60698,6 +61203,7 @@
         ]
       }
     ],
+    "max_length_label": "102 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -60831,6 +61337,7 @@
         ]
       }
     ],
+    "max_length_label": "199 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -60968,6 +61475,7 @@
         ]
       }
     ],
+    "max_length_label": "18 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -61141,6 +61649,7 @@
         ]
       }
     ],
+    "max_length_label": "39 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -61303,6 +61812,7 @@
         ]
       }
     ],
+    "max_length_label": "5 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -61460,6 +61970,7 @@
         ]
       }
     ],
+    "max_length_label": "39 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -61599,6 +62110,7 @@
         ]
       }
     ],
+    "max_length_label": "71 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -61739,6 +62251,7 @@
         ]
       }
     ],
+    "max_length_label": "17 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -61877,6 +62390,7 @@
         ]
       }
     ],
+    "max_length_label": "15 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -62015,6 +62529,7 @@
         ]
       }
     ],
+    "max_length_label": "302 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -62169,6 +62684,7 @@
         ]
       }
     ],
+    "max_length_label": "44 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -62301,6 +62817,7 @@
         ]
       }
     ],
+    "max_length_label": "22 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -62437,9 +62954,12 @@
         ]
       }
     ],
+    "max_length_label": "(143–144 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/pacific-barracuda.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -62580,9 +63100,12 @@
         ]
       }
     ],
+    "max_length_label": "(300–303 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/pacific-bluefin-tuna.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -62739,6 +63262,7 @@
         ]
       }
     ],
+    "max_length_label": "56 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -62872,6 +63396,7 @@
         ]
       }
     ],
+    "max_length_label": "275 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -63030,6 +63555,7 @@
         ]
       }
     ],
+    "max_length_label": "140 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -63164,6 +63690,7 @@
         ]
       }
     ],
+    "max_length_label": "34 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -63298,6 +63825,7 @@
         ]
       }
     ],
+    "max_length_label": "13 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -63453,6 +63981,7 @@
         ]
       }
     ],
+    "max_length_label": "19 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -63595,6 +64124,7 @@
         ]
       }
     ],
+    "max_length_label": "49 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -63761,6 +64291,7 @@
         ]
       }
     ],
+    "max_length_label": "7 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -63940,6 +64471,7 @@
         ]
       }
     ],
+    "max_length_label": "69 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -64092,6 +64624,7 @@
         ]
       }
     ],
+    "max_length_label": "41 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -64260,6 +64793,7 @@
         ]
       }
     ],
+    "max_length_label": "319 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -64458,6 +64992,7 @@
         ]
       }
     ],
+    "max_length_label": "31 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -64627,6 +65162,7 @@
         ]
       }
     ],
+    "max_length_label": "119 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -64782,6 +65318,7 @@
         ]
       }
     ],
+    "max_length_label": "99 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -64924,6 +65461,7 @@
         ]
       }
     ],
+    "max_length_label": "50 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -65085,6 +65623,7 @@
         ]
       }
     ],
+    "max_length_label": "6 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -65222,6 +65761,7 @@
         ]
       }
     ],
+    "max_length_label": "37 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -65362,9 +65902,12 @@
         ]
       }
     ],
+    "max_length_label": "(48–49 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/peled.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -65530,6 +66073,7 @@
         ]
       }
     ],
+    "max_length_label": "90 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -65683,6 +66227,7 @@
         ]
       }
     ],
+    "max_length_label": "87 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -65869,6 +66414,7 @@
         ]
       }
     ],
+    "max_length_label": "25 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -66008,6 +66554,7 @@
         ]
       }
     ],
+    "max_length_label": "6 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -66168,6 +66715,7 @@
         ]
       }
     ],
+    "max_length_label": "17 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -66328,6 +66876,7 @@
         ]
       }
     ],
+    "max_length_label": "234 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -66491,6 +67040,7 @@
         ]
       }
     ],
+    "max_length_label": "16 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -66624,6 +67174,7 @@
         ]
       }
     ],
+    "max_length_label": "17 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -66762,6 +67313,7 @@
         ]
       }
     ],
+    "max_length_label": "24 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -66904,6 +67456,7 @@
         ]
       }
     ],
+    "max_length_label": "148 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -67053,6 +67606,7 @@
         ]
       }
     ],
+    "max_length_label": "10 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -67208,6 +67762,7 @@
         ]
       }
     ],
+    "max_length_label": "6 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -67343,6 +67898,7 @@
         ]
       }
     ],
+    "max_length_label": "139 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -67502,6 +68058,7 @@
         ]
       }
     ],
+    "max_length_label": "17 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -67638,6 +68195,7 @@
         ]
       }
     ],
+    "max_length_label": "21 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -67816,6 +68374,7 @@
         ]
       }
     ],
+    "max_length_label": "37 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -67974,6 +68533,7 @@
         ]
       }
     ],
+    "max_length_label": "75 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -68113,6 +68673,7 @@
         ]
       }
     ],
+    "max_length_label": "39 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -68255,6 +68816,7 @@
         ]
       }
     ],
+    "max_length_label": "359 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -68421,6 +68983,7 @@
         ]
       }
     ],
+    "max_length_label": "39 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -68592,9 +69155,12 @@
         ]
       }
     ],
+    "max_length_label": "(48–49 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/piraya.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -68760,9 +69326,12 @@
         ]
       }
     ],
+    "max_length_label": "(97–98 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/platinum-golden-arowana.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -68938,6 +69507,7 @@
         ]
       }
     ],
+    "max_length_label": "21 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -69070,6 +69640,7 @@
         ]
       }
     ],
+    "max_length_label": "19 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -69211,6 +69782,7 @@
         ]
       }
     ],
+    "max_length_label": "40 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -69368,6 +69940,7 @@
         ]
       }
     ],
+    "max_length_label": "10 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -69508,6 +70081,7 @@
         ]
       }
     ],
+    "max_length_label": "409 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -69656,6 +70230,7 @@
         ]
       }
     ],
+    "max_length_label": "28 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -69820,6 +70395,7 @@
         ]
       }
     ],
+    "max_length_label": "32 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -69956,6 +70532,7 @@
         ]
       }
     ],
+    "max_length_label": "24 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -70098,6 +70675,7 @@
         ]
       }
     ],
+    "max_length_label": "44 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -70240,6 +70818,7 @@
         ]
       }
     ],
+    "max_length_label": "60 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -70382,6 +70961,7 @@
         ]
       }
     ],
+    "max_length_label": "60 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -70521,6 +71101,7 @@
         ]
       }
     ],
+    "max_length_label": "7 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -70680,6 +71261,7 @@
         ]
       }
     ],
+    "max_length_label": "119 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -70823,6 +71405,7 @@
         ]
       }
     ],
+    "max_length_label": "179 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -70988,6 +71571,7 @@
         ]
       }
     ],
+    "max_length_label": "119 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -71151,6 +71735,7 @@
         ]
       }
     ],
+    "max_length_label": "18 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -71298,9 +71883,12 @@
         ]
       }
     ],
+    "max_length_label": "(89–90 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/razorback-sucker.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -71489,6 +72077,7 @@
         ]
       }
     ],
+    "max_length_label": "91 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -71645,6 +72234,7 @@
         ]
       }
     ],
+    "max_length_label": "26 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -71785,6 +72375,7 @@
         ]
       }
     ],
+    "max_length_label": "50 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -71939,6 +72530,7 @@
         ]
       }
     ],
+    "max_length_label": "43 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -72122,6 +72714,7 @@
         ]
       }
     ],
+    "max_length_label": "2 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -72284,6 +72877,7 @@
         ]
       }
     ],
+    "max_length_label": "11 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -72467,6 +73061,7 @@
         ]
       }
     ],
+    "max_length_label": "49 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -72633,6 +73228,7 @@
         ]
       }
     ],
+    "max_length_label": "99 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -72796,6 +73392,7 @@
         ]
       }
     ],
+    "max_length_label": "3 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -72949,6 +73546,7 @@
         ]
       }
     ],
+    "max_length_label": "5 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -73094,9 +73692,12 @@
         ]
       }
     ],
+    "max_length_label": "(92–93 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/red-tail-golden-arowana.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -73261,6 +73862,7 @@
         ]
       }
     ],
+    "max_length_label": "19 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -73421,6 +74023,7 @@
         ]
       }
     ],
+    "max_length_label": "41 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -73559,6 +74162,7 @@
         ]
       }
     ],
+    "max_length_label": "34 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -73741,6 +74345,7 @@
         ]
       }
     ],
+    "max_length_label": "149 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -73874,6 +74479,7 @@
         ]
       }
     ],
+    "max_length_label": "129 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -74010,6 +74616,7 @@
         ]
       }
     ],
+    "max_length_label": "99 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -74153,6 +74760,7 @@
         ]
       }
     ],
+    "max_length_label": "49 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -74348,6 +74956,7 @@
         ]
       }
     ],
+    "max_length_label": "42 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -74503,6 +75112,7 @@
         ]
       }
     ],
+    "max_length_label": "24 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -74641,6 +75251,7 @@
         ]
       }
     ],
+    "max_length_label": "172 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -74795,9 +75406,12 @@
         ]
       }
     ],
+    "max_length_label": "(23–29 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/ruby-seadragon.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -74973,6 +75587,7 @@
         ]
       }
     ],
+    "max_length_label": "40 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -75112,6 +75727,7 @@
         ]
       }
     ],
+    "max_length_label": "314 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -75271,6 +75887,7 @@
         ]
       }
     ],
+    "max_length_label": "122 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -75414,9 +76031,11 @@
         ]
       }
     ],
+    "max_length_label": "(16–23 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
+      "max_length",
       "season"
     ],
     "image": "images/fish/salpa-maggiore.png",
@@ -75587,6 +76206,7 @@
         ]
       }
     ],
+    "max_length_label": "45 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -75725,6 +76345,7 @@
         ]
       }
     ],
+    "max_length_label": "44 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -75867,6 +76488,7 @@
         ]
       }
     ],
+    "max_length_label": "252 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -76015,6 +76637,7 @@
         ]
       }
     ],
+    "max_length_label": "31 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -76152,6 +76775,7 @@
         ]
       }
     ],
+    "max_length_label": "16 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -76289,6 +76913,7 @@
         ]
       }
     ],
+    "max_length_label": "24 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -76426,6 +77051,7 @@
         ]
       }
     ],
+    "max_length_label": "14 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -76572,9 +77198,12 @@
         ]
       }
     ],
+    "max_length_label": "(127–128 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/saurychthis.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -76731,6 +77360,7 @@
         ]
       }
     ],
+    "max_length_label": "197 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -76902,9 +77532,12 @@
         ]
       }
     ],
+    "max_length_label": "(44–45 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/schoolmaster-snapper.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -77054,6 +77687,7 @@
         ]
       }
     ],
+    "max_length_label": "109 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -77187,6 +77821,7 @@
         ]
       }
     ],
+    "max_length_label": "209 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -77319,6 +77954,7 @@
         ]
       }
     ],
+    "max_length_label": "72 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -77456,6 +78092,7 @@
         ]
       }
     ],
+    "max_length_label": "79 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -77613,6 +78250,7 @@
         ]
       }
     ],
+    "max_length_label": "22 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -77747,6 +78385,7 @@
         ]
       }
     ],
+    "max_length_label": "791 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -77903,6 +78542,7 @@
         ]
       }
     ],
+    "max_length_label": "79 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -78035,6 +78675,7 @@
         ]
       }
     ],
+    "max_length_label": "139 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -78168,6 +78809,7 @@
         ]
       }
     ],
+    "max_length_label": null,
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -78355,6 +78997,7 @@
         ]
       }
     ],
+    "max_length_label": "142 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -78513,6 +79156,7 @@
         ]
       }
     ],
+    "max_length_label": "10 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -78653,6 +79297,7 @@
         ]
       }
     ],
+    "max_length_label": "44 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -78821,9 +79466,12 @@
         ]
       }
     ],
+    "max_length_label": "(201–202 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/siberian-sturgeon.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -78987,6 +79635,7 @@
         ]
       }
     ],
+    "max_length_label": "89 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -79194,9 +79843,12 @@
         ]
       }
     ],
+    "max_length_label": "(138–139 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/silver-carp.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -79361,6 +80013,7 @@
         ]
       }
     ],
+    "max_length_label": "209 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -79495,6 +80148,7 @@
         ]
       }
     ],
+    "max_length_label": "44 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -79629,6 +80283,7 @@
         ]
       }
     ],
+    "max_length_label": "52 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -79773,9 +80428,12 @@
         ]
       }
     ],
+    "max_length_label": "(708–749 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/smalltooth-sawfish.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -79935,6 +80593,7 @@
         ]
       }
     ],
+    "max_length_label": "49 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -80074,9 +80733,12 @@
         ]
       }
     ],
+    "max_length_label": "(188–219 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/smoothtail-mobula.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -80285,6 +80947,7 @@
         ]
       }
     ],
+    "max_length_label": "101 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -80424,6 +81087,7 @@
         ]
       }
     ],
+    "max_length_label": "83 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -80571,6 +81235,7 @@
         ]
       }
     ],
+    "max_length_label": "124 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -80743,6 +81408,7 @@
         ]
       }
     ],
+    "max_length_label": "244 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -80904,6 +81570,7 @@
         ]
       }
     ],
+    "max_length_label": "40 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -81044,6 +81711,7 @@
         ]
       }
     ],
+    "max_length_label": "49 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -81186,6 +81854,7 @@
         ]
       }
     ],
+    "max_length_label": "2 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -81341,6 +82010,7 @@
         ]
       }
     ],
+    "max_length_label": "300 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -81486,9 +82156,11 @@
         ]
       }
     ],
+    "max_length_label": "(163–164 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
+      "max_length",
       "time"
     ],
     "image": "images/fish/spot-tail-shark.png",
@@ -81637,6 +82309,7 @@
         ]
       }
     ],
+    "max_length_label": "63 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -81780,9 +82453,12 @@
         ]
       }
     ],
+    "max_length_label": "(485–499 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/spotted-eagle-ray.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -81947,9 +82623,12 @@
         ]
       }
     ],
+    "max_length_label": "(148–149 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/spotted-gar.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -82110,6 +82789,7 @@
         ]
       }
     ],
+    "max_length_label": "14 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -82285,6 +82965,7 @@
         ]
       }
     ],
+    "max_length_label": "195 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -82424,6 +83105,7 @@
         ]
       }
     ],
+    "max_length_label": "31 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -82565,6 +83247,7 @@
         ]
       }
     ],
+    "max_length_label": "49 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -82726,6 +83409,7 @@
         ]
       }
     ],
+    "max_length_label": "169 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -82870,9 +83554,12 @@
         ]
       }
     ],
+    "max_length_label": "(138–139 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/spotted-tiger-shovelnose-catfish.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -83030,6 +83717,7 @@
         ]
       }
     ],
+    "max_length_label": "319 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -83163,6 +83851,7 @@
         ]
       }
     ],
+    "max_length_label": "20 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -83325,6 +84014,7 @@
         ]
       }
     ],
+    "max_length_label": "219 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -83517,9 +84207,12 @@
         ]
       }
     ],
+    "max_length_label": "(55–189 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/stethacanthus.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -83672,6 +84365,7 @@
         ]
       }
     ],
+    "max_length_label": "20 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -83834,6 +84528,7 @@
         ]
       }
     ],
+    "max_length_label": "179 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -83970,6 +84665,7 @@
         ]
       }
     ],
+    "max_length_label": "21 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -84112,9 +84808,12 @@
         ]
       }
     ],
+    "max_length_label": "(418–419 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/striped-marlin.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -84245,6 +84944,7 @@
         ]
       }
     ],
+    "max_length_label": "49 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -84382,6 +85082,7 @@
         ]
       }
     ],
+    "max_length_label": "139 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -84557,6 +85258,7 @@
         ]
       }
     ],
+    "max_length_label": "11 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -84723,6 +85425,7 @@
         ]
       }
     ],
+    "max_length_label": "449 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -84890,6 +85593,7 @@
         ]
       }
     ],
+    "max_length_label": "5 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -85071,6 +85775,7 @@
         ]
       }
     ],
+    "max_length_label": "24 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -85203,6 +85908,7 @@
         ]
       }
     ],
+    "max_length_label": "99 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -85340,6 +86046,7 @@
         ]
       }
     ],
+    "max_length_label": "249 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -85478,6 +86185,7 @@
         ]
       }
     ],
+    "max_length_label": "4 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -85630,6 +86338,7 @@
         ]
       }
     ],
+    "max_length_label": "69 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -85762,6 +86471,7 @@
         ]
       }
     ],
+    "max_length_label": "29 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -85899,6 +86609,7 @@
         ]
       }
     ],
+    "max_length_label": "17 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -86032,6 +86743,7 @@
         ]
       }
     ],
+    "max_length_label": "74 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -86169,6 +86881,7 @@
         ]
       }
     ],
+    "max_length_label": "10 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -86339,9 +87052,11 @@
         ]
       }
     ],
+    "max_length_label": "(602–759 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
+      "max_length",
       "time"
     ],
     "image": "images/fish/thresher-shark.png",
@@ -86540,6 +87255,7 @@
         ]
       }
     ],
+    "max_length_label": "104 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -86679,6 +87395,7 @@
         ]
       }
     ],
+    "max_length_label": "149 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -86842,9 +87559,12 @@
         ]
       }
     ],
+    "max_length_label": "(703–747 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/tiger-shark.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -87040,6 +87760,7 @@
         ]
       }
     ],
+    "max_length_label": "92 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -87226,6 +87947,7 @@
         ]
       }
     ],
+    "max_length_label": "90 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -87388,6 +88110,7 @@
         ]
       }
     ],
+    "max_length_label": "74 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -87531,9 +88254,12 @@
         ]
       }
     ],
+    "max_length_label": "(670–698 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/titanichthys.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -87691,6 +88417,7 @@
         ]
       }
     ],
+    "max_length_label": "13 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -87828,6 +88555,7 @@
         ]
       }
     ],
+    "max_length_label": "192 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -87961,6 +88689,7 @@
         ]
       }
     ],
+    "max_length_label": "40 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -88132,6 +88861,7 @@
         ]
       }
     ],
+    "max_length_label": "102 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -88275,6 +89005,7 @@
         ]
       }
     ],
+    "max_length_label": "9 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -88427,6 +89158,7 @@
         ]
       }
     ],
+    "max_length_label": "148 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -88640,6 +89372,7 @@
         ]
       }
     ],
+    "max_length_label": "19 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -88777,6 +89510,7 @@
         ]
       }
     ],
+    "max_length_label": "49 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -88944,9 +89678,12 @@
         ]
       }
     ],
+    "max_length_label": "(117–285 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/viper-moray.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -89105,6 +89842,7 @@
         ]
       }
     ],
+    "max_length_label": "106 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -89243,6 +89981,7 @@
         ]
       }
     ],
+    "max_length_label": "44 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -89404,6 +90143,7 @@
         ]
       }
     ],
+    "max_length_label": "34 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -89544,6 +90284,7 @@
         ]
       }
     ],
+    "max_length_label": "259 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -89683,6 +90424,7 @@
         ]
       }
     ],
+    "max_length_label": "55 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -89826,9 +90568,12 @@
         ]
       }
     ],
+    "max_length_label": "(856–1974 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/whale-shark.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -89999,9 +90744,12 @@
         ]
       }
     ],
+    "max_length_label": "(24–49 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/white-bass.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -90163,9 +90911,12 @@
         ]
       }
     ],
+    "max_length_label": "(48–49 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/white-crappie.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -90301,6 +91052,7 @@
         ]
       }
     ],
+    "max_length_label": "65 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -90433,6 +91185,7 @@
         ]
       }
     ],
+    "max_length_label": "300 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -90570,6 +91323,7 @@
         ]
       }
     ],
+    "max_length_label": "12 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -90710,6 +91464,7 @@
         ]
       }
     ],
+    "max_length_label": "49 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -90856,9 +91611,11 @@
         ]
       }
     ],
+    "max_length_label": "(405–609 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
+      "max_length",
       "time"
     ],
     "image": "images/fish/white-sturgeon.png",
@@ -91052,9 +91809,12 @@
         ]
       }
     ],
+    "max_length_label": "(75–76 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/whitebar-eelpout.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -91215,6 +91975,7 @@
         ]
       }
     ],
+    "max_length_label": "14 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -91354,6 +92115,7 @@
         ]
       }
     ],
+    "max_length_label": "122 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -91510,6 +92272,7 @@
         ]
       }
     ],
+    "max_length_label": "24 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -91654,6 +92417,7 @@
         ]
       }
     ],
+    "max_length_label": "188 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -91853,6 +92617,7 @@
         ]
       }
     ],
+    "max_length_label": "7 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -91990,6 +92755,7 @@
         ]
       }
     ],
+    "max_length_label": "97 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -92137,9 +92903,12 @@
         ]
       }
     ],
+    "max_length_label": "(62–620 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/xiphactinus.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -92278,6 +93047,7 @@
         ]
       }
     ],
+    "max_length_label": "251 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -92457,6 +93227,7 @@
         ]
       }
     ],
+    "max_length_label": "44 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -92597,9 +93368,12 @@
         ]
       }
     ],
+    "max_length_label": "(180–181 cm)?",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
-    "uncertain": [],
+    "uncertain": [
+      "max_length"
+    ],
     "image": "images/fish/yellow-mouth-moray.png",
     "image_glowing": null,
     "source_url": "http://fishaowiki.com/fishdex/all-in-one/",
@@ -92731,6 +93505,7 @@
         ]
       }
     ],
+    "max_length_label": "53 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -92870,6 +93645,7 @@
         ]
       }
     ],
+    "max_length_label": "102 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -93056,6 +93832,7 @@
         ]
       }
     ],
+    "max_length_label": "23 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -93193,6 +93970,7 @@
         ]
       }
     ],
+    "max_length_label": "239 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -93326,6 +94104,7 @@
         ]
       }
     ],
+    "max_length_label": "79 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -93462,6 +94241,7 @@
         ]
       }
     ],
+    "max_length_label": "18 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -93599,6 +94379,7 @@
         ]
       }
     ],
+    "max_length_label": "149 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -93731,6 +94512,7 @@
         ]
       }
     ],
+    "max_length_label": "59 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -93867,6 +94649,7 @@
         ]
       }
     ],
+    "max_length_label": "21 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -94006,6 +94789,7 @@
         ]
       }
     ],
+    "max_length_label": "129 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -94138,6 +94922,7 @@
         ]
       }
     ],
+    "max_length_label": "151 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -94270,6 +95055,7 @@
         ]
       }
     ],
+    "max_length_label": "7 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],
@@ -94412,6 +95198,7 @@
         ]
       }
     ],
+    "max_length_label": "349 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [
@@ -94559,6 +95346,7 @@
         ]
       }
     ],
+    "max_length_label": "26 cm",
     "has_glowing_variant": true,
     "glowing_info": "fishao.cz uvádí zářivou variantu",
     "uncertain": [],

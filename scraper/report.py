@@ -265,7 +265,7 @@ def write_report(path, fish, areas, snaps, disc, sections, notes, unmatched_area
     w("| Bait | `bait[]` (kanonické: opravené překlepy, Shark Lure = Shark Bait), `bait_raw` (text ze zdroje) |")
     w("| Season | `season` (`\"always\"` nebo `[{from: \"MM-DD\", to}]`), `season_raw` |")
     w("| Time | `time` (`\"always\"` nebo `[{from,to}]`), `time_raw` |")
-    w("| World record + fishao.cz Délka / maximální | `max_length_cm` `{min, max}`, `max_length_raw` (hodnoty + zdroje) |")
+    w("| World record + fishao.cz Délka / maximální | `max_length_cm` `{min, max}`, `max_length_label` (`449 cm` / při neshodě `(448–449 cm)?`), `max_length_raw` (hodnoty + zdroje) |")
     w("| Max Price, fishao.cz ceny | **zahozeno** (jen `has_glowing_variant` z existence zářivé ceny) |")
     w("| hvězdy (obrázek `Nstar.png`) / Stars | `rarity` 1–5, `rarity_raw` |")
     w("| Area (all-in-one, 5-star) | → `areas[]` při přesné shodě, raw v `extra.occurrences` |")
