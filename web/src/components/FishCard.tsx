@@ -1,10 +1,10 @@
 import { memo, useRef, useState, type KeyboardEvent, type MouseEvent, type PointerEvent } from 'react';
 import { fishImage, isBackyard } from '../data';
 import type { Fish } from '../data/types';
-import { altName, fishName, spotLabel } from '../i18n/format';
+import { altName, fishName, fmtTime, spotLabel } from '../i18n/format';
 import { useI18n } from '../i18n/context';
 import type { FishProgress, ProgressField } from '../progress/schema';
-import { GlowIcon, HouseIcon } from './icons';
+import { ClockIcon, GlowIcon, HouseIcon } from './icons';
 import { Stars } from './Stars';
 import styles from './FishCard.module.css';
 
@@ -89,6 +89,14 @@ function FishCardImpl({ fish, state, areaName, onToggle, onOpen, priority }: Pro
           <Stars r={fish.rarity} />
           <span className={styles.len}>{fish.length ?? t.lenUnknown}</span>
         </p>
+        {/* only real windows: "always" and unknown stay off the card (unknown is in the detail) */}
+        {Array.isArray(fish.time) && (
+          <p className={styles.time}>
+            <ClockIcon /><span className="visually-hidden">{t.when}: </span>
+            {fmtTime(fish.time, lang).text}
+            {fish.uncertain.includes('time') && <abbr className="unsure" title={t.unsure}>?</abbr>}
+          </p>
+        )}
         <p className={styles.where}>
           <Where fish={fish} areaName={areaName} first />
           {fish.areas.length > 1 && <span className="of"> +{fish.areas.length - 1}</span>}

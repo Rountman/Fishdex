@@ -30,3 +30,7 @@ export const FilterIcon = () => (
 export const UploadIcon = () => (
   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5" /><path d="M4 15v4h16v-4" /></svg>
 );
+
+export const ClockIcon = () => (
+  <svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.2" /><path d="M8 4.6V8l2.3 1.5" /></svg>
+);
