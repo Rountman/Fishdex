@@ -107,6 +107,18 @@ describe('applyFilters', () => {
     expect(ids(pyramidPb).some(id => ids(pyramidMd).includes(id))).toBe(false);
   });
 
+  it('Mystic Desert alone leaves out the Pyramid and Furniture Factory fish', () => {
+    const desert = run({ area: 'mystic-desert' });
+    expect(desert.length).toBeGreaterThan(0);
+    expect(desert.every(f => !f.spots['mystic-desert']?.length)).toBe(true);
+    const all = FISH.filter(f => f.areas.includes('mystic-desert'));
+    const inSpots = all.filter(f => f.spots['mystic-desert']?.length);
+    expect(desert).toHaveLength(all.length - inSpots.length);
+    expect(facets(FISH, EMPTY_FILTERS, emptyProgress(), index).areas.get('mystic-desert')?.total).toBe(desert.length);
+    // other areas still include their spot fish
+    expect(run({ area: 'cool-mountain' }).length).toBeGreaterThan(run({ spot: 'cool-mountain:Raft' }).length);
+  });
+
   it('picking a spot sets its area, picking an area clears the spot', () => {
     expect(locationPatch('cool-mountain:Raft')).toEqual({ area: 'cool-mountain', spot: 'cool-mountain:Raft', bred: '' });
     expect(locationPatch('club')).toEqual({ area: 'club', spot: '', bred: '' });

@@ -80,6 +80,16 @@ function parseSpot(v: string | null, areaIds: ReadonlySet<string>) {
 export const locationPatch = (value: string): Partial<Filters> =>
   value.includes(':') ? { area: splitSpot(value).area, spot: value, bred: '' } : { area: value, spot: '', bred: '' };
 
+/**
+ * Areas whose spots are separate places, not parts of the area (user decision): picking the area
+ * shows only fish without a spot there; spot fish are found under their spot.
+ */
+const SEPARATE_SPOTS: ReadonlySet<string> = new Set(['mystic-desert']);
+
+/** Does fish `x` count for area `area` (without a spot selected)? */
+export const inArea = (x: Fish, area: string) =>
+  x.areas.includes(area) && !(SEPARATE_SPOTS.has(area) && x.spots[area]?.length);
+
 const minutes = (hhmm: string) => Number(hhmm.slice(0, 2)) * 60 + Number(hhmm.slice(3));
 
 /** Known to bite at some minute of hour `h`? `'always'` yes, `null` (unknown) no. */
@@ -118,8 +128,7 @@ function predicate(f: Filters, progress: Progress, index: SearchIndex, skip?: Fa
   return (x: Fish) => {
     const s = progress.fish[x.id] ?? NONE;
     if (skip !== 'location') {
-      if (f.area && !x.areas.includes(f.area)) return false;
-      if (spot && !x.spots[spot.area]?.includes(spot.spot)) return false;
+      if (spot ? !x.spots[spot.area]?.includes(spot.spot) : f.area && !inArea(x, f.area)) return false;
       if (f.area === 'backyard' && f.bred === 'yes' && !s.bred) return false;
       if (f.area === 'backyard' && f.bred === 'no' && s.bred) return false;
     }
@@ -176,7 +185,7 @@ export function facets(fish: readonly Fish[], f: Filters, progress: Progress, in
       if (s.caught) out.all.caught++;
       if (s.caughtGlowing) out.all.glow++;
       if (s.bred) out.all.bred++;
-      for (const a of x.areas) add(out.areas, a, s);
+      for (const a of x.areas) if (inArea(x, a)) add(out.areas, a, s);
       for (const [a, list] of Object.entries(x.spots)) for (const sp of list) add(out.spots, `${a}:${sp}`, s);
     }
     if (rar(x)) out.rarity.set(x.rarity, (out.rarity.get(x.rarity) ?? 0) + 1);
