@@ -98,6 +98,9 @@ def parse_season(raw: str | None):
         part = part.strip()
         if not part:
             continue
+        same_month = re.fullmatch(MONTH + r"\s+" + DAY + r"\s*[-–]\s*" + DAY, part)  # 'January 1-31'
+        if same_month:
+            part = f"{same_month.group(1)} {same_month.group(2)} - {same_month.group(1)} {same_month.group(3)}"
         ends = re.split(r"\s*[-–]\s*", part)
         if len(ends) == 1:  # single month: 'April'
             a, b = _bound(ends[0], False), _bound(ends[0], True)

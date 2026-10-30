@@ -19,7 +19,7 @@ def _md_list(items, fmt=str, limit=None):
 
 
 def write_report(path, fish, areas, snaps, disc, sections, notes, unmatched_area_tokens,
-                 candidates, aliases, image_failures, fetch_failures, with_images, cz, man):
+                 candidates, aliases, image_failures, fetch_failures, with_images, cz, man, fw):
     L = []
     w = L.append
     by_id = Counter(f["id"] for f in fish)
@@ -78,6 +78,7 @@ def write_report(path, fish, areas, snaps, disc, sections, notes, unmatched_area
     w("")
 
     _cz_section(w, fish, cz)
+    _funwiki_section(w, fw)
 
     # ------------------------------------------------------------ missing in archive
     w("## Co v archivu chybí")
@@ -266,6 +267,7 @@ def write_report(path, fish, areas, snaps, disc, sections, notes, unmatched_area
     w("| Season | `season` (`\"always\"` nebo `[{from: \"MM-DD\", to}]`), `season_raw` |")
     w("| Time | `time` (`\"always\"` nebo `[{from,to}]`), `time_raw` |")
     w("| World record + fishao.cz Délka / maximální | `max_length_cm` `{min, max}`, `max_length_label` (`449 cm` / při neshodě `(448–449 cm)?`), `max_length_raw` (hodnoty + zdroje) |")
+    w("| fishaofunwiki minLength / avgLength / maxLength | `length_cm` `{min, avg, max}` (rozsah délky úlovku) |")
     w("| Max Price, fishao.cz ceny | **zahozeno** (jen `has_glowing_variant` z existence zářivé ceny) |")
     w("| hvězdy (obrázek `Nstar.png`) / Stars | `rarity` 1–5, `rarity_raw` |")
     w("| Area (all-in-one, 5-star) | → `areas[]` při přesné shodě, raw v `extra.occurrences` |")
@@ -393,6 +395,48 @@ def _manual_section(w, man):
     w("")
     w(f"Použito ručních hodnot: {man['applied']}; otevřeno: {len(man['open'])}.")
     w("")
+
+
+def _funwiki_section(w, fw):
+    w("## Třetí zdroj: fishaofunwiki.com")
+    w("")
+    w("Živá komunitní wiki (stav 2026), novější než oba archivy. SPA — seznam ryb je přímo v JS bundlu "
+      "(`JSON.parse`), uloženo surově v `data/fishaofunwiki.json` a u ryby v `extra.fishaofunwiki`. "
+      "`/api/fish-data` (~30 komunitních úprav) jen kopíruje maxLength do prázdného rekordu → nepoužito.")
+    w("")
+    w("**Rozhodnutí uživatele (2026-10-30):** funwiki doplní chybějící hodnoty a délkový rozsah `length_cm` "
+      "`{min, avg, max}`; u polí s „?\" (čas, sezóna, návnada) její hodnota nahradí naši a „?\" zmizí. "
+      "Jistá pole nepřepisuje — rozdíly jsou jen níže.")
+    w("")
+    w(f"- ryb ve funwiki: {fw['rows']}, spárováno {fw['matched']} (id/jméno bez oddělovačů, takže "
+      "`barnard-s-lanterfish` = `barnards-lanterfish`)")
+    w(f"- s délkovým rozsahem `length_cm`: {fw['with_length']}")
+    w(f"- nespárováno: {len(fw['unmatched'])}" + ("" if not fw["unmatched"] else " — "
+      + ", ".join(f"`{r['slug']}` ({r['name']})" for r in fw["unmatched"])))
+    w("")
+    w("| pole | pravidlo | ryb |")
+    w("|---|---|---|")
+    for (fld, rule), n in sorted(fw["stats"].items()):
+        w(f"| {fld} | {rule} | {n} |")
+    w("")
+    w("`fill` = naše data hodnotu nemají; `resolves_uncertain` = nahrazena nejistá hodnota; "
+      "`confirms_uncertain` = funwiki potvrdila naši nejistou hodnotu („?\" zmizí); `unparsed` = hodnotu funwiki nejde rozparsovat, nepoužito.")
+    w("")
+    by_field: dict = {}
+    for d in fw["differences"]:
+        by_field.setdefault(d["field"], []).append(d)
+    w("### Rozdíly u jistých hodnot (ponecháno naše)")
+    w("")
+    for fld, rows in sorted(by_field.items()):
+        w(f"<details><summary>{fld} ({len(rows)})</summary>")
+        w("")
+        w("| ryba | naše | funwiki |")
+        w("|---|---|---|")
+        for d in rows:
+            w(f"| `{d['id']}` | {d['ours']} | {d['theirs']} |")
+        w("")
+        w("</details>")
+        w("")
 
 
 def _resolve_section(w, stats):

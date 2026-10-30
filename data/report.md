@@ -1,6 +1,6 @@
 # Fishdex — report scrapu
 
-Vygenerováno 2026-10-29 skriptem `scraper/scrape.py`. Soubor se přepisuje při každém běhu — needitovat ručně.
+Vygenerováno 2026-10-30 skriptem `scraper/scrape.py`. Soubor se přepisuje při každém běhu — needitovat ručně.
 
 ## Souhrn
 
@@ -11,7 +11,7 @@ Vygenerováno 2026-10-29 skriptem `scraper/scrape.py`. Soubor se přepisuje při
 - **S českým názvem (fishao.cz):** 615 / 615
 - **Zdroj obrázků:** fishaowiki: 594, fishao.cz: 21
 - **S konfliktem hodnot mezi tabulkami:** 72
-- **S nejistým polem (`uncertain`, UI ukáže „?"):** 159 — max_length: 92, time: 54, season: 16, bait: 12
+- **S nejistým polem (`uncertain`, UI ukáže „?"):** 92 — max_length: 92
 - **S přesným místem v oblasti (`area_spots`):** 291
 
 ## Zdroje
@@ -269,6 +269,498 @@ Názvy ze dvou stránek, kde jedna má jen nepřeložené anglické jméno → v
 
 `Aquayama`, `Cool Mountain`, `Cool Mountain (z voru)`, `Klub (vlevo, slaná voda)`, `Klub (vpravo, sladká voda)`, `Laketown`, `Laketown (farma)`, `Little Rio`, `Lost Valley I`, `Lost Valley II`, `Lucky Raft`, `Marshville`, `Mystic Desert`, `Mystic Desert (v pyramidě)`, `Palm Island (uvnitř)`, `Palm Island (vně)`, `Pinheira Beach`, `Pinheira Beach (z mola)`, `Pirátská jeskyně`, `Rio Tropical`, `Seagull Harbor`, `Seagull Harbor (z člunu)`, `Sibiri City`, `Thombani Town`, `Thombani Town (za plotem)`, `Továrna na nábytek`, `Turnaj Boat on Sea`, `Turnaj Lake Run`, `Turnaj Magic 15`, `Turnaj Moray`, `Za domem`
 
+## Třetí zdroj: fishaofunwiki.com
+
+Živá komunitní wiki (stav 2026), novější než oba archivy. SPA — seznam ryb je přímo v JS bundlu (`JSON.parse`), uloženo surově v `data/fishaofunwiki.json` a u ryby v `extra.fishaofunwiki`. `/api/fish-data` (~30 komunitních úprav) jen kopíruje maxLength do prázdného rekordu → nepoužito.
+
+**Rozhodnutí uživatele (2026-10-30):** funwiki doplní chybějící hodnoty a délkový rozsah `length_cm` `{min, avg, max}`; u polí s „?" (čas, sezóna, návnada) její hodnota nahradí naši a „?" zmizí. Jistá pole nepřepisuje — rozdíly jsou jen níže.
+
+- ryb ve funwiki: 615, spárováno 615 (id/jméno bez oddělovačů, takže `barnard-s-lanterfish` = `barnards-lanterfish`)
+- s délkovým rozsahem `length_cm`: 615
+- nespárováno: 0
+
+| pole | pravidlo | ryb |
+|---|---|---|
+| bait | resolves_uncertain | 12 |
+| max_length | fill | 2 |
+| season | confirms_uncertain | 5 |
+| season | resolves_uncertain | 11 |
+| time | confirms_uncertain | 19 |
+| time | fill | 2 |
+| time | resolves_uncertain | 35 |
+
+`fill` = naše data hodnotu nemají; `resolves_uncertain` = nahrazena nejistá hodnota; `confirms_uncertain` = funwiki potvrdila naši nejistou hodnotu („?" zmizí); `unparsed` = hodnotu funwiki nejde rozparsovat, nepoužito.
+
+### Rozdíly u jistých hodnot (ponecháno naše)
+
+<details><summary>bait (2)</summary>
+
+| ryba | naše | funwiki |
+|---|---|---|
+| `green-moray` | Fish, Insects, Lures | Insects, Lures |
+| `whitemouth-moray` | Fish, Insects, Meat | Fish, Insects |
+
+</details>
+
+<details><summary>max_length (401)</summary>
+
+| ryba | naše | funwiki |
+|---|---|---|
+| `acanthodes` | 57 cm | 58 cm |
+| `achilles-tang` | 24 cm | 25 cm |
+| `african-butter-catfish` | 39 cm | 40 cm |
+| `african-knifefish` | 164 cm | 161 cm |
+| `albino-alligator-gar` | 298 cm | 282 cm |
+| `albino-catfish` | 619 cm | 585 cm |
+| `alligator-gar` | 299 cm | 296 cm |
+| `allis-shad` | 82 cm | 83 cm |
+| `alpine-bullhead` | 10 cm | 11 cm |
+| `amazon-leaf-fish` | 11 cm | 12 cm |
+| `amur-pike` | 114 cm | 113 cm |
+| `amur-sturgeon` | 319 cm | 307 cm |
+| `angel-shark` | 242 cm | 243 cm |
+| `angler-snake-eel` | 12 cm | 15 cm |
+| `antiarchi` | 103 cm | 104 cm |
+| `apache-trout` | 41 cm | 42 cm |
+| `aphyonidae` | (21–22 cm)? | 19 cm |
+| `arandaspis` | 15 cm | 16 cm |
+| `arapaima` | (448–449 cm)? | 442 cm |
+| `arctic-char` | 106 cm | 104 cm |
+| `ariidae` | 59 cm | 60 cm |
+| `arrowhead-soapfish` | 14 cm | 15 cm |
+| `asian-arowana` | 89 cm | 90 cm |
+| `asian-green-arowana` | 103 cm | 102 cm |
+| `asp` | (118–119 cm)? | 117 cm |
+| `aspidorhynchus` | 80 cm | 81 cm |
+| `astraspis` | 19 cm | 20 cm |
+| `atlantic-bluefin-tuna` | 457 cm | 448 cm |
+| `atlantic-herring` | 44 cm | 45 cm |
+| `atlantic-needlefish` | 110 cm | 111 cm |
+| `atlantic-wolffish` | 149 cm | 145 cm |
+| `austrolebias-adloffi` | 4 cm | 5 cm |
+| `ballan-wrasse` | 65 cm | 66 cm |
+| `banded-butterflyfish` | 14 cm | 15 cm |
+| `barbel` | 119 cm | 120 cm |
+| `barbeled-houndshark` | 81 cm | 82 cm |
+| `barnards-lanterfish` | 11 cm | 12 cm |
+| `basketfish` | 14 cm | 15 cm |
+| `beluga-sturgeon` | (846–851 cm)? | 818 cm |
+| `bigeye-scad` | 29 cm | 30 cm |
+| `bigeye-tuna` | 250 cm | 249 cm |
+| `bighead-carp` | 149 cm | 148 cm |
+| `bigmouth-buffalo` | 122 cm | 121 cm |
+| `bitterling` | 8 cm | 9 cm |
+| `black-alligator-gar` | (297–298 cm)? | 265 cm |
+| `black-arowana` | 89 cm | 88 cm |
+| `black-bullhead` | 64 cm | 65 cm |
+| `black-crappy` | 48 cm | 49 cm |
+| `black-dragonfish` | 52 cm | 49 cm |
+| `black-ghost-knifefish` | 52 cm | 53 cm |
+| `black-marlin` | (459–464 cm)? | 457 cm |
+| `black-molly` | 8 cm | 9 cm |
+| `black-sharkminnow` | 89 cm | 90 cm |
+| `black-triggerfish` | 45 cm | 46 cm |
+| `blackbar-soldierfish` | (26–34 cm)? | 25 cm |
+| `blackcheek-moray` | 99 cm | 100 cm |
+| `blackfin-dartfish` | (9–13 cm)? | 14 cm |
+| `blackfin-pearlfish` | 6 cm | 7 cm |
+| `blind-cave-eel` | (37–39 cm)? | 40 cm |
+| `blue-catfish` | 239 cm | 235 cm |
+| `blue-dot-jawfish` | 9 cm | 10 cm |
+| `blue-lyretail` | 6 cm | 7 cm |
+| `blue-malayan-arowana` | 131 cm | 124 cm |
+| `blue-marlin` | (428–429 cm)? | 421 cm |
+| `blue-panchax` | 8 cm | 9 cm |
+| `blue-parrotfish` | 119 cm | 116 cm |
+| `blue-ring-angelfish` | 30 cm | 31 cm |
+| `blue-striped-grunt` | 27 cm | 28 cm |
+| `blue-tang` | 37 cm | 38 cm |
+| `blue-bellied-night-wanderer` | 2 cm | 3 cm |
+| `blue-green-chromis` | 9 cm | 10 cm |
+| `bluegill` | 40 cm | 41 cm |
+| `bluehead-wrasse` | 14 cm | 15 cm |
+| `bluespine-unicornfish` | 71 cm | 70 cm |
+| `bluestripe-pipefish` | 6 cm | 7 cm |
+| `bluestripe-snapper` | 39 cm | 40 cm |
+| `boreaspis` | 12 cm | 13 cm |
+| `bowfin` | 108 cm | 109 cm |
+| `bowmouth-guitarfish` | 306 cm | 304 cm |
+| `bramble-shark` | 309 cm | 296 cm |
+| `bridled-leatherjacket` | 13 cm | 14 cm |
+| `brook-trout` | 85 cm | 86 cm |
+| `brown-trout` | 99 cm | 100 cm |
+| `bull-shark` | (400–401 cm)? | 398 cm |
+| `bullet-tuna` | 49 cm | 50 cm |
+| `burbot` | 59 cm | 60 cm |
+| `candy-basslet` | 5 cm | 6 cm |
+| `chaca-chaca-catfish` | 31 cm | 32 cm |
+| `cheiracanthus` | 37 cm | 38 cm |
+| `cheirolepis` | 64 cm | 65 cm |
+| `cherry-salmon` | 78 cm | 79 cm |
+| `chevron-butterflyfish` | 19 cm | 20 cm |
+| `chilhuil-sea-catfish` | (48–50 cm)? | 51 cm |
+| `chinese-false-gudgeon` | 18 cm | 19 cm |
+| `chinese-paddlefish` | 700 cm | 677 cm |
+| `chinstrap-jawfish` | 10 cm | 11 cm |
+| `cladoselache` | 171 cm | 170 cm |
+| `clown-featherback` | 99 cm | 100 cm |
+| `clown-loach` | 51 cm | 52 cm |
+| `cobelodus` | 207 cm | 209 cm |
+| `coccosteus` | 39 cm | 40 cm |
+| `coelacanth` | 179 cm | 177 cm |
+| `coho-salmon` | 98 cm | 99 cm |
+| `common-bleak` | 24 cm | 25 cm |
+| `common-carp` | 119 cm | 120 cm |
+| `common-dace` | 39 cm | 40 cm |
+| `common-dolphinfish` | 189 cm | 188 cm |
+| `common-minnow` | 13 cm | 14 cm |
+| `common-nase` | 49 cm | 50 cm |
+| `common-ponyfish` | (26–27 cm)? | 28 cm |
+| `common-roach` | 50 cm | 51 cm |
+| `common-sawfish` | 750 cm | 747 cm |
+| `cookiecutter-shark` | 55 cm | 56 cm |
+| `coral-catshark` | 69 cm | 70 cm |
+| `coral-hind` | 44 cm | 45 cm |
+| `cornish-jack` | 149 cm | 148 cm |
+| `cortez-rainbow-wrasse` | 15 cm | 16 cm |
+| `corydoras-julii` | 5 cm | 6 cm |
+| `crested-bullhead-shark` | 149 cm | 148 cm |
+| `cretoxyrhina` | 602 cm | 696 cm |
+| `crucian-carp` | 52 cm | 53 cm |
+| `ctenurella` | 12 cm | 13 cm |
+| `cyclops-shark` | (49–55 cm)? | 56 cm |
+| `dab` | 39 cm | 40 cm |
+| `dapedium` | 39 cm | 40 cm |
+| `dartmuthia` | 23 cm | 24 cm |
+| `deepwater-sculpin` | 22 cm | 23 cm |
+| `deltoptychius` | 44 cm | 45 cm |
+| `devils-hole-pupfish` | 2 cm | 3 cm |
+| `discus` | 14 cm | 15 cm |
+| `dolly-varden` | 60 cm | 61 cm |
+| `doryaspis-arctica` | 14 cm | 15 cm |
+| `doryaspis-nathorsti` | 14 cm | 15 cm |
+| `dragon-wrasse` | 29 cm | 30 cm |
+| `dusky-shark` | 419 cm | 415 cm |
+| `dwarf-moray` | 28 cm | 29 cm |
+| `eastern-mudminnow` | 14 cm | 15 cm |
+| `elegant-firefish` | 8 cm | 9 cm |
+| `elongate-tigerfish` | 77 cm | 78 cm |
+| `emperor-angelfish` | 40 cm | 41 cm |
+| `eurasian-ruffe` | 24 cm | 25 cm |
+| `european-anchovy` | 19 cm | 20 cm |
+| `european-chub` | 59 cm | 60 cm |
+| `european-conger` | 299 cm | 294 cm |
+| `european-perch` | 59 cm | 60 cm |
+| `european-sea-sturgeon` | 599 cm | 597 cm |
+| `evermannella-balbo` | 16 cm | 17 cm |
+| `fantail-filefish` | 11 cm | 12 cm |
+| `flame-angelfish` | 14 cm | 15 cm |
+| `florida-gar` | (130–131 cm)? | 129 cm |
+| `fourhorned-sculpin` | 29 cm | 30 cm |
+| `french-angelfish` | 40 cm | 41 cm |
+| `freshwater-butterflyfish` | 12 cm | 13 cm |
+| `freshwater-goby` | 26 cm | 27 cm |
+| `freshwater-hatchedfish` | 8 cm | 9 cm |
+| `freshwater-lionfish` | 31 cm | 32 cm |
+| `frontosa-chiclid` | 39 cm | 40 cm |
+| `gar` | 199 cm | 197 cm |
+| `giant-barb` | 294 cm | 293 cm |
+| `giant-devil-ray` | 519 cm | 470 cm |
+| `giant-freshwater-stingray` | (457–459 cm)? | 453 cm |
+| `giant-grouper` | 304 cm | 303 cm |
+| `giant-moray` | 299 cm | 291 cm |
+| `giant-oceanic-manta-ray` | (908–909 cm)? | 901 cm |
+| `giant-salmon-carp` | (112–129 cm)? | 130 cm |
+| `giant-squid` | 1294 cm | 1268 cm |
+| `glasseye-snapper` | 52 cm | 53 cm |
+| `gloved-snailfish` | 41 cm | 42 cm |
+| `goblin-shark` | (324–610 cm)? | 614 cm |
+| `gold-nugget-pleco` | 30 cm | 31 cm |
+| `gold-carp` | (118–119 cm)? | 114 cm |
+| `golden-cave-catfish` | (15–16 cm)? | 17 cm |
+| `golden-perch` | 75 cm | 76 cm |
+| `golden-pike` | (137–139 cm)? | 135 cm |
+| `goldentail-moray` | 69 cm | 70 cm |
+| `goldfish` | 37 cm | 38 cm |
+| `goldsilk-bream` | 89 cm | 86 cm |
+| `goliath-tigerfish` | (149–197 cm)? | 147 cm |
+| `gollumshark` | 109 cm | 110 cm |
+| `grass-pickerel` | 37 cm | 38 cm |
+| `grayling` | 59 cm | 60 cm |
+| `great-white-shark` | (785–790 cm)? | 772 cm |
+| `greater-blue-ringed-octopus` | 4 cm | 5 cm |
+| `green-arowana` | 61 cm | 62 cm |
+| `green-sawfish` | (726–729 cm)? | 724 cm |
+| `greenland-shark` | 722 cm | 728 cm |
+| `grideye-fish` | 15 cm | 16 cm |
+| `guachanche-barracuda` | 198 cm | 194 cm |
+| `guapote` | (69–71 cm)? | 68 cm |
+| `gulf-signal-blenny` | 4 cm | 5 cm |
+| `guppy` | 6 cm | 7 cm |
+| `gyrodus` | 54 cm | 55 cm |
+| `gyrosteus` | (514–515 cm)? | 506 cm |
+| `hairy-pufferfish` | 11 cm | 12 cm |
+| `halibut` | (364–365 cm)? | 356 cm |
+| `hammerhead-shark` | 599 cm | 598 cm |
+| `helicoprion` | 419 cm | 423 cm |
+| `hellers-barracuda` | 78 cm | 79 cm |
+| `honeycomb-cowfish` | 49 cm | 50 cm |
+| `horn-shark` | 199 cm | 198 cm |
+| `horse-mackerel` | 99 cm | 100 cm |
+| `horseface-loach` | 29 cm | 30 cm |
+| `hound-needlefish` | 149 cm | 150 cm |
+| `hucho-taimen` | 209 cm | 208 cm |
+| `humphead-parrotfish` | 150 cm | 149 cm |
+| `hyneria` | 545 cm | 542 cm |
+| `indian-glassfish` | 8 cm | 9 cm |
+| `inlecypris-jayarami` | 9 cm | 10 cm |
+| `isichthys-henryi` | 28 cm | 29 cm |
+| `jack-dempsey` | 24 cm | 25 cm |
+| `jardini-arowana` | 99 cm | 100 cm |
+| `kaluga-sturgeon` | 559 cm | 556 cm |
+| `kitefin-shark` | 179 cm | 177 cm |
+| `kuhli-loach` | 10 cm | 11 cm |
+| `lake-sturgeon` | 273 cm | 268 cm |
+| `lake-trout` | 150 cm | 151 cm |
+| `largemouth-bass` | 74 cm | 75 cm |
+| `largetooth-sawfish` | (703–704 cm)? | 682 cm |
+| `lavender-mbuna` | 10 cm | 11 cm |
+| `leafscale-gulper-shark` | 157 cm | 156 cm |
+| `leedsichthys` | (1208–1381 cm)? | 1636 cm |
+| `lemon-shark` | 339 cm | 336 cm |
+| `lemonpeel-angelfish` | 13 cm | 14 cm |
+| `lesser-weever` | 14 cm | 15 cm |
+| `livingstons-chichild` | 24 cm | 25 cm |
+| `long-nosed-chimera` | 139 cm | 140 cm |
+| `longfin-mako-shark` | 416 cm | 414 cm |
+| `longhorn-cowfish` | 52 cm | 53 cm |
+| `longnose-butterfly` | 22 cm | 23 cm |
+| `longnose-hawkfish` | 12 cm | 13 cm |
+| `longnose-sawshark` | 136 cm | 137 cm |
+| `macropoma` | 60 cm | 61 cm |
+| `malawi-eye-biter` | 22 cm | 23 cm |
+| `marbled-headstander` | 13 cm | 14 cm |
+| `marine-betta` | 19 cm | 20 cm |
+| `materpiscis` | 27 cm | 28 cm |
+| `megalodon` | 1799 cm | 1797 cm |
+| `midas-cichlid` | 24 cm | 25 cm |
+| `midwater-eelpout` | 16 cm | 17 cm |
+| `milkfish` | 169 cm | 166 cm |
+| `minute-leatherjacket` | 4 cm | 5 cm |
+| `mirror-carp` | 151 cm | 152 cm |
+| `moon-wrasse` | 44 cm | 45 cm |
+| `moythomasia` | 10 cm | 11 cm |
+| `muraena-augusti` | 130 cm | 129 cm |
+| `neon-tetra` | 4 cm | 5 cm |
+| `nile-tilapia` | 44 cm | 45 cm |
+| `north-african-catfish` | 169 cm | 170 cm |
+| `northern-lampfish` | 12 cm | 13 cm |
+| `nurse-shark` | (428–429 cm)? | 424 cm |
+| `ocean-sunfish` | 332 cm | 330 cm |
+| `oceanic-whitetip-shark` | 401 cm | 400 cm |
+| `ocellated-pufferfish` | 14 cm | 15 cm |
+| `orange-banded-pipefish` | 18 cm | 19 cm |
+| `orange-spotted-snakehead` | 39 cm | 40 cm |
+| `orangespotted-soapfish` | 5 cm | 6 cm |
+| `orangespotted-sunfish` | 39 cm | 40 cm |
+| `orthacanthus` | 302 cm | 312 cm |
+| `oscar` | 44 cm | 45 cm |
+| `osteolepis` | 22 cm | 23 cm |
+| `pacific-bluefin-tuna` | (300–303 cm)? | 287 cm |
+| `pacuma-toadfish` | 56 cm | 57 cm |
+| `paddlefish` | 275 cm | 276 cm |
+| `paint-spotted-moray` | 140 cm | 141 cm |
+| `painted-comber` | 34 cm | 35 cm |
+| `painted-electric-ray` | 13 cm | 14 cm |
+| `pale-chub` | 19 cm | 20 cm |
+| `panther-grouper` | 69 cm | 70 cm |
+| `paroon-shark` | 319 cm | 318 cm |
+| `parrot-cichlid` | 31 cm | 32 cm |
+| `payara` | 119 cm | 112 cm |
+| `peacock-flounder` | 50 cm | 51 cm |
+| `pearl-danio` | 6 cm | 7 cm |
+| `pearly-razorfish` | 37 cm | 38 cm |
+| `peled` | (48–49 cm)? | 50 cm |
+| `pelican-barracuda` | 90 cm | 89 cm |
+| `pelican-eel` | 87 cm | 88 cm |
+| `pennant-coralfish` | 25 cm | 26 cm |
+| `peppermint-angelfish` | 6 cm | 7 cm |
+| `persian-sturgeon` | 234 cm | 231 cm |
+| `phantom-bannerfish` | 16 cm | 17 cm |
+| `picasso-triggerfish` | 24 cm | 25 cm |
+| `pickhandle-barracuda` | 148 cm | 149 cm |
+| `pictus-catfish` | 10 cm | 11 cm |
+| `pikaia` | 6 cm | 7 cm |
+| `pike` | 139 cm | 140 cm |
+| `pike-cichlid` | 17 cm | 18 cm |
+| `pineapplefish` | 21 cm | 22 cm |
+| `pink-frogfish` | 37 cm | 38 cm |
+| `pinktail-triggerfish` | 39 cm | 37 cm |
+| `piraiba-catfish` | 359 cm | 356 cm |
+| `piranha` | 39 cm | 40 cm |
+| `piraya` | (48–49 cm)? | 50 cm |
+| `platinum-golden-arowana` | (97–98 cm)? | 99 cm |
+| `platysomus` | 21 cm | 22 cm |
+| `pond-smelt` | 19 cm | 20 cm |
+| `porkfish` | 40 cm | 39 cm |
+| `potters-angelfish` | 10 cm | 11 cm |
+| `pteraspis` | 28 cm | 29 cm |
+| `puffer-fish` | 32 cm | 33 cm |
+| `pumpkinseed-sunfish` | 24 cm | 25 cm |
+| `queen-angelfish` | 44 cm | 45 cm |
+| `queen-parrotfish` | 60 cm | 59 cm |
+| `queen-triggerfish` | 60 cm | 61 cm |
+| `rainbow-parrotfish` | 119 cm | 118 cm |
+| `rainbow-runner` | 179 cm | 178 cm |
+| `rainbow-trout` | 119 cm | 120 cm |
+| `rainbowfish` | 18 cm | 19 cm |
+| `red-bellied-pacu` | 91 cm | 92 cm |
+| `red-indianfish` | 26 cm | 27 cm |
+| `red-irish-lord` | 50 cm | 51 cm |
+| `red-rainbowfish` | 11 cm | 12 cm |
+| `red-scorpionfish` | 49 cm | 50 cm |
+| `red-snapper` | 99 cm | 100 cm |
+| `red-wolf-fish` | 19 cm | 20 cm |
+| `redfin-pickerel` | 41 cm | 42 cm |
+| `redhead-cichlid` | 34 cm | 35 cm |
+| `ribbon-eel` | 129 cm | 130 cm |
+| `rock-bass` | 42 cm | 43 cm |
+| `rock-beauty` | 24 cm | 25 cm |
+| `rusty-parrotfish` | 40 cm | 41 cm |
+| `sailfish` | 314 cm | 312 cm |
+| `sailray` | 122 cm | 123 cm |
+| `salpa-maggiore` | (16–23 cm)? | 25 cm |
+| `sand-tilefish` | 44 cm | 45 cm |
+| `sarcastic-fringehead` | 31 cm | 32 cm |
+| `sardinella` | 16 cm | 17 cm |
+| `sargassum-triggerfish` | 24 cm | 25 cm |
+| `satanoperca` | 14 cm | 15 cm |
+| `saurychthis` | (127–128 cm)? | 130 cm |
+| `sawback-angelshark` | 197 cm | 198 cm |
+| `senegal-bichir` | 79 cm | 76 cm |
+| `sergeant-major` | 22 cm | 23 cm |
+| `shark` | 791 cm | 788 cm |
+| `sharpfin-barracuda` | 79 cm | 80 cm |
+| `sharpnose-sevengill-shark` | 139 cm | 140 cm |
+| `siamese-fighting-fish` | 10 cm | 11 cm |
+| `siamese-tigerfish` | 44 cm | 45 cm |
+| `siberian-sturgeon` | (201–202 cm)? | 195 cm |
+| `silver-carp` | (138–139 cm)? | 140 cm |
+| `silver-scabbardfish` | 209 cm | 208 cm |
+| `sleepy-cod` | 44 cm | 45 cm |
+| `smallmouth-bass` | 52 cm | 53 cm |
+| `smooth-trunkfish` | 49 cm | 50 cm |
+| `snowflake-moray` | 101 cm | 102 cm |
+| `south-american-lungfish` | 124 cm | 123 cm |
+| `southern-bluefin-tuna` | 244 cm | 243 cm |
+| `spanish-hogfish` | 40 cm | 41 cm |
+| `spearfish-remora` | 49 cm | 50 cm |
+| `spinner-shark` | 300 cm | 298 cm |
+| `spotted-bass` | 63 cm | 64 cm |
+| `spotted-gar` | (148–149 cm)? | 147 cm |
+| `spotted-handfish` | 14 cm | 15 cm |
+| `spotted-pike-characin` | 31 cm | 32 cm |
+| `spotted-sicklefish` | 49 cm | 50 cm |
+| `spotted-wobbegong` | 319 cm | 314 cm |
+| `stareater` | 20 cm | 21 cm |
+| `starry-sturgeon` | 219 cm | 217 cm |
+| `stethacanthus` | (55–189 cm)? | 191 cm |
+| `stone-loach` | 20 cm | 21 cm |
+| `striped-headstander` | 21 cm | 22 cm |
+| `striped-marlin` | (418–419 cm)? | 410 cm |
+| `suckermouth-catfish` | 49 cm | 50 cm |
+| `sulawesi-coelacanth` | 139 cm | 123 cm |
+| `sunbleak` | 11 cm | 12 cm |
+| `swordfish` | 449 cm | 443 cm |
+| `tadpole-snailfish` | 5 cm | 6 cm |
+| `tailspot-ctenopoma` | 24 cm | 25 cm |
+| `tambaqui` | 99 cm | 100 cm |
+| `taylors-inflator-filefish` | 4 cm | 5 cm |
+| `texas-cichlid` | 29 cm | 30 cm |
+| `three-spined-stickleback` | 10 cm | 11 cm |
+| `tiger-grouper` | 104 cm | 105 cm |
+| `tiger-muskellunge` | 149 cm | 148 cm |
+| `tomato-clownfish` | 13 cm | 14 cm |
+| `tope-shark` | 192 cm | 193 cm |
+| `treefish` | 40 cm | 41 cm |
+| `twin-spot-goby` | 9 cm | 10 cm |
+| `unicorn-crestfish` | 148 cm | 149 cm |
+| `vandellia` | 19 cm | 20 cm |
+| `weedy-seadragon` | 44 cm | 45 cm |
+| `weever-fish` | 34 cm | 35 cm |
+| `wels-catfish` | 259 cm | 257 cm |
+| `wenchman` | 55 cm | 56 cm |
+| `white-marlin` | 300 cm | 301 cm |
+| `white-eyed-moray` | 65 cm | 66 cm |
+| `white-spotted-damsel` | 12 cm | 13 cm |
+| `white-spotted-puffer` | 49 cm | 50 cm |
+| `whitebarred-catfish` | 14 cm | 15 cm |
+| `whitespotted-boxfish` | 24 cm | 25 cm |
+| `winghead-shark` | 188 cm | 185 cm |
+| `yangtze-sturgeon` | 251 cm | 238 cm |
+| `yellow-boxfish` | 44 cm | 45 cm |
+| `yellow-perch` | 53 cm | 54 cm |
+| `yellow-tang` | 23 cm | 24 cm |
+| `yellow-tail-arowana` | 102 cm | 103 cm |
+| `yellowfin-tuna` | 239 cm | 238 cm |
+| `yellowhead-moray` | 79 cm | 80 cm |
+| `yellowhead-wrasse` | 18 cm | 19 cm |
+| `zander` | 129 cm | 128 cm |
+| `zingel-streber` | 26 cm | 23 cm |
+
+</details>
+
+<details><summary>rarity (2)</summary>
+
+| ryba | naše | funwiki |
+|---|---|---|
+| `murray-cod` | 3 | 4 |
+| `xenacanthus` | 4 | 2 |
+
+</details>
+
+<details><summary>season (5)</summary>
+
+| ryba | naše | funwiki |
+|---|---|---|
+| `bull-shark` | Always | October 1-December 31, January 1-August 31 |
+| `horn-shark` | Always | February 1-November 30 |
+| `hucho-taimen` | April - October | April 1-June 30, August 1-September 30 |
+| `spotted-gar` | Always | January 1-February 28, May 1-December 31 |
+| `yellow-tail-arowana` | December - April | December 1-31, January 1-March 31 |
+
+</details>
+
+<details><summary>time (23)</summary>
+
+| ryba | naše | funwiki |
+|---|---|---|
+| `amazon-leaf-fish` | Always | 11:00-17:00 |
+| `apache-trout` | 18:00-09:00 | 05:00-09:00, 18:00-22:00 |
+| `asian-green-arowana` | 20:00-04:00 | 20:00-02:00 |
+| `banded-butterflyfish` | Always | 14:00-19:00 |
+| `bigfin-reef-squid` | Always | 23:00-14:00 |
+| `birdbeak-dogfish` | Always | 01:00-05:00 |
+| `black-arowana` | 13:45-14:00 | 10:00-10:15, 13:45-14:00, 03:15-03:30 |
+| `blackbar-soldierfish` | 22:00-05:00 | 22:00-04:30 |
+| `blue-malayan-arowana` | Always | 23:00-05:00 |
+| `bowfin` | Always | 08:00-18:00 |
+| `fire-eel` | 23:00-04:00 | 22:00-04:00 |
+| `goblin-shark` | 09:00-12:00 | 09:00-14:00 |
+| `green-arowana` | Always | 01:00-06:00 |
+| `hogfish` | Always | 07:00-20:00 |
+| `hucho-taimen` | Always | 05:00-09:00, 18:00-22:00 |
+| `jardini-arowana` | 06:00-08:00 | 05:00-09:00 |
+| `mariana-snailfish` | 01:00-04:00 | 00:00-05:00 |
+| `pumpkinseed-sunfish` | Always | 08:00-18:00 |
+| `rainbow-darter` | Always | 10:00-22:00 |
+| `red-striped-rasbora` | Always | 08:00-18:00 |
+| `striped-headstander` | Always | 08:00-18:00 |
+| `tadpole-snailfish` | 00:00-05:00 | 00:00-06:00 |
+| `tiger-muskellunge` | Always | 08:00-22:00 |
+
+</details>
+
 ## Co v archivu chybí
 
 ### Neúspěšná stahování (fetch selhal 3× nebo 404)
@@ -329,14 +821,9 @@ Zbylé konflikty a díry (návnada, sezóna, čas, rarita, český název), kter
 
 | pole | problém | celkem | otevřeno |
 |---|---|---|---|
-| bait | newer_source | 12 | 12 |
 | name_cs | fallback_en | 5 | 5 |
-| season | newer_source | 14 | 14 |
-| season | uncertain | 2 | 2 |
-| time | newer_source | 54 | 54 |
-| time | uncertain | 2 | 2 |
 
-Použito ručních hodnot: 0; otevřeno: 89.
+Použito ručních hodnot: 0; otevřeno: 5.
 
 ## Chybějící pole
 
@@ -345,27 +832,24 @@ Použito ručních hodnot: 0; otevřeno: 89.
 | pole | chybí u |
 |---|---|
 | `areas` | 0 |
-| `time` | 2 |
+| `time` | 0 |
 | `season` | 0 |
 | `rarity` | 0 |
 | `bait` | 0 |
-| `max_length_cm` | 2 |
+| `max_length_cm` | 0 |
 | `image` | 0 |
 
 ### Raw hodnota existuje, ale nejde jednoznačně rozparsovat
 
 Parsované pole je null, `*_raw` obsahuje text ze zdroje.
 
-- **time** (2): `flathead-catfish`=`22:00-?`, `shortdorsal-cutthroat-eel`=`02:00-?`
+- **time** (0): —
 - **season** (0): —
 
 ### Ryby s chybějícími poli
 
 | ryba | chybí |
 |---|---|
-| `flathead-catfish` | time |
-| `golden-gar` | max_length_cm |
-| `shortdorsal-cutthroat-eel` | time, max_length_cm |
 
 ## Konflikty mezi tabulkami
 
@@ -579,7 +1063,7 @@ Počet: 0
 
 ### Slovník návnad (bez oprav překlepů)
 
-`Barracuda Lure` (10), `Dough` (118), `Fish` (302), `Hook` (5), `Insects` (337), `Lures` (110), `Marlin Lure` (3), `Meat` (37), `Monkfish Lure` (1), `Monster Bait` (3), `Pelican Lure` (1), `Prehistoric Bait` (45), `Shark Bait` (46), `Star Lure` (1), `Tuna Lure` (8), `Vegetal` (135)
+`Barracuda Lure` (10), `Dough` (117), `Fish` (300), `Hook` (5), `Insects` (337), `Lures` (109), `Marlin Lure` (3), `Meat` (37), `Monkfish Lure` (1), `Monster Bait` (3), `Pelican Lure` (1), `Prehistoric Bait` (45), `Shark Bait` (46), `Star Lure` (1), `Tuna Lure` (8), `Vegetal` (134)
 
 ### Ostatní poznámky parseru
 
@@ -596,6 +1080,7 @@ Počet: 0
 | Season | `season` (`"always"` nebo `[{from: "MM-DD", to}]`), `season_raw` |
 | Time | `time` (`"always"` nebo `[{from,to}]`), `time_raw` |
 | World record + fishao.cz Délka / maximální | `max_length_cm` `{min, max}`, `max_length_label` (`449 cm` / při neshodě `(448–449 cm)?`), `max_length_raw` (hodnoty + zdroje) |
+| fishaofunwiki minLength / avgLength / maxLength | `length_cm` `{min, avg, max}` (rozsah délky úlovku) |
 | Max Price, fishao.cz ceny | **zahozeno** (jen `has_glowing_variant` z existence zářivé ceny) |
 | hvězdy (obrázek `Nstar.png`) / Stars | `rarity` 1–5, `rarity_raw` |
 | Area (all-in-one, 5-star) | → `areas[]` při přesné shodě, raw v `extra.occurrences` |

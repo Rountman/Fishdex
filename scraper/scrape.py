@@ -26,6 +26,7 @@ from urllib.parse import quote, urlsplit
 from bs4 import BeautifulSoup
 
 import fishao_cz
+import funwiki
 import manual
 import merge_cz
 import places
@@ -471,6 +472,7 @@ def build(with_images: bool) -> None:
             "bait": bait_canonical(bait_raw)[0] if bait_raw is not None else None,
             "bait_raw": bait_raw,
             "max_length_cm": None,  # filled by merge_cz: {min, max} over wiki World record + fishao.cz max length
+            "length_cm": None,  # filled by funwiki: {min, avg, max} catch length range
             "max_length_raw": None,
             "max_length_label": None,  # '449 cm' or '(448–449 cm)?' when sources disagree
             "has_glowing_variant": None,
@@ -499,6 +501,11 @@ def build(with_images: bool) -> None:
     for t, n in unknown_bait.items():
         notes.append(f"bait token not in vocabulary (kept as-is): {t!r} ({n}x)")
     cz["resolve_stats"] = resolve_stats
+
+    # ---- third source: fishaofunwiki.com (length range, fills gaps, resolves uncertain time/season/bait)
+    fw_rows = funwiki.run()
+    funwiki.save(fw_rows, DATA_DIR / "fishaofunwiki.json")
+    fw = funwiki.merge(fish_list, fw_rows, slugify)
 
     # ---- human-filled values from manual/resolutions.csv
     man = manual.run(fish_list)
@@ -532,7 +539,7 @@ def build(with_images: bool) -> None:
 
     from report import write_report
     write_report(DATA_DIR / "report.md", fish_list, list(areas.values()), snaps, disc, sections,
-                 notes, unmatched_area_tokens, candidates, aliases, image_failures, failures(), with_images, cz, man)
+                 notes, unmatched_area_tokens, candidates, aliases, image_failures, failures(), with_images, cz, man, fw)
     print(f"fish: {len(fish_list)}  areas: {len(areas)}  images: {sum(1 for f in fish_list if f['image'])}")
 
 
