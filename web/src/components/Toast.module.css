@@ -16,6 +16,7 @@
 .toast button:focus-visible { outline-color: var(--color-on-ink); }
 
 @media (max-width: 760px) {
-  .region { bottom: var(--space-3); width: calc(100vw - 24px); }
+  /* above the pinned export button */
+  .region { bottom: calc(var(--space-3) + 48px); width: calc(100vw - 24px); }
   .toast { justify-content: space-between; }
 }

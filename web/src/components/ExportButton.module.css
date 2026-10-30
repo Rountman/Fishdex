@@ -1,0 +1,21 @@
+/* a paper label pinned to the page corner; stays below dialogs (top layer) and the toast */
+.fab {
+  position: fixed; right: var(--space-5); bottom: var(--space-5); z-index: calc(var(--z-toast) - 1);
+  display: inline-flex; align-items: center; gap: var(--space-2);
+  padding: var(--space-2) var(--space-4) var(--space-2) var(--space-3);
+  border: 1.5px solid var(--color-ink); border-radius: var(--radius-control);
+  background: var(--color-ink); color: var(--color-on-ink);
+  font-size: var(--fs-ui); font-weight: var(--fw-strong);
+  box-shadow: var(--shadow-pop);
+}
+.fab:hover { background: var(--color-paper-top); color: var(--color-ink); }
+.fab svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.short { display: none; }
+
+@media (max-width: 760px) {
+  .fab { right: var(--space-3); bottom: var(--space-3); padding: var(--space-2) var(--space-3); }
+  .long { display: none; }
+  .short { display: inline; }
+}
+
+@media print { .fab { display: none; } }

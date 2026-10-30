@@ -1,0 +1,7 @@
+.foot {
+  grid-area: foot; margin-top: var(--space-8); padding-top: var(--space-4);
+  border-top: 1px solid color-mix(in oklch, var(--color-ink) 25%, transparent);
+  font-size: var(--fs-sm); color: var(--color-ink-soft);
+}
+.foot p { margin: 0; }
+.handle { font-family: var(--font-text); font-weight: var(--fw-strong); color: var(--color-ink); }

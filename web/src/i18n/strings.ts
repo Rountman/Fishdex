@@ -101,6 +101,9 @@ const cs = {
   imErrD: 'Vyber soubor stažený tlačítkem „Stáhnout soubor“. Pokud je záloha z novější verze, obnov stránku.',
   merged: (n: number) => `Sloučeno: ${n} ${csPlural(n, 'ryba', 'ryby', 'ryb')} ze zálohy`,
   replaced: (n: number) => `Nahrazeno: progres obsahuje ${n} ${csPlural(n, 'rybu', 'ryby', 'ryb')}`,
+  exportFab: 'Exportovat progres', exportFabShort: 'Export',
+  exported: (file: string) => `Záloha stažena: ${file}`,
+  footer: 'Podpora nebo návrh úprav? Napiš mi na Discordu:',
 };
 
 export type Strings = typeof cs;
@@ -201,6 +204,9 @@ const en: Strings = {
   imErrD: 'Choose a file saved with “Download file”. If the backup is from a newer version, reload the page.',
   merged: n => `Merged: ${n} fish from the backup`,
   replaced: n => `Replaced: progress now has ${n} fish`,
+  exportFab: 'Export progress', exportFabShort: 'Export',
+  exported: file => `Backup saved: ${file}`,
+  footer: 'Need support or want to suggest a change? Message me on Discord:',
 };
 
 export const STRINGS: Record<Lang, Strings> = { cs, en };

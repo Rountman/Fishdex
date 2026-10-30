@@ -2,10 +2,12 @@ import { MotionConfig } from 'motion/react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { AreaIndex } from './components/AreaIndex';
 import { BackupDialog } from './components/BackupDialog';
+import { ExportButton } from './components/ExportButton';
 import { CARD_HELP_ID } from './components/FishCard';
 import { FishDetail } from './components/FishDetail';
 import { FishGrid } from './components/FishGrid';
 import { Filters } from './components/Filters';
+import { Footer } from './components/Footer';
 import { Masthead } from './components/Masthead';
 import { BackupHint, StorageNotice } from './components/Notices';
 import { Overview } from './components/Overview';
@@ -15,6 +17,7 @@ import { MOBILE, useMediaQuery } from './hooks/useMediaQuery';
 import { fishName } from './i18n/format';
 import { I18nProvider } from './i18n/I18n';
 import { STRINGS } from './i18n/strings';
+import { downloadProgress } from './progress/download';
 import { totals, type ImportPreview } from './progress/progress';
 import type { ProgressField } from './progress/schema';
 import { useProgress } from './progress/useProgress';
@@ -88,6 +91,12 @@ export default function App() {
     showToast(how === 'merge' ? t.merged(preview.count) : t.replaced(preview.count));
   };
 
+  const onQuickExport = () => {
+    const file = downloadProgress(p.progress);
+    setPrefs({ hintAckAt: sum.caught });
+    showToast(t.exported(file));
+  };
+
   /** '' = all, an area id, or '<area>:<Spot>' (sets the area too). */
   const selectArea = (value: string) => {
     setFilters(f => ({ ...f, ...locationPatch(value) }));
@@ -145,7 +154,9 @@ export default function App() {
               </>
             )}
           </main>
+          <Footer />
         </div>
+        <ExportButton onExport={onQuickExport} />
 
         <FishDetail
           fish={openFish} state={openId ? p.state(openId) : { caught: false, caughtGlowing: false }}

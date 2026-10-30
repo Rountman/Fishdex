@@ -3,7 +3,8 @@ import { FISH_IDS } from '../data';
 import { fmtDate } from '../i18n/format';
 import { useI18n } from '../i18n/context';
 import { useModal } from '../hooks/useModal';
-import { exportFileName, exportJson, readImport, totals, type ImportPreview, type ImportResult } from '../progress/progress';
+import { downloadProgress } from '../progress/download';
+import { exportFileName, readImport, totals, type ImportPreview, type ImportResult } from '../progress/progress';
 import type { Progress } from '../progress/schema';
 import { UploadIcon } from './icons';
 import styles from './BackupDialog.module.css';
@@ -28,12 +29,7 @@ export function BackupDialog({ open, progress, onClose, onExported, onImport }: 
   const s = totals(progress, FISH_IDS);
 
   const download = () => {
-    const url = URL.createObjectURL(new Blob([exportJson(progress)], { type: 'application/json' }));
-    const a = Object.assign(document.createElement('a'), { href: url, download: exportFileName() });
-    document.body.append(a);
-    a.click();
-    a.remove();
-    URL.revokeObjectURL(url);
+    downloadProgress(progress);
     onExported();
   };
 
