@@ -1,7 +1,7 @@
 import { useId } from 'react';
 import { fishImage, isBackyard } from '../data';
 import type { Fish, UncertainField } from '../data/types';
-import { altName, baitLabel, fishName, fmtSeason, fmtTime } from '../i18n/format';
+import { altName, baitLabel, fishName, fmtSeason, fmtSize, fmtTime } from '../i18n/format';
 import { useI18n } from '../i18n/context';
 import { useModal } from '../hooks/useModal';
 import type { FishProgress, ProgressField } from '../progress/schema';
@@ -83,7 +83,11 @@ function Body({ fish, state, areaName, onToggle, titleId, onClose }: Omit<Props,
           <Unsure fish={fish} field="bait" />
         </dd>
         <dt>{t.length}</dt>
-        <dd className={fish.length ? undefined : styles.unknown}>{fish.length ?? t.unknownF}</dd>
+        <dd className={fish.size ? undefined : styles.unknown}>
+          {fmtSize(fish.size) ?? t.unknownF}{fish.size && <> <span className="note">{t.avgLen(fish.size.avg)}</span></>}
+        </dd>
+        <dt>{t.record}</dt>
+        <dd className={fish.record ? undefined : styles.unknown}>{fish.record ?? t.unknownF}</dd>
       </dl>
     </article>
   );

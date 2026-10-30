@@ -19,9 +19,11 @@ export type Fish = {
   season: Schedule;
   rarity: 1 | 2 | 3 | 4 | 5;
   bait: Bait[];
-  /** Ready-made label ("449 cm", "(448–449 cm)?"), `null` = unknown. Already carries its own "?". */
-  length: string | null;
-  /** Fields the UI marks with "?" (length is excluded, its label has the "?"). */
+  /** Catch length range in cm (fishaofunwiki), `null` = unknown. */
+  size: { min: number; avg: number; max: number } | null;
+  /** World record label ("449 cm", "(448–449 cm)?"), `null` = unknown. Already carries its own "?". */
+  record: string | null;
+  /** Fields the UI marks with "?" (the record is excluded, its label has the "?"). */
   uncertain: UncertainField[];
   /** Every fish has a glowing variant (user decision, not from the source). */
   glowing: true;

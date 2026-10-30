@@ -31,6 +31,12 @@ export function fmtSeason(season: Schedule, lang: Lang): Formatted {
   return { text: season.map(w => `${dm(w.from, lang)}–${dm(w.to, lang)}`).join(', ') };
 }
 
+/** Catch length range: "24–58 cm", or "58 cm" when min = max. */
+export function fmtSize(size: Fish['size']): string | null {
+  if (!size) return null;
+  return size.min === size.max ? `${size.max} cm` : `${size.min}–${size.max} cm`;
+}
+
 export const fishName = (f: Fish, lang: Lang) => f.names[lang];
 export const altName = (f: Fish, lang: Lang) => f.names[lang === 'cs' ? 'en' : 'cs'];
 

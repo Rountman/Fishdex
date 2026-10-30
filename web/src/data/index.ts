@@ -3,7 +3,8 @@ import areasJson from './areas.json';
 import fishJson from './fish.json';
 import type { Area, Fish } from './types';
 
-export const FISH = fishJson as Fish[];
+// shape is validated by build-data.ts; the inferred JSON type is too literal to cast directly
+export const FISH = fishJson as unknown as Fish[];
 export const AREAS = areasJson as Area[];
 export const FISH_IDS: ReadonlySet<string> = new Set(FISH.map(f => f.id));
 

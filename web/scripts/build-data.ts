@@ -30,6 +30,7 @@ type SrcFish = {
   rarity: number;
   bait: string[];
   max_length_label: string | null;
+  length_cm: { min: number; avg: number; max: number } | null;
   has_glowing_variant: boolean | null;
   uncertain: string[];
   image: string;
@@ -159,7 +160,8 @@ async function main() {
       season: schedule(f.id, 'season', f.season, MMDD),
       rarity: f.rarity as Fish['rarity'],
       bait: f.bait.filter(isBait),
-      length: f.max_length_label,
+      size: f.length_cm,
+      record: f.max_length_label,
       uncertain: f.uncertain.filter((u): u is UncertainField => u === 'time' || u === 'season' || u === 'bait'),
       glowing: true,
       img: { w: img.w, h: img.h },
