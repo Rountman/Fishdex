@@ -2,6 +2,7 @@ import { useId, type ReactNode } from 'react';
 import type { Area } from '../data/types';
 import { baitLabel, spotLabel } from '../i18n/format';
 import { useI18n } from '../i18n/context';
+import { cap } from '../i18n/strings';
 import { useModal } from '../hooks/useModal';
 import { activeFilterCount, EMPTY_FILTERS, locationPatch, splitSpot, type Facets, type Filters as F, type Sort, type Status } from '../state/filters';
 import { BaitPicker } from './BaitPicker';
@@ -110,7 +111,7 @@ function Controls({ filters: f, facets, areas, mobile, onChange, sort, onSort }:
           <select id={ids.month} className={styles.select} value={f.month ?? ''}
             onChange={e => onChange({ month: e.target.value === '' ? null : Number(e.target.value) })}>
             <option value="">{t.monthAny}</option>
-            {t.months.map((m, i) => <option key={m} value={i + 1}>{m}</option>)}
+            {t.months.map((m, i) => <option key={m} value={i + 1}>{cap(m)}</option>)}
           </select>
           <p className={styles.timeNote}>{t.timeNote}</p>
         </div>

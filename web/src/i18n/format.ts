@@ -37,6 +37,13 @@ export function fmtSize(size: Fish['size']): string | null {
   return size.min === size.max ? `${size.max} cm` : `${size.min}–${size.max} cm`;
 }
 
+/** World record label; the source marks an uncertain one as "(118–119 cm)?". */
+export function fmtRecord(record: string | null): { text: string; unsure: boolean } | null {
+  if (!record) return null;
+  const m = /^\((.+)\)\?$/.exec(record);
+  return m ? { text: m[1], unsure: true } : { text: record, unsure: false };
+}
+
 export const fishName = (f: Fish, lang: Lang) => f.names[lang];
 export const altName = (f: Fish, lang: Lang) => f.names[lang === 'cs' ? 'en' : 'cs'];
 

@@ -103,7 +103,7 @@ prototypes/    # schválené mockupy a styleguide (fáze 1–2), DECISIONS.md
 - Export: stáhne `fishdex-progress-YYYY-MM-DD.json`. Import: validuj
   strukturu, ukaž náhled (kolik ryb) a nabídni Sloučit / Nahradit.
 - Nenápadná připomínka zálohy: po prvních ~20 chycených rybách a pak
-  jednou za čas ukaž hint „Progres je jen v tomto prohlížeči — exportuj zálohu".
+  jednou za čas ukaž hint „Zápisy z deníku jsou jen v tomto prohlížeči — stáhni si zálohu".
   Musí jít trvale skrýt.
 - ID ryb v progresu = `id` z `data/fish.json`. Ryba, která v datech už není,
   zůstane v progresu uložená, jen se nezobrazí.

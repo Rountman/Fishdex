@@ -1,7 +1,7 @@
 import { useId } from 'react';
 import { fishImage, isBackyard } from '../data';
 import type { Fish, UncertainField } from '../data/types';
-import { altName, baitLabel, fishName, fmtSeason, fmtSize, fmtTime } from '../i18n/format';
+import { altName, baitLabel, fishName, fmtRecord, fmtSeason, fmtSize, fmtTime } from '../i18n/format';
 import { useI18n } from '../i18n/context';
 import { useModal } from '../hooks/useModal';
 import type { FishProgress, ProgressField } from '../progress/schema';
@@ -36,6 +36,7 @@ export function FishDetail({ fish, state, areaName, onToggle, onClose }: Props) 
 function Body({ fish, state, areaName, onToggle, titleId, onClose }: Omit<Props, 'fish'> & { fish: Fish; titleId: string }) {
   const { lang, t } = useI18n();
   const tm = fmtTime(fish.time, lang), se = fmtSeason(fish.season, lang);
+  const rec = fmtRecord(fish.record);
   const name = fishName(fish, lang);
   return (
     <article className={styles.sheet} data-caught={state.caught} data-glow={state.caughtGlowing}>
@@ -87,7 +88,9 @@ function Body({ fish, state, areaName, onToggle, titleId, onClose }: Omit<Props,
           {fmtSize(fish.size) ?? t.unknownF}{fish.size && <> <span className="note">{t.avgLen(fish.size.avg)}</span></>}
         </dd>
         <dt>{t.record}</dt>
-        <dd className={fish.record ? undefined : styles.unknown}>{fish.record ?? t.unknownF}</dd>
+        <dd className={rec ? undefined : styles.unknown}>
+          {rec?.text ?? t.unknownF}{rec?.unsure && <abbr className="unsure" title={t.unsure}>?<span className="visually-hidden"> {t.unsure}</span></abbr>}
+        </dd>
       </dl>
     </article>
   );

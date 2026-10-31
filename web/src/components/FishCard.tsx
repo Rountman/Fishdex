@@ -1,7 +1,7 @@
 import { memo, useRef, useState, type KeyboardEvent, type MouseEvent, type PointerEvent } from 'react';
 import { fishImage, isBackyard } from '../data';
 import type { Fish } from '../data/types';
-import { baitLabel, fishName, fmtSeason, fmtSize, fmtTime, spotLabel } from '../i18n/format';
+import { baitLabel, fishName, fmtRecord, fmtSeason, fmtSize, fmtTime, spotLabel } from '../i18n/format';
 import { useI18n } from '../i18n/context';
 import type { FishProgress, ProgressField } from '../progress/schema';
 import { CalendarIcon, ClockIcon, GlowIcon, HouseIcon } from './icons';
@@ -94,7 +94,7 @@ function FishCardImpl({ fish, state, areaName, onToggle, onOpen, priority }: Pro
         </p>
         <p className={styles.meta}>
           <Stars r={fish.rarity} />
-          <span className={styles.len}>{fmtSize(fish.size) ?? fish.record ?? t.lenUnknown}</span>
+          <span className={styles.len}>{fmtSize(fish.size) ?? fmtRecord(fish.record)?.text ?? t.lenUnknown}</span>
         </p>
         {/* only real windows: "always" / "all year" and unknown stay off the card (all of it is in the detail) */}
         {Array.isArray(fish.time) && (

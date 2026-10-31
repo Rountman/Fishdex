@@ -37,7 +37,7 @@ function FurnitureCardImpl({ item, owned, onToggle, priority }: Props) {
           src={furnitureImage(item.id)} alt="" width={item.img.w} height={item.img.h}
           loading={priority ? 'eager' : 'lazy'} decoding="async"
         />
-        <span className={`stamp ${card.stamp}`} aria-hidden="true">{t.stampOwned}</span>
+        <span className={`stamp ${card.stamp} ${styles.stamp}`} aria-hidden="true">{t.stampOwned}</span>
       </div>
       <div className={card.text}>
         <h3 className={card.name}>{name}</h3>

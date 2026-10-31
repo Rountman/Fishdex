@@ -1,6 +1,8 @@
 /* layered on FishCard.module.css .card — only what differs for furniture */
 .card { contain-intrinsic-size: auto 250px; }
 .art img { width: min(100%, 128px); }
+/* item art fills the frame and can be dark (wallpaper roll ends): the stamp gets a paper ground to stay legible */
+.card .art .stamp.stamp { mix-blend-mode: normal; background: color-mix(in oklch, var(--color-slip) 85%, transparent); }
 
 .meta {
   display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0 var(--space-2);
