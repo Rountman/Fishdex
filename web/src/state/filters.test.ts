@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { AREAS, FISH } from '../data';
 import { emptyProgress, type Progress } from '../progress/schema';
-import { activeFilterCount, applyFilters, bitesAtHour, facets, locationPatch, EMPTY_FILTERS, inSeasonMonth, parseFilters, serializeFilters, type Filters } from './filters';
+import { activeFilterCount, applyFilters, bitesAtHour, facets, locationPatch, EMPTY_FILTERS, inSeasonMonth, parseFilters, parseSort, serializeFilters, serializeSort, sortFish, type Filters } from './filters';
 import { buildIndex, fold, matches, nearlyEqual } from './search';
 
 const index = buildIndex(FISH);
@@ -178,5 +178,38 @@ describe('facets (counts next to filter options)', () => {
     expect([1, 2, 3, 4, 5].reduce((n, r) => n + (c.rarity.get(r) ?? 0), 0)).toBe(80);
     // bait: club + 5-star
     expect(c.bait.get('Fish')).toBe(run({ rarity: new Set([5]), area: 'club', bait: new Set(['Fish']) }).length);
+  });
+});
+
+describe('sort', () => {
+  const sample = FISH.filter(f => ['arapaima', 'eel', 'asp', 'pike', 'carp'].includes(f.id));
+
+  it('defaults to rarity (1★ first), then by name', () => {
+    const out = sortFish(FISH, 'rarity', 'cs');
+    for (let i = 1; i < out.length; i++) {
+      const a = out[i - 1], b = out[i];
+      expect(a.rarity <= b.rarity).toBe(true);
+      if (a.rarity === b.rarity) expect(a.names.cs.localeCompare(b.names.cs, 'cs', { sensitivity: 'base', numeric: true }) <= 0).toBe(true);
+    }
+  });
+
+  it('sorts by name in the page language with its alphabet', () => {
+    expect(sortFish(sample, 'name', 'en').map(f => f.names.en)).toEqual([...sample.map(f => f.names.en)].sort((a, b) => a.localeCompare(b, 'en')));
+    const fake = (cs: string) => ({ ...FISH[0], id: cs, names: { cs, en: cs } });
+    // Czech: "ch" comes after "h"
+    expect(sortFish([fake('Chrostík'), fake('Hrouzek'), fake('Candát')], 'name', 'cs').map(f => f.id)).toEqual(['Candát', 'Hrouzek', 'Chrostík']);
+  });
+
+  it('keeps the order out of the URL when it is the default', () => {
+    expect(parseSort(new URLSearchParams(''))).toBe('rarity');
+    expect(parseSort(new URLSearchParams('sort=name'))).toBe('name');
+    expect(parseSort(new URLSearchParams('sort=x'))).toBe('rarity');
+    expect(serializeSort('rarity')).toBeNull();
+  });
+
+  it('does not mutate the input', () => {
+    const before = FISH.map(f => f.id);
+    sortFish(FISH, 'name', 'cs');
+    expect(FISH.map(f => f.id)).toEqual(before);
   });
 });

@@ -7,6 +7,26 @@ import { matches, type SearchIndex } from './search';
 export type Status = 'all' | 'uncaught' | 'caught' | 'noglow';
 export type Bred = '' | 'yes' | 'no';
 export type View = 'grid' | 'progress';
+/** List order, not a filter: "Zrušit vše" keeps it. `rarity` = 1★ → 5★, then by name. */
+export type Sort = 'rarity' | 'name';
+
+export const parseSort = (params: URLSearchParams): Sort => (params.get('sort') === 'name' ? 'name' : 'rarity');
+/** Default order stays out of the URL. */
+export const serializeSort = (s: Sort) => (s === 'name' ? 'name' : null);
+
+const collators = new Map<string, Intl.Collator>();
+const collator = (lang: string) => {
+  let c = collators.get(lang);
+  if (!c) collators.set(lang, (c = new Intl.Collator(lang, { sensitivity: 'base', numeric: true })));
+  return c;
+};
+
+/** New array; names compare in the page language (Czech alphabet for cs: "ch" after "h"). */
+export function sortFish(fish: readonly Fish[], sort: Sort, lang: 'cs' | 'en'): Fish[] {
+  const c = collator(lang);
+  const byName = (a: Fish, b: Fish) => c.compare(a.names[lang], b.names[lang]);
+  return [...fish].sort(sort === 'rarity' ? (a, b) => a.rarity - b.rarity || byName(a, b) : byName);
+}
 
 export type Filters = {
   q: string;

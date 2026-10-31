@@ -25,7 +25,7 @@ import { downloadProgress } from './progress/download';
 import { ownedCount, totals, type ImportPreview } from './progress/progress';
 import type { ProgressField } from './progress/schema';
 import { useProgress } from './progress/useProgress';
-import { applyFilters, EMPTY_FILTERS, facets as countFacets, locationPatch, parseFilters, serializeFilters, type Filters as FilterState, type View } from './state/filters';
+import { applyFilters, EMPTY_FILTERS, facets as countFacets, locationPatch, parseFilters, parseSort, serializeFilters, serializeSort, sortFish, type Filters as FilterState, type Sort, type View } from './state/filters';
 import {
   applyFurnitureFilters, EMPTY_FURNITURE_FILTERS, furnitureFacets, parseFurnitureFilters, serializeFurnitureFilters,
   type FurnitureFilters as FurnitureFilterState,
@@ -56,6 +56,7 @@ export default function App() {
 
   // ---- URL state ---------------------------------------------------------
   const [filters, setFilters] = useState<FilterState>(() => parseFilters(readParams(), AREA_IDS));
+  const [sort, setSort] = useState<Sort>(() => parseSort(readParams()));
   const [tab, setTab] = useState<Tab>(() => (readParams().get('tab') === 'furniture' ? 'furniture' : 'fish'));
   const [ffilters, setFFilters] = useState<FurnitureFilterState>(() => parseFurnitureFilters(readParams(), COLLECTION_IDS));
   const [view, setView] = useState<View>(() => (readParams().get('view') === 'progress' ? 'progress' : 'grid'));
@@ -69,10 +70,10 @@ export default function App() {
 
   useEffect(() => {
     writeParams({
-      ...serializeFilters(filters), view: view === 'progress' ? 'progress' : null, fish: openId,
+      ...serializeFilters(filters), sort: serializeSort(sort), view: view === 'progress' ? 'progress' : null, fish: openId,
       tab: tab === 'furniture' ? 'furniture' : null, ...serializeFurnitureFilters(ffilters),
     });
-  }, [filters, view, openId, tab, ffilters]);
+  }, [filters, sort, view, openId, tab, ffilters]);
 
   useEffect(() => { document.documentElement.lang = lang; }, [lang]);
   useEffect(() => {
@@ -101,7 +102,7 @@ export default function App() {
   }, [toggleItem, restoreItem, showToast, lang]);
 
   const sum = totals(p.progress, FISH_IDS);
-  const visible = useMemo(() => applyFilters(FISH, filters, p.progress, INDEX), [filters, p.progress]);
+  const visible = useMemo(() => sortFish(applyFilters(FISH, filters, p.progress, INDEX), sort, lang), [filters, p.progress, sort, lang]);
   // counts next to filter options follow the other active filters
   const facets = useMemo(() => countFacets(FISH, filters, p.progress, INDEX), [filters, p.progress]);
   // the overview is the whole journal, no filters
@@ -201,6 +202,7 @@ export default function App() {
                 <h2 className="visually-hidden">{t.filters}</h2>
                 <Filters
                   filters={filters} facets={facets} areas={AREAS} shown={visible.length} total={FISH.length}
+                  sort={sort} onSort={setSort}
                   mobile={mobile} sheetOpen={sheetOpen} onSheet={setSheetOpen} onChange={changeFilters}
                 />
                 {hint && (

@@ -3,7 +3,7 @@ import type { Area } from '../data/types';
 import { baitLabel, spotLabel } from '../i18n/format';
 import { useI18n } from '../i18n/context';
 import { useModal } from '../hooks/useModal';
-import { activeFilterCount, EMPTY_FILTERS, locationPatch, splitSpot, type Facets, type Filters as F, type Status } from '../state/filters';
+import { activeFilterCount, EMPTY_FILTERS, locationPatch, splitSpot, type Facets, type Filters as F, type Sort, type Status } from '../state/filters';
 import { BaitPicker } from './BaitPicker';
 import { FilterIcon, SearchIcon } from './icons';
 import { Stars } from './Stars';
@@ -19,14 +19,16 @@ type Props = {
   sheetOpen: boolean;
   onSheet: (open: boolean) => void;
   onChange: (patch: Partial<F>) => void;
+  sort: Sort;
+  onSort: (sort: Sort) => void;
 };
 
 const STATUSES: Status[] = ['all', 'uncaught', 'caught', 'noglow'];
 
 
-function Controls({ filters: f, facets, areas, mobile, onChange }: Pick<Props, 'filters' | 'facets' | 'areas' | 'mobile' | 'onChange'>) {
+function Controls({ filters: f, facets, areas, mobile, onChange, sort, onSort }: Pick<Props, 'filters' | 'facets' | 'areas' | 'mobile' | 'onChange' | 'sort' | 'onSort'>) {
   const { lang, t } = useI18n();
-  const ids = { rarity: useId(), status: useId(), bait: useId(), yard: useId(), area: useId(), hour: useId(), month: useId() };
+  const ids = { sort: useId(), rarity: useId(), status: useId(), bait: useId(), yard: useId(), area: useId(), hour: useId(), month: useId() };
   const statusLabel: Record<Status, string> = { all: t.statusAll, uncaught: t.uncaught, caught: t.caught, noglow: t.noglow };
   const toggleRarity = (r: number) => {
     const next = new Set(f.rarity);
@@ -37,6 +39,14 @@ function Controls({ filters: f, facets, areas, mobile, onChange }: Pick<Props, '
 
   return (
     <>
+      <div className={styles.row} role="group" aria-labelledby={ids.sort}>
+        <span className={styles.label} id={ids.sort}>{t.sortLabel}</span>
+        {(['rarity', 'name'] as const).map(s => (
+          <button key={s} type="button" className="chip" aria-pressed={sort === s} onClick={() => onSort(s)}>
+            {s === 'rarity' ? t.sortRarity : t.sortName}
+          </button>
+        ))}
+      </div>
       <div className={styles.row} role="group" aria-labelledby={ids.rarity}>
         <span className={styles.label} id={ids.rarity}>{t.rarity}</span>
         {[1, 2, 3, 4, 5].map(r => (
