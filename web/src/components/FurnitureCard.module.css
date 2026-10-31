@@ -1,0 +1,28 @@
+/* layered on FishCard.module.css .card — only what differs for furniture */
+.card { contain-intrinsic-size: auto 250px; }
+.art img { width: min(100%, 128px); }
+
+.meta {
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0 var(--space-2);
+  margin: 4px 0 2px; font-size: var(--fs-sm);
+}
+.type { color: var(--color-ink-soft); }
+.avail { margin: 0; font-size: var(--fs-sm); color: var(--color-ink-soft); }
+.unknown { font-style: italic; color: var(--color-ink-faint); }
+
+.rarity { display: inline-flex; align-items: baseline; gap: 4px; white-space: nowrap; font-weight: var(--fw-strong); }
+.gem { font-size: 10px; }
+.rarity[data-r="0"] { font-weight: var(--fw-regular); font-style: italic; color: var(--color-ink-faint); }
+.rarity[data-r="1"] { color: var(--rarity-1); }
+.rarity[data-r="2"] { color: var(--rarity-2); }
+.rarity[data-r="3"] { color: var(--rarity-3); }
+.rarity[data-r="4"] { color: var(--rarity-4); }
+.rarity[data-r="5"] { color: var(--rarity-5); }
+
+@media (max-width: 760px) {
+  .meta, .avail { font-size: 12px; }
+  .meta { flex-direction: column; }
+}
+
+/* a pressed filter chip is ink-filled: the label follows its text colour */
+:global(.chip)[aria-pressed="true"] .rarity { color: inherit; }

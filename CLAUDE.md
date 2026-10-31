@@ -7,9 +7,9 @@ vytažených z Wayback Machine.
 ## Struktura projektu
 
 ```
-data/          # výstup scrapu — fish.json, areas.json, report.md (NEUPRAVOVAT RUČNĚ)
-images/        # obrázky ryb ze scrapu
-scraper/       # Python scraper (requests + BeautifulSoup), cache/ v .gitignore
+data/          # výstup scrapu — fish.json, areas.json, furniture*.json, report.md (NEUPRAVOVAT RUČNĚ)
+images/        # obrázky ryb a nábytku ze scrapu (images/fish, images/furniture)
+scraper/       # Python scraper (requests + BeautifulSoup), cache/ v .gitignore; nábytek = furniture.py
 web/           # samotná webovka (Vite + React + TS)
   scripts/build-data.ts   # data/ + images/ -> src/data/*.json, public/fish/*.webp (generované, v .gitignore)
   src/styles/tokens.css   # design tokeny (viz prototypes/styleguide.html)
@@ -81,11 +81,20 @@ prototypes/    # schválené mockupy a styleguide (fáze 1–2), DECISIONS.md
 - Vyhledávání podle jména (fuzzy, bez diakritiky).
 - Undo posledního kliknutí (toast s „Vrátit", 5 s).
 
+## Záložka Nábytek
+
+- Data: `data/furniture.json` + `furniture_sets.json` ze `scraper/furniture.py` (hlavní zdroj fishaofunwiki,
+  české názvy z fishao.cz, kontrola proti archivu fishaowiki). Report: `data/furniture-report.md`.
+- Kolekce: 14 setů + mimo sety Rostliny / Obrazy / Ostatní. Každý kus patří do právě jedné.
+- Jeden stav `owned` (razítko VLASTNĚNO), klik přepne, undo toast jako u ryb. Kompletní set = razítko.
+- Filtry v URL s prefixem `f` (`tab=furniture&fset=&ftype=&frarity=&fstatus=&fq=`).
+
 ## Progres uživatele (localStorage)
 
 - Progres je per prohlížeč a zařízení, nesynchronizuje se. Každý
   návštěvník vidí jen svůj.
-- Schéma: `fishdex:progress:v1` → `{ version, updatedAt, fish: { [id]: { caught, caughtGlowing, bred?, caughtAt? } } }`.
+- Schéma: `fishdex:progress:v2` → `{ version, updatedAt, fish: { [id]: { caught, caughtGlowing, bred?, caughtAt? } }, furniture: { [id]: { owned, ownedAt? } } }`.
+  v1 (bez `furniture`) se migruje, klíč v1 zůstává jako záloha.
   `bred` jen u ryb z Backyard.
   Ukládej jen ryby s aspoň jedním `true`.
 - Při změně schématu přidej migraci z předchozí verze, nikdy data tiše nezahazuj.

@@ -1,5 +1,5 @@
 // Formatting of data values for display. Unknown stays "unknown", never a guess.
-import type { Fish, Schedule } from '../data/types';
+import type { Availability, Fish, FurnitureRarity, MonthRange, Schedule } from '../data/types';
 import { BAITS, SPOTS, type Bait, type Spot } from './dictionaries';
 import { STRINGS, type Lang } from './strings';
 
@@ -60,3 +60,26 @@ export const pct = (n: number, lang: Lang) =>
 
 export const fmtDate = (d: Date, lang: Lang) =>
   lang === 'cs' ? `${d.getDate()}. ${d.getMonth() + 1}. ${d.getFullYear()}` : `${d.getDate()} ${MON[d.getMonth()]} ${d.getFullYear()}`;
+
+// ---- furniture
+
+export const itemName = (x: { names: { cs: string; en: string } }, lang: Lang) => x.names[lang];
+
+export function fmtAvailability(a: Availability | null, lang: Lang): Formatted {
+  const t = STRINGS[lang];
+  if (!a) return { text: t.unknownF, unknown: true };
+  return { text: a.kind === 'level' ? t.avail.level(a.level) : t.avail[a.kind] };
+}
+
+/** Shop months; `null` for "all year" (not worth a line on the card) – unknown is "neznámé". */
+export function fmtMonths(season: MonthRange | 'always' | null, lang: Lang): Formatted | null {
+  const t = STRINGS[lang];
+  if (season === 'always') return null;
+  if (season === null) return { text: t.unknownF, unknown: true };
+  return { text: t.monthRange(t.months[season.from - 1], t.months[season.to - 1]) };
+}
+
+/** Rarity colour tier 1–5 (same tokens as fish stars); the label text always goes with it. */
+export const RARITY_TIER: Record<FurnitureRarity, 1 | 2 | 3 | 4 | 5> = {
+  'very-common': 1, common: 1, normal: 1, uncommon: 2, rare: 3, 'very-rare': 3, epic: 4, legendary: 5,
+};

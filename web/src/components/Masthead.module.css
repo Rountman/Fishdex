@@ -25,6 +25,24 @@
 .completeText { font: italic var(--fw-regular) 16px/1.3 var(--font-display); color: var(--color-ink-soft); }
 
 .tools { display: flex; align-items: center; gap: var(--space-3); }
+
+/* section tabs sit on the double rule, like divider tabs in a notebook */
+.tabs {
+  grid-column: 1 / -1; display: flex; gap: var(--space-2);
+  margin: var(--space-5) 0 calc(-1 * var(--space-5) - 2px);
+}
+.tab {
+  padding: var(--space-2) var(--space-4) var(--space-2); border: 1.5px solid transparent; border-bottom: 0;
+  border-radius: var(--radius-control) var(--radius-control) 0 0; background: none;
+  font: var(--fw-medium) 20px/1 var(--font-display); color: var(--color-ink-soft);
+}
+.tab:hover { color: var(--color-ink); background: var(--color-paper-deep); }
+.tab[aria-current="page"] {
+  position: relative; color: var(--color-ink); font-weight: var(--fw-name);
+  border-color: var(--color-ink);
+  /* opaque page background (fixed gradient lines up) covers the top rule: the tab reads as "open" */
+  background: var(--page-bg);
+}
 .lang { display: inline-flex; border: 1.5px solid var(--color-ink-faint); border-radius: var(--radius-control); overflow: hidden; }
 .lang button { padding: 4px 9px; border: 0; background: none; font-size: var(--fs-sm); font-weight: var(--fw-strong); color: var(--color-ink-soft); }
 .lang button + button { border-left: 1.5px solid var(--color-ink-faint); }
@@ -46,4 +64,6 @@
   .tools { flex-direction: column; align-items: flex-end; gap: 0; align-self: start; }
   .tools :global(.link) { font-size: var(--fs-sm); }
   .lang { margin-bottom: var(--space-1); }
+  .tabs { margin-top: var(--space-4); margin-bottom: calc(-1 * var(--space-4) - 2px); }
+  .tab { flex: 1; font-size: 18px; }
 }

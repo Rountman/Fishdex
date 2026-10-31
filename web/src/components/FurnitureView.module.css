@@ -1,0 +1,32 @@
+.sections { display: grid; gap: var(--space-8); }
+.section { min-width: 0; }
+
+/* like a label pasted above each page of the catalogue */
+.head {
+  position: relative; display: grid; grid-template-columns: auto minmax(0, 1fr) minmax(140px, 220px); align-items: end;
+  column-gap: var(--space-5); margin-bottom: var(--space-5); padding-bottom: var(--space-3);
+  border-bottom: 1.5px solid var(--color-ink);
+}
+.badge { width: 72px; height: 72px; object-fit: contain; }
+.collage {
+  display: grid; grid-template-columns: repeat(2, 34px); grid-auto-rows: 34px; gap: 2px; padding: 1px;
+  border: 1.5px dashed var(--color-ink-faint); border-radius: var(--radius-slip);
+}
+.collage img { width: 34px; height: 34px; object-fit: contain; }
+.title h2 { margin: 0; font: var(--fw-name) var(--fs-h2)/1.05 var(--font-display); text-wrap: balance; }
+.alt { margin: 2px 0 0; font: italic var(--fw-regular) 16px/1.2 var(--font-display); color: var(--color-ink-soft); }
+.tally { display: grid; gap: var(--space-2); justify-items: end; }
+.tally :global(.bar) { width: 100%; }
+.num { font: 600 24px/1 var(--font-display); font-variant-numeric: lining-nums tabular-nums; }
+.num :global(.of) { font-size: 16px; font-weight: 400; }
+.stamp { position: absolute; right: 0; top: -6px; rotate: -6deg; font-size: 13px; }
+.section[data-done="true"] .head { border-bottom-width: 2px; box-shadow: 0 4px 0 -2px var(--color-ink); }
+
+@media (max-width: 760px) {
+  .sections { gap: var(--space-7); }
+  .head { grid-template-columns: auto minmax(0, 1fr); row-gap: var(--space-3); column-gap: var(--space-3); }
+  .tally { grid-column: 1 / -1; grid-template-columns: auto 1fr; align-items: center; justify-items: stretch; column-gap: var(--space-3); }
+  .badge { width: 56px; height: 56px; }
+  .title h2 { font-size: 24px; }
+  .stamp { font-size: 11px; top: -4px; }
+}

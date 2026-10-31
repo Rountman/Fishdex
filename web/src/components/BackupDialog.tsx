@@ -1,10 +1,10 @@
 import { useId, useRef, useState } from 'react';
-import { FISH_IDS } from '../data';
+import { FISH_IDS, FURNITURE_IDS } from '../data';
 import { fmtDate } from '../i18n/format';
 import { useI18n } from '../i18n/context';
 import { useModal } from '../hooks/useModal';
 import { downloadProgress } from '../progress/download';
-import { exportFileName, readImport, totals, type ImportPreview, type ImportResult } from '../progress/progress';
+import { exportFileName, ownedCount, readImport, totals, type ImportPreview, type ImportResult } from '../progress/progress';
 import type { Progress } from '../progress/schema';
 import { UploadIcon } from './icons';
 import styles from './BackupDialog.module.css';
@@ -27,6 +27,7 @@ export function BackupDialog({ open, progress, onClose, onExported, onImport }: 
   const file = useRef<HTMLInputElement>(null);
   const { lang, t } = useI18n();
   const s = totals(progress, FISH_IDS);
+  const owned = ownedCount(progress, FURNITURE_IDS);
 
   const download = () => {
     downloadProgress(progress);
@@ -35,7 +36,7 @@ export function BackupDialog({ open, progress, onClose, onExported, onImport }: 
 
   const pick = async (f: File | undefined) => {
     if (!f) return;
-    const res = readImport(await f.text(), FISH_IDS);
+    const res = readImport(await f.text(), FISH_IDS, FURNITURE_IDS);
     setStep(res.ok ? { kind: 'preview', name: f.name, preview: res.preview } : { kind: 'error', name: f.name, reason: res.reason });
   };
 
@@ -66,7 +67,7 @@ export function BackupDialog({ open, progress, onClose, onExported, onImport }: 
         {step.kind !== 'preview' && (
           <section className={styles.part}>
             <h3>{t.exH}</h3>
-            <p>{t.exSummary(s.caught, s.caughtGlowing, s.bred)}</p>
+            <p>{t.exSummary(s.caught, s.caughtGlowing, s.bred)}<br />{t.exFurniture(owned)}</p>
             <button type="button" className="btn" onClick={download}>{t.exBtn}</button>
             <p className={styles.file}>{exportFileName()}</p>
           </section>
@@ -82,7 +83,9 @@ export function BackupDialog({ open, progress, onClose, onExported, onImport }: 
               </dl>
               <p className={styles.count}>{t.imFish(step.preview.count)}</p>
               <p className={styles.break}>{t.imBreak(step.preview.caught, step.preview.caughtGlowing, step.preview.bred)}</p>
+              <p className={styles.count}>{t.imFurniture(step.preview.owned)}</p>
               {step.preview.unknown > 0 && <p className={styles.warn}>{t.imUnknown(step.preview.unknown)}</p>}
+              {step.preview.unknownItems > 0 && <p className={styles.warn}>{t.imUnknownItems(step.preview.unknownItems)}</p>}
               <p className={styles.how}>{t.imHow}</p>
               <div className={styles.choices}>
                 <button type="button" className={styles.choice} onClick={() => { onImport('merge', step.preview); close(); }}>

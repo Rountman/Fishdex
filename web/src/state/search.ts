@@ -1,6 +1,4 @@
 // Fuzzy search over Czech and English names, without diacritics.
-import type { Fish } from '../data/types';
-
 export const fold = (s: string) => s.normalize('NFD').replace(/\p{M}/gu, '').toLowerCase();
 
 /** true when a and b differ by at most one insertion, deletion or substitution */
@@ -21,9 +19,11 @@ const words = (s: string) => fold(s).split(/[\s\-–,.()']+/).filter(Boolean);
 
 export type SearchIndex = Map<string, { joined: string; tokens: string[] }>;
 
-/** Precomputes folded names once (615 fish × every keystroke). */
-export function buildIndex(fish: readonly Fish[]): SearchIndex {
-  return new Map(fish.map(f => {
+type Named = { id: string; names: { cs: string; en: string } };
+
+/** Precomputes folded names once (615 fish × every keystroke). Fish and furniture alike. */
+export function buildIndex(entries: readonly Named[]): SearchIndex {
+  return new Map(entries.map(f => {
     const tokens = [...words(f.names.cs), ...words(f.names.en)];
     return [f.id, { joined: `${fold(f.names.cs)} | ${fold(f.names.en)}`, tokens }];
   }));
