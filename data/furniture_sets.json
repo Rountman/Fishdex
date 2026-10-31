@@ -1,0 +1,226 @@
+[
+  {
+    "id": "simple",
+    "name": "Simple Set",
+    "names": {
+      "en": "Simple Set",
+      "cs": "Jednoduchý set"
+    },
+    "kind": "set",
+    "image": "images/furniture/sets/simple.webp",
+    "image_error": null,
+    "source_url": "https://www.fishao.cz/jednoduchy-set/",
+    "snapshot_timestamp": "20160722094710",
+    "item_count": 14
+  },
+  {
+    "id": "princess",
+    "name": "Princess Set",
+    "names": {
+      "en": "Princess Set",
+      "cs": "Princeznovský set"
+    },
+    "kind": "set",
+    "image": "images/furniture/sets/princess.webp",
+    "image_error": null,
+    "source_url": "https://www.fishao.cz/princeznovsky-set/",
+    "snapshot_timestamp": "20160722094618",
+    "item_count": 12
+  },
+  {
+    "id": "classic",
+    "name": "Classic Set",
+    "names": {
+      "en": "Classic Set",
+      "cs": "Klasický set"
+    },
+    "kind": "set",
+    "image": "images/furniture/sets/classic.webp",
+    "image_error": null,
+    "source_url": "https://www.fishao.cz/klasicky-set/",
+    "snapshot_timestamp": "20160722101329",
+    "item_count": 12
+  },
+  {
+    "id": "design",
+    "name": "Design Set",
+    "names": {
+      "en": "Design Set",
+      "cs": "Designový set"
+    },
+    "kind": "set",
+    "image": "images/furniture/sets/design.webp",
+    "image_error": null,
+    "source_url": "https://www.fishao.cz/designovy-set/",
+    "snapshot_timestamp": "20160722094659",
+    "item_count": 12
+  },
+  {
+    "id": "gold",
+    "name": "Gold Set",
+    "names": {
+      "en": "Gold Set",
+      "cs": "Zlatý set"
+    },
+    "kind": "set",
+    "image": "images/furniture/sets/gold.webp",
+    "image_error": null,
+    "source_url": "https://www.fishao.cz/zlaty-set/",
+    "snapshot_timestamp": "20160531084245",
+    "item_count": 13
+  },
+  {
+    "id": "ice",
+    "name": "Ice Set",
+    "names": {
+      "en": "Ice Set",
+      "cs": "Ledový set"
+    },
+    "kind": "set",
+    "image": "images/furniture/sets/ice.webp",
+    "image_error": null,
+    "source_url": "https://www.fishao.cz/ledovy-set/",
+    "snapshot_timestamp": "20160722100845",
+    "item_count": 9
+  },
+  {
+    "id": "christmas",
+    "name": "Christmas Set",
+    "names": {
+      "en": "Christmas Set",
+      "cs": "Vánoční set"
+    },
+    "kind": "set",
+    "image": "images/furniture/sets/christmas.webp",
+    "image_error": null,
+    "source_url": "https://www.fishao.cz/vanocni-set/",
+    "snapshot_timestamp": "20160722101008",
+    "item_count": 12
+  },
+  {
+    "id": "spooky",
+    "name": "Spooky Set",
+    "names": {
+      "en": "Spooky Set",
+      "cs": "Strašidelný set"
+    },
+    "kind": "set",
+    "image": "images/furniture/sets/spooky.webp",
+    "image_error": null,
+    "source_url": "https://www.fishao.cz/strasidelny-set/",
+    "snapshot_timestamp": "20160722100355",
+    "item_count": 12
+  },
+  {
+    "id": "pirate",
+    "name": "Pirate Set",
+    "names": {
+      "en": "Pirate Set",
+      "cs": "Pirátský set"
+    },
+    "kind": "set",
+    "image": "images/furniture/sets/pirate.webp",
+    "image_error": null,
+    "source_url": "https://www.fishao.cz/piratsky-set/",
+    "snapshot_timestamp": "20160722101334",
+    "item_count": 12
+  },
+  {
+    "id": "balloon",
+    "name": "Balloon Set",
+    "names": {
+      "en": "Balloon Set",
+      "cs": "Balónový set"
+    },
+    "kind": "set",
+    "image": null,
+    "image_error": "no badge in funwiki nor fishao.cz",
+    "source_url": "https://www.fishao.cz/balonovy-set/",
+    "snapshot_timestamp": "20160720103349",
+    "item_count": 12
+  },
+  {
+    "id": "candy",
+    "name": "Candy Set",
+    "names": {
+      "en": "Candy Set",
+      "cs": "Bonbónový set"
+    },
+    "kind": "set",
+    "image": null,
+    "image_error": "no badge in funwiki nor fishao.cz",
+    "source_url": "https://www.fishao.cz/bonbonovy-set/",
+    "snapshot_timestamp": "20160720104753",
+    "item_count": 12
+  },
+  {
+    "id": "gorgeous",
+    "name": "Gorgeous Set",
+    "names": {
+      "en": "Gorgeous Set",
+      "cs": "Půvabný set"
+    },
+    "kind": "set",
+    "image": null,
+    "image_error": "no badge in funwiki nor fishao.cz",
+    "source_url": "https://www.fishao.cz/puvabny-set/",
+    "snapshot_timestamp": "20160721221110",
+    "item_count": 12
+  },
+  {
+    "id": "soccer",
+    "name": "Soccer Set",
+    "names": {
+      "en": "Soccer Set",
+      "cs": "Fotbalový set"
+    },
+    "kind": "set",
+    "image": null,
+    "image_error": "no badge in funwiki nor fishao.cz",
+    "source_url": "https://www.fishao.cz/fotbalovy-set/",
+    "snapshot_timestamp": "20160720101112",
+    "item_count": 12
+  },
+  {
+    "id": "space",
+    "name": "Space Set",
+    "names": {
+      "en": "Space Set",
+      "cs": "Vesmírný set"
+    },
+    "kind": "set",
+    "image": null,
+    "image_error": "no badge in funwiki nor fishao.cz",
+    "source_url": "https://www.fishao.cz/vesmirny-set/",
+    "snapshot_timestamp": "20160721221342",
+    "item_count": 12
+  },
+  {
+    "id": "plants",
+    "name": "Plants",
+    "names": {
+      "en": "Plants",
+      "cs": "Rostliny"
+    },
+    "kind": "type",
+    "image": "images/furniture/sets/plants.webp",
+    "image_error": null,
+    "source_url": "https://www.fishaofunwiki.com/assets/decorations-Bi4jdZSp.js",
+    "snapshot_timestamp": null,
+    "item_count": 15
+  },
+  {
+    "id": "paintings",
+    "name": "Paintings",
+    "names": {
+      "en": "Paintings",
+      "cs": "Obrazy"
+    },
+    "kind": "type",
+    "image": "images/furniture/sets/paintings.webp",
+    "image_error": null,
+    "source_url": "https://www.fishaofunwiki.com/assets/decorations-Bi4jdZSp.js",
+    "snapshot_timestamp": null,
+    "item_count": 13
+  }
+]

@@ -318,5 +318,19 @@
     "saurichthys": "saurychthis",
     "tlamovec-celnaty": "frontosa-chiclid",
     "tlamovec-livingstonuv": "livingstons-chichild"
+  },
+  "furniture_cz": {
+    "jednoduchy-set/jednoduche-kreslo-simple-armchair": "Simple Lounge Chair",
+    "piratsky-set/piratske-delo-pirate-cannon": "Pirate Canon",
+    "klasicky-set/klasicka-nocni-malba-classic-night-painting": "Classic Night Painting",
+    "balonovy-set/graphics_128x128_192": "Balloon Wardrobe",
+    "bonbonovy-set/graphics_128x128_204": "Candy Wardrobe",
+    "puvabny-set/graphics_128x128_233": "Gorgeous Closet",
+    "puvabny-set/graphics_128x128_239": "Gorgeous Wardrobe",
+    "puvabny-set/graphics_128x128_240": "Gorgeous Whisky Table",
+    "fotbalovy-set/graphics_128x128_212": "Soccer Single Sofa",
+    "fotbalovy-set/graphics_128x128_216": "Soccer Wardrobe",
+    "vesmirny-set/graphics_128x128_226": "Space Trash Bin",
+    "vesmirny-set/graphics_128x128_228": "Space Wardrobe"
   }
 }

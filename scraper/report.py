@@ -29,6 +29,8 @@ def write_report(path, fish, areas, snaps, disc, sections, notes, unmatched_area
     w("")
     w(f"Vygenerováno {date.today().isoformat()} skriptem `scraper/scrape.py`. Soubor se přepisuje při každém běhu — needitovat ručně.")
     w("")
+    w("Nábytek (sety, kusy) má vlastní report: [furniture-report.md](furniture-report.md) ze `scraper/furniture.py`.")
+    w("")
 
     # ------------------------------------------------------------ summary
     w("## Souhrn")
