@@ -2,6 +2,7 @@
  * Transforms the scrape output (../data, ../images) into what the web app ships:
  *   src/data/fish.json, src/data/areas.json  – only the fields the UI needs
  *   public/fish/<id>.webp                      – same pixel size, never upscaled
+ *   src/data/furniture.json, furnitureCollections.json, public/furniture/[sets/]<id>.webp
  * data/ is never modified. Unknown bait / spot tokens or broken records fail the build.
  *
  * Run: npm run data   (also runs before dev and build)
@@ -11,12 +12,16 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import sharp from 'sharp';
 import { BAITS, SPOTS, type Bait, type Spot } from '../src/i18n/dictionaries.ts';
-import type { Area, AreaKind, Fish, Schedule, UncertainField } from '../src/data/types.ts';
+import {
+  FURNITURE_RARITIES, type Area, type AreaKind, type Availability, type Fish, type FurnitureCollection, type FurnitureItem,
+  type FurnitureRarity, type FurnitureType, type MonthRange, type Schedule, type UncertainField,
+} from '../src/data/types.ts';
 
 const WEB = join(dirname(fileURLToPath(import.meta.url)), '..');
 const REPO = join(WEB, '..');
 const OUT_DATA = join(WEB, 'src', 'data');
 const OUT_IMG = join(WEB, 'public', 'fish');
+const OUT_FURN = join(WEB, 'public', 'furniture');
 
 // --- source shapes (only what we read) -------------------------------------
 type SrcWindow = { from: string; to: string };
@@ -36,6 +41,19 @@ type SrcFish = {
   image: string;
 };
 type SrcArea = { id: string; name: string; kind: string; spots: string[]; fish_ids: string[] };
+type SrcFurniture = {
+  id: string;
+  names: { cs: string; en: string };
+  set: string | null;
+  type: string | null;
+  rarity: string | null;
+  source: string | null;
+  level: number | null;
+  availability_raw: string | null;
+  season_raw: string | null;
+  image: string | null;
+};
+type SrcSet = { id: string; names: { cs: string; en: string }; kind: 'set' | 'type'; image: string | null };
 
 const errors: string[] = [];
 const fail = (msg: string) => errors.push(msg);
@@ -100,7 +118,7 @@ function hasWhiteBackground(px: Buffer, w: number, h: number): boolean {
   return white.length >= 2;
 }
 
-async function convertImage(src: string, id: string): Promise<{ w: number; h: number; cleaned: boolean; bytes: number }> {
+async function convertImage(src: string, id: string, outDir = OUT_IMG): Promise<{ w: number; h: number; cleaned: boolean; bytes: number }> {
   const { data, info } = await sharp(src).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
   const cleaned = hasWhiteBackground(data, info.width, info.height);
   if (cleaned) clearWhiteBackground(data, info.width, info.height);
@@ -108,8 +126,82 @@ async function convertImage(src: string, id: string): Promise<{ w: number; h: nu
     // effort 6 is ~30× slower on these small images for no visible gain
     .webp({ quality: 90, alphaQuality: 100, effort: 4 })
     .toBuffer();
-  await writeFile(join(OUT_IMG, `${id}.webp`), webp);
+  await writeFile(join(outDir, `${id}.webp`), webp);
   return { w: info.width, h: info.height, cleaned, bytes: webp.length };
+}
+
+// --- furniture -------------------------------------------------------------
+const MONTHS = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
+const TYPES: FurnitureType[] = ['wall', 'floor', 'furniture', 'plant', 'painting'];
+const isRarity = (r: string): r is FurnitureRarity => (FURNITURE_RARITIES as readonly string[]).includes(r);
+
+/** "Always" | "December" | "March-June"; anything else is unknown (e.g. the beta statue repeats its availability). */
+function monthRange(raw: string | null): MonthRange | 'always' | null {
+  if (!raw) return null;
+  if (raw === 'Always') return 'always';
+  const [a, b = a] = raw.toLowerCase().split('-');
+  const from = MONTHS.indexOf(a) + 1, to = MONTHS.indexOf(b) + 1;
+  return from && to ? { from, to } : null;
+}
+
+function availability(f: SrcFurniture): Availability | null {
+  if (f.source === 'factory') return { kind: 'factory' };
+  if (f.source === 'mission') return { kind: 'mission' };
+  if (f.level !== null) return { kind: 'level', level: f.level };
+  if (f.availability_raw === 'Free in inventory') return { kind: 'free' };
+  if (/closed beta/i.test(f.availability_raw ?? '')) return { kind: 'beta' };
+  return null;
+}
+
+async function buildFurniture(): Promise<{ items: FurnitureItem[]; collections: FurnitureCollection[]; bytes: number }> {
+  const src: SrcFurniture[] = JSON.parse(await readFile(join(REPO, 'data', 'furniture.json'), 'utf8'));
+  const sets: SrcSet[] = JSON.parse(await readFile(join(REPO, 'data', 'furniture_sets.json'), 'utf8'));
+  await rm(OUT_FURN, { recursive: true, force: true });
+  await mkdir(join(OUT_FURN, 'sets'), { recursive: true });
+
+  let bytes = 0;
+  const setIds = new Set(sets.filter(s => s.kind === 'set').map(s => s.id));
+  const typeGroups = new Set(sets.filter(s => s.kind === 'type').map(s => s.id));
+  const seen = new Set<string>();
+  const items: FurnitureItem[] = [];
+  const imgs = new Map<string, { w: number; h: number }>();
+  for (let i = 0; i < src.length; i += 16) {
+    await Promise.all(src.slice(i, i + 16).map(async f => {
+      if (!f.image) return fail(`furniture ${f.id}: no image`);
+      const img = await convertImage(join(REPO, f.image), f.id, OUT_FURN);
+      bytes += img.bytes;
+      imgs.set(f.id, { w: img.w, h: img.h });
+    }));
+  }
+  for (const f of src) {
+    if (seen.has(f.id)) fail(`furniture ${f.id}: duplicate id`);
+    seen.add(f.id);
+    if (f.set && !setIds.has(f.set)) fail(`furniture ${f.id}: unknown set ${f.set}`);
+    if (f.type && !TYPES.includes(f.type as FurnitureType)) fail(`furniture ${f.id}: type ${f.type}`);
+    if (f.rarity && !isRarity(f.rarity)) fail(`furniture ${f.id}: rarity ${f.rarity}`);
+    const type = TYPES.includes(f.type as FurnitureType) ? f.type as FurnitureType : null;
+    // outside sets: funwiki groups plants and paintings, the rest is "other"
+    const group = `${type}s`;
+    const collection = f.set ?? (typeGroups.has(group) ? group : 'other');
+    const avail = availability(f);
+    if (!avail) fail(`furniture ${f.id}: availability "${f.availability_raw}" not understood`);
+    const season = monthRange(f.season_raw);
+    if (season === null && f.season_raw && !/closed beta/i.test(f.season_raw)) fail(`furniture ${f.id}: season "${f.season_raw}" not understood`);
+    items.push({
+      id: f.id, names: { cs: f.names.cs, en: f.names.en }, collection, type,
+      rarity: f.rarity && isRarity(f.rarity) ? f.rarity : null, availability: avail, season,
+      img: imgs.get(f.id) ?? { w: 128, h: 128 },
+    });
+  }
+
+  const collections: FurnitureCollection[] = [];
+  for (const s of sets) {
+    if (s.image) await convertImage(join(REPO, s.image), s.id, join(OUT_FURN, 'sets'));
+    collections.push({ id: s.id, kind: s.kind, names: s.names, badge: !!s.image, count: items.filter(i => i.collection === s.id).length });
+  }
+  collections.push({ id: 'other', kind: 'other', names: { cs: 'Ostatní', en: 'Other' }, badge: false, count: items.filter(i => i.collection === 'other').length });
+  for (const c of collections) if (!c.count) fail(`furniture collection ${c.id} is empty`);
+  return { items, collections, bytes };
 }
 
 // --- main ------------------------------------------------------------------
@@ -177,6 +269,8 @@ async function main() {
     return { id: a.id, name: a.name, kind: a.kind as AreaKind, spots: a.spots.filter(isSpot), count };
   });
 
+  const furniture = await buildFurniture();
+
   if (errors.length) {
     console.error(`build-data: ${errors.length} problem(s)\n  ` + errors.join('\n  '));
     process.exit(1);
@@ -184,10 +278,13 @@ async function main() {
 
   await writeFile(join(OUT_DATA, 'fish.json'), JSON.stringify(fish));
   await writeFile(join(OUT_DATA, 'areas.json'), JSON.stringify(areas));
+  await writeFile(join(OUT_DATA, 'furniture.json'), JSON.stringify(furniture.items));
+  await writeFile(join(OUT_DATA, 'furnitureCollections.json'), JSON.stringify(furniture.collections));
 
   const kb = (n: number) => `${(n / 1024).toFixed(1)} kB`;
   console.log(`build-data: ${fish.length} fish, ${areas.length} areas`);
   console.log(`  images: ${kb(totalBytes)} total, largest ${kb(largest)}`);
+  console.log(`build-data: ${furniture.items.length} furniture items in ${furniture.collections.length} collections, images ${kb(furniture.bytes)}`);
   console.log(`  white background removed (${cleanedIds.length}): ${cleanedIds.join(', ')}`);
 }
 

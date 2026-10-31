@@ -1,9 +1,11 @@
 // Pure operations on a progress document. Every function returns a new object.
-import { hasAny, migrate, type FishProgress, type Progress, type ProgressField } from './schema';
+import { hasAny, migrate, type FishProgress, type FurnitureProgress, type Progress, type ProgressField } from './schema';
 
 const NONE: FishProgress = { caught: false, caughtGlowing: false };
+const NOT_OWNED: FurnitureProgress = { owned: false };
 
 export const fishState = (p: Progress, id: string): FishProgress => p.fish[id] ?? NONE;
+export const itemState = (p: Progress, id: string): FurnitureProgress => p.furniture[id] ?? NOT_OWNED;
 
 function withFish(p: Progress, id: string, next: FishProgress, now: Date): Progress {
   const fish = { ...p.fish };
@@ -28,6 +30,23 @@ export function toggle(p: Progress, id: string, field: ProgressField, now = new 
 export const restore = (p: Progress, id: string, prev: FishProgress, now = new Date()): Progress =>
   withFish(p, id, { ...prev }, now);
 
+function withItem(p: Progress, id: string, next: FurnitureProgress, now: Date): Progress {
+  const furniture = { ...p.furniture };
+  if (next.owned) furniture[id] = next;
+  else delete furniture[id];
+  return { ...p, updatedAt: now.toISOString(), furniture };
+}
+
+/** Flips "owned" of one furniture item; `ownedAt` keeps the first time. */
+export function toggleOwned(p: Progress, id: string, now = new Date()): Progress {
+  const cur = itemState(p, id);
+  return withItem(p, id, cur.owned ? NOT_OWNED : { owned: true, ownedAt: cur.ownedAt ?? now.toISOString() }, now);
+}
+
+/** Restores one furniture item to an earlier state (undo). */
+export const restoreItem = (p: Progress, id: string, prev: FurnitureProgress, now = new Date()): Progress =>
+  withItem(p, id, { ...prev }, now);
+
 const earliest = (a?: string, b?: string) => (!a ? b : !b ? a : Date.parse(a) <= Date.parse(b) ? a : b);
 
 /** Import "Sloučit": keeps everything already checked and adds what the file has. Never unchecks. */
@@ -43,12 +62,17 @@ export function merge(current: Progress, incoming: Progress, now = new Date()): 
     }
     fish[id] = m;
   }
-  return { ...current, updatedAt: now.toISOString(), fish };
+  const furniture: Record<string, FurnitureProgress> = { ...current.furniture };
+  for (const [id, s] of Object.entries(incoming.furniture)) {
+    const at = earliest(current.furniture[id]?.ownedAt, s.ownedAt);
+    furniture[id] = at ? { owned: true, ownedAt: at } : { owned: true };
+  }
+  return { ...current, updatedAt: now.toISOString(), fish, furniture };
 }
 
 /** Import "Nahradit": the file becomes the progress. */
 export const replace = (incoming: Progress, now = new Date()): Progress =>
-  ({ ...incoming, updatedAt: now.toISOString(), fish: { ...incoming.fish } });
+  ({ ...incoming, updatedAt: now.toISOString(), fish: { ...incoming.fish }, furniture: { ...incoming.furniture } });
 
 export type ImportPreview = {
   progress: Progress;
@@ -58,13 +82,16 @@ export type ImportPreview = {
   bred: number;
   /** Ids the current data does not know; they are kept but not shown. */
   unknown: number;
+  /** Owned furniture items, and how many of them the data does not know. */
+  owned: number;
+  unknownItems: number;
   savedAt: Date | null;
 };
 
 export type ImportResult = { ok: true; preview: ImportPreview } | { ok: false; reason: 'json' | 'invalid' | 'future' };
 
 /** Reads a backup file's text and prepares the preview shown before Sloučit / Nahradit. */
-export function readImport(text: string, knownIds: ReadonlySet<string>): ImportResult {
+export function readImport(text: string, knownIds: ReadonlySet<string>, knownItems: ReadonlySet<string> = new Set()): ImportResult {
   let raw: unknown;
   try { raw = JSON.parse(text); } catch { return { ok: false, reason: 'json' }; }
   const res = migrate(raw);
@@ -81,6 +108,8 @@ export function readImport(text: string, knownIds: ReadonlySet<string>): ImportR
       caughtGlowing: n('caughtGlowing'),
       bred: n('bred'),
       unknown: entries.filter(([id]) => !knownIds.has(id)).length,
+      owned: Object.keys(res.progress.furniture).length,
+      unknownItems: Object.keys(res.progress.furniture).filter(id => !knownItems.has(id)).length,
       savedAt: saved > 0 ? new Date(saved) : null,
     },
   };
@@ -107,4 +136,11 @@ export function totals(p: Progress, ids: Iterable<string>): Totals {
     if (s.bred) t.bred++;
   }
   return t;
+}
+
+/** Owned furniture items present in the data. */
+export function ownedCount(p: Progress, ids: Iterable<string>): number {
+  let n = 0;
+  for (const id of ids) if (p.furniture[id]?.owned) n++;
+  return n;
 }

@@ -40,3 +40,43 @@ export type Area = {
   spots: Spot[];
   count: number;
 };
+
+// ---- furniture (home decorations) ----------------------------------------
+
+export type FurnitureType = 'wall' | 'floor' | 'furniture' | 'plant' | 'painting';
+/** Most common first. `normal` (3 items) has no defined place in the source; it sits next to common. */
+export const FURNITURE_RARITIES = ['very-common', 'common', 'normal', 'uncommon', 'rare', 'very-rare', 'epic', 'legendary'] as const;
+export type FurnitureRarity = typeof FURNITURE_RARITIES[number];
+
+/** How to get it: shop from a level, the Furniture Factory, a mission, free in the inventory, or closed-beta gift. */
+export type Availability =
+  | { kind: 'level'; level: number }
+  | { kind: 'factory' } | { kind: 'mission' } | { kind: 'free' } | { kind: 'beta' };
+
+/** Months 1–12, `from > to` wraps over New Year. */
+export type MonthRange = { from: number; to: number };
+
+export type FurnitureItem = {
+  /** Stable progress key, never changes. */
+  id: string;
+  names: { cs: string; en: string };
+  /** Set id, or 'plants' / 'paintings' / 'other' for items outside sets. */
+  collection: string;
+  type: FurnitureType | null;
+  /** `null` = unknown. */
+  rarity: FurnitureRarity | null;
+  availability: Availability | null;
+  /** In the shop only in these months; `null` = unknown. */
+  season: MonthRange | 'always' | null;
+  img: { w: number; h: number };
+};
+
+export type FurnitureCollection = {
+  id: string;
+  /** set = a named furniture set; type = items outside sets grouped by type; other = the rest. */
+  kind: 'set' | 'type' | 'other';
+  names: { cs: string; en: string };
+  /** public/furniture/sets/<id>.webp exists. */
+  badge: boolean;
+  count: number;
+};

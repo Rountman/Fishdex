@@ -1,7 +1,9 @@
 // Progress document stored in localStorage and in backup files.
-// CLAUDE.md: `fishdex:progress:v1` → { version, updatedAt, fish: { [id]: { caught, caughtGlowing, bred?, caughtAt? } } }
+// CLAUDE.md: `fishdex:progress:v2` → { version, updatedAt, fish: { [id]: { caught, caughtGlowing, bred?, caughtAt? } },
+//                                     furniture: { [id]: { owned, ownedAt? } } }
+// v1 had no `furniture`.
 
-export const SCHEMA_VERSION = 1;
+export const SCHEMA_VERSION = 2;
 export const keyFor = (version: number) => `fishdex:progress:v${version}`;
 export const STORAGE_KEY = keyFor(SCHEMA_VERSION);
 
@@ -14,11 +16,19 @@ export type FishProgress = {
   caughtAt?: string;
 };
 
+export type FurnitureProgress = {
+  owned: boolean;
+  /** ISO date-time of the first time the item was marked owned. */
+  ownedAt?: string;
+};
+
 export type Progress = {
   version: typeof SCHEMA_VERSION;
   updatedAt: string;
   /** Only fish with at least one `true`. Ids not in the data are kept, just not shown. */
   fish: Record<string, FishProgress>;
+  /** Only owned items. Same rule for unknown ids. */
+  furniture: Record<string, FurnitureProgress>;
 };
 
 export type ProgressField = 'caught' | 'caughtGlowing' | 'bred';
@@ -27,6 +37,7 @@ export const emptyProgress = (now = new Date()): Progress => ({
   version: SCHEMA_VERSION,
   updatedAt: now.toISOString(),
   fish: {},
+  furniture: {},
 });
 
 /**
@@ -34,7 +45,10 @@ export const emptyProgress = (now = new Date()): Progress => ({
  * changes; never drop user data on the way.
  */
 export type Migration = (doc: Record<string, unknown>) => Record<string, unknown>;
-export const MIGRATIONS: Record<number, Migration> = {};
+export const MIGRATIONS: Record<number, Migration> = {
+  // v2 adds the furniture collection; fish entries are unchanged
+  1: doc => ({ ...doc, furniture: {} }),
+};
 
 export type MigrateResult =
   | { ok: true; progress: Progress; migratedFrom: number | null }
@@ -58,6 +72,17 @@ function normalizeFish(raw: Record<string, unknown>): Record<string, FishProgres
   return out;
 }
 
+function normalizeFurniture(raw: unknown): Record<string, FurnitureProgress> {
+  const out: Record<string, FurnitureProgress> = {};
+  if (!isRecord(raw)) return out;
+  for (const [id, v] of Object.entries(raw)) {
+    if (!isRecord(v) || v.owned !== true) continue;
+    out[id] = { owned: true };
+    if (typeof v.ownedAt === 'string' && !Number.isNaN(Date.parse(v.ownedAt))) out[id].ownedAt = v.ownedAt;
+  }
+  return out;
+}
+
 /** Validates any stored or imported value and migrates it to the current schema. */
 export function migrate(raw: unknown, migrations: Record<number, Migration> = MIGRATIONS): MigrateResult {
   if (!isRecord(raw) || typeof raw.version !== 'number' || !Number.isInteger(raw.version)) return { ok: false, reason: 'invalid' };
@@ -74,7 +99,7 @@ export function migrate(raw: unknown, migrations: Record<number, Migration> = MI
     ? doc.updatedAt : new Date(0).toISOString();
   return {
     ok: true,
-    progress: { version: SCHEMA_VERSION, updatedAt, fish: normalizeFish(doc.fish) },
+    progress: { version: SCHEMA_VERSION, updatedAt, fish: normalizeFish(doc.fish), furniture: normalizeFurniture(doc.furniture) },
     migratedFrom: from === SCHEMA_VERSION ? null : from,
   };
 }
