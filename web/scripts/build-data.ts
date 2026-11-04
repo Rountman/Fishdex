@@ -36,7 +36,10 @@ type SrcFish = {
   bait: string[];
   max_length_label: string | null;
   length_cm: { min: number; avg: number; max: number } | null;
-  extra: { fishao_cz?: { fields: Record<string, string | null | undefined> }[] };
+  extra: {
+    fishao_cz?: { fields: Record<string, string | null | undefined> }[];
+    fishaofunwiki?: { time?: string | null; season?: string | null } | null;
+  };
   has_glowing_variant: boolean | null;
   uncertain: string[];
   image: string;
@@ -61,6 +64,108 @@ const fail = (msg: string) => errors.push(msg);
 
 const isBait = (b: string): b is Bait => b in BAITS;
 const isSpot = (s: string): s is Spot => s in SPOTS;
+
+/**
+ * User decisions after auditing all sources. A spot list replaces the source one, [] = no spot.
+ * The spots came from the wiki 5-star table, "(Py)" there is wrong against every other source.
+ * Rarity: wiki and fishaofunwiki agree, fishao.cz alone differs.
+ */
+const SPOT_CORRECTIONS: Record<string, Record<string, string[]>> = {
+  'candy-basslet': { 'mystic-desert': ['Furniture Factory'] },
+  'lavender-mbuna': { 'mystic-desert': [] },
+  'red-phantom-tetra': { club: ['Fresh Water Pond'] },
+};
+const RARITY_CORRECTIONS: Record<string, number> = { 'murray-cod': 4, xenacanthus: 2 };
+
+function applyCorrections(f: SrcFish) {
+  f.rarity = RARITY_CORRECTIONS[f.id] ?? f.rarity;
+  for (const [area, list] of Object.entries(SPOT_CORRECTIONS[f.id] ?? {})) {
+    if (list.length) f.area_spots[area] = list;
+    else delete f.area_spots[area];
+  }
+}
+
+/**
+ * User decision: when another source states a different definite value, the UI shows "?".
+ * Values are compared by what they cover, so "Sep-Dec, Jan-Mar" equals "Sep-Mar"; a source
+ * text with "?" or "+" is not definite and starts no dispute.
+ */
+type Window = { from: string; to: string };
+const CZ_TIME = 'Výskyt / čas', CZ_SEASON = 'Výskyt / období';
+const MONTH_DAYS = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+const two = (n: number | string) => String(n).padStart(2, '0');
+const dayOfYear = (mmdd: string) => {
+  const [m, d] = mmdd.split('-').map(Number);
+  return MONTH_DAYS.slice(0, m - 1).reduce((a, b) => a + b, 0) + Math.min(d, MONTH_DAYS[m - 1]) - 1;
+};
+/** Marks a..b on a ring; a window ending where it starts covers everything. */
+function cover(size: number, windows: Window[], at: (s: string) => number) {
+  const out = new Array<boolean>(size).fill(false);
+  for (const w of windows) {
+    let i = at(w.from);
+    const end = at(w.to);
+    do { out[i] = true; i = (i + 1) % size; } while (i !== end);
+  }
+  return out;
+}
+const quarter = (hhmm: string) => {
+  const [h, m] = hhmm.split(':').map(Number);
+  return Math.floor((h * 60 + m) / 15);
+};
+const timeCover = (v: Exclude<Schedule, null>) => (v === 'always' ? new Array<boolean>(96).fill(true) : cover(96, v, quarter));
+/** The season's last day counts too, unlike a time window's end. */
+const seasonCover = (v: Exclude<Schedule, null>) =>
+  (v === 'always' ? new Array<boolean>(365).fill(true) : cover(365, v.map(w => ({ from: w.from, to: dayAfter(w.to) })), dayOfYear));
+const dayAfter = (mmdd: string) => {
+  const [m, d] = mmdd.split('-').map(Number);
+  return d >= MONTH_DAYS[m - 1] ? `${two(m % 12 + 1)}-01` : `${two(m)}-${two(d + 1)}`;
+};
+const differingSlots = (a: boolean[], b: boolean[]) => a.filter((v, i) => v !== b[i]).length;
+
+function parseTimeText(text: string): Exclude<Schedule, null> | null {
+  if (/[?+]/.test(text)) return null;
+  if (/^(always|kdykoliv)$/i.test(text.trim())) return 'always';
+  const w = [...text.matchAll(/(\d{1,2}):(\d\d)\s*-\s*(\d{1,2}):(\d\d)/g)].map(m => ({ from: `${two(m[1])}:${m[2]}`, to: `${two(m[3])}:${m[4]}` }));
+  return w.length ? w : null;
+}
+function parseFunwikiSeason(text: string): Exclude<Schedule, null> | null {
+  if (/always/i.test(text)) return 'always';
+  const out: Window[] = [];
+  for (const part of text.split(',')) {
+    const m = part.trim().match(/([A-Za-z]+) (\d+)\s*-\s*(?:([A-Za-z]+) )?(\d+)/);
+    if (!m) return null;
+    const from = MONTHS.indexOf(m[1].toLowerCase()) + 1, to = m[3] ? MONTHS.indexOf(m[3].toLowerCase()) + 1 : from;
+    out.push({ from: `${two(from)}-${two(m[2])}`, to: `${two(to)}-${two(m[4])}` });
+  }
+  return out;
+}
+function parseCzSeason(text: string): Exclude<Schedule, null> | null {
+  if (text.includes('?')) return null;
+  if (/^vždy$/i.test(text.trim())) return 'always';
+  const w = [...text.matchAll(/(\d{1,2})\.(\d{1,2})\.(?:\d{4})?\s*-\s*(\d{1,2})\.(\d{1,2})\./g)]
+    .map(m => ({ from: `${two(m[2])}-${two(m[1])}`, to: `${two(m[4])}-${two(m[3])}` }));
+  return w.length ? w : null;
+}
+
+function disputed(f: SrcFish, time: Schedule, season: Schedule): UncertainField[] {
+  const cz = (key: string) => (f.extra.fishao_cz ?? []).flatMap(p => (p.fields[key] ?? '').split('/')).filter(s => s.trim());
+  const out: UncertainField[] = [];
+  if (time !== null) {
+    const ours = timeCover(time);
+    const others = [f.extra.fishaofunwiki?.time ?? '', ...cz(CZ_TIME)].filter(Boolean).map(parseTimeText);
+    if (others.some(v => v && differingSlots(timeCover(v), ours) > 0)) out.push('time');
+  }
+  if (season !== null) {
+    const ours = seasonCover(season);
+    const others = [
+      ...(f.extra.fishaofunwiki?.season ? [parseFunwikiSeason(f.extra.fishaofunwiki.season)] : []),
+      ...cz(CZ_SEASON).map(parseCzSeason),
+    ];
+    // a few days' difference is how sources write month ends, not a dispute
+    if (others.some(v => v && differingSlots(seasonCover(v), ours) > 3)) out.push('season');
+  }
+  return out;
+}
 
 /**
  * User decision: these places don't exist in the game. Pinheira Beach has no pyramid; the only
@@ -263,6 +368,7 @@ async function main() {
 
   const fish: Fish[] = [];
   for (const f of srcFish) {
+    applyCorrections(f);
     if (seen.has(f.id)) fail(`${f.id}: duplicate id`);
     seen.add(f.id);
     if (!f.names.cs) fail(`${f.id}: missing Czech name`);
@@ -276,6 +382,8 @@ async function main() {
       if (!spots[area].length) fail(`${f.id}: no real spot left in ${area}`);
     }
 
+    const time = schedule(f.id, 'time', f.time, HHMM);
+    const season = schedule(f.id, 'season', f.season, MMDD);
     const img = images.get(f.id)!;
     if (img.cleaned) cleanedIds.push(f.id);
     totalBytes += img.bytes;
@@ -287,13 +395,16 @@ async function main() {
       areas: f.areas,
       spots,
       spotAccess: spotAccess(f),
-      time: schedule(f.id, 'time', f.time, HHMM),
-      season: schedule(f.id, 'season', f.season, MMDD),
+      time,
+      season,
       rarity: f.rarity as Fish['rarity'],
       bait: f.bait.filter(isBait),
       size: f.length_cm,
       record: f.max_length_label,
-      uncertain: f.uncertain.filter((u): u is UncertainField => u === 'time' || u === 'season' || u === 'bait'),
+      uncertain: [...new Set([
+        ...f.uncertain.filter((u): u is UncertainField => u === 'time' || u === 'season' || u === 'bait'),
+        ...disputed(f, time, season),
+      ])],
       glowing: true,
       img: { w: img.w, h: img.h },
     });

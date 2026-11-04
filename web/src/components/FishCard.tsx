@@ -99,15 +99,15 @@ function FishCardImpl({ fish, state, areaName, onToggle, onOpen, priority }: Pro
           <Stars r={fish.rarity} />
           <span className={styles.len}>{fmtSize(fish.size) ?? fmtRecord(fish.record)?.text ?? t.lenUnknown}</span>
         </p>
-        {/* only real windows: "always" / "all year" and unknown stay off the card (all of it is in the detail) */}
-        {Array.isArray(fish.time) && (
+        {/* real windows and disputed values: settled "always" / "all year" and unknown stay off the card (all of it is in the detail) */}
+        {(Array.isArray(fish.time) || fish.uncertain.includes('time')) && (
           <p className={styles.time}>
             <ClockIcon /><span className="visually-hidden">{t.when}: </span>
             {fmtTime(fish.time, lang).text}
             {fish.uncertain.includes('time') && <abbr className="unsure" title={t.unsure}>?</abbr>}
           </p>
         )}
-        {Array.isArray(fish.season) && (
+        {(Array.isArray(fish.season) || fish.uncertain.includes('season')) && (
           <p className={styles.time}>
             <CalendarIcon /><span className="visually-hidden">{t.season}: </span>
             {fmtSeason(fish.season, lang).text}

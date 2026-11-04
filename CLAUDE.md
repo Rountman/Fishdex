@@ -25,6 +25,8 @@ prototypes/    # schválené mockupy a styleguide (fáze 1–2), DECISIONS.md
   (`web/scripts/build-data.ts`, spouští se `npm run data` i před dev/build),
   neměň JSON ručně. Bílé pozadí u 17 obrázků z fishao.cz odstraňuje tentýž skript.
 - Před prací s daty si přečti `data/report.md` — jsou tam známé díry.
+- Opravy po auditu zdrojů schválené uživatelem (místa, rarita) jsou v `build-data.ts`. Čas nebo
+  sezóna, kde jiný zdroj uvádí jednoznačně jinou hodnotu, dostanou v UI „?“.
 - Scraper: max 1 request/s na web.archive.org, vše cachovat, používat `id_`
   URL varianty pro čisté HTML.
 

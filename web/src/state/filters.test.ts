@@ -102,7 +102,7 @@ describe('applyFilters', () => {
     expect(raft).toHaveLength(19);
     expect(raft.every(f => f.spots['cool-mountain']?.includes('Raft'))).toBe(true);
     // the Pyramid is in Mystic Desert only; Pinheira Beach has none, giant moray bites at the pier
-    expect(run({ spot: 'mystic-desert:Pyramid' })).toHaveLength(6);
+    expect(run({ spot: 'mystic-desert:Pyramid' })).toHaveLength(4);
     expect(AREAS.find(a => a.id === 'pinheira-beach')!.spots).toEqual(['Pier']);
     expect(FISH.find(f => f.id === 'giant-moray')!.spots).toEqual({ 'pinheira-beach': ['Pier'] });
   });
@@ -141,7 +141,7 @@ describe('applyFilters', () => {
     expect(farm.some(id => town.includes(id))).toBe(false);
   });
 
-  it.each([['palm-island', 'Inside', 38, 'Outside', 78], ['club', 'Salt Water Pond', 50, 'Fresh Water Pond', 31]])(
+  it.each([['palm-island', 'Inside', 38, 'Outside', 78], ['club', 'Salt Water Pond', 49, 'Fresh Water Pond', 31]])(
     '%s has no fish of its own, only spots, and is a heading', (area, a, nA, b, nB) => {
       expect(run({ area })).toHaveLength(0);
       expect(run({ spot: `${area}:${a}` })).toHaveLength(nA);
@@ -169,7 +169,8 @@ describe('applyFilters', () => {
     ['laketown:Trout Farm', 6, 6],
     ['palm-island:Inside', 38, 6],       // the other 32 bite at Outside too
     ['palm-island:Outside', 78, 46],
-    ['mystic-desert:Pyramid', 6, 5],     // candy-basslet is in the factory too
+    ['mystic-desert:Pyramid', 4, 4],
+    ['club:Fresh Water Pond', 31, 31],
     ['club:Monster Pond', 3, 0],
   ])('"only here" at %s: %i → %i fish', (spot, all, only) => {
     expect(run({ spot })).toHaveLength(all);
@@ -182,6 +183,27 @@ describe('applyFilters', () => {
     expect(raft).toContain('asp');
     expect(raft).not.toContain('common-carp');
     expect(ids(run({ spot: 'laketown:Trout Farm', spotOnly: true }))).toContain('rainbow-trout'); // also at Cool Mountain
+  });
+
+  it('source corrections reach the data', () => {
+    const fish = (id: string) => FISH.find(f => f.id === id)!;
+    expect(fish('candy-basslet').spots).toEqual({ 'mystic-desert': ['Furniture Factory'] });
+    expect(fish('lavender-mbuna').spots).toEqual({});
+    expect(ids(run({ area: 'mystic-desert' }))).toContain('lavender-mbuna');
+    expect(fish('red-phantom-tetra').spots).toEqual({ club: ['Fresh Water Pond'] });
+    expect(fish('murray-cod').rarity).toBe(4);
+    expect(fish('xenacanthus').rarity).toBe(2);
+  });
+
+  it('disputed time and season carry the "?" mark, agreeing sources do not', () => {
+    const marked = (field: 'time' | 'season') => FISH.filter(f => f.uncertain.includes(field)).map(f => f.id);
+    expect(marked('time')).toHaveLength(48);
+    expect(marked('time')).toEqual(expect.arrayContaining(['bowfin', 'hogfish', 'apache-trout']));
+    expect(marked('season')).toEqual(expect.arrayContaining(['bull-shark', 'horn-shark', 'hucho-taimen', 'spotted-gar', 'yellow-tail-arowana', 'winghead-shark']));
+    expect(marked('season')).toHaveLength(10);
+    // same season written differently is no dispute
+    expect(marked('season')).not.toContain('pacific-bluefin-tuna');
+    expect(marked('time')).not.toContain('piraiba-catfish');
   });
 
   it('size keeps fish whose catch range touches the asked range', () => {
@@ -259,7 +281,7 @@ describe('facets (counts next to filter options)', () => {
     expect(c.areas.get('pirate-cave')?.total).toBe(7);
     expect(c.spots.get('cool-mountain:Raft')).toEqual({ total: 19, caught: 1, glow: 0, bred: 0 });
     expect(c.bait.get('Insects')).toBe(337);
-    expect([1, 2, 3, 4, 5].map(r => c.rarity.get(r))).toEqual([48, 102, 153, 150, 162]);
+    expect([1, 2, 3, 4, 5].map(r => c.rarity.get(r))).toEqual([48, 103, 152, 150, 162]);
     expect(c.status).toEqual({ all: FISH.length, uncaught: FISH.length - 2, caught: 2, noglow: FISH.length - 1 });
   });
 
