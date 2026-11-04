@@ -54,15 +54,18 @@ const int = (s: string | null, min: number, max: number) => {
   return n >= min && n <= max ? n : null;
 };
 
-/** Reads filters from the query string; unknown values are ignored, never guessed. */
-export function parseFilters(params: URLSearchParams, areaIds: ReadonlySet<string>): Filters {
+/**
+ * Reads filters from the query string; unknown values are ignored, never guessed.
+ * `headingAreas` have no list of their own, so without a spot they count as no area (old shared links).
+ */
+export function parseFilters(params: URLSearchParams, areaIds: ReadonlySet<string>, headingAreas: ReadonlySet<string> = new Set()): Filters {
   const area = params.get('area') ?? '';
   const status = params.get('status') as Status;
   const bred = params.get('bred');
   const spot = parseSpot(params.get('spot'), areaIds);
   return {
     q: params.get('q') ?? '',
-    area: areaIds.has(area) ? area : '',
+    area: areaIds.has(area) && (spot || !headingAreas.has(area)) ? area : '',
     spot: spot && (!areaIds.has(area) || spot.area === area) ? `${spot.area}:${spot.spot}` : '',
     rarity: new Set((params.get('rarity') ?? '').split(',').map(r => int(r, 1, 5)).filter((r): r is number => r !== null)),
     bait: new Set((params.get('bait') ?? '').split(',').filter((b): b is Bait => b in BAITS)),
@@ -183,6 +186,8 @@ export type Facets = {
   /** Fish matching every filter except area / spot ("Všechny oblasti"). */
   all: Tally;
   areas: Map<string, Tally>;
+  /** Every fish of the area, spots included, each counted once (totals of heading-only areas). */
+  wholeAreas: Map<string, Tally>;
   /** Keyed '<area>:<Spot>'. */
   spots: Map<string, Tally>;
   rarity: Map<number, number>;
@@ -195,7 +200,7 @@ export type Facets = {
  * give together with all the *other* active filters (its own group ignored).
  */
 export function facets(fish: readonly Fish[], f: Filters, progress: Progress, index: SearchIndex): Facets {
-  const out: Facets = { all: tally(), areas: new Map(), spots: new Map(), rarity: new Map(), bait: new Map(), status: { all: 0, uncaught: 0, caught: 0, noglow: 0 } };
+  const out: Facets = { all: tally(), areas: new Map(), wholeAreas: new Map(), spots: new Map(), rarity: new Map(), bait: new Map(), status: { all: 0, uncaught: 0, caught: 0, noglow: 0 } };
   const add = (map: Map<string, Tally>, key: string, s: FishProgress) => {
     let t = map.get(key);
     if (!t) map.set(key, (t = tally()));
@@ -213,7 +218,10 @@ export function facets(fish: readonly Fish[], f: Filters, progress: Progress, in
       if (s.caught) out.all.caught++;
       if (s.caughtGlowing) out.all.glow++;
       if (s.bred) out.all.bred++;
-      for (const a of x.areas) if (inArea(x, a)) add(out.areas, a, s);
+      for (const a of x.areas) {
+        add(out.wholeAreas, a, s);
+        if (inArea(x, a)) add(out.areas, a, s);
+      }
       for (const [a, list] of Object.entries(x.spots)) for (const sp of list) add(out.spots, `${a}:${sp}`, s);
     }
     if (rar(x)) out.rarity.set(x.rarity, (out.rarity.get(x.rarity) ?? 0) + 1);

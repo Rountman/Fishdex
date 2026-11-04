@@ -17,6 +17,13 @@ type Props = {
 
 const EMPTY: Tally = { total: 0, caught: 0, glow: 0, bred: 0 };
 
+const Count = ({ tally }: { tally: Tally }) => (
+  <>
+    <span className={styles.count}>{tally.caught}<span className="of">/{tally.total}</span></span>
+    <span className={`bar ${styles.bar}`}><span style={{ width: `${tally.total ? tally.caught / tally.total * 100 : 0}%` }} /></span>
+  </>
+);
+
 function Row({ label, tally, pressed, onClick, sub, extra }: {
   label: string; tally: Tally; pressed: boolean; onClick: () => void; sub?: boolean; extra?: ReactNode;
 }) {
@@ -26,8 +33,7 @@ function Row({ label, tally, pressed, onClick, sub, extra }: {
       data-done={tally.total > 0 && tally.caught === tally.total} data-empty={tally.total === 0}
     >
       <span className={styles.name}>{label}</span>
-      <span className={styles.count}>{tally.caught}<span className="of">/{tally.total}</span></span>
-      <span className={`bar ${styles.bar}`}><span style={{ width: `${tally.total ? tally.caught / tally.total * 100 : 0}%` }} /></span>
+      <Count tally={tally} />
       {extra}
     </button>
   );
@@ -49,6 +55,7 @@ export function AreaIndex({ areas, facets, area, spot, onSelect }: Props) {
             <ul className={styles.list}>
               {areas.filter(a => a.kind === kind).map(a => {
                 const tally = facets.areas.get(a.id) ?? EMPTY;
+                const whole = facets.wholeAreas.get(a.id) ?? EMPTY;
                 return (
                   <li key={a.id}>
                     {a.open ? (
@@ -58,7 +65,12 @@ export function AreaIndex({ areas, facets, area, spot, onSelect }: Props) {
                           <span className={styles.bred}>{t.bredNote} {tally.bred}<span className="of">/{tally.total}</span></span>
                         )}
                       />
-                    ) : <span className={styles.heading}>{a.name}</span>}
+                    ) : (
+                      <div className={styles.heading} data-done={whole.total > 0 && whole.caught === whole.total}>
+                        <span className={styles.name}>{a.name}</span>
+                        <Count tally={whole} />
+                      </div>
+                    )}
                     {a.spots.length > 0 && (
                       <ul className={styles.spots}>
                         {a.spots.map(sp => {

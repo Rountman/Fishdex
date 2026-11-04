@@ -149,6 +149,14 @@ describe('applyFilters', () => {
       expect(AREAS.find(x => x.id === area)!.open).toBe(false);
     });
 
+  it('heading areas count each fish once, even one sitting at two spots', () => {
+    const shared = FISH.find(f => f.spots['palm-island']?.length === 2)!;
+    const p: Progress = { ...emptyProgress(), fish: { [shared.id]: { caught: true, caughtGlowing: false } } };
+    const c = facets(FISH, EMPTY_FILTERS, p, index);
+    expect(c.wholeAreas.get('palm-island')).toEqual({ total: 84, caught: 1, glow: 0, bred: 0 });
+    expect(c.wholeAreas.get('club')?.total).toBe(80);
+  });
+
   it('areas with fish outside their spots stay selectable', () => {
     expect(AREAS.filter(a => !a.open).map(a => a.id).sort()).toEqual(['club', 'palm-island']);
   });
@@ -190,6 +198,13 @@ describe('URL round trip', () => {
     expect(serializeFilters(withSpot).spot).toBe('laketown:Trout Farm');
     expect(parseFilters(params, areaIds)).toEqual(f);
     expect(activeFilterCount(f)).toBe(10);
+  });
+
+  it('old links to a heading area fall back to all areas, its spots keep working', () => {
+    const headings = new Set(['club']);
+    expect(parseFilters(new URLSearchParams('area=club&rarity=5'), areaIds, headings)).toEqual({ ...EMPTY_FILTERS, rarity: new Set([5]) });
+    const spot = parseFilters(new URLSearchParams('area=club&spot=club:Salt Water Pond'), areaIds, headings);
+    expect(spot).toMatchObject({ area: 'club', spot: 'club:Salt Water Pond' });
   });
 
   it('ignores junk instead of guessing', () => {

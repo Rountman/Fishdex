@@ -37,6 +37,7 @@ import styles from './App.module.css';
 
 const INDEX = buildIndex(FISH);
 const AREA_IDS = new Set(AREAS.map(a => a.id));
+const HEADING_AREAS = new Set(AREAS.filter(a => !a.open).map(a => a.id));
 const AREA_NAMES = new Map(AREAS.map(a => [a.id, a.name]));
 const FISH_BY_ID = new Map(FISH.map(f => [f.id, f]));
 const areaName = (id: string) => AREA_NAMES.get(id) ?? id;
@@ -55,7 +56,7 @@ export default function App() {
   const dark = prefs.theme === 'dark' || (prefs.theme === 'auto' && systemDark);
 
   // ---- URL state ---------------------------------------------------------
-  const [filters, setFilters] = useState<FilterState>(() => parseFilters(readParams(), AREA_IDS));
+  const [filters, setFilters] = useState<FilterState>(() => parseFilters(readParams(), AREA_IDS, HEADING_AREAS));
   const [sort, setSort] = useState<Sort>(() => parseSort(readParams()));
   const [tab, setTab] = useState<Tab>(() => (readParams().get('tab') === 'furniture' ? 'furniture' : 'fish'));
   const [ffilters, setFFilters] = useState<FurnitureFilterState>(() => parseFurnitureFilters(readParams(), COLLECTION_IDS));

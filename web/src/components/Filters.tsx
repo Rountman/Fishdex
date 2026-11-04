@@ -77,7 +77,7 @@ function Controls({ filters: f, facets, areas, mobile, onChange, sort, onSort }:
               {areas.filter(a => a.kind === kind).flatMap(a => [
                 a.open
                   ? <option key={a.id} value={a.id}>{a.name} ({facets.areas.get(a.id)?.total ?? 0})</option>
-                  : <option key={a.id} value={a.id} disabled>{a.name}</option>,
+                  : <option key={a.id} value={a.id} disabled>{a.name} ({facets.wholeAreas.get(a.id)?.total ?? 0})</option>,
                 ...a.spots.map(sp => {
                   const v = `${a.id}:${sp}`;
                   return <option key={v} value={v}>{a.name} › {spotLabel(sp, lang).text} ({facets.spots.get(v)?.total ?? 0})</option>;
