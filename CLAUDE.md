@@ -75,7 +75,8 @@ prototypes/    # schválené mockupy a styleguide (fáze 1–2), DECISIONS.md
 - Progres: celkem / per oblast, normální a zářivé zvlášť; u Backyard i „mám za domem“.
 - Filtry: oblast a pod ní její místa jako plnohodnotné položky (Laketown › farma; jen ryby
   s uvedeným místem). Oddělená místa: Mystic Desert (pyramida, továrna) a podle fishao.cz
-  Cool Mountain (vor), Pinheira Beach (molo), Thombani Town (za plotem) — ryba „jen z místa“
+  Cool Mountain (vor), Pinheira Beach (molo), Thombani Town (za plotem), Seagull Harbor (člun),
+  Laketown (farma) — ryba „jen z místa“
   není pod oblastí, ryba „i z místa“ je v obou (`spotAccess` z build-data.ts). U každé volby filtru počet ryb podle ostatních aktivních filtrů,
   rarita, návnada (multi-výběr, NEBO), čas, velikost (od–do cm, ryba
   se ukáže, když se její rozsah úlovku překrývá se zadaným), chyceno / nechyceno /

@@ -72,6 +72,8 @@ const SPOT_SEPARATE_PER_FISH: Record<string, string> = {
   'cool-mountain': 'Cool Mountain',
   'pinheira-beach': 'Pinheira Beach',
   'thombani-town': 'Thombani Town',
+  'seagull-harbor': 'Seagull Harbor',
+  'laketown': 'Laketown',
 };
 
 function spotAccess(f: SrcFish): Record<string, 'only' | 'also'> | undefined {

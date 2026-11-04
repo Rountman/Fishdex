@@ -116,13 +116,14 @@ describe('applyFilters', () => {
     expect(desert).toHaveLength(all.length - inSpots.length);
     expect(facets(FISH, EMPTY_FILTERS, emptyProgress(), index).areas.get('mystic-desert')?.total).toBe(desert.length);
     // areas without separated spots still include their spot fish
-    expect(run({ area: 'seagull-harbor' }).some(f => f.spots['seagull-harbor']?.includes('Boat'))).toBe(true);
+    expect(run({ area: 'club' }).some(f => f.spots.club?.includes('Salt Water Pond'))).toBe(true);
   });
 
   it.each([
     ['cool-mountain', 'Raft', 11, 19, 10, 'arctic-char', 'common-carp'],
     ['pinheira-beach', 'Pier', 28, 44, 16, 'coelacanth', 'clownfish'],
     ['thombani-town', 'Enclosure', 9, 15, 6, 'electric-catfish', 'nile-perch'],
+    ['seagull-harbor', 'Boat', 15, 38, 25, 'blue-marlin', 'dab'],
   ])('%s keeps %s-only fish apart, fish biting in both stay in both', (area, spot, open, atSpot, only, onlyFish, bothFish) => {
     const areaFish = ids(run({ area })), spotFish = ids(run({ spot: `${area}:${spot}` }));
     expect(areaFish).toHaveLength(open);
@@ -133,6 +134,13 @@ describe('applyFilters', () => {
     expect(areaFish).toContain(bothFish);
     expect(spotFish).toContain(bothFish);
     expect(facets(FISH, EMPTY_FILTERS, emptyProgress(), index).areas.get(area)?.total).toBe(open);
+  });
+
+  it('Laketown leaves out the Trout Farm fish, they have no shared spot', () => {
+    const town = ids(run({ area: 'laketown' })), farm = ids(run({ spot: 'laketown:Trout Farm' }));
+    expect(town).toHaveLength(17);
+    expect(farm).toHaveLength(6);
+    expect(farm.some(id => town.includes(id))).toBe(false);
   });
 
   it('size keeps fish whose catch range touches the asked range', () => {
