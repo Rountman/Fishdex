@@ -15,6 +15,7 @@ import { FurnitureView } from './components/FurnitureView';
 import { Masthead, type Tab } from './components/Masthead';
 import { BackupHint, StorageNotice } from './components/Notices';
 import { Overview } from './components/Overview';
+import { TimersView } from './components/TimersView';
 import { Toast, type ToastData } from './components/Toast';
 import { AREAS, COLLECTIONS, FISH, FISH_IDS, FURNITURE, FURNITURE_IDS } from './data';
 import { MOBILE, useMediaQuery } from './hooks/useMediaQuery';
@@ -32,6 +33,8 @@ import {
 } from './state/furnitureFilters';
 import { shouldShowHint, usePrefs } from './state/prefs';
 import { buildIndex } from './state/search';
+import type { TimerId } from './timers/timers';
+import { useTimers } from './timers/useTimers';
 import { readParams, writeParams } from './url';
 import styles from './App.module.css';
 
@@ -45,6 +48,7 @@ const FINDEX = buildIndex(FURNITURE);
 const COLLECTION_IDS = new Set(COLLECTIONS.map(c => c.id));
 const ITEM_BY_ID = new Map(FURNITURE.map(f => [f.id, f]));
 const SET_COUNT = COLLECTIONS.filter(c => c.kind === 'set').length;
+const parseTab = (v: string | null): Tab => (v === 'furniture' || v === 'timers' ? v : 'fish');
 
 export default function App() {
   const [prefs, setPrefs] = usePrefs();
@@ -58,7 +62,7 @@ export default function App() {
   // ---- URL state ---------------------------------------------------------
   const [filters, setFilters] = useState<FilterState>(() => parseFilters(readParams(), AREA_IDS, HEADING_AREAS));
   const [sort, setSort] = useState<Sort>(() => parseSort(readParams()));
-  const [tab, setTab] = useState<Tab>(() => (readParams().get('tab') === 'furniture' ? 'furniture' : 'fish'));
+  const [tab, setTab] = useState<Tab>(() => parseTab(readParams().get('tab')));
   const [ffilters, setFFilters] = useState<FurnitureFilterState>(() => parseFurnitureFilters(readParams(), COLLECTION_IDS));
   const [view, setView] = useState<View>(() => (readParams().get('view') === 'progress' ? 'progress' : 'grid'));
   const [openId, setOpenId] = useState<string | null>(() => {
@@ -72,7 +76,7 @@ export default function App() {
   useEffect(() => {
     writeParams({
       ...serializeFilters(filters), sort: serializeSort(sort), view: view === 'progress' ? 'progress' : null, fish: openId,
-      tab: tab === 'furniture' ? 'furniture' : null, ...serializeFurnitureFilters(ffilters),
+      tab: tab === 'fish' ? null : tab, ...serializeFurnitureFilters(ffilters),
     });
   }, [filters, sort, view, openId, tab, ffilters]);
 
@@ -101,6 +105,13 @@ export default function App() {
     const prev = toggleItem(id);
     showToast(STRINGS[lang].toastOwned(itemName(ITEM_BY_ID.get(id)!, lang), !prev.owned), () => restoreItem(id, prev));
   }, [toggleItem, restoreItem, showToast, lang]);
+
+  const timers = useTimers();
+  const { set: setTimer } = timers;
+  const changeTimer = useCallback((id: TimerId, at: number | null, text: (name: string) => string) => {
+    const prev = setTimer(id, at);
+    showToast(text(STRINGS[lang].timers[id].name), () => setTimer(id, prev));
+  }, [setTimer, showToast, lang]);
 
   const sum = totals(p.progress, FISH_IDS);
   const visible = useMemo(() => sortFish(applyFilters(FISH, filters, p.progress, INDEX), sort, lang), [filters, p.progress, sort, lang]);
@@ -157,8 +168,8 @@ export default function App() {
   return (
     <I18nProvider lang={lang}>
       <MotionConfig reducedMotion="user">
-        <a className={styles.skip} href="#ryby">{tab === 'fish' ? t.skip : t.skipFurniture}</a>
-        <div className={styles.page} data-view={tab === 'fish' ? view : 'grid'}>
+        <a className={styles.skip} href="#ryby">{tab === 'fish' ? t.skip : tab === 'furniture' ? t.skipFurniture : t.skipTimers}</a>
+        <div className={styles.page} data-view={tab === 'fish' ? view : tab === 'timers' ? 'timers' : 'grid'}>
           <Masthead
             total={FISH.length} caught={sum.caught} glow={sum.caughtGlowing} dark={dark}
             overviewOpen={view === 'progress'}
@@ -181,7 +192,14 @@ export default function App() {
           <main className={styles.log} id="ryby" tabIndex={-1}>
             <p id={CARD_HELP_ID} className="visually-hidden">{t.cardHelp}</p>
             <p id={ITEM_HELP_ID} className="visually-hidden">{t.itemHelp}</p>
-            {tab === 'furniture' ? (
+            {tab === 'timers' ? (
+              <TimersView
+                timers={timers.state}
+                onCollect={id => changeTimer(id, Date.now(), t.toastTimerStarted)}
+                onEdit={(id, at) => changeTimer(id, at, t.toastTimerEdited)}
+                onClear={id => changeTimer(id, null, t.toastTimerCleared)}
+              />
+            ) : tab === 'furniture' ? (
               <>
                 <h2 className="visually-hidden">{t.filters}</h2>
                 <FurnitureFilters

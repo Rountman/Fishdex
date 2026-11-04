@@ -3,7 +3,7 @@ import { pct } from '../i18n/format';
 import type { Lang } from '../i18n/strings';
 import styles from './Masthead.module.css';
 
-export type Tab = 'fish' | 'furniture';
+export type Tab = 'fish' | 'furniture' | 'timers';
 export type FurnitureTally = { owned: number; total: number; setsDone: number; sets: number };
 
 type Props = {
@@ -32,7 +32,7 @@ export function Masthead({ total, caught, glow, overviewOpen, dark, onOverview, 
       </div>
 
       <div className={styles.tallyWrap}>
-        {tab === 'furniture' ? (
+        {tab === 'timers' ? null : tab === 'furniture' ? (
           <div className={styles.tally}>
             <span className={styles.item}>
               <span className={styles.num}>{fu.owned}<span className="of">/{fu.total}</span></span>
@@ -81,9 +81,9 @@ export function Masthead({ total, caught, glow, overviewOpen, dark, onOverview, 
       </div>
 
       <nav className={styles.tabs} aria-label={t.tabsLabel}>
-        {(['fish', 'furniture'] as const).map(k => (
+        {(['fish', 'furniture', 'timers'] as const).map(k => (
           <button key={k} type="button" className={styles.tab} aria-current={tab === k ? 'page' : undefined} onClick={() => onTab(k)}>
-            {k === 'fish' ? t.tabFish : t.tabFurniture}
+            {k === 'fish' ? t.tabFish : k === 'furniture' ? t.tabFurniture : t.tabTimers}
           </button>
         ))}
       </nav>

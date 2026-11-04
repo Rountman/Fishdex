@@ -8,11 +8,11 @@
 }
 .log { grid-area: log; min-width: 0; }
 .source { margin: var(--space-8) 0 0; font: italic var(--fw-regular) 15px/1.3 var(--font-display); color: var(--color-ink-soft); }
-.page[data-view="progress"] .log { grid-column: 1 / -1; }
+.page[data-view="progress"] .log, .page[data-view="timers"] .log { grid-column: 1 / -1; }
 
 @media (max-width: 760px) {
   .page { grid-template-columns: minmax(0, 1fr); grid-template-areas: "head" "note" "log" "index" "foot"; padding-top: var(--space-4); }
-  .page[data-view="progress"] { grid-template-areas: "head" "note" "log" "foot"; }
+  .page[data-view="progress"], .page[data-view="timers"] { grid-template-areas: "head" "note" "log" "foot"; }
   .page[data-view="progress"] nav { display: none; }
 }
 

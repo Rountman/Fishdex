@@ -97,6 +97,13 @@ prototypes/    # schválené mockupy a styleguide (fáze 1–2), DECISIONS.md
 - Jeden stav `owned` (razítko VLASTNĚNO), klik přepne, undo toast jako u ryb. Kompletní set = razítko.
 - Filtry v URL s prefixem `f` (`tab=furniture&fset=&ftype=&frarity=&fstatus=&fq=`).
 
+## Záložka Timery
+
+- Herní odpočty v `web/src/timers/`: penízkový strom 24 h, maso od Sida (Aquayama) 10 dní (archiv fishao.cz),
+  Bob (Rio Tropical) 7 dní (neoficiální přepisy wiki). Odpočet běží od kliknutí na „Vybráno“, čas jde ručně upravit.
+- Uloženo jen v `fishdex:timers:v1` → `{ version, collectedAt: { [id]: epochMs } }`, mimo export progresu.
+- URL `tab=timers`.
+
 ## Progres uživatele (localStorage)
 
 - Progres je per prohlížeč a zařízení, nesynchronizuje se. Každý

@@ -1,5 +1,7 @@
 // UI copy for both languages. Fish names, baits and spots come from data + dictionaries.
 
+import type { TimerId } from '../timers/timers';
+
 export type Lang = 'cs' | 'en';
 
 /** First letter upper-case: list values and labels start with a capital. */
@@ -7,6 +9,8 @@ export const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 
 const csPlural = (n: number, one: string, few: string, many: string) =>
   n === 1 ? one : n >= 2 && n <= 4 ? few : many;
+
+type TimerText = { name: string; detail: string; every: string; note?: string };
 
 const cs = {
   subtitle: 'Rybářský deník Fishao',
@@ -118,8 +122,31 @@ const cs = {
   exported: (file: string) => `Záloha stažena: ${file}`,
   footer: 'Podpora nebo návrh úprav? Napiš mi na Discordu:',
   // ---- furniture tab
-  tabsLabel: 'Části deníku', tabFish: 'Ryby', tabFurniture: 'Nábytek',
+  tabsLabel: 'Části deníku', tabFish: 'Ryby', tabFurniture: 'Nábytek', tabTimers: 'Timery',
   skipFurniture: 'Přeskočit na seznam nábytku',
+  skipTimers: 'Přeskočit na timery',
+  timersTitle: 'Timery',
+  timersHint: 'Klikni, jakmile si ve hře odměnu vyzvedneš. Odpočet běží od té chvíle, i když stránku zavřeš.',
+  timersSource: 'Intervaly: archiv fishao.cz (strom, Sid), neoficiální přepisy wiki (Bob). Ve hře se mohly změnit.',
+  timers: {
+    tree: { name: 'Penízkový strom', detail: 'Fishmince podle úrovně stromu', every: 'každých 24 hodin', note: 'Strom si podle fishao.cz každý den ujíždí o pár minut, ve hře může být hotový o chvíli později.' },
+    meat: { name: 'Maso od Sida', detail: 'Sid v Aquayamě, 10 návnad maso', every: 'každých 10 dní' },
+    bob: { name: 'Bob', detail: 'Rio Tropical u ohniště v táboře, minihra až o 10 mincí', every: 'každých 7 dní' },
+  } as Record<TimerId, TimerText>,
+  timerIdle: 'Zatím nespuštěno',
+  timerReady: 'Připraveno',
+  timerReadyAt: (when: string) => `Znovu: ${when}`,
+  timerReadySince: (when: string) => `Od: ${when}`,
+  timerRemaining: 'Zbývá',
+  timerCollect: 'Vybráno',
+  timerEdit: 'Upravit čas',
+  timerEditLabel: 'Kdy jsi to naposledy vybral(a)',
+  timerSave: 'Uložit čas',
+  timerClear: 'Smazat čas',
+  timerInvalid: 'Zadej datum a čas, který už proběhl.',
+  toastTimerStarted: (name: string) => `${name}: odpočet spuštěn`,
+  toastTimerEdited: (name: string) => `${name}: čas upraven`,
+  toastTimerCleared: (name: string) => `${name}: čas smazán`,
   ownedLabel: 'vlastněných kusů',
   setsDoneLabel: 'kompletních setů',
   fIndexTitle: 'Kolekce', fAll: 'Všechny kolekce',
@@ -267,8 +294,31 @@ const en: Strings = {
   exported: file => `Backup saved: ${file}`,
   footer: 'Need support or want to suggest a change? Message me on Discord:',
   // ---- furniture tab
-  tabsLabel: 'Journal sections', tabFish: 'Fish', tabFurniture: 'Furniture',
+  tabsLabel: 'Journal sections', tabFish: 'Fish', tabFurniture: 'Furniture', tabTimers: 'Timers',
   skipFurniture: 'Skip to the furniture list',
+  skipTimers: 'Skip to the timers',
+  timersTitle: 'Timers',
+  timersHint: 'Click as soon as you collect the reward in the game. The countdown runs from then on, even with this page closed.',
+  timersSource: 'Intervals: fishao.cz archive (tree, Sid), unofficial wiki copies (Bob). They may have changed in the game.',
+  timers: {
+    tree: { name: 'Money tree', detail: 'Fish coins depending on the tree level', every: 'every 24 hours', note: 'According to fishao.cz the tree slips by a few minutes each day, so it may be ready a little later in the game.' },
+    meat: { name: 'Meat from Sid', detail: 'Sid in Aquayama, 10 meat baits', every: 'every 10 days' },
+    bob: { name: 'Bob', detail: 'Rio Tropical by the camp bonfire, minigame for up to 10 coins', every: 'every 7 days' },
+  },
+  timerIdle: 'Not started yet',
+  timerReady: 'Ready',
+  timerReadyAt: when => `Again: ${when}`,
+  timerReadySince: when => `Since: ${when}`,
+  timerRemaining: 'Time left',
+  timerCollect: 'Collected',
+  timerEdit: 'Edit time',
+  timerEditLabel: 'When you last collected it',
+  timerSave: 'Save time',
+  timerClear: 'Clear time',
+  timerInvalid: 'Enter a date and time in the past.',
+  toastTimerStarted: name => `${name}: countdown started`,
+  toastTimerEdited: name => `${name}: time updated`,
+  toastTimerCleared: name => `${name}: time cleared`,
   ownedLabel: 'items owned',
   setsDoneLabel: 'sets complete',
   fIndexTitle: 'Collections', fAll: 'All collections',
