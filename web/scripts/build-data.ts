@@ -36,6 +36,7 @@ type SrcFish = {
   bait: string[];
   max_length_label: string | null;
   length_cm: { min: number; avg: number; max: number } | null;
+  extra: { fishao_cz?: { fields: Record<string, string | null | undefined> }[] };
   has_glowing_variant: boolean | null;
   uncertain: string[];
   image: string;
@@ -60,6 +61,31 @@ const fail = (msg: string) => errors.push(msg);
 
 const isBait = (b: string): b is Bait => b in BAITS;
 const isSpot = (s: string): s is Spot => s in SPOTS;
+
+/** User decision: a spot here is a separate place, every fish with a spot bites only there. */
+const SPOT_ALWAYS_SEPARATE = new Set(['mystic-desert']);
+/**
+ * User decision: separate too, but some spot fish also bite in the open area. Only fishao.cz tells
+ * them apart: "Cool Mountain (z voru)" alone = raft only, plus plain "Cool Mountain" = both.
+ */
+const SPOT_SEPARATE_PER_FISH: Record<string, string> = {
+  'cool-mountain': 'Cool Mountain',
+  'pinheira-beach': 'Pinheira Beach',
+  'thombani-town': 'Thombani Town',
+};
+
+function spotAccess(f: SrcFish): Record<string, 'only' | 'also'> | undefined {
+  const places = new Set((f.extra.fishao_cz ?? []).flatMap(p => (p.fields['Výskyt / oblast'] ?? '').split('|').map(s => s.trim())));
+  const out: Record<string, 'only' | 'also'> = {};
+  for (const area of Object.keys(f.area_spots)) {
+    if (SPOT_ALWAYS_SEPARATE.has(area)) out[area] = 'only';
+    const name = SPOT_SEPARATE_PER_FISH[area];
+    if (!name) continue;
+    if (![...places].some(p => p.startsWith(name))) fail(`${f.id}: no fishao.cz location for ${name}`);
+    out[area] = places.has(name) ? 'also' : 'only';
+  }
+  return Object.keys(out).length ? out : undefined;
+}
 const HHMM = /^([01]\d|2[0-3]):[0-5]\d$/;
 const MMDD = /^(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
 
@@ -248,6 +274,7 @@ async function main() {
       names: { cs: f.names.cs ?? f.names.en, en: f.names.en },
       areas: f.areas,
       spots,
+      spotAccess: spotAccess(f),
       time: schedule(f.id, 'time', f.time, HHMM),
       season: schedule(f.id, 'season', f.season, MMDD),
       rarity: f.rarity as Fish['rarity'],

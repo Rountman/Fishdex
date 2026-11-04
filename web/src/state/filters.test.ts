@@ -115,8 +115,37 @@ describe('applyFilters', () => {
     const inSpots = all.filter(f => f.spots['mystic-desert']?.length);
     expect(desert).toHaveLength(all.length - inSpots.length);
     expect(facets(FISH, EMPTY_FILTERS, emptyProgress(), index).areas.get('mystic-desert')?.total).toBe(desert.length);
-    // other areas still include their spot fish
-    expect(run({ area: 'cool-mountain' }).length).toBeGreaterThan(run({ spot: 'cool-mountain:Raft' }).length);
+    // areas without separated spots still include their spot fish
+    expect(run({ area: 'seagull-harbor' }).some(f => f.spots['seagull-harbor']?.includes('Boat'))).toBe(true);
+  });
+
+  it.each([
+    ['cool-mountain', 'Raft', 11, 19, 10, 'arctic-char', 'common-carp'],
+    ['pinheira-beach', 'Pier', 28, 44, 16, 'coelacanth', 'clownfish'],
+    ['thombani-town', 'Enclosure', 9, 15, 6, 'electric-catfish', 'nile-perch'],
+  ])('%s keeps %s-only fish apart, fish biting in both stay in both', (area, spot, open, atSpot, only, onlyFish, bothFish) => {
+    const areaFish = ids(run({ area })), spotFish = ids(run({ spot: `${area}:${spot}` }));
+    expect(areaFish).toHaveLength(open);
+    expect(spotFish).toHaveLength(atSpot);
+    expect(spotFish.filter(id => !areaFish.includes(id))).toHaveLength(only);
+    expect(areaFish).not.toContain(onlyFish);
+    expect(spotFish).toContain(onlyFish);
+    expect(areaFish).toContain(bothFish);
+    expect(spotFish).toContain(bothFish);
+    expect(facets(FISH, EMPTY_FILTERS, emptyProgress(), index).areas.get(area)?.total).toBe(open);
+  });
+
+  it('size keeps fish whose catch range touches the asked range', () => {
+    const f = FISH.find(x => x.id === 'arctic-char')!; // 18–107 cm
+    expect(f.size).toMatchObject({ min: 18, max: 107 });
+    const has = (p: Partial<Filters>) => ids(run(p)).includes(f.id);
+    expect(has({ sizeMin: 50, sizeMax: 60 })).toBe(true);    // inside
+    expect(has({ sizeMin: 107 })).toBe(true);                // bounds included
+    expect(has({ sizeMax: 18 })).toBe(true);
+    expect(has({ sizeMin: 108 })).toBe(false);               // too big for it
+    expect(has({ sizeMax: 17 })).toBe(false);                // too small for it
+    expect(run({ sizeMin: 100, sizeMax: 50 })).toHaveLength(0);
+    expect(facets(FISH, { ...EMPTY_FILTERS, sizeMin: 108 }, emptyProgress(), index).all.total).toBe(run({ sizeMin: 108 }).length);
   });
 
   it('picking a spot sets its area, picking an area clears the spot', () => {
@@ -134,19 +163,19 @@ describe('URL round trip', () => {
   it('serializes and parses back', () => {
     const f: Filters = {
       q: 'stika', area: 'backyard', spot: '', rarity: new Set([5, 4]), bait: new Set(['Fish', 'Insects']),
-      status: 'uncaught', bred: 'no', hour: 22, month: 12,
+      status: 'uncaught', bred: 'no', hour: 22, month: 12, sizeMin: 10, sizeMax: 50,
     };
     const params = new URLSearchParams(Object.entries(serializeFilters(f)).filter(([, v]) => v) as [string, string][]);
-    expect(params.toString()).toBe('q=stika&area=backyard&rarity=4%2C5&bait=Fish%2CInsects&status=uncaught&bred=no&hour=22&month=12');
+    expect(params.toString()).toBe('q=stika&area=backyard&rarity=4%2C5&bait=Fish%2CInsects&status=uncaught&bred=no&hour=22&month=12&sizemin=10&sizemax=50');
     const withSpot = parseFilters(new URLSearchParams('spot=laketown:Trout Farm'), areaIds);
     expect(withSpot.spot).toBe('laketown:Trout Farm');
     expect(serializeFilters(withSpot).spot).toBe('laketown:Trout Farm');
     expect(parseFilters(params, areaIds)).toEqual(f);
-    expect(activeFilterCount(f)).toBe(9);
+    expect(activeFilterCount(f)).toBe(10);
   });
 
   it('ignores junk instead of guessing', () => {
-    const f = parseFilters(new URLSearchParams('area=atlantis&spot=club:Lava&rarity=0,7,x,3&bait=Worms,Fish&status=maybe&bred=yes&hour=24&month=0'), areaIds);
+    const f = parseFilters(new URLSearchParams('area=atlantis&spot=club:Lava&rarity=0,7,x,3&bait=Worms,Fish&status=maybe&bred=yes&hour=24&month=0&sizemin=x&sizemax=-1'), areaIds);
     expect(f).toEqual({ ...EMPTY_FILTERS, rarity: new Set([3]), bait: new Set(['Fish']) });
   });
 

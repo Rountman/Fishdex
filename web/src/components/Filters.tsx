@@ -1,10 +1,11 @@
 import { useId, type ReactNode } from 'react';
+import { SIZE_BOUNDS } from '../data';
 import type { Area } from '../data/types';
 import { baitLabel, spotLabel } from '../i18n/format';
 import { useI18n } from '../i18n/context';
 import { cap } from '../i18n/strings';
 import { useModal } from '../hooks/useModal';
-import { activeFilterCount, EMPTY_FILTERS, locationPatch, splitSpot, type Facets, type Filters as F, type Sort, type Status } from '../state/filters';
+import { activeFilterCount, EMPTY_FILTERS, locationPatch, SIZE_LIMIT, splitSpot, type Facets, type Filters as F, type Sort, type Status } from '../state/filters';
 import { BaitPicker } from './BaitPicker';
 import { FilterIcon, SearchIcon } from './icons';
 import { Stars } from './Stars';
@@ -25,11 +26,12 @@ type Props = {
 };
 
 const STATUSES: Status[] = ['all', 'uncaught', 'caught', 'noglow'];
-
+/** Empty or not a whole number = no limit. */
+const sizeValue = (v: string) => (/^\d+$/.test(v) && Number(v) <= SIZE_LIMIT ? Number(v) : null);
 
 function Controls({ filters: f, facets, areas, mobile, onChange, sort, onSort }: Pick<Props, 'filters' | 'facets' | 'areas' | 'mobile' | 'onChange' | 'sort' | 'onSort'>) {
   const { lang, t } = useI18n();
-  const ids = { sort: useId(), rarity: useId(), status: useId(), bait: useId(), yard: useId(), area: useId(), hour: useId(), month: useId() };
+  const ids = { sort: useId(), rarity: useId(), status: useId(), bait: useId(), yard: useId(), area: useId(), hour: useId(), month: useId(), size: useId() };
   const statusLabel: Record<Status, string> = { all: t.statusAll, uncaught: t.uncaught, caught: t.caught, noglow: t.noglow };
   const toggleRarity = (r: number) => {
     const next = new Set(f.rarity);
@@ -87,6 +89,19 @@ function Controls({ filters: f, facets, areas, mobile, onChange, sort, onSort }:
       <div className={`${styles.row} ${styles.baitRow}`}>
         <span className={styles.label} id={ids.bait}>{t.bait}</span>
         <BaitPicker selected={f.bait} counts={facets.bait} onChange={bait => onChange({ bait })} labelId={ids.bait} inline={mobile} />
+      </div>
+      <div className={styles.row} role="group" aria-labelledby={ids.size}>
+        <span className={styles.label} id={ids.size}>{t.size}</span>
+        <label className={styles.sizeField}>{t.sizeFrom}
+          <input type="number" inputMode="numeric" min={0} max={SIZE_LIMIT} className={styles.sizeInput} placeholder={String(SIZE_BOUNDS.min)}
+            value={f.sizeMin ?? ''} onChange={e => onChange({ sizeMin: sizeValue(e.target.value) })} />
+        </label>
+        <label className={styles.sizeField}>{t.sizeTo}
+          <input type="number" inputMode="numeric" min={0} max={SIZE_LIMIT} className={styles.sizeInput} placeholder={String(SIZE_BOUNDS.max)}
+            value={f.sizeMax ?? ''} onChange={e => onChange({ sizeMax: sizeValue(e.target.value) })} />
+        </label>
+        <span className={styles.sizeField}>cm</span>
+        {(f.sizeMin !== null || f.sizeMax !== null) && <p className={styles.spotNote}>{t.sizeNote}</p>}
       </div>
       {f.area === 'backyard' && (
         <div className={styles.row} role="group" aria-labelledby={ids.yard}>
@@ -151,6 +166,10 @@ function ActiveChips({ filters: f, areas, onChange }: Pick<Props, 'filters' | 'a
   }
   if (f.hour !== null) chips.push({ key: 'hour', label: `${t.hour} ${t.hourOpt(f.hour)}`, text: t.hourOpt(f.hour), clear: { hour: null } });
   if (f.month !== null) chips.push({ key: 'month', label: `${t.month} ${t.months[f.month - 1]}`, text: t.months[f.month - 1], clear: { month: null } });
+  if (f.sizeMin !== null || f.sizeMax !== null) {
+    const l = t.sizeChip(f.sizeMin, f.sizeMax);
+    chips.push({ key: 'size', label: l, text: l, clear: { sizeMin: null, sizeMax: null } });
+  }
   if (!chips.length) return null;
   return (
     <div className={styles.active}>

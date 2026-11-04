@@ -22,14 +22,17 @@ type Props = {
 };
 
 export function Where({ fish, areaName, first }: { fish: Fish; areaName: (id: string) => string; first?: boolean }) {
-  const { lang } = useI18n();
+  const { lang, t } = useI18n();
   const list = first ? fish.areas.slice(0, 1) : fish.areas;
   return list.map((a, i) => (
     <span key={a}>
       {i > 0 && (first ? ' ' : <br />)}
       {areaName(a)}
       {fish.spots[a] && (
-        <> <span className="note">{fish.spots[a].map(s => spotLabel(s, lang)).map(l => l.text).join(', ')}</span></>
+        <> <span className="note">{fish.spots[a].map(s => {
+          const { text } = spotLabel(s, lang);
+          return fish.spotAccess?.[a] === 'also' ? t.alsoSpot(text) : text;
+        }).join(', ')}</span></>
       )}
     </span>
   ));

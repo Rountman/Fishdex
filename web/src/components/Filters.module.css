@@ -63,6 +63,11 @@
 .more summary::before { content: "+ "; font-style: normal; }
 .more[open] summary::before { content: "− "; }
 .moreBody { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-3); margin-top: var(--space-3); }
+.sizeField { display: inline-flex; align-items: center; gap: var(--space-1); font-size: var(--fs-ui); color: var(--color-ink-soft); }
+.sizeInput {
+  width: 84px; padding: 4px var(--space-2); border: 1.5px solid var(--color-ink-faint); border-radius: var(--radius-control);
+  background: var(--color-slip); font-size: var(--fs-ui); font-variant-numeric: tabular-nums;
+}
 .spotNote { flex-basis: 100%; margin: 0; font-size: var(--fs-sm); color: var(--color-ink-soft); max-width: 70ch; }
 .timeNote { flex-basis: 100%; margin: 0; font-size: var(--fs-sm); color: var(--color-ink-soft); max-width: 70ch; }
 
@@ -100,6 +105,7 @@
 .sheetBody .check { padding: 8px var(--space-1); font-size: 15px; }
 .sheetBody .select { width: 100%; padding: var(--space-2); font-size: 15px; }
 .sheetBody .moreBody { display: grid; }
+.sheetBody .sizeInput { padding: var(--space-2); font-size: 16px; }
 .sheetFoot {
   position: sticky; bottom: 0; margin-top: auto; padding: var(--space-3) var(--space-4) var(--space-4);
   background: var(--color-slip); border-top: 1px solid color-mix(in oklch, var(--color-ink) 15%, transparent);

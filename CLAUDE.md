@@ -74,10 +74,13 @@ prototypes/    # schválené mockupy a styleguide (fáze 1–2), DECISIONS.md
   - mobil: tap = caught, dlouhý stisk (500 ms) = glowing
 - Progres: celkem / per oblast, normální a zářivé zvlášť; u Backyard i „mám za domem“.
 - Filtry: oblast a pod ní její místa jako plnohodnotné položky (Laketown › farma; jen ryby
-  s uvedeným místem), u každé volby filtru počet ryb podle ostatních aktivních filtrů,
-  rarita, návnada (multi-výběr, NEBO), čas, chyceno / nechyceno /
+  s uvedeným místem). Oddělená místa: Mystic Desert (pyramida, továrna) a podle fishao.cz
+  Cool Mountain (vor), Pinheira Beach (molo), Thombani Town (za plotem) — ryba „jen z místa“
+  není pod oblastí, ryba „i z místa“ je v obou (`spotAccess` z build-data.ts). U každé volby filtru počet ryb podle ostatních aktivních filtrů,
+  rarita, návnada (multi-výběr, NEBO), čas, velikost (od–do cm, ryba
+  se ukáže, když se její rozsah úlovku překrývá se zadaným), chyceno / nechyceno /
   chybí zářivá; při vybrané oblasti Backyard i „za domem: mám / nemám“.
-- Délky ryb se jen zobrazují (text), žádné měřítko ani zadávání.
+- Délky ryb se zobrazují jako text a filtrují rozmezím, žádné měřítko ani zadávání ulovené délky.
 - Vyhledávání podle jména (fuzzy, bez diakritiky).
 - Undo posledního kliknutí (toast s „Vrátit", 5 s).
 

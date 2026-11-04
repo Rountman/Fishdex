@@ -15,6 +15,8 @@ export type Fish = {
   areas: string[];
   /** Exact spots inside an area, e.g. { "pinheira-beach": ["Pier"] }. */
   spots: Record<string, Spot[]>;
+  /** Per area with separated spots: `only` = bites just at the spot, `also` = in the open area too. Others: unknown. */
+  spotAccess?: Record<string, 'only' | 'also'>;
   time: Schedule;
   season: Schedule;
   rarity: 1 | 2 | 3 | 4 | 5;

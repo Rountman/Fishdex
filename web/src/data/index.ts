@@ -9,6 +9,11 @@ import type { Area, Fish, FurnitureCollection, FurnitureItem } from './types';
 export const FISH = fishJson as unknown as Fish[];
 export const AREAS = areasJson as Area[];
 export const FISH_IDS: ReadonlySet<string> = new Set(FISH.map(f => f.id));
+/** Smallest and biggest catch length in the data, cm. */
+export const SIZE_BOUNDS = FISH.reduce(
+  (b, f) => (f.size ? { min: Math.min(b.min, f.size.min), max: Math.max(b.max, f.size.max) } : b),
+  { min: Infinity, max: 0 },
+);
 export const FURNITURE = furnitureJson as unknown as FurnitureItem[];
 export const COLLECTIONS = collectionsJson as unknown as FurnitureCollection[];
 export const FURNITURE_IDS: ReadonlySet<string> = new Set(FURNITURE.map(f => f.id));

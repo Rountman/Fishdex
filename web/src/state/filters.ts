@@ -38,13 +38,16 @@ export type Filters = {
   bred: Bred;                   // only applies while area = backyard
   hour: number | null;          // 0–23: catchable during that hour
   month: number | null;         // 1–12: in season during that month
+  sizeMin: number | null;       // cm; fish can reach at least this
+  sizeMax: number | null;       // cm; fish can stay at or under this
 };
 
 export const EMPTY_FILTERS: Filters = {
-  q: '', area: '', spot: '', rarity: new Set(), bait: new Set(), status: 'all', bred: '', hour: null, month: null,
+  q: '', area: '', spot: '', rarity: new Set(), bait: new Set(), status: 'all', bred: '', hour: null, month: null, sizeMin: null, sizeMax: null,
 };
 
 const STATUSES: Status[] = ['all', 'uncaught', 'caught', 'noglow'];
+export const SIZE_LIMIT = 99999;
 const int = (s: string | null, min: number, max: number) => {
   if (s === null || !/^\d+$/.test(s)) return null;
   const n = Number(s);
@@ -67,6 +70,8 @@ export function parseFilters(params: URLSearchParams, areaIds: ReadonlySet<strin
     bred: area === 'backyard' && (bred === 'yes' || bred === 'no') ? bred : '',
     hour: int(params.get('hour'), 0, 23),
     month: int(params.get('month'), 1, 12),
+    sizeMin: int(params.get('sizemin'), 0, SIZE_LIMIT),
+    sizeMax: int(params.get('sizemax'), 0, SIZE_LIMIT),
   };
 }
 
@@ -82,6 +87,8 @@ export function serializeFilters(f: Filters): Record<string, string | null> {
     bred: f.area === 'backyard' && f.bred ? f.bred : null,
     hour: f.hour === null ? null : String(f.hour),
     month: f.month === null ? null : String(f.month),
+    sizemin: f.sizeMin === null ? null : String(f.sizeMin),
+    sizemax: f.sizeMax === null ? null : String(f.sizeMax),
   };
 }
 
@@ -100,15 +107,8 @@ function parseSpot(v: string | null, areaIds: ReadonlySet<string>) {
 export const locationPatch = (value: string): Partial<Filters> =>
   value.includes(':') ? { area: splitSpot(value).area, spot: value, bred: '' } : { area: value, spot: '', bred: '' };
 
-/**
- * Areas whose spots are separate places, not parts of the area (user decision): picking the area
- * shows only fish without a spot there; spot fish are found under their spot.
- */
-const SEPARATE_SPOTS: ReadonlySet<string> = new Set(['mystic-desert']);
-
-/** Does fish `x` count for area `area` (without a spot selected)? */
-export const inArea = (x: Fish, area: string) =>
-  x.areas.includes(area) && !(SEPARATE_SPOTS.has(area) && x.spots[area]?.length);
+/** Does fish `x` count for area `area` (without a spot selected)? Fish biting only at a separate spot don't. */
+export const inArea = (x: Fish, area: string) => x.areas.includes(area) && x.spotAccess?.[area] !== 'only';
 
 const minutes = (hhmm: string) => Number(hhmm.slice(0, 2)) * 60 + Number(hhmm.slice(3));
 
@@ -157,8 +157,16 @@ function predicate(f: Filters, progress: Progress, index: SearchIndex, skip?: Fa
     if (skip !== 'status' && !statusMatches(f.status, s)) return false;
     if (f.hour !== null && !bitesAtHour(x.time, f.hour)) return false;
     if (f.month !== null && !inSeasonMonth(x.season, f.month)) return false;
+    if (!sizeMatches(x, f.sizeMin, f.sizeMax)) return false;
     return matches(index, x.id, f.q);
   };
+}
+
+/** Can the fish's catch length fall inside the asked range? Unknown size never matches an active filter. */
+function sizeMatches(x: Fish, min: number | null, max: number | null) {
+  if (min === null && max === null) return true;
+  if (min !== null && max !== null && min > max) return false;
+  return !!x.size && (min === null || x.size.max >= min) && (max === null || x.size.min <= max);
 }
 
 const statusMatches = (status: Status, s: FishProgress) =>
@@ -218,4 +226,5 @@ export function facets(fish: readonly Fish[], f: Filters, progress: Progress, in
 /** Number of active filters, search excluded (shown on the mobile "Filtry (n)" button). */
 export const activeFilterCount = (f: Filters) =>
   (f.area ? 1 : 0) + (f.spot ? 1 : 0) + f.rarity.size + f.bait.size + (f.status !== 'all' ? 1 : 0) +
-  (f.area === 'backyard' && f.bred ? 1 : 0) + (f.hour !== null ? 1 : 0) + (f.month !== null ? 1 : 0);
+  (f.area === 'backyard' && f.bred ? 1 : 0) + (f.hour !== null ? 1 : 0) + (f.month !== null ? 1 : 0) +
+  (f.sizeMin !== null || f.sizeMax !== null ? 1 : 0);
