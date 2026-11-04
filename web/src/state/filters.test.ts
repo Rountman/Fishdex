@@ -101,10 +101,10 @@ describe('applyFilters', () => {
     const raft = run({ spot: 'cool-mountain:Raft' });
     expect(raft).toHaveLength(19);
     expect(raft.every(f => f.spots['cool-mountain']?.includes('Raft'))).toBe(true);
-    // Pyramid exists in two areas; the filter keeps them apart
-    const pyramidPb = run({ spot: 'pinheira-beach:Pyramid' }), pyramidMd = run({ spot: 'mystic-desert:Pyramid' });
-    expect(pyramidPb.length + pyramidMd.length).toBe(7);
-    expect(ids(pyramidPb).some(id => ids(pyramidMd).includes(id))).toBe(false);
+    // the Pyramid is in Mystic Desert only; Pinheira Beach has none, giant moray bites at the pier
+    expect(run({ spot: 'mystic-desert:Pyramid' })).toHaveLength(6);
+    expect(AREAS.find(a => a.id === 'pinheira-beach')!.spots).toEqual(['Pier']);
+    expect(FISH.find(f => f.id === 'giant-moray')!.spots).toEqual({ 'pinheira-beach': ['Pier'] });
   });
 
   it('Mystic Desert alone leaves out the Pyramid and Furniture Factory fish', () => {
@@ -163,7 +163,7 @@ describe('applyFilters', () => {
 
   it.each([
     ['cool-mountain:Raft', 19, 10],
-    ['pinheira-beach:Pier', 44, 15],     // giant-moray sits at Pier and Pyramid
+    ['pinheira-beach:Pier', 44, 16],
     ['thombani-town:Enclosure', 15, 6],
     ['seagull-harbor:Boat', 38, 25],
     ['laketown:Trout Farm', 6, 6],

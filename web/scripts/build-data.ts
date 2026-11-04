@@ -62,6 +62,13 @@ const fail = (msg: string) => errors.push(msg);
 const isBait = (b: string): b is Bait => b in BAITS;
 const isSpot = (s: string): s is Spot => s in SPOTS;
 
+/**
+ * User decision: these places don't exist in the game. Pinheira Beach has no pyramid; the only
+ * source is the giant-moray row of fishaofunwiki, wiki area table and fishao.cz both say pier.
+ */
+const NOT_REAL_SPOTS: Record<string, string[]> = { 'pinheira-beach': ['Pyramid'] };
+const realSpots = (area: string, list: string[]) => list.filter(s => !NOT_REAL_SPOTS[area]?.includes(s));
+
 /** User decision: a spot here is a separate place, every fish with a spot bites only there. */
 const SPOT_ALWAYS_SEPARATE = new Set(['mystic-desert']);
 /**
@@ -265,7 +272,8 @@ async function main() {
     const spots: Record<string, Spot[]> = {};
     for (const [area, list] of Object.entries(f.area_spots)) {
       for (const s of list) if (!isSpot(s)) fail(`${f.id}: spot "${s}" missing in src/i18n/dictionaries.ts`);
-      spots[area] = list.filter(isSpot);
+      spots[area] = realSpots(area, list).filter(isSpot);
+      if (!spots[area].length) fail(`${f.id}: no real spot left in ${area}`);
     }
 
     const img = images.get(f.id)!;
@@ -298,7 +306,7 @@ async function main() {
     const count = fish.filter(f => f.areas.includes(a.id)).length;
     if (count !== a.fish_ids.length) fail(`area ${a.id}: ${count} fish reference it, fish_ids has ${a.fish_ids.length}`);
     const open = fish.some(f => f.areas.includes(a.id) && f.spotAccess?.[a.id] !== 'only');
-    return { id: a.id, name: a.name, kind: a.kind as AreaKind, spots: a.spots.filter(isSpot), count, open };
+    return { id: a.id, name: a.name, kind: a.kind as AreaKind, spots: realSpots(a.id, a.spots).filter(isSpot), count, open };
   });
 
   const furniture = await buildFurniture();
