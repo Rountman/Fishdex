@@ -61,7 +61,9 @@ export function Overview({ areas, facets, onArea, onBack }: Props) {
           <tbody key={kind}>
             <tr className={styles.group}><th colSpan={4} scope="rowgroup">{t.kinds[kind]}</th></tr>
             {areas.filter(a => a.kind === kind).flatMap(a => [
-              row(a.id, a.name, facets.areas.get(a.id) ?? EMPTY, a.id, { bred: kind === 'backyard' }),
+              a.open
+                ? row(a.id, a.name, facets.areas.get(a.id) ?? EMPTY, a.id, { bred: kind === 'backyard' })
+                : <tr key={a.id}><th scope="row" colSpan={4}><span className={styles.heading}>{a.name}</span></th></tr>,
               ...a.spots.map(sp => {
                 const key = `${a.id}:${sp}`;
                 return row(key, spotLabel(sp, lang).text, facets.spots.get(key) ?? EMPTY, key, { sub: true });

@@ -74,6 +74,8 @@ const SPOT_SEPARATE_PER_FISH: Record<string, string> = {
   'thombani-town': 'Thombani Town',
   'seagull-harbor': 'Seagull Harbor',
   'laketown': 'Laketown',
+  'palm-island': 'Palm Island',
+  'club': 'Klub',
 };
 
 function spotAccess(f: SrcFish): Record<string, 'only' | 'also'> | undefined {
@@ -295,7 +297,8 @@ async function main() {
     for (const s of a.spots) if (!isSpot(s)) fail(`area ${a.id}: spot "${s}" missing in dictionaries`);
     const count = fish.filter(f => f.areas.includes(a.id)).length;
     if (count !== a.fish_ids.length) fail(`area ${a.id}: ${count} fish reference it, fish_ids has ${a.fish_ids.length}`);
-    return { id: a.id, name: a.name, kind: a.kind as AreaKind, spots: a.spots.filter(isSpot), count };
+    const open = fish.some(f => f.areas.includes(a.id) && f.spotAccess?.[a.id] !== 'only');
+    return { id: a.id, name: a.name, kind: a.kind as AreaKind, spots: a.spots.filter(isSpot), count, open };
   });
 
   const furniture = await buildFurniture();

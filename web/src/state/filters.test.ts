@@ -115,8 +115,6 @@ describe('applyFilters', () => {
     const inSpots = all.filter(f => f.spots['mystic-desert']?.length);
     expect(desert).toHaveLength(all.length - inSpots.length);
     expect(facets(FISH, EMPTY_FILTERS, emptyProgress(), index).areas.get('mystic-desert')?.total).toBe(desert.length);
-    // areas without separated spots still include their spot fish
-    expect(run({ area: 'club' }).some(f => f.spots.club?.includes('Salt Water Pond'))).toBe(true);
   });
 
   it.each([
@@ -143,6 +141,18 @@ describe('applyFilters', () => {
     expect(farm.some(id => town.includes(id))).toBe(false);
   });
 
+  it.each([['palm-island', 'Inside', 38, 'Outside', 78], ['club', 'Salt Water Pond', 50, 'Fresh Water Pond', 31]])(
+    '%s has no fish of its own, only spots, and is a heading', (area, a, nA, b, nB) => {
+      expect(run({ area })).toHaveLength(0);
+      expect(run({ spot: `${area}:${a}` })).toHaveLength(nA);
+      expect(run({ spot: `${area}:${b}` })).toHaveLength(nB);
+      expect(AREAS.find(x => x.id === area)!.open).toBe(false);
+    });
+
+  it('areas with fish outside their spots stay selectable', () => {
+    expect(AREAS.filter(a => !a.open).map(a => a.id).sort()).toEqual(['club', 'palm-island']);
+  });
+
   it('size keeps fish whose catch range touches the asked range', () => {
     const f = FISH.find(x => x.id === 'arctic-char')!; // 18–107 cm
     expect(f.size).toMatchObject({ min: 18, max: 107 });
@@ -163,7 +173,7 @@ describe('applyFilters', () => {
   });
 
   it('combines with search', () => {
-    expect(ids(run({ q: 'stika', area: 'club' }))).toContain('redfin-pickerel');
+    expect(ids(run({ q: 'stika', spot: 'club:Fresh Water Pond' }))).toContain('redfin-pickerel');
   });
 });
 
@@ -207,14 +217,14 @@ describe('facets (counts next to filter options)', () => {
   });
 
   it('each group follows the other filters but ignores its own', () => {
-    const c = fx({ rarity: new Set([5]), area: 'club' });
+    const c = fx({ rarity: new Set([5]), area: 'aquayama' });
     // areas: only 5-star fish, area selection itself ignored
     expect(c.all.total).toBe(162);
-    expect(c.areas.get('club')?.total).toBe(run({ rarity: new Set([5]), area: 'club' }).length);
-    // rarity: only club fish, rarity selection itself ignored
-    expect([1, 2, 3, 4, 5].reduce((n, r) => n + (c.rarity.get(r) ?? 0), 0)).toBe(80);
-    // bait: club + 5-star
-    expect(c.bait.get('Fish')).toBe(run({ rarity: new Set([5]), area: 'club', bait: new Set(['Fish']) }).length);
+    expect(c.areas.get('aquayama')?.total).toBe(run({ rarity: new Set([5]), area: 'aquayama' }).length);
+    // rarity: only area fish, rarity selection itself ignored
+    expect([1, 2, 3, 4, 5].reduce((n, r) => n + (c.rarity.get(r) ?? 0), 0)).toBe(AREAS.find(a => a.id === 'aquayama')!.count);
+    // bait: area + 5-star
+    expect(c.bait.get('Fish')).toBe(run({ rarity: new Set([5]), area: 'aquayama', bait: new Set(['Fish']) }).length);
   });
 });
 

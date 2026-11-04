@@ -41,6 +41,8 @@ export type Area = {
   kind: AreaKind;
   spots: Spot[];
   count: number;
+  /** `false` = every fish bites only at a spot, so the area is just a heading over its spots. */
+  open: boolean;
 };
 
 // ---- furniture (home decorations) ----------------------------------------

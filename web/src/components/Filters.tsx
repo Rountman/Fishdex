@@ -75,7 +75,9 @@ function Controls({ filters: f, facets, areas, mobile, onChange, sort, onSort }:
           {(['area', 'tournament', 'backyard'] as const).map(kind => (
             <optgroup key={kind} label={t.kinds[kind]}>
               {areas.filter(a => a.kind === kind).flatMap(a => [
-                <option key={a.id} value={a.id}>{a.name} ({facets.areas.get(a.id)?.total ?? 0})</option>,
+                a.open
+                  ? <option key={a.id} value={a.id}>{a.name} ({facets.areas.get(a.id)?.total ?? 0})</option>
+                  : <option key={a.id} value={a.id} disabled>{a.name}</option>,
                 ...a.spots.map(sp => {
                   const v = `${a.id}:${sp}`;
                   return <option key={v} value={v}>{a.name} › {spotLabel(sp, lang).text} ({facets.spots.get(v)?.total ?? 0})</option>;
@@ -140,14 +142,17 @@ function ActiveChips({ filters: f, areas, onChange }: Pick<Props, 'filters' | 'a
   const chips: { key: string; label: ReactNode; text: string; clear: Partial<F> }[] = [];
   const q = f.q.trim();
   if (q) chips.push({ key: 'q', label: `„${q}“`, text: q, clear: { q: '' } });
-  if (f.area) {
-    const name = areas.find(a => a.id === f.area)?.name ?? f.area;
+  // a heading-only area (Club) has no list of its own: its spot chip stands alone and clears both
+  const area = areas.find(a => a.id === f.area);
+  const headingOnly = area?.open === false;
+  if (f.area && !(headingOnly && f.spot)) {
+    const name = area?.name ?? f.area;
     chips.push({ key: 'area', label: name, text: name, clear: { area: '', spot: '', bred: '' } });
   }
   if (f.spot) {
     const { area, spot } = splitSpot(f.spot);
     const l = `${areas.find(a => a.id === area)?.name ?? area} › ${spotLabel(spot, lang).text}`;
-    chips.push({ key: 'spot', label: l, text: l, clear: { spot: '' } });
+    chips.push({ key: 'spot', label: l, text: l, clear: headingOnly ? { area: '', spot: '' } : { spot: '' } });
   }
   for (const r of [...f.rarity].sort()) {
     chips.push({ key: `r${r}`, label: <Stars r={r} decorative />, text: t.rarityAria(r), clear: { rarity: new Set([...f.rarity].filter(x => x !== r)) } });

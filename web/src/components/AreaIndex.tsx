@@ -51,12 +51,14 @@ export function AreaIndex({ areas, facets, area, spot, onSelect }: Props) {
                 const tally = facets.areas.get(a.id) ?? EMPTY;
                 return (
                   <li key={a.id}>
-                    <Row
-                      label={a.name} tally={tally} pressed={area === a.id && !spot} onClick={() => onSelect(a.id)}
-                      extra={kind === 'backyard' && (
-                        <span className={styles.bred}>{t.bredNote} {tally.bred}<span className="of">/{tally.total}</span></span>
-                      )}
-                    />
+                    {a.open ? (
+                      <Row
+                        label={a.name} tally={tally} pressed={area === a.id && !spot} onClick={() => onSelect(a.id)}
+                        extra={kind === 'backyard' && (
+                          <span className={styles.bred}>{t.bredNote} {tally.bred}<span className="of">/{tally.total}</span></span>
+                        )}
+                      />
+                    ) : <span className={styles.heading}>{a.name}</span>}
                     {a.spots.length > 0 && (
                       <ul className={styles.spots}>
                         {a.spots.map(sp => {
