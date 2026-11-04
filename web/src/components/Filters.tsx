@@ -86,7 +86,12 @@ function Controls({ filters: f, facets, areas, mobile, onChange, sort, onSort }:
             </optgroup>
           ))}
         </select>
-        {f.spot && <p className={styles.spotNote} id={`${ids.area}-note`}>{t.spotNote}</p>}
+        {f.spot && (
+          <button type="button" className="chip" aria-pressed={f.spotOnly} onClick={() => onChange({ spotOnly: !f.spotOnly })}>
+            {t.spotOnly}<span className={styles.n}>{facets.spotOnly}</span>
+          </button>
+        )}
+        {f.spot && <p className={styles.spotNote} id={`${ids.area}-note`}>{f.spotOnly ? t.spotOnlyNote : t.spotNote}</p>}
       </div>
       <div className={`${styles.row} ${styles.baitRow}`}>
         <span className={styles.label} id={ids.bait}>{t.bait}</span>
@@ -147,12 +152,13 @@ function ActiveChips({ filters: f, areas, onChange }: Pick<Props, 'filters' | 'a
   const headingOnly = area?.open === false;
   if (f.area && !(headingOnly && f.spot)) {
     const name = area?.name ?? f.area;
-    chips.push({ key: 'area', label: name, text: name, clear: { area: '', spot: '', bred: '' } });
+    chips.push({ key: 'area', label: name, text: name, clear: { area: '', spot: '', spotOnly: false, bred: '' } });
   }
   if (f.spot) {
     const { area, spot } = splitSpot(f.spot);
     const l = `${areas.find(a => a.id === area)?.name ?? area} › ${spotLabel(spot, lang).text}`;
-    chips.push({ key: 'spot', label: l, text: l, clear: headingOnly ? { area: '', spot: '' } : { spot: '' } });
+    chips.push({ key: 'spot', label: l, text: l, clear: headingOnly ? { area: '', spot: '', spotOnly: false } : { spot: '', spotOnly: false } });
+    if (f.spotOnly) chips.push({ key: 'spotOnly', label: t.spotOnly, text: t.spotOnly, clear: { spotOnly: false } });
   }
   for (const r of [...f.rarity].sort()) {
     chips.push({ key: `r${r}`, label: <Stars r={r} decorative />, text: t.rarityAria(r), clear: { rarity: new Set([...f.rarity].filter(x => x !== r)) } });

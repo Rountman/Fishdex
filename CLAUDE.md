@@ -78,7 +78,8 @@ prototypes/    # schválené mockupy a styleguide (fáze 1–2), DECISIONS.md
   Cool Mountain (vor), Pinheira Beach (molo), Thombani Town (za plotem), Seagull Harbor (člun),
   Laketown (farma), Palm Island, Club — ryba „jen z místa“
   není pod oblastí, ryba „i z místa“ je v obou (`spotAccess` z build-data.ts). Palm Island a Club
-  nemají žádnou rybu mimo svá místa, jsou jen nadpis nad nimi se součtem unikátních ryb (`open: false`). U každé volby filtru počet ryb podle ostatních aktivních filtrů,
+  nemají žádnou rybu mimo svá místa, jsou jen nadpis nad nimi se součtem unikátních ryb (`open: false`).
+  Po výběru místa přepínač „Jen odsud“ (`only=1`): jen ryby, které v dané oblasti jinde nechytíš. U každé volby filtru počet ryb podle ostatních aktivních filtrů,
   rarita, návnada (multi-výběr, NEBO), čas, velikost (od–do cm, ryba
   se ukáže, když se její rozsah úlovku překrývá se zadaným), chyceno / nechyceno /
   chybí zářivá; při vybrané oblasti Backyard i „za domem: mám / nemám“.

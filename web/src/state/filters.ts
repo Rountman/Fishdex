@@ -32,6 +32,7 @@ export type Filters = {
   q: string;
   area: string;                 // '' = all areas
   spot: string;                 // '' = any, else '<area>:<Spot>' (a spot belongs to one area)
+  spotOnly: boolean;            // only applies with a spot: fish biting nowhere else in that area
   rarity: ReadonlySet<number>;  // empty = any
   bait: ReadonlySet<Bait>;      // empty = any; otherwise fish takes at least one
   status: Status;
@@ -43,7 +44,7 @@ export type Filters = {
 };
 
 export const EMPTY_FILTERS: Filters = {
-  q: '', area: '', spot: '', rarity: new Set(), bait: new Set(), status: 'all', bred: '', hour: null, month: null, sizeMin: null, sizeMax: null,
+  q: '', area: '', spot: '', spotOnly: false, rarity: new Set(), bait: new Set(), status: 'all', bred: '', hour: null, month: null, sizeMin: null, sizeMax: null,
 };
 
 const STATUSES: Status[] = ['all', 'uncaught', 'caught', 'noglow'];
@@ -67,6 +68,7 @@ export function parseFilters(params: URLSearchParams, areaIds: ReadonlySet<strin
     q: params.get('q') ?? '',
     area: areaIds.has(area) && (spot || !headingAreas.has(area)) ? area : '',
     spot: spot && (!areaIds.has(area) || spot.area === area) ? `${spot.area}:${spot.spot}` : '',
+    spotOnly: !!spot && params.get('only') === '1',
     rarity: new Set((params.get('rarity') ?? '').split(',').map(r => int(r, 1, 5)).filter((r): r is number => r !== null)),
     bait: new Set((params.get('bait') ?? '').split(',').filter((b): b is Bait => b in BAITS)),
     status: STATUSES.includes(status) ? status : 'all',
@@ -84,6 +86,7 @@ export function serializeFilters(f: Filters): Record<string, string | null> {
     q: f.q.trim() || null,
     area: f.area || null,
     spot: f.spot || null,
+    only: f.spot && f.spotOnly ? '1' : null,
     rarity: f.rarity.size ? [...f.rarity].sort().join(',') : null,
     bait: f.bait.size ? [...f.bait].join(',') : null,
     status: f.status === 'all' ? null : f.status,
@@ -108,10 +111,13 @@ function parseSpot(v: string | null, areaIds: ReadonlySet<string>) {
 
 /** Picking an area (or "all") clears the spot; picking '<area>:<Spot>' sets both. */
 export const locationPatch = (value: string): Partial<Filters> =>
-  value.includes(':') ? { area: splitSpot(value).area, spot: value, bred: '' } : { area: value, spot: '', bred: '' };
+  value.includes(':') ? { area: splitSpot(value).area, spot: value, spotOnly: false, bred: '' } : { area: value, spot: '', spotOnly: false, bred: '' };
 
 /** Does fish `x` count for area `area` (without a spot selected)? Fish biting only at a separate spot don't. */
 export const inArea = (x: Fish, area: string) => x.areas.includes(area) && x.spotAccess?.[area] !== 'only';
+
+/** Bites at this spot and nowhere else in its area (other areas don't matter). */
+export const onlyAtSpot = (x: Fish, area: string) => x.spotAccess?.[area] === 'only' && x.spots[area]?.length === 1;
 
 const minutes = (hhmm: string) => Number(hhmm.slice(0, 2)) * 60 + Number(hhmm.slice(3));
 
@@ -152,6 +158,7 @@ function predicate(f: Filters, progress: Progress, index: SearchIndex, skip?: Fa
     const s = progress.fish[x.id] ?? NONE;
     if (skip !== 'location') {
       if (spot ? !x.spots[spot.area]?.includes(spot.spot) : f.area && !inArea(x, f.area)) return false;
+      if (spot && f.spotOnly && !onlyAtSpot(x, spot.area)) return false;
       if (f.area === 'backyard' && f.bred === 'yes' && !s.bred) return false;
       if (f.area === 'backyard' && f.bred === 'no' && s.bred) return false;
     }
@@ -190,6 +197,8 @@ export type Facets = {
   wholeAreas: Map<string, Tally>;
   /** Keyed '<area>:<Spot>'. */
   spots: Map<string, Tally>;
+  /** Fish of the selected spot biting nowhere else in its area. */
+  spotOnly: number;
   rarity: Map<number, number>;
   bait: Map<Bait, number>;
   status: Record<Status, number>;
@@ -200,7 +209,7 @@ export type Facets = {
  * give together with all the *other* active filters (its own group ignored).
  */
 export function facets(fish: readonly Fish[], f: Filters, progress: Progress, index: SearchIndex): Facets {
-  const out: Facets = { all: tally(), areas: new Map(), wholeAreas: new Map(), spots: new Map(), rarity: new Map(), bait: new Map(), status: { all: 0, uncaught: 0, caught: 0, noglow: 0 } };
+  const out: Facets = { all: tally(), areas: new Map(), wholeAreas: new Map(), spots: new Map(), spotOnly: 0, rarity: new Map(), bait: new Map(), status: { all: 0, uncaught: 0, caught: 0, noglow: 0 } };
   const add = (map: Map<string, Tally>, key: string, s: FishProgress) => {
     let t = map.get(key);
     if (!t) map.set(key, (t = tally()));
@@ -209,6 +218,7 @@ export function facets(fish: readonly Fish[], f: Filters, progress: Progress, in
     if (s.caughtGlowing) t.glow++;
     if (s.bred) t.bred++;
   };
+  const selected = f.spot ? splitSpot(f.spot) : null;
   const loc = predicate(f, progress, index, 'location'), rar = predicate(f, progress, index, 'rarity');
   const bai = predicate(f, progress, index, 'bait'), sta = predicate(f, progress, index, 'status');
   for (const x of fish) {
@@ -223,6 +233,7 @@ export function facets(fish: readonly Fish[], f: Filters, progress: Progress, in
         if (inArea(x, a)) add(out.areas, a, s);
       }
       for (const [a, list] of Object.entries(x.spots)) for (const sp of list) add(out.spots, `${a}:${sp}`, s);
+      if (selected && x.spots[selected.area]?.includes(selected.spot) && onlyAtSpot(x, selected.area)) out.spotOnly++;
     }
     if (rar(x)) out.rarity.set(x.rarity, (out.rarity.get(x.rarity) ?? 0) + 1);
     if (bai(x)) for (const b of x.bait) out.bait.set(b, (out.bait.get(b) ?? 0) + 1);
@@ -233,6 +244,6 @@ export function facets(fish: readonly Fish[], f: Filters, progress: Progress, in
 
 /** Number of active filters, search excluded (shown on the mobile "Filtry (n)" button). */
 export const activeFilterCount = (f: Filters) =>
-  (f.area ? 1 : 0) + (f.spot ? 1 : 0) + f.rarity.size + f.bait.size + (f.status !== 'all' ? 1 : 0) +
+  (f.area ? 1 : 0) + (f.spot ? 1 : 0) + (f.spot && f.spotOnly ? 1 : 0) + f.rarity.size + f.bait.size + (f.status !== 'all' ? 1 : 0) +
   (f.area === 'backyard' && f.bred ? 1 : 0) + (f.hour !== null ? 1 : 0) + (f.month !== null ? 1 : 0) +
   (f.sizeMin !== null || f.sizeMax !== null ? 1 : 0);

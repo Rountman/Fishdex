@@ -161,6 +161,29 @@ describe('applyFilters', () => {
     expect(AREAS.filter(a => !a.open).map(a => a.id).sort()).toEqual(['club', 'palm-island']);
   });
 
+  it.each([
+    ['cool-mountain:Raft', 19, 10],
+    ['pinheira-beach:Pier', 44, 15],     // giant-moray sits at Pier and Pyramid
+    ['thombani-town:Enclosure', 15, 6],
+    ['seagull-harbor:Boat', 38, 25],
+    ['laketown:Trout Farm', 6, 6],
+    ['palm-island:Inside', 38, 6],       // the other 32 bite at Outside too
+    ['palm-island:Outside', 78, 46],
+    ['mystic-desert:Pyramid', 6, 5],     // candy-basslet is in the factory too
+    ['club:Monster Pond', 3, 0],
+  ])('"only here" at %s: %i → %i fish', (spot, all, only) => {
+    expect(run({ spot })).toHaveLength(all);
+    expect(run({ spot, spotOnly: true })).toHaveLength(only);
+    expect(facets(FISH, { ...EMPTY_FILTERS, spot, area: spot.split(':')[0] }, emptyProgress(), index).spotOnly).toBe(only);
+  });
+
+  it('"only here" ignores other areas: raft-only asp stays, shore-and-raft carp goes', () => {
+    const raft = ids(run({ spot: 'cool-mountain:Raft', spotOnly: true }));
+    expect(raft).toContain('asp');
+    expect(raft).not.toContain('common-carp');
+    expect(ids(run({ spot: 'laketown:Trout Farm', spotOnly: true }))).toContain('rainbow-trout'); // also at Cool Mountain
+  });
+
   it('size keeps fish whose catch range touches the asked range', () => {
     const f = FISH.find(x => x.id === 'arctic-char')!; // 18–107 cm
     expect(f.size).toMatchObject({ min: 18, max: 107 });
@@ -175,9 +198,9 @@ describe('applyFilters', () => {
   });
 
   it('picking a spot sets its area, picking an area clears the spot', () => {
-    expect(locationPatch('cool-mountain:Raft')).toEqual({ area: 'cool-mountain', spot: 'cool-mountain:Raft', bred: '' });
-    expect(locationPatch('club')).toEqual({ area: 'club', spot: '', bred: '' });
-    expect(locationPatch('')).toEqual({ area: '', spot: '', bred: '' });
+    expect(locationPatch('cool-mountain:Raft')).toEqual({ area: 'cool-mountain', spot: 'cool-mountain:Raft', spotOnly: false, bred: '' });
+    expect(locationPatch('club')).toEqual({ area: 'club', spot: '', spotOnly: false, bred: '' });
+    expect(locationPatch('')).toEqual({ area: '', spot: '', spotOnly: false, bred: '' });
   });
 
   it('combines with search', () => {
@@ -188,7 +211,7 @@ describe('applyFilters', () => {
 describe('URL round trip', () => {
   it('serializes and parses back', () => {
     const f: Filters = {
-      q: 'stika', area: 'backyard', spot: '', rarity: new Set([5, 4]), bait: new Set(['Fish', 'Insects']),
+      q: 'stika', area: 'backyard', spot: '', spotOnly: false, rarity: new Set([5, 4]), bait: new Set(['Fish', 'Insects']),
       status: 'uncaught', bred: 'no', hour: 22, month: 12, sizeMin: 10, sizeMax: 50,
     };
     const params = new URLSearchParams(Object.entries(serializeFilters(f)).filter(([, v]) => v) as [string, string][]);
@@ -198,6 +221,15 @@ describe('URL round trip', () => {
     expect(serializeFilters(withSpot).spot).toBe('laketown:Trout Farm');
     expect(parseFilters(params, areaIds)).toEqual(f);
     expect(activeFilterCount(f)).toBe(10);
+  });
+
+  it('"only here" round trips with a spot and is dropped without one', () => {
+    const f = parseFilters(new URLSearchParams('area=cool-mountain&spot=cool-mountain:Raft&only=1'), areaIds);
+    expect(f.spotOnly).toBe(true);
+    expect(serializeFilters(f).only).toBe('1');
+    expect(activeFilterCount(f)).toBe(3);
+    expect(parseFilters(new URLSearchParams('area=cool-mountain&only=1'), areaIds).spotOnly).toBe(false);
+    expect(serializeFilters({ ...EMPTY_FILTERS, spotOnly: true }).only).toBeNull();
   });
 
   it('old links to a heading area fall back to all areas, its spots keep working', () => {
