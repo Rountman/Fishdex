@@ -10,7 +10,7 @@ export const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 const csPlural = (n: number, one: string, few: string, many: string) =>
   n === 1 ? one : n >= 2 && n <= 4 ? few : many;
 
-type TimerText = { name: string; detail: string; every: string; note?: string };
+type TimerText = { name: string; detail?: string; every: string; note?: string };
 
 const cs = {
   subtitle: 'Rybářský deník Fishao',
@@ -127,11 +127,11 @@ const cs = {
   skipTimers: 'Přeskočit na timery',
   timersTitle: 'Timery',
   timersHint: 'Klikni, jakmile si ve hře odměnu vyzvedneš. Odpočet běží od té chvíle, i když stránku zavřeš.',
-  timersSource: 'Intervaly: archiv fishao.cz (strom, Sid), neoficiální přepisy wiki (Bob). Ve hře se mohly změnit.',
+  timersSource: 'Intervaly: archiv fishao.cz (Sid), neoficiální přepisy wiki (Bob). Ve hře se mohly změnit.',
   timers: {
-    tree: { name: 'Penízkový strom', detail: 'Fishmince podle úrovně stromu', every: 'každých 24 hodin', note: 'Strom si podle fishao.cz každý den ujíždí o pár minut, ve hře může být hotový o chvíli později.' },
     meat: { name: 'Maso od Sida', detail: 'Sid v Aquayamě, 10 návnad maso', every: 'každých 10 dní' },
     bob: { name: 'Bob', detail: 'Rio Tropical u ohniště v táboře, minihra až o 10 mincí', every: 'každých 7 dní' },
+    factory: { name: 'Továrna na nábytek', every: 'každé 2 dny' },
   } as Record<TimerId, TimerText>,
   timerIdle: 'Zatím nespuštěno',
   timerReady: 'Připraveno',
@@ -299,11 +299,11 @@ const en: Strings = {
   skipTimers: 'Skip to the timers',
   timersTitle: 'Timers',
   timersHint: 'Click as soon as you collect the reward in the game. The countdown runs from then on, even with this page closed.',
-  timersSource: 'Intervals: fishao.cz archive (tree, Sid), unofficial wiki copies (Bob). They may have changed in the game.',
+  timersSource: 'Intervals: fishao.cz archive (Sid), unofficial wiki copies (Bob). They may have changed in the game.',
   timers: {
-    tree: { name: 'Money tree', detail: 'Fish coins depending on the tree level', every: 'every 24 hours', note: 'According to fishao.cz the tree slips by a few minutes each day, so it may be ready a little later in the game.' },
     meat: { name: 'Meat from Sid', detail: 'Sid in Aquayama, 10 meat baits', every: 'every 10 days' },
     bob: { name: 'Bob', detail: 'Rio Tropical by the camp bonfire, minigame for up to 10 coins', every: 'every 7 days' },
+    factory: { name: 'Furniture factory', every: 'every 2 days' },
   },
   timerIdle: 'Not started yet',
   timerReady: 'Ready',

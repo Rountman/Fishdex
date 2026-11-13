@@ -37,7 +37,7 @@ function TimerRow({ id, periodMs, lastAt, now, onCollect, onEdit, onClear }: Row
     <li className={styles.row} data-status={status.kind}>
       <div className={styles.what}>
         <h3>{text.name}</h3>
-        <p className={styles.detail}>{text.detail}</p>
+        {text.detail && <p className={styles.detail}>{text.detail}</p>}
         <p className={styles.every}>{text.every}</p>
         {text.note && <p className={`note ${styles.note}`}>{text.note}</p>}
       </div>

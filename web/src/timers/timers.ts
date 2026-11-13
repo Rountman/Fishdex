@@ -6,11 +6,11 @@ const DAY = 24 * HOUR;
 export const TIMERS_KEY = 'fishdex:timers:v1';
 const VERSION = 1;
 
-export type TimerId = 'tree' | 'meat' | 'bob';
+export type TimerId = 'meat' | 'bob' | 'factory';
 export const TIMERS: readonly { id: TimerId; periodMs: number }[] = [
-  { id: 'tree', periodMs: 24 * HOUR },
   { id: 'meat', periodMs: 10 * DAY },
   { id: 'bob', periodMs: 7 * DAY },
+  { id: 'factory', periodMs: 2 * DAY },
 ];
 
 /** Timer id -> epoch ms of the last collection; missing = never started. */

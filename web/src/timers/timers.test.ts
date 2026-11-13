@@ -22,8 +22,8 @@ describe('timerStatus', () => {
 });
 
 describe('periods', () => {
-  it('tree 24 h, meat 10 days, Bob 7 days', () => {
-    expect(TIMERS.map(t => [t.id, t.periodMs / DAY])).toEqual([['tree', 1], ['meat', 10], ['bob', 7]]);
+  it('meat 10 days, Bob 7 days, factory 2 days', () => {
+    expect(TIMERS.map(t => [t.id, t.periodMs / DAY])).toEqual([['meat', 10], ['bob', 7], ['factory', 2]]);
   });
 });
 
@@ -52,14 +52,14 @@ describe('local input', () => {
 
 describe('storage format', () => {
   it('round-trips', () => {
-    expect(parseTimers(serializeTimers({ tree: 123 }))).toEqual({ state: { tree: 123 }, locked: false });
+    expect(parseTimers(serializeTimers({ factory: 123 }))).toEqual({ state: { factory: 123 }, locked: false });
   });
   it('ignores junk and unknown timers', () => {
     expect(parseTimers('nonsense').state).toEqual({});
     expect(parseTimers(null).state).toEqual({});
-    expect(parseTimers('{"version":1,"collectedAt":{"tree":"x","meat":-1,"ben":5,"bob":7}}').state).toEqual({ bob: 7 });
+    expect(parseTimers('{"version":1,"collectedAt":{"tree":5,"factory":"x","meat":-1,"ben":5,"bob":7}}').state).toEqual({ bob: 7 });
   });
   it('never overwrites a newer version', () => {
-    expect(parseTimers('{"version":2,"collectedAt":{"tree":5}}').locked).toBe(true);
+    expect(parseTimers('{"version":2,"collectedAt":{"bob":5}}').locked).toBe(true);
   });
 });

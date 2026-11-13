@@ -99,8 +99,9 @@ prototypes/    # schválené mockupy a styleguide (fáze 1–2), DECISIONS.md
 
 ## Záložka Timery
 
-- Herní odpočty v `web/src/timers/`: penízkový strom 24 h, maso od Sida (Aquayama) 10 dní (archiv fishao.cz),
-  Bob (Rio Tropical) 7 dní (neoficiální přepisy wiki). Odpočet běží od kliknutí na „Vybráno“, čas jde ručně upravit.
+- Herní odpočty v `web/src/timers/`: maso od Sida (Aquayama) 10 dní (archiv fishao.cz),
+  Bob (Rio Tropical) 7 dní (neoficiální přepisy wiki),
+  továrna na nábytek 2 dny (ověřeno uživatelem, bez popisku). Odpočet běží od kliknutí na „Vybráno“, čas jde ručně upravit.
 - Uloženo jen v `fishdex:timers:v1` → `{ version, collectedAt: { [id]: epochMs } }`, mimo export progresu.
 - URL `tab=timers`.
 
