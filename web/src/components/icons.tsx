@@ -39,6 +39,10 @@ export const ClockIcon = () => (
   <svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.2" /><path d="M8 4.6V8l2.3 1.5" /></svg>
 );
 
+export const CoinIcon = () => (
+  <svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6" /><path d="M8 4.6v6.8M10 6.2c-.4-.7-1.1-1-2-1-1.1 0-1.9.6-1.9 1.4 0 1.9 4 1 4 2.9 0 .8-.9 1.4-2.1 1.4-.9 0-1.7-.4-2.1-1.1" /></svg>
+);
+
 export const CalendarIcon = () => (
   <svg viewBox="0 0 16 16" aria-hidden="true"><rect x="2" y="3.2" width="12" height="10.8" rx="1.2" /><path d="M2 6.6h12M5.2 1.8v2.6M10.8 1.8v2.6" /></svg>
 );

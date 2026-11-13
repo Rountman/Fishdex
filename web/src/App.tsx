@@ -28,7 +28,8 @@ import type { ProgressField } from './progress/schema';
 import { useProgress } from './progress/useProgress';
 import { applyFilters, EMPTY_FILTERS, facets as countFacets, locationPatch, parseFilters, parseSort, serializeFilters, serializeSort, sortFish, type Filters as FilterState, type Sort, type View } from './state/filters';
 import {
-  applyFurnitureFilters, EMPTY_FURNITURE_FILTERS, furnitureFacets, parseFurnitureFilters, serializeFurnitureFilters,
+  applyFurnitureFilters, EMPTY_FURNITURE_FILTERS, furnitureFacets, parseFurnitureFilters, parseFurnitureSort, serializeFurnitureFilters,
+  serializeFurnitureSort, sortFurniture, type FurnitureSort,
   type FurnitureFilters as FurnitureFilterState,
 } from './state/furnitureFilters';
 import { shouldShowHint, usePrefs } from './state/prefs';
@@ -46,6 +47,8 @@ const FISH_BY_ID = new Map(FISH.map(f => [f.id, f]));
 const areaName = (id: string) => AREA_NAMES.get(id) ?? id;
 const FINDEX = buildIndex(FURNITURE);
 const COLLECTION_IDS = new Set(COLLECTIONS.map(c => c.id));
+const PRICES = FURNITURE.flatMap(x => (x.price === null ? [] : [x.price]));
+const PRICE_BOUNDS = { min: Math.min(...PRICES), max: Math.max(...PRICES) };
 const ITEM_BY_ID = new Map(FURNITURE.map(f => [f.id, f]));
 const SET_COUNT = COLLECTIONS.filter(c => c.kind === 'set').length;
 const parseTab = (v: string | null): Tab => (v === 'furniture' || v === 'timers' ? v : 'fish');
@@ -64,6 +67,7 @@ export default function App() {
   const [sort, setSort] = useState<Sort>(() => parseSort(readParams()));
   const [tab, setTab] = useState<Tab>(() => parseTab(readParams().get('tab')));
   const [ffilters, setFFilters] = useState<FurnitureFilterState>(() => parseFurnitureFilters(readParams(), COLLECTION_IDS));
+  const [fsort, setFSort] = useState<FurnitureSort>(() => parseFurnitureSort(readParams()));
   const [view, setView] = useState<View>(() => (readParams().get('view') === 'progress' ? 'progress' : 'grid'));
   const [openId, setOpenId] = useState<string | null>(() => {
     const id = readParams().get('fish');
@@ -76,9 +80,9 @@ export default function App() {
   useEffect(() => {
     writeParams({
       ...serializeFilters(filters), sort: serializeSort(sort), view: view === 'progress' ? 'progress' : null, fish: openId,
-      tab: tab === 'fish' ? null : tab, ...serializeFurnitureFilters(ffilters),
+      tab: tab === 'fish' ? null : tab, ...serializeFurnitureFilters(ffilters), fsort: serializeFurnitureSort(fsort),
     });
-  }, [filters, sort, view, openId, tab, ffilters]);
+  }, [filters, sort, view, openId, tab, ffilters, fsort]);
 
   useEffect(() => { document.documentElement.lang = lang; }, [lang]);
   useEffect(() => {
@@ -120,7 +124,8 @@ export default function App() {
   // the overview is the whole journal, no filters
   const overall = useMemo(() => countFacets(FISH, EMPTY_FILTERS, p.progress, INDEX), [p.progress]);
 
-  const fVisible = useMemo(() => applyFurnitureFilters(FURNITURE, ffilters, p.progress, FINDEX), [ffilters, p.progress]);
+  const fVisible = useMemo(
+    () => sortFurniture(applyFurnitureFilters(FURNITURE, ffilters, p.progress, FINDEX), fsort), [ffilters, p.progress, fsort]);
   const fFacets = useMemo(() => furnitureFacets(FURNITURE, ffilters, p.progress, FINDEX), [ffilters, p.progress]);
   // section headers and the masthead show whole collections, not the filtered view
   const fOverall = useMemo(() => furnitureFacets(FURNITURE, EMPTY_FURNITURE_FILTERS, p.progress, FINDEX), [p.progress]);
@@ -205,6 +210,7 @@ export default function App() {
                 <FurnitureFilters
                   filters={ffilters} facets={fFacets} collections={COLLECTIONS} shown={fVisible.length} total={FURNITURE.length}
                   mobile={mobile} sheetOpen={sheetOpen} onSheet={setSheetOpen} onChange={changeFFilters}
+                  sort={fsort} onSort={setFSort} priceBounds={PRICE_BOUNDS}
                 />
                 <FurnitureView
                   collections={COLLECTIONS} items={fVisible} all={FURNITURE} totals={fOverall.collections} progress={p.progress}

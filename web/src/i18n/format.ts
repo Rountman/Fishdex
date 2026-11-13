@@ -70,6 +70,8 @@ export const fmtDate = (d: Date, lang: Lang) =>
 
 // ---- furniture
 
+export const fmtNum = (n: number, lang: Lang) => n.toLocaleString(lang);
+
 export const itemName = (x: { names: { cs: string; en: string } }, lang: Lang) => x.names[lang];
 
 export function fmtAvailability(a: Availability | null, lang: Lang): Formatted {

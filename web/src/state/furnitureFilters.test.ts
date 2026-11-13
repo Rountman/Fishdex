@@ -3,8 +3,8 @@ import { COLLECTIONS, FURNITURE } from '../data';
 import { toggleOwned } from '../progress/progress';
 import { emptyProgress, type Progress } from '../progress/schema';
 import {
-  applyFurnitureFilters, EMPTY_FURNITURE_FILTERS, furnitureFacets, parseFurnitureFilters, serializeFurnitureFilters,
-  type FurnitureFilters,
+  applyFurnitureFilters, EMPTY_FURNITURE_FILTERS, furnitureFacets, parseFurnitureFilters, parseFurnitureSort, serializeFurnitureFilters,
+  sortFurniture, type FurnitureFilters,
 } from './furnitureFilters';
 import { buildIndex } from './search';
 
@@ -46,10 +46,38 @@ describe('furniture filters', () => {
   });
 
   it('round-trips through the URL and drops unknown values', () => {
-    const f: FurnitureFilters = { q: 'lampa', collection: 'ice', type: new Set(['plant', 'wall']), rarity: new Set(['epic', 'unknown']), status: 'missing' };
+    const f: FurnitureFilters = { q: 'lampa', collection: 'ice', type: new Set(['plant', 'wall']), rarity: new Set(['epic', 'unknown']), status: 'missing', priceMin: 100, priceMax: 2000 };
     const params = new URLSearchParams(Object.entries(serializeFurnitureFilters(f)).filter(([, v]) => v) as [string, string][]);
-    expect(params.toString()).toBe('fq=lampa&fset=ice&ftype=wall%2Cplant&frarity=epic%2Cunknown&fstatus=missing');
+    expect(params.toString()).toBe('fq=lampa&fset=ice&ftype=wall%2Cplant&frarity=epic%2Cunknown&fstatus=missing&fpmin=100&fpmax=2000');
     expect(parseFurnitureFilters(params, collectionIds)).toEqual(f);
-    expect(parseFurnitureFilters(new URLSearchParams('fset=nope&ftype=sofa&fstatus=x'), collectionIds)).toEqual(EMPTY_FURNITURE_FILTERS);
+    expect(parseFurnitureFilters(new URLSearchParams('fset=nope&ftype=sofa&fstatus=x&fpmin=-5&fpmax=abc'), collectionIds)).toEqual(EMPTY_FURNITURE_FILTERS);
+  });
+});
+
+describe('furniture price', () => {
+  it('has a price for every item', () => {
+    for (const x of FURNITURE) expect(x.price).toBeGreaterThan(0);
+  });
+
+  it('filters by an inclusive price range', () => {
+    const list = run({ priceMin: 1000, priceMax: 2000 });
+    expect(list.length).toBeGreaterThan(0);
+    for (const x of list) expect(x.price).toBeGreaterThanOrEqual(1000);
+    for (const x of list) expect(x.price).toBeLessThanOrEqual(2000);
+    expect(run({ priceMin: 3000, priceMax: 1000 })).toEqual([]);
+  });
+
+  it('sorts by price both ways and keeps the source order by default', () => {
+    const prices = (s: 'price-asc' | 'price-desc') => sortFurniture(FURNITURE, s).map(x => x.price as number);
+    expect(prices('price-asc')).toEqual([...prices('price-asc')].sort((a, b) => a - b));
+    expect(prices('price-desc')).toEqual([...prices('price-asc')].reverse());
+    expect(ids(sortFurniture(FURNITURE, 'default'))).toEqual(ids(FURNITURE));
+    expect(parseFurnitureSort(new URLSearchParams('fsort=price-desc'))).toBe('price-desc');
+    expect(parseFurnitureSort(new URLSearchParams('fsort=x'))).toBe('default');
+  });
+
+  it('marks prices other sources disagree on', () => {
+    expect(FURNITURE.find(x => x.id === 'balloon-tv')?.priceAlt).toEqual([1000]);
+    expect(FURNITURE.find(x => x.id === 'simple-wall-1')?.priceAlt).toEqual([]);
   });
 });

@@ -166,6 +166,11 @@ const cs = {
     factory: 'Továrna na nábytek', mission: 'Odměna za misi', free: 'Zdarma v inventáři', beta: 'Dárek za uzavřené testování hry',
   },
   inShop: 'V obchodě',
+  fPrice: 'Cena', fSortDefault: 'Podle setu', fSortAsc: 'Nejlevnější', fSortDesc: 'Nejdražší',
+  fPriceChip: (min: string | null, max: string | null) =>
+    `Cena ${min !== null && max !== null ? `${min}–${max}` : min !== null ? `od ${min}` : `do ${max}`}`,
+  price: 'Cena / domácí body', priceUnknown: 'neznámá',
+  priceAlt: (v: string) => `Nejisté: jiný zdroj uvádí ${v}`,
   monthRange: (a: string, b: string) => (a === b ? `Jen ${a}` : cap(`${a}–${b}`)),
   itemAria: (n: string, o: boolean) => `${n}: ${o ? 'vlastněno' : 'nevlastněno'}`,
   itemHelp: 'Klik nebo Enter přepne, jestli kus vlastníš.',
@@ -337,6 +342,11 @@ const en: Strings = {
     factory: 'Furniture Factory', mission: 'Mission reward', free: 'Free in inventory', beta: 'Closed beta gift',
   },
   inShop: 'In shop',
+  fPrice: 'Price', fSortDefault: 'By set', fSortAsc: 'Cheapest', fSortDesc: 'Most expensive',
+  fPriceChip: (min, max) =>
+    `Price ${min !== null && max !== null ? `${min}–${max}` : min !== null ? `from ${min}` : `up to ${max}`}`,
+  price: 'Price / home points', priceUnknown: 'unknown',
+  priceAlt: v => `Uncertain: another source gives ${v}`,
   monthRange: (a, b) => (a === b ? `Only ${a}` : `${a}–${b}`),
   itemAria: (n, o) => `${n}: ${o ? 'owned' : 'not owned'}`,
   itemHelp: 'Click or Enter toggles whether you own the item.',

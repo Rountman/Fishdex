@@ -2,9 +2,10 @@ import { useId, type ReactNode } from 'react';
 import type { FurnitureCollection } from '../data/types';
 import { useI18n } from '../i18n/context';
 import { useModal } from '../hooks/useModal';
+import { fmtNum } from '../i18n/format';
 import {
-  activeFurnitureFilterCount, EMPTY_FURNITURE_FILTERS, FURNITURE_TYPES, RARITY_OPTIONS,
-  type FurnitureFacets, type FurnitureFilters as F, type OwnStatus,
+  activeFurnitureFilterCount, EMPTY_FURNITURE_FILTERS, FURNITURE_TYPES, PRICE_LIMIT, RARITY_OPTIONS,
+  type FurnitureFacets, type FurnitureFilters as F, type FurnitureSort, type OwnStatus,
 } from '../state/furnitureFilters';
 import { FilterIcon, SearchIcon } from './icons';
 import { RarityLabel } from './RarityLabel';
@@ -21,9 +22,15 @@ type Props = {
   sheetOpen: boolean;
   onSheet: (open: boolean) => void;
   onChange: (patch: Partial<F>) => void;
+  sort: FurnitureSort;
+  onSort: (sort: FurnitureSort) => void;
+  /** Cheapest and dearest price in the data, input placeholders. */
+  priceBounds: { min: number; max: number };
 };
 
 const STATUSES: OwnStatus[] = ['all', 'missing', 'owned'];
+const SORTS: FurnitureSort[] = ['default', 'price-asc', 'price-desc'];
+const priceValue = (v: string) => (/^\d+$/.test(v) && Number(v) <= PRICE_LIMIT ? Number(v) : null);
 
 function toggled<T>(set: ReadonlySet<T>, v: T): Set<T> {
   const next = new Set(set);
@@ -31,12 +38,21 @@ function toggled<T>(set: ReadonlySet<T>, v: T): Set<T> {
   return next;
 }
 
-function Controls({ filters: f, facets, collections, onChange }: Pick<Props, 'filters' | 'facets' | 'collections' | 'onChange'>) {
+type ControlProps = Pick<Props, 'filters' | 'facets' | 'collections' | 'onChange' | 'sort' | 'onSort' | 'priceBounds'>;
+
+function Controls({ filters: f, facets, collections, onChange, sort, onSort, priceBounds }: ControlProps) {
   const { lang, t } = useI18n();
-  const ids = { set: useId(), type: useId(), rarity: useId(), status: useId() };
+  const ids = { sort: useId(), set: useId(), type: useId(), rarity: useId(), status: useId(), price: useId() };
   const statusLabel: Record<OwnStatus, string> = { all: t.statusAll, missing: t.fMissing, owned: t.fOwned };
+  const sortLabel: Record<FurnitureSort, string> = { default: t.fSortDefault, 'price-asc': t.fSortAsc, 'price-desc': t.fSortDesc };
   return (
     <>
+      <div className={styles.row} role="group" aria-labelledby={ids.sort}>
+        <span className={styles.label} id={ids.sort}>{t.sortLabel}</span>
+        {SORTS.map(s => (
+          <button key={s} type="button" className="chip" aria-pressed={sort === s} onClick={() => onSort(s)}>{sortLabel[s]}</button>
+        ))}
+      </div>
       <div className={styles.row}>
         <label className={styles.label} htmlFor={ids.set}>{t.fIndexTitle}</label>
         <select id={ids.set} className={styles.select} value={f.collection} onChange={e => onChange({ collection: e.target.value })}>
@@ -74,6 +90,17 @@ function Controls({ filters: f, facets, collections, onChange }: Pick<Props, 'fi
           </button>
         ))}
       </div>
+      <div className={styles.row} role="group" aria-labelledby={ids.price}>
+        <span className={styles.label} id={ids.price}>{t.fPrice}</span>
+        <label className={styles.sizeField}>{t.sizeFrom}
+          <input type="number" inputMode="numeric" min={0} max={PRICE_LIMIT} className={styles.sizeInput} placeholder={String(priceBounds.min)}
+            value={f.priceMin ?? ''} onChange={e => onChange({ priceMin: priceValue(e.target.value) })} />
+        </label>
+        <label className={styles.sizeField}>{t.sizeTo}
+          <input type="number" inputMode="numeric" min={0} max={PRICE_LIMIT} className={styles.sizeInput} placeholder={String(priceBounds.max)}
+            value={f.priceMax ?? ''} onChange={e => onChange({ priceMax: priceValue(e.target.value) })} />
+        </label>
+      </div>
     </>
   );
 }
@@ -96,6 +123,11 @@ function ActiveChips({ filters: f, collections, onChange }: Pick<Props, 'filters
   if (f.status !== 'all') {
     const l = f.status === 'owned' ? t.fOwned : t.fMissing;
     chips.push({ key: 'status', label: l, text: l, clear: { status: 'all' } });
+  }
+  if (f.priceMin !== null || f.priceMax !== null) {
+    const num = (n: number | null) => (n === null ? null : fmtNum(n, lang));
+    const l = t.fPriceChip(num(f.priceMin), num(f.priceMax));
+    chips.push({ key: 'price', label: l, text: l, clear: { priceMin: null, priceMax: null } });
   }
   if (!chips.length) return null;
   return (

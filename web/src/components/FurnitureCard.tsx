@@ -2,8 +2,8 @@ import { memo } from 'react';
 import { furnitureImage } from '../data';
 import type { FurnitureItem } from '../data/types';
 import { useI18n } from '../i18n/context';
-import { fmtAvailability, fmtMonths, itemName } from '../i18n/format';
-import { CalendarIcon } from './icons';
+import { fmtAvailability, fmtMonths, fmtNum, itemName } from '../i18n/format';
+import { CalendarIcon, CoinIcon } from './icons';
 import { RarityLabel } from './RarityLabel';
 // same slip, tape and stamp as the fish cards: an owned item is "glued in" like a caught fish
 import card from './FishCard.module.css';
@@ -46,6 +46,15 @@ function FurnitureCardImpl({ item, owned, onToggle, priority }: Props) {
           {item.type && <span className={styles.type}>{t.fTypes[item.type]}</span>}
         </p>
         <p className={`${styles.avail} ${avail.unknown ? styles.unknown : ''}`}>{avail.text}</p>
+        <p className={card.time}>
+          <CoinIcon /><span className="visually-hidden">{t.price}: </span>
+          {item.price === null
+            ? <span className={styles.unknown}>{t.priceUnknown}</span>
+            : fmtNum(item.price, lang)}
+          {item.priceAlt.length > 0 && (
+            <abbr className="unsure" title={t.priceAlt(item.priceAlt.map(n => fmtNum(n, lang)).join(', '))}>?</abbr>
+          )}
+        </p>
         {months && (
           <p className={card.time}>
             <CalendarIcon /><span className="visually-hidden">{t.inShop}: </span>

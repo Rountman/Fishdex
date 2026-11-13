@@ -72,6 +72,10 @@ export type FurnitureItem = {
   availability: Availability | null;
   /** In the shop only in these months; `null` = unknown. */
   season: MonthRange | 'always' | null;
+  /** Shop price = home points the item adds (one number in every source); `null` = unknown. */
+  price: number | null;
+  /** Different prices from other sources: non-empty = disputed, the UI adds "?". */
+  priceAlt: number[];
   img: { w: number; h: number };
 };
 

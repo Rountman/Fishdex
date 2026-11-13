@@ -55,7 +55,9 @@ type SrcFurniture = {
   level: number | null;
   availability_raw: string | null;
   season_raw: string | null;
+  price: number | null;
   image: string | null;
+  extra?: { fishaowiki?: { cells?: Record<string, string> }; fishao_cz?: { price_raw?: string | null } };
 };
 type SrcSet = { id: string; names: { cs: string; en: string }; kind: 'set' | 'type'; image: string | null };
 
@@ -286,6 +288,13 @@ function monthRange(raw: string | null): MonthRange | 'always' | null {
   return from && to ? { from, to } : null;
 }
 
+/** Prices the other sources give where they differ from funwiki (which wins, see furniture-report.md). */
+function priceAlt(f: SrcFurniture): number[] {
+  const raw = [f.extra?.fishaowiki?.cells?.['Price / Home points'], f.extra?.fishao_cz?.price_raw];
+  const alt = raw.filter((r): r is string => !!r && /^\d+$/.test(r)).map(Number).filter(n => n !== f.price);
+  return [...new Set(alt)];
+}
+
 function availability(f: SrcFurniture): Availability | null {
   if (f.source === 'factory') return { kind: 'factory' };
   if (f.source === 'mission') return { kind: 'mission' };
@@ -332,6 +341,7 @@ async function buildFurniture(): Promise<{ items: FurnitureItem[]; collections: 
     items.push({
       id: f.id, names: { cs: f.names.cs, en: f.names.en }, collection, type,
       rarity: f.rarity && isRarity(f.rarity) ? f.rarity : null, availability: avail, season,
+      price: f.price, priceAlt: f.price === null ? [] : priceAlt(f),
       img: imgs.get(f.id) ?? { w: 128, h: 128 },
     });
   }
