@@ -33,8 +33,6 @@
 .edit input[aria-invalid="true"] { border-color: var(--color-stamp); }
 .error { flex-basis: 100%; margin: 0; color: var(--color-stamp); font-size: var(--fs-ui); }
 
-.source { margin: var(--space-6) 0 0; font: italic var(--fw-regular) 15px/1.3 var(--font-display); color: var(--color-ink-soft); }
-
 @media (max-width: 1000px) {
   .row { grid-template-columns: minmax(0, 1fr) 150px; }
   .what { grid-column: 1 / -1; }

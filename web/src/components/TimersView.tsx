@@ -102,7 +102,6 @@ export function TimersView({ timers, ...actions }: Props) {
           <TimerRow key={id} id={id} periodMs={periodMs} lastAt={timers[id]} now={now} {...actions} />
         ))}
       </ul>
-      <p className={styles.source}>{t.timersSource}</p>
     </>
   );
 }
