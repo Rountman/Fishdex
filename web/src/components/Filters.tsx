@@ -75,9 +75,7 @@ function Controls({ filters: f, facets, areas, mobile, onChange, sort, onSort }:
           {(['area', 'tournament', 'backyard'] as const).map(kind => (
             <optgroup key={kind} label={t.kinds[kind]}>
               {areas.filter(a => a.kind === kind).flatMap(a => [
-                a.open
-                  ? <option key={a.id} value={a.id}>{a.name} ({facets.areas.get(a.id)?.total ?? 0})</option>
-                  : <option key={a.id} value={a.id} disabled>{a.name} ({facets.wholeAreas.get(a.id)?.total ?? 0})</option>,
+                <option key={a.id} value={a.id}>{a.name} ({facets.areas.get(a.id)?.total ?? 0})</option>,
                 ...a.spots.map(sp => {
                   const v = `${a.id}:${sp}`;
                   return <option key={v} value={v}>{a.name} › {spotLabel(sp, lang).text} ({facets.spots.get(v)?.total ?? 0})</option>;
@@ -86,12 +84,17 @@ function Controls({ filters: f, facets, areas, mobile, onChange, sort, onSort }:
             </optgroup>
           ))}
         </select>
-        {f.spot && (
+        {/* only where some fish of the spot also sit at another spot of the area (Palm Island) */}
+        {f.spot && (f.spotOnly || facets.spotOnly < (facets.spots.get(f.spot)?.total ?? 0)) && (
           <button type="button" className="chip" aria-pressed={f.spotOnly} onClick={() => onChange({ spotOnly: !f.spotOnly })}>
             {t.spotOnly}<span className={styles.n}>{facets.spotOnly}</span>
           </button>
         )}
-        {f.spot && <p className={styles.spotNote} id={`${ids.area}-note`}>{f.spotOnly ? t.spotOnlyNote : t.spotNote}</p>}
+        {f.spot && (
+          <p className={styles.spotNote} id={`${ids.area}-note`}>
+            {f.spotOnly ? t.spotOnlyNote : areas.find(a => a.id === f.area)?.open === false ? t.spotNoteShared : t.spotNote}
+          </p>
+        )}
       </div>
       <div className={`${styles.row} ${styles.baitRow}`}>
         <span className={styles.label} id={ids.bait}>{t.bait}</span>
@@ -147,17 +150,16 @@ function ActiveChips({ filters: f, areas, onChange }: Pick<Props, 'filters' | 'a
   const chips: { key: string; label: ReactNode; text: string; clear: Partial<F> }[] = [];
   const q = f.q.trim();
   if (q) chips.push({ key: 'q', label: `„${q}“`, text: q, clear: { q: '' } });
-  // a heading-only area (Club) has no list of its own: its spot chip stands alone and clears both
   const area = areas.find(a => a.id === f.area);
-  const headingOnly = area?.open === false;
-  if (f.area && !(headingOnly && f.spot)) {
+  if (f.area) {
     const name = area?.name ?? f.area;
     chips.push({ key: 'area', label: name, text: name, clear: { area: '', spot: '', spotOnly: false, bred: '' } });
   }
   if (f.spot) {
     const { area, spot } = splitSpot(f.spot);
-    const l = `${areas.find(a => a.id === area)?.name ?? area} › ${spotLabel(spot, lang).text}`;
-    chips.push({ key: 'spot', label: l, text: l, clear: headingOnly ? { area: '', spot: '', spotOnly: false } : { spot: '', spotOnly: false } });
+    // the area chip stands right before it, so the spot alone is enough
+    const l = f.area === area ? spotLabel(spot, lang).text : `${areas.find(a => a.id === area)?.name ?? area} › ${spotLabel(spot, lang).text}`;
+    chips.push({ key: 'spot', label: l, text: l, clear: { spot: '', spotOnly: false } });
     if (f.spotOnly) chips.push({ key: 'spotOnly', label: t.spotOnly, text: t.spotOnly, clear: { spotOnly: false } });
   }
   for (const r of [...f.rarity].sort()) {

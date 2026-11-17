@@ -7,6 +7,7 @@ import { CARD_HELP_ID } from './components/FishCard';
 import { FishDetail } from './components/FishDetail';
 import { FishGrid } from './components/FishGrid';
 import { Filters } from './components/Filters';
+import { PalmMap } from './components/PalmMap';
 import { Footer } from './components/Footer';
 import { ITEM_HELP_ID } from './components/FurnitureCard';
 import { FurnitureFilters } from './components/FurnitureFilters';
@@ -41,7 +42,6 @@ import styles from './App.module.css';
 
 const INDEX = buildIndex(FISH);
 const AREA_IDS = new Set(AREAS.map(a => a.id));
-const HEADING_AREAS = new Set(AREAS.filter(a => !a.open).map(a => a.id));
 const AREA_NAMES = new Map(AREAS.map(a => [a.id, a.name]));
 const FISH_BY_ID = new Map(FISH.map(f => [f.id, f]));
 const areaName = (id: string) => AREA_NAMES.get(id) ?? id;
@@ -63,7 +63,7 @@ export default function App() {
   const dark = prefs.theme === 'dark' || (prefs.theme === 'auto' && systemDark);
 
   // ---- URL state ---------------------------------------------------------
-  const [filters, setFilters] = useState<FilterState>(() => parseFilters(readParams(), AREA_IDS, HEADING_AREAS));
+  const [filters, setFilters] = useState<FilterState>(() => parseFilters(readParams(), AREA_IDS));
   const [sort, setSort] = useState<Sort>(() => parseSort(readParams()));
   const [tab, setTab] = useState<Tab>(() => parseTab(readParams().get('tab')));
   const [ffilters, setFFilters] = useState<FurnitureFilterState>(() => parseFurnitureFilters(readParams(), COLLECTION_IDS));
@@ -237,6 +237,7 @@ export default function App() {
                     onDismiss={() => setPrefs({ hintDismissed: true })}
                   />
                 )}
+                {filters.area === 'palm-island' && <PalmMap facets={facets} spot={filters.spot} onSelect={selectArea} />}
                 <FishGrid
                   fish={visible} progress={p.progress} query={filters.q} areaName={areaName}
                   onToggle={onToggle} onOpen={setOpenId} onReset={() => setFilters(EMPTY_FILTERS)}

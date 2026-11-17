@@ -99,7 +99,7 @@ describe('applyFilters', () => {
 
   it('spot shows only fish whose data names it, per area', () => {
     const raft = run({ spot: 'cool-mountain:Raft' });
-    expect(raft).toHaveLength(19);
+    expect(raft).toHaveLength(10);
     expect(raft.every(f => f.spots['cool-mountain']?.includes('Raft'))).toBe(true);
     // the Pyramid is in Mystic Desert only; Pinheira Beach has none, giant moray bites at the pier
     expect(run({ spot: 'mystic-desert:Pyramid' })).toHaveLength(4);
@@ -109,52 +109,56 @@ describe('applyFilters', () => {
 
   it('Mystic Desert alone leaves out the Pyramid and Furniture Factory fish', () => {
     const desert = run({ area: 'mystic-desert' });
-    expect(desert.length).toBeGreaterThan(0);
+    expect(desert).toHaveLength(11);
     expect(desert.every(f => !f.spots['mystic-desert']?.length)).toBe(true);
-    const all = FISH.filter(f => f.areas.includes('mystic-desert'));
-    const inSpots = all.filter(f => f.spots['mystic-desert']?.length);
-    expect(desert).toHaveLength(all.length - inSpots.length);
-    expect(facets(FISH, EMPTY_FILTERS, emptyProgress(), index).areas.get('mystic-desert')?.total).toBe(desert.length);
+    expect(facets(FISH, EMPTY_FILTERS, emptyProgress(), index).areas.get('mystic-desert')?.total).toBe(11);
   });
 
+  // fishao.net: a fish with a place bites only there, so an area and its spot never share a fish
   it.each([
-    ['cool-mountain', 'Raft', 11, 19, 10, 'arctic-char', 'common-carp'],
-    ['pinheira-beach', 'Pier', 28, 44, 16, 'coelacanth', 'clownfish'],
-    ['thombani-town', 'Enclosure', 9, 15, 6, 'electric-catfish', 'nile-perch'],
-    ['seagull-harbor', 'Boat', 15, 38, 25, 'blue-marlin', 'dab'],
-  ])('%s keeps %s-only fish apart, fish biting in both stay in both', (area, spot, open, atSpot, only, onlyFish, bothFish) => {
-    const areaFish = ids(run({ area })), spotFish = ids(run({ spot: `${area}:${spot}` }));
-    expect(areaFish).toHaveLength(open);
-    expect(spotFish).toHaveLength(atSpot);
-    expect(spotFish.filter(id => !areaFish.includes(id))).toHaveLength(only);
-    expect(areaFish).not.toContain(onlyFish);
-    expect(spotFish).toContain(onlyFish);
-    expect(areaFish).toContain(bothFish);
-    expect(spotFish).toContain(bothFish);
+    ['cool-mountain', 'Raft', 11, 10, 'arctic-char', 'common-carp'],
+    ['pinheira-beach', 'Pier', 26, 18, 'coelacanth', 'clownfish'],
+    ['thombani-town', 'Enclosure', 9, 6, 'electric-catfish', 'nile-perch'],
+    ['seagull-harbor', 'Boat', 14, 26, 'blue-marlin', 'dab'],
+    ['laketown', 'Trout Farm', 17, 6, 'rainbow-trout', 'pike'],
+  ])('%s and its %s split the area\'s fish', (area, spot, open, atSpot, spotFish, openFish) => {
+    const areaIds = ids(run({ area })), spotIds = ids(run({ spot: `${area}:${spot}` }));
+    expect(areaIds).toHaveLength(open);
+    expect(spotIds).toHaveLength(atSpot);
+    expect(spotIds.some(id => areaIds.includes(id))).toBe(false);
+    expect(open + atSpot).toBe(FISH.filter(f => f.areas.includes(area)).length);
+    expect(spotIds).toContain(spotFish);
+    expect(areaIds).toContain(openFish);
     expect(facets(FISH, EMPTY_FILTERS, emptyProgress(), index).areas.get(area)?.total).toBe(open);
   });
 
-  it('Laketown leaves out the Trout Farm fish, they have no shared spot', () => {
-    const town = ids(run({ area: 'laketown' })), farm = ids(run({ spot: 'laketown:Trout Farm' }));
-    expect(town).toHaveLength(17);
-    expect(farm).toHaveLength(6);
-    expect(farm.some(id => town.includes(id))).toBe(false);
+  it('fish moved by the official wiki: mackerel on the boat only, bramble shark on the pier only', () => {
+    expect(ids(run({ spot: 'seagull-harbor:Boat' }))).toContain('atlantic-mackerel');
+    expect(ids(run({ area: 'seagull-harbor' }))).not.toContain('atlantic-mackerel');
+    expect(ids(run({ area: 'pinheira-beach' }))).not.toContain('bramble-shark');
+    expect(ids(run({ area: 'seagull-harbor' }))).toContain('dab');
   });
 
-  it.each([['palm-island', 'Inside', 38, 'Outside', 78], ['club', 'Salt Water Pond', 49, 'Fresh Water Pond', 31]])(
-    '%s has no fish of its own, only spots, and is a heading', (area, a, nA, b, nB) => {
-      expect(run({ area })).toHaveLength(0);
+  it.each([['palm-island', 'Zone A', 39, 'Zone E', 38, 84], ['club', 'Salt Water Pond', 49, 'Fresh Water Pond', 31, 80]])(
+    '%s is nothing but spots: picking it shows every fish of all its spots once', (area, a, nA, b, nB, all) => {
+      expect(run({ area })).toHaveLength(all);
       expect(run({ spot: `${area}:${a}` })).toHaveLength(nA);
       expect(run({ spot: `${area}:${b}` })).toHaveLength(nB);
       expect(AREAS.find(x => x.id === area)!.open).toBe(false);
     });
 
-  it('heading areas count each fish once, even one sitting at two spots', () => {
-    const shared = FISH.find(f => f.spots['palm-island']?.length === 2)!;
+  it('the Club has no Monster Pond, monster fish bite in the salt water pond', () => {
+    expect(AREAS.find(a => a.id === 'club')!.spots).toEqual(['Salt Water Pond', 'Fresh Water Pond']);
+    expect(FISH.find(f => f.id === 'greenland-shark')!.spots).toEqual({ club: ['Salt Water Pond'] });
+  });
+
+  it('heading areas count each fish once, even one sitting at several zones', () => {
+    const shared = FISH.find(f => f.spots['palm-island']?.length === 8)!;
     const p: Progress = { ...emptyProgress(), fish: { [shared.id]: { caught: true, caughtGlowing: false } } };
     const c = facets(FISH, EMPTY_FILTERS, p, index);
-    expect(c.wholeAreas.get('palm-island')).toEqual({ total: 84, caught: 1, glow: 0, bred: 0 });
-    expect(c.wholeAreas.get('club')?.total).toBe(80);
+    expect(c.areas.get('palm-island')).toEqual({ total: 84, caught: 1, glow: 0, bred: 0 });
+    expect(c.spots.get('palm-island:Zone H')).toMatchObject({ total: 33, caught: 1 });
+    expect(c.areas.get('club')?.total).toBe(80);
   });
 
   it('areas with fish outside their spots stay selectable', () => {
@@ -162,48 +166,64 @@ describe('applyFilters', () => {
   });
 
   it.each([
-    ['cool-mountain:Raft', 19, 10],
-    ['pinheira-beach:Pier', 44, 16],
-    ['thombani-town:Enclosure', 15, 6],
-    ['seagull-harbor:Boat', 38, 25],
-    ['laketown:Trout Farm', 6, 6],
-    ['palm-island:Inside', 38, 6],       // the other 32 bite at Outside too
-    ['palm-island:Outside', 78, 46],
-    ['mystic-desert:Pyramid', 4, 4],
+    ['palm-island:Zone E', 38, 6],       // the other 32 bite in other zones too
+    ['palm-island:Zone H', 33, 6],
+    ['seagull-harbor:Boat', 26, 26],
     ['club:Fresh Water Pond', 31, 31],
-    ['club:Monster Pond', 3, 0],
   ])('"only here" at %s: %i → %i fish', (spot, all, only) => {
     expect(run({ spot })).toHaveLength(all);
     expect(run({ spot, spotOnly: true })).toHaveLength(only);
     expect(facets(FISH, { ...EMPTY_FILTERS, spot, area: spot.split(':')[0] }, emptyProgress(), index).spotOnly).toBe(only);
   });
 
-  it('"only here" ignores other areas: raft-only asp stays, shore-and-raft carp goes', () => {
-    const raft = ids(run({ spot: 'cool-mountain:Raft', spotOnly: true }));
-    expect(raft).toContain('asp');
-    expect(raft).not.toContain('common-carp');
-    expect(ids(run({ spot: 'laketown:Trout Farm', spotOnly: true }))).toContain('rainbow-trout'); // also at Cool Mountain
+  it('"only here" ignores other areas: the Trout Farm rainbow trout also bites at Cool Mountain', () => {
+    expect(ids(run({ spot: 'laketown:Trout Farm', spotOnly: true }))).toContain('rainbow-trout');
   });
 
-  it('source corrections reach the data', () => {
+  it('Palm Island zones follow the official grid and are the island\'s spots', () => {
+    const palm = FISH.filter(f => f.areas.includes('palm-island'));
+    expect(palm.every(f => f.zones?.length)).toBe(true);
+    expect(FISH.filter(f => !f.areas.includes('palm-island')).some(f => f.zones)).toBe(false);
+    expect(palm.filter(f => f.zones!.includes('A'))).toHaveLength(39);
+    expect(palm.filter(f => f.zones!.length === 8).map(f => f.id)).toContain('hogfish');
+    for (const f of palm) expect(f.spots['palm-island']).toEqual(f.zones!.map(z => `Zone ${z}`));
+    expect(AREAS.find(a => a.id === 'palm-island')!.spots).toEqual(['Zone A', 'Zone B', 'Zone C', 'Zone D', 'Zone E', 'Zone F', 'Zone G', 'Zone H']);
+  });
+
+  it('rarity and the "×n rarer" factor come from fishao.net', () => {
     const fish = (id: string) => FISH.find(f => f.id === id)!;
-    expect(fish('candy-basslet').spots).toEqual({ 'mystic-desert': ['Furniture Factory'] });
-    expect(fish('lavender-mbuna').spots).toEqual({});
-    expect(ids(run({ area: 'mystic-desert' }))).toContain('lavender-mbuna');
-    expect(fish('red-phantom-tetra').spots).toEqual({ club: ['Fresh Water Pond'] });
-    expect(fish('murray-cod').rarity).toBe(4);
-    expect(fish('xenacanthus').rarity).toBe(2);
+    expect(fish('murray-cod').rarity).toBe(3);
+    expect(fish('xenacanthus').rarity).toBe(4);
+    expect(fish('salpa-maggiore')).toMatchObject({ rarity: 5, rarer: 100 });
+    expect(fish('arctic-char').rarer).toBeUndefined();
+    expect(FISH.filter(f => f.rarer)).toHaveLength(47);
   });
 
-  it('disputed time and season carry the "?" mark, agreeing sources do not', () => {
-    const marked = (field: 'time' | 'season') => FISH.filter(f => f.uncertain.includes(field)).map(f => f.id);
-    expect(marked('time')).toHaveLength(48);
-    expect(marked('time')).toEqual(expect.arrayContaining(['bowfin', 'hogfish', 'apache-trout']));
-    expect(marked('season')).toEqual(expect.arrayContaining(['bull-shark', 'horn-shark', 'hucho-taimen', 'spotted-gar', 'yellow-tail-arowana', 'winghead-shark']));
-    expect(marked('season')).toHaveLength(10);
-    // same season written differently is no dispute
-    expect(marked('season')).not.toContain('pacific-bluefin-tuna');
-    expect(marked('time')).not.toContain('piraiba-catfish');
+  it('sorting by rarity puts rarer fish of the same stars last', () => {
+    const five = sortFish(FISH.filter(f => f.rarity === 5), 'rarity', 'en');
+    expect(five.at(-1)!.id).toBe('salpa-maggiore');
+    const rarers = five.map(f => f.rarer ?? 1);
+    expect(rarers).toEqual([...rarers].sort((a, b) => a - b));
+  });
+
+  it('breeding is known for every Backyard fish and nobody else', () => {
+    const yard = FISH.filter(f => f.areas.includes('backyard'));
+    expect(yard.every(f => f.breed)).toBe(true);
+    expect(FISH.filter(f => f.breed)).toHaveLength(yard.length);
+    expect(FISH.find(f => f.id === 'bagarius')!.breed).toEqual({ cost: 3300, hours: 32, chance: 0.47 });
+  });
+
+  it('unlock conditions: fossils, furniture sets, Jahni\'s fruits, club points', () => {
+    const fish = (id: string) => FISH.find(f => f.id === id)!;
+    expect(fish('gyrodus').unlock).toContainEqual({ kind: 'fossils', name: 'Gyrodus' });
+    expect(fish('hogfish').unlock).toContainEqual({ kind: 'fruits', fruits: ['Coconut', 'Coconut', 'Orange'] });
+    expect(FISH.some(f => f.unlock?.some(u => u.kind === 'set' && u.set === 'balloon'))).toBe(true);
+    expect(FISH.filter(f => f.unlock?.some(u => u.kind === 'clubPoints'))).toHaveLength(56);
+  });
+
+  it('seasons that touch over New Year are one window', () => {
+    expect(FISH.find(f => f.id === 'nassau-grouper')!.season).toEqual([{ from: '12-01', to: '01-31' }]);
+    expect(FISH.find(f => f.id === 'arctic-char')!.season).toEqual([{ from: '03-01', to: '06-30' }, { from: '09-01', to: '11-30' }]);
   });
 
   it('size keeps fish whose catch range touches the asked range', () => {
@@ -254,11 +274,10 @@ describe('URL round trip', () => {
     expect(serializeFilters({ ...EMPTY_FILTERS, spotOnly: true }).only).toBeNull();
   });
 
-  it('old links to a heading area fall back to all areas, its spots keep working', () => {
-    const headings = new Set(['club']);
-    expect(parseFilters(new URLSearchParams('area=club&rarity=5'), areaIds, headings)).toEqual({ ...EMPTY_FILTERS, rarity: new Set([5]) });
-    const spot = parseFilters(new URLSearchParams('area=club&spot=club:Salt Water Pond'), areaIds, headings);
-    expect(spot).toMatchObject({ area: 'club', spot: 'club:Salt Water Pond' });
+  it('links to a heading area and its spots work; old Inside / Outside links are ignored', () => {
+    expect(parseFilters(new URLSearchParams('area=club&rarity=5'), areaIds)).toMatchObject({ area: 'club', spot: '' });
+    expect(parseFilters(new URLSearchParams('area=club&spot=club:Salt Water Pond'), areaIds)).toMatchObject({ area: 'club', spot: 'club:Salt Water Pond' });
+    expect(parseFilters(new URLSearchParams('area=palm-island&spot=palm-island:Inside'), areaIds)).toMatchObject({ area: 'palm-island', spot: '' });
   });
 
   it('ignores junk instead of guessing', () => {
@@ -279,9 +298,9 @@ describe('facets (counts next to filter options)', () => {
     const c = fx({});
     expect(c.all.total).toBe(FISH.length);
     expect(c.areas.get('pirate-cave')?.total).toBe(7);
-    expect(c.spots.get('cool-mountain:Raft')).toEqual({ total: 19, caught: 1, glow: 0, bred: 0 });
+    expect(c.spots.get('cool-mountain:Raft')).toEqual({ total: 10, caught: 1, glow: 0, bred: 0 });
     expect(c.bait.get('Insects')).toBe(337);
-    expect([1, 2, 3, 4, 5].map(r => c.rarity.get(r))).toEqual([48, 103, 152, 150, 162]);
+    expect([1, 2, 3, 4, 5].map(r => c.rarity.get(r))).toEqual([48, 102, 153, 150, 162]);
     expect(c.status).toEqual({ all: FISH.length, uncaught: FISH.length - 2, caught: 2, noglow: FISH.length - 1 });
   });
 
@@ -300,12 +319,13 @@ describe('facets (counts next to filter options)', () => {
 describe('sort', () => {
   const sample = FISH.filter(f => ['arapaima', 'eel', 'asp', 'pike', 'carp'].includes(f.id));
 
-  it('defaults to rarity (1★ first), then by name', () => {
+  it('defaults to rarity (1★ first), then ×n rarer, then by name', () => {
     const out = sortFish(FISH, 'rarity', 'cs');
     for (let i = 1; i < out.length; i++) {
       const a = out[i - 1], b = out[i];
       expect(a.rarity <= b.rarity).toBe(true);
-      if (a.rarity === b.rarity) expect(a.names.cs.localeCompare(b.names.cs, 'cs', { sensitivity: 'base', numeric: true }) <= 0).toBe(true);
+      if (a.rarity === b.rarity) expect((a.rarer ?? 1) <= (b.rarer ?? 1)).toBe(true);
+      if (a.rarity === b.rarity && (a.rarer ?? 1) === (b.rarer ?? 1)) expect(a.names.cs.localeCompare(b.names.cs, 'cs', { sensitivity: 'base', numeric: true }) <= 0).toBe(true);
     }
   });
 

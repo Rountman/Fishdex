@@ -332,5 +332,16 @@
     "fotbalovy-set/graphics_128x128_216": "Soccer Wardrobe",
     "vesmirny-set/graphics_128x128_226": "Space Trash Bin",
     "vesmirny-set/graphics_128x128_228": "Space Wardrobe"
+  },
+  "fishao_net": {
+    "Livingston's Cichlid": "livingstons-chichild",
+    "Freshwater Hatchetfish": "freshwater-hatchedfish",
+    "RibbonEel": "ribbon-eel",
+    "Saurichthys": "saurychthis",
+    "Frontosa Cichlid": "frontosa-chiclid",
+    "Indian Glass Fish": "indian-glassfish",
+    "Freshwater Moray": "fresh-water-moray",
+    "Barnards Lanternfish": "barnards-lanterfish",
+    "Fluorescing Goatfish": "flourescing-goatfish"
   }
 }

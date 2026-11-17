@@ -9,6 +9,9 @@
 .sheet { position: relative; padding: var(--space-6) var(--space-6) var(--space-7); }
 .close { position: absolute; top: var(--space-4); right: var(--space-4); }
 .sheet header :global(.stars) { font-size: 16px; }
+.rarer { margin-left: var(--space-2); }
+.line { display: block; }
+.line + .line { margin-top: var(--space-1); }
 .name { margin: var(--space-2) 0 0; padding-right: var(--space-7); font: var(--fw-name) var(--fs-h1)/1.02 var(--font-display); text-wrap: balance; }
 .alt { margin: var(--space-2) 0 0; color: var(--color-ink-soft); font-size: 16px; }
 

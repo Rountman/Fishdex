@@ -7,9 +7,10 @@ vytažených z Wayback Machine.
 ## Struktura projektu
 
 ```
-data/          # výstup scrapu — fish.json, areas.json, furniture*.json, report.md (NEUPRAVOVAT RUČNĚ)
+data/          # výstup scrapu — fish.json, areas.json, fishao_net.json, furniture*.json, reporty (NEUPRAVOVAT RUČNĚ)
 images/        # obrázky ryb a nábytku ze scrapu (images/fish, images/furniture)
-scraper/       # Python scraper (requests + BeautifulSoup), cache/ v .gitignore; nábytek = furniture.py
+scraper/       # Python scraper archivu (requests + BeautifulSoup), cache/ v .gitignore; nábytek = furniture.py;
+               # oficiální wiki = fishao_net.mjs (Node, běží bez Pythonu)
 web/           # samotná webovka (Vite + React + TS)
   scripts/build-data.ts   # data/ + images/ -> src/data/*.json, public/fish/*.webp (generované, v .gitignore)
   src/styles/tokens.css   # design tokeny (viz prototypes/styleguide.html)
@@ -24,9 +25,12 @@ prototypes/    # schválené mockupy a styleguide (fáze 1–2), DECISIONS.md
 - Pokud web potřebuje data v jiném tvaru, napiš transformační skript
   (`web/scripts/build-data.ts`, spouští se `npm run data` i před dev/build),
   neměň JSON ručně. Bílé pozadí u 17 obrázků z fishao.cz odstraňuje tentýž skript.
-- Před prací s daty si přečti `data/report.md` — jsou tam známé díry.
-- Opravy po auditu zdrojů schválené uživatelem (místa, rarita) jsou v `build-data.ts`. Čas nebo
-  sezóna, kde jiný zdroj uvádí jednoznačně jinou hodnotu, dostanou v UI „?“.
+- Před prací s daty si přečti `data/report.md` a `data/fishao-net-report.md` — jsou tam známé díry.
+- **Hlavní zdroj je oficiální wiki fishao.net** (`data/fishao_net.json`, `node scraper/fishao_net.mjs`):
+  oblasti, místa, zóny Palm Islandu, rarita, „× vzácnější“, návnady, čas, sezóna, délky, chov, odemknutí.
+  Databáze je JS literál v bundlu wiki — čte se jako text, NIKDY se nespouští. Archivní scrape
+  (`data/fish.json`) dává už jen id, české názvy, světové rekordy a obrázky.
+- Ruční opravy dat ani „?“ u sporných časů se už nepoužívají — co říká fishao.net, platí.
 - Scraper: max 1 request/s na web.archive.org, vše cachovat, používat `id_`
   URL varianty pro čisté HTML.
 
@@ -75,13 +79,20 @@ prototypes/    # schválené mockupy a styleguide (fáze 1–2), DECISIONS.md
   - Shift+klik nebo klik na ikonku záře → přepne `caughtGlowing`
   - mobil: tap = caught, dlouhý stisk (500 ms) = glowing
 - Progres: celkem / per oblast, normální a zářivé zvlášť; u Backyard i „mám za domem“.
-- Filtry: oblast a pod ní její místa jako plnohodnotné položky (Laketown › farma; jen ryby
-  s uvedeným místem). Oddělená místa: Mystic Desert (pyramida, továrna) a podle fishao.cz
-  Cool Mountain (vor), Pinheira Beach (molo), Thombani Town (za plotem), Seagull Harbor (člun),
-  Laketown (farma), Palm Island, Club — ryba „jen z místa“
-  není pod oblastí, ryba „i z místa“ je v obou (`spotAccess` z build-data.ts). Palm Island a Club
-  nemají žádnou rybu mimo svá místa, jsou jen nadpis nad nimi se součtem unikátních ryb (`open: false`).
-  Po výběru místa přepínač „Jen odsud“ (`only=1`): jen ryby, které v dané oblasti jinde nechytíš. U každé volby filtru počet ryb podle ostatních aktivních filtrů,
+- Filtry: oblast a pod ní její místa jako plnohodnotné položky (Laketown › farma). Podle fishao.net
+  je místo vždy oddělené: ryba s místem v oblasti bere JEN tam, ve volné vodě oblasti ne (žádné „i odsud“).
+  Místa: Laketown (farma), Mystic Desert (pyramida, továrna), Cool Mountain (vor), Pinheira Beach (molo),
+  Thombani Town (za plotem), Seagull Harbor (člun), Club (slaná / sladká nádrž; Monster Pond neexistuje),
+  Palm Island (zóny A–H jako místa `Zone A`…; `zones` u ryby, ryba bez zóny ve zdroji = všechny zóny).
+  Palm Island a Club nemají volnou vodu (`open: false`): jejich výběr ukáže všechny ryby všech jejich míst,
+  každou jednou. Přepínač „Jen odsud“ (`only=1`) se ukáže jen tam, kde ryba může být na víc místech
+  oblasti (zóny Palm Islandu).
+- Mapa Palm Islandu (`PalmMap`) nad mřížkou po výběru ostrova nebo zóny: oficiální obrázek
+  (`images/maps/palm-island.webp` ze scraperu → `public/maps/`) a přes něj naše vrstva zón z mřížky
+  13 × 13 (`palmZones.json`, viewBox 0 0 12.5 12.5 jako na fishao.net). Klik na zónu = filtr zóny,
+  znovu = celý ostrov. Ovládání klávesnicí přes legendu vedle mapy (SVG je `aria-hidden`).
+  V detailu ryby žádná mapka, jen text „zóny B, C, G“ / „všechny zóny“.
+  Řazení podle rarity: hvězdy, pak „× vzácnější“, pak jméno. U každé volby filtru počet ryb podle ostatních aktivních filtrů,
   rarita, návnada (multi-výběr, NEBO), čas, velikost (od–do cm, ryba
   se ukáže, když se její rozsah úlovku překrývá se zadaným), chyceno / nechyceno /
   chybí zářivá; při vybrané oblasti Backyard i „za domem: mám / nemám“.

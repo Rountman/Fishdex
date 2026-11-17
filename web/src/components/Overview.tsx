@@ -27,11 +27,10 @@ export function Overview({ areas, facets, onArea, onBack }: Props) {
   const { lang, t } = useI18n();
   const labels = { '--l-caught': `'${t.ovCaught}'`, '--l-glow': `'${t.ovGlow}'`, '--l-bred': `'${t.ovBred}'` } as CSSProperties;
   const yard = facets.areas.get('backyard') ?? EMPTY;
-  const row = (key: string, label: string, tally: Tally, value: string, opts: { sub?: boolean; bred?: boolean; heading?: boolean } = {}) => (
+  const row = (key: string, label: string, tally: Tally, value: string, opts: { sub?: boolean; bred?: boolean } = {}) => (
     <tr key={key} data-done={tally.total > 0 && tally.caught === tally.total} className={opts.sub ? styles.subRow : undefined}>
       <th scope="row">
-        {opts.heading ? <span className={styles.heading}>{label}</span>
-          : <button type="button" className={styles.area} onClick={() => onArea(value)}>{label}</button>}
+        <button type="button" className={styles.area} onClick={() => onArea(value)}>{label}</button>
       </th>
       <Cell n={tally.caught} of={tally.total} />
       <Cell n={tally.glow} of={tally.total} kind="glow" />
@@ -64,9 +63,7 @@ export function Overview({ areas, facets, onArea, onBack }: Props) {
           <tbody key={kind}>
             <tr className={styles.group}><th colSpan={4} scope="rowgroup">{t.kinds[kind]}</th></tr>
             {areas.filter(a => a.kind === kind).flatMap(a => [
-              a.open
-                ? row(a.id, a.name, facets.areas.get(a.id) ?? EMPTY, a.id, { bred: kind === 'backyard' })
-                : row(a.id, a.name, facets.wholeAreas.get(a.id) ?? EMPTY, a.id, { heading: true }),
+              row(a.id, a.name, facets.areas.get(a.id) ?? EMPTY, a.id, { bred: kind === 'backyard' }),
               ...a.spots.map(sp => {
                 const key = `${a.id}:${sp}`;
                 return row(key, spotLabel(sp, lang).text, facets.spots.get(key) ?? EMPTY, key, { sub: true });

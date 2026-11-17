@@ -21,6 +21,7 @@ type Props = {
   priority?: 'high' | 'eager';
 };
 
+/** Areas with their spots; Palm Island lists its zones in short ("zóny B, C, G", "všechny zóny"). */
 export function Where({ fish, areaName, first }: { fish: Fish; areaName: (id: string) => string; first?: boolean }) {
   const { lang, t } = useI18n();
   const list = first ? fish.areas.slice(0, 1) : fish.areas;
@@ -28,14 +29,19 @@ export function Where({ fish, areaName, first }: { fish: Fish; areaName: (id: st
     <span key={a}>
       {i > 0 && (first ? ' ' : <br />)}
       {areaName(a)}
-      {fish.spots[a] && (
-        <> <span className="note">{fish.spots[a].map(s => {
-          const { text } = spotLabel(s, lang);
-          return fish.spotAccess?.[a] === 'also' ? t.alsoSpot(text) : text;
-        }).join(', ')}</span></>
-      )}
+      {a === 'palm-island' && fish.zones
+        ? <> <span className="note">{t.zones(fish.zones)}</span></>
+        : fish.spots[a] && <> <span className="note">{fish.spots[a].map(s => spotLabel(s, lang).text).join(', ')}</span></>}
     </span>
   ));
+}
+
+/** "×10" next to the stars: rarer than the other fish with the same star count. */
+export function Rarer({ fish }: { fish: Fish }) {
+  const { t } = useI18n();
+  if (!fish.rarer) return null;
+  const long = t.rarer(fish.rarer, fish.rarity);
+  return <abbr className="rarer" title={long}>×{fish.rarer}<span className="visually-hidden"> {long}</span></abbr>;
 }
 
 function FishCardImpl({ fish, state, areaName, onToggle, onOpen, priority }: Props) {
@@ -93,25 +99,22 @@ function FishCardImpl({ fish, state, areaName, onToggle, onOpen, priority }: Pro
             const l = baitLabel(b, lang);
             return <span key={b}>{i > 0 && ', '}<span className={l.untranslated ? 'untranslated' : undefined}>{l.text}</span></span>;
           })}
-          {fish.uncertain.includes('bait') && <abbr className="unsure" title={t.unsure}>?</abbr>}
         </p>
         <p className={styles.meta}>
-          <Stars r={fish.rarity} />
+          <span><Stars r={fish.rarity} /> <Rarer fish={fish} /></span>
           <span className={styles.len}>{fmtSize(fish.size) ?? fmtRecord(fish.record)?.text ?? t.lenUnknown}</span>
         </p>
-        {/* real windows and disputed values: settled "always" / "all year" and unknown stay off the card (all of it is in the detail) */}
-        {(Array.isArray(fish.time) || fish.uncertain.includes('time')) && (
+        {/* real windows only: "always" / "all year" and unknown stay off the card (all of it is in the detail) */}
+        {Array.isArray(fish.time) && (
           <p className={styles.time}>
             <ClockIcon /><span className="visually-hidden">{t.when}: </span>
             {fmtTime(fish.time, lang).text}
-            {fish.uncertain.includes('time') && <abbr className="unsure" title={t.unsure}>?</abbr>}
           </p>
         )}
-        {(Array.isArray(fish.season) || fish.uncertain.includes('season')) && (
+        {Array.isArray(fish.season) && (
           <p className={styles.time}>
             <CalendarIcon /><span className="visually-hidden">{t.season}: </span>
             {fmtSeason(fish.season, lang).text}
-            {fish.uncertain.includes('season') && <abbr className="unsure" title={t.unsure}>?</abbr>}
           </p>
         )}
         <p className={styles.where}>

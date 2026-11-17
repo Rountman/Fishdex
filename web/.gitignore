@@ -27,3 +27,4 @@ dist-ssr
 src/data/*.json
 public/fish/
 public/furniture/
+public/maps/

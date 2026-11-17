@@ -1,7 +1,7 @@
 import { useId } from 'react';
-import { fishImage, isBackyard } from '../data';
-import type { Fish, UncertainField } from '../data/types';
-import { altName, baitLabel, fishName, fmtRecord, fmtSeason, fmtSize, fmtTime } from '../i18n/format';
+import { COLLECTIONS, fishImage, isBackyard } from '../data';
+import type { Fish, Unlock } from '../data/types';
+import { altName, baitLabel, fishName, fmtNum, fmtRecord, fmtSeason, fmtSize, fmtTime, fruitLabel, itemName } from '../i18n/format';
 import { useI18n } from '../i18n/context';
 import { useModal } from '../hooks/useModal';
 import type { FishProgress, ProgressField } from '../progress/schema';
@@ -17,10 +17,25 @@ type Props = {
   onClose: () => void;
 };
 
-function Unsure({ fish, field }: { fish: Fish; field: UncertainField }) {
-  const { t } = useI18n();
-  if (!fish.uncertain.includes(field)) return null;
-  return <abbr className="unsure" title={t.unsure}>?<span className="visually-hidden"> {t.unsure}</span></abbr>;
+function UnlockLine({ u }: { u: Unlock }) {
+  const { lang, t } = useI18n();
+  switch (u.kind) {
+    case 'set': {
+      const c = COLLECTIONS.find(x => x.id === u.set);
+      return <>{t.unlockSet(c ? itemName(c, lang) : u.set)}</>;
+    }
+    case 'fossils': return <>{t.unlockFossils(u.name)}</>;
+    case 'fruits': return (
+      <>{t.unlockFruits}{' '}
+        {u.fruits.map((f, i) => {
+          const l = fruitLabel(f, lang);
+          return <span key={i}>{i > 0 && ' → '}<span className={l.untranslated ? 'untranslated' : undefined}>{l.text}</span></span>;
+        })}
+      </>
+    );
+    case 'clubPoints': return <>{t.unlockClub(fmtNum(u.points, lang))}</>;
+    case 'clubEarly': return <>{t.unlockEarly(fmtNum(u.coins, lang))}</>;
+  }
 }
 
 export function FishDetail({ fish, state, areaName, onToggle, onClose }: Props) {
@@ -43,6 +58,7 @@ function Body({ fish, state, areaName, onToggle, titleId, onClose }: Omit<Props,
       <button type="button" className={`icon-btn icon-btn--close ${styles.close}`} aria-label={t.close} onClick={onClose}>×</button>
       <header>
         <Stars r={fish.rarity} />
+        {fish.rarer && <span className={`note ${styles.rarer}`}>{t.rarer(fish.rarer, fish.rarity)}</span>}
         <h2 id={titleId} className={styles.name}>{name}</h2>
         <p className={styles.alt} lang={lang === 'cs' ? 'en' : 'cs'}>{altName(fish, lang)}</p>
       </header>
@@ -71,18 +87,25 @@ function Body({ fish, state, areaName, onToggle, titleId, onClose }: Omit<Props,
         <dd><Where fish={fish} areaName={areaName} /></dd>
         <dt>{t.when}</dt>
         <dd className={tm.unknown ? styles.unknown : undefined}>
-          {tm.text}{tm.overnight && <> <span className="note">{t.overnight}</span></>}<Unsure fish={fish} field="time" />
+          {tm.text}{tm.overnight && <> <span className="note">{t.overnight}</span></>}
         </dd>
         <dt>{t.season}</dt>
-        <dd className={se.unknown ? styles.unknown : undefined}>{se.text}<Unsure fish={fish} field="season" /></dd>
+        <dd className={se.unknown ? styles.unknown : undefined}>{se.text}</dd>
         <dt>{t.bait}</dt>
         <dd>
           {fish.bait.map((b, i) => {
             const l = baitLabel(b, lang);
             return <span key={b}>{i > 0 && ', '}<span className={l.untranslated ? 'untranslated' : undefined}>{l.text}</span></span>;
           })}
-          <Unsure fish={fish} field="bait" />
         </dd>
+        {fish.unlock && <>
+          <dt>{t.unlock}</dt>
+          <dd>{fish.unlock.map((u, i) => <span key={i} className={styles.line}><UnlockLine u={u} /></span>)}</dd>
+        </>}
+        {fish.breed && <>
+          <dt>{t.breed}</dt>
+          <dd>{t.breedText(fmtNum(fish.breed.cost, lang), fish.breed.hours, Math.round(fish.breed.chance * 100))}</dd>
+        </>}
         <dt>{t.length}</dt>
         <dd className={fish.size ? undefined : styles.unknown}>
           {fmtSize(fish.size) ?? t.unknownF}{fish.size && <> <span className="note">{t.avgLen(fish.size.avg)}</span></>}

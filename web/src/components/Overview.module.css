@@ -36,4 +36,3 @@
 /* spots under their area */
 .subRow th[scope="row"] { padding-left: var(--space-5); }
 .subRow .area { font: italic var(--fw-regular) 15px var(--font-display); }
-.heading { font-size: var(--fs-ui); font-weight: var(--fw-regular); }

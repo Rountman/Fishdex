@@ -1,6 +1,6 @@
 // Formatting of data values for display. Unknown stays "unknown", never a guess.
 import type { Availability, Fish, FurnitureRarity, MonthRange, Schedule } from '../data/types';
-import { BAITS, SPOTS, type Bait, type Spot } from './dictionaries';
+import { BAITS, FRUITS, SPOTS, type Bait, type Fruit, type Spot } from './dictionaries';
 import { STRINGS, type Lang } from './strings';
 
 export type Formatted = { text: string; unknown?: boolean; overnight?: boolean };
@@ -50,6 +50,11 @@ export const altName = (f: Fish, lang: Lang) => f.names[lang === 'cs' ? 'en' : '
 /** `untranslated` = no Czech source, shown in English (italics). */
 export function baitLabel(b: Bait, lang: Lang) {
   const l = BAITS[b];
+  return { text: (lang === 'cs' ? l.cs : null) ?? l.en, untranslated: lang === 'cs' && l.cs === null };
+}
+
+export function fruitLabel(f: Fruit, lang: Lang) {
+  const l = FRUITS[f];
   return { text: (lang === 'cs' ? l.cs : null) ?? l.en, untranslated: lang === 'cs' && l.cs === null };
 }
 

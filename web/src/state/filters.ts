@@ -1,4 +1,5 @@
 // Filter state, its URL form (shareable links) and how it applies to the fish list.
+import { AREAS } from '../data';
 import type { Fish, Schedule } from '../data/types';
 import { BAITS, SPOTS, type Bait, type Spot } from '../i18n/dictionaries';
 import type { FishProgress, Progress } from '../progress/schema';
@@ -7,7 +8,7 @@ import { matches, type SearchIndex } from './search';
 export type Status = 'all' | 'uncaught' | 'caught' | 'noglow';
 export type Bred = '' | 'yes' | 'no';
 export type View = 'grid' | 'progress';
-/** List order, not a filter: "Zrušit vše" keeps it. `rarity` = 1★ → 5★, then by name. */
+/** List order, not a filter: "Zrušit vše" keeps it. `rarity` = 1★ → 5★, rarer (×n) later within a star count, then by name. */
 export type Sort = 'rarity' | 'name';
 
 export const parseSort = (params: URLSearchParams): Sort => (params.get('sort') === 'name' ? 'name' : 'rarity');
@@ -25,14 +26,14 @@ const collator = (lang: string) => {
 export function sortFish(fish: readonly Fish[], sort: Sort, lang: 'cs' | 'en'): Fish[] {
   const c = collator(lang);
   const byName = (a: Fish, b: Fish) => c.compare(a.names[lang], b.names[lang]);
-  return [...fish].sort(sort === 'rarity' ? (a, b) => a.rarity - b.rarity || byName(a, b) : byName);
+  return [...fish].sort(sort === 'rarity' ? (a, b) => a.rarity - b.rarity || (a.rarer ?? 1) - (b.rarer ?? 1) || byName(a, b) : byName);
 }
 
 export type Filters = {
   q: string;
   area: string;                 // '' = all areas
   spot: string;                 // '' = any, else '<area>:<Spot>' (a spot belongs to one area)
-  spotOnly: boolean;            // only applies with a spot: fish biting nowhere else in that area
+  spotOnly: boolean;            // only applies with a spot: fish at no other spot of that area
   rarity: ReadonlySet<number>;  // empty = any
   bait: ReadonlySet<Bait>;      // empty = any; otherwise fish takes at least one
   status: Status;
@@ -55,18 +56,15 @@ const int = (s: string | null, min: number, max: number) => {
   return n >= min && n <= max ? n : null;
 };
 
-/**
- * Reads filters from the query string; unknown values are ignored, never guessed.
- * `headingAreas` have no list of their own, so without a spot they count as no area (old shared links).
- */
-export function parseFilters(params: URLSearchParams, areaIds: ReadonlySet<string>, headingAreas: ReadonlySet<string> = new Set()): Filters {
+/** Reads filters from the query string; unknown values are ignored, never guessed. */
+export function parseFilters(params: URLSearchParams, areaIds: ReadonlySet<string>): Filters {
   const area = params.get('area') ?? '';
   const status = params.get('status') as Status;
   const bred = params.get('bred');
   const spot = parseSpot(params.get('spot'), areaIds);
   return {
     q: params.get('q') ?? '',
-    area: areaIds.has(area) && (spot || !headingAreas.has(area)) ? area : '',
+    area: areaIds.has(area) ? area : '',
     spot: spot && (!areaIds.has(area) || spot.area === area) ? `${spot.area}:${spot.spot}` : '',
     spotOnly: !!spot && params.get('only') === '1',
     rarity: new Set((params.get('rarity') ?? '').split(',').map(r => int(r, 1, 5)).filter((r): r is number => r !== null)),
@@ -113,11 +111,18 @@ function parseSpot(v: string | null, areaIds: ReadonlySet<string>) {
 export const locationPatch = (value: string): Partial<Filters> =>
   value.includes(':') ? { area: splitSpot(value).area, spot: value, spotOnly: false, bred: '' } : { area: value, spot: '', spotOnly: false, bred: '' };
 
-/** Does fish `x` count for area `area` (without a spot selected)? Fish biting only at a separate spot don't. */
-export const inArea = (x: Fish, area: string) => x.areas.includes(area) && x.spotAccess?.[area] !== 'only';
+/** Areas without open water (Palm Island, Club): picking one shows every fish of all its spots. */
+const HEADING_AREAS: ReadonlySet<string> = new Set(AREAS.filter(a => !a.open).map(a => a.id));
 
-/** Bites at this spot and nowhere else in its area (other areas don't matter). */
-export const onlyAtSpot = (x: Fish, area: string) => x.spotAccess?.[area] === 'only' && x.spots[area]?.length === 1;
+/**
+ * Does fish `x` count for area `area` (without a spot selected)? Fish with a spot there bite only at
+ * the spot, so they are left out, except in areas that are nothing but spots.
+ */
+export const inArea = (x: Fish, area: string) =>
+  x.areas.includes(area) && (HEADING_AREAS.has(area) || !x.spots[area]?.length);
+
+/** Bites at one spot of the area and no other (other areas don't matter). Only Palm Island has fish at two. */
+export const onlyAtSpot = (x: Fish, area: string) => x.spots[area]?.length === 1;
 
 const minutes = (hhmm: string) => Number(hhmm.slice(0, 2)) * 60 + Number(hhmm.slice(3));
 
@@ -192,9 +197,8 @@ const tally = (): Tally => ({ total: 0, caught: 0, glow: 0, bred: 0 });
 export type Facets = {
   /** Fish matching every filter except area / spot ("Všechny oblasti"). */
   all: Tally;
+  /** Per area, as picking it would show (Palm Island, Club: every fish once, all spots included). */
   areas: Map<string, Tally>;
-  /** Every fish of the area, spots included, each counted once (totals of heading-only areas). */
-  wholeAreas: Map<string, Tally>;
   /** Keyed '<area>:<Spot>'. */
   spots: Map<string, Tally>;
   /** Fish of the selected spot biting nowhere else in its area. */
@@ -209,7 +213,7 @@ export type Facets = {
  * give together with all the *other* active filters (its own group ignored).
  */
 export function facets(fish: readonly Fish[], f: Filters, progress: Progress, index: SearchIndex): Facets {
-  const out: Facets = { all: tally(), areas: new Map(), wholeAreas: new Map(), spots: new Map(), spotOnly: 0, rarity: new Map(), bait: new Map(), status: { all: 0, uncaught: 0, caught: 0, noglow: 0 } };
+  const out: Facets = { all: tally(), areas: new Map(), spots: new Map(), spotOnly: 0, rarity: new Map(), bait: new Map(), status: { all: 0, uncaught: 0, caught: 0, noglow: 0 } };
   const add = (map: Map<string, Tally>, key: string, s: FishProgress) => {
     let t = map.get(key);
     if (!t) map.set(key, (t = tally()));
@@ -228,10 +232,7 @@ export function facets(fish: readonly Fish[], f: Filters, progress: Progress, in
       if (s.caught) out.all.caught++;
       if (s.caughtGlowing) out.all.glow++;
       if (s.bred) out.all.bred++;
-      for (const a of x.areas) {
-        add(out.wholeAreas, a, s);
-        if (inArea(x, a)) add(out.areas, a, s);
-      }
+      for (const a of x.areas) if (inArea(x, a)) add(out.areas, a, s);
       for (const [a, list] of Object.entries(x.spots)) for (const sp of list) add(out.spots, `${a}:${sp}`, s);
       if (selected && x.spots[selected.area]?.includes(selected.spot) && onlyAtSpot(x, selected.area)) out.spotOnly++;
     }

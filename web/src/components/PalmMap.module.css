@@ -1,0 +1,80 @@
+/* Palm Island map: the official painting stays as it is (same in dark mode), our zone layer on top */
+.map {
+  /* muted watercolour washes, one hue per zone; the letter, not the colour, names the zone */
+  --zone-a: oklch(0.50 0.15 262);
+  --zone-b: oklch(0.66 0.15 58);
+  --zone-c: oklch(0.52 0.15 312);
+  --zone-d: oklch(0.60 0.16 2);
+  --zone-e: oklch(0.86 0.15 95);
+  --zone-f: oklch(0.62 0.15 152);
+  --zone-g: oklch(0.55 0.17 30);
+  --zone-h: oklch(0.32 0.03 260);
+  --map-ink: oklch(0.24 0.05 258);   /* on the painting: always dark, whatever the theme */
+  --map-paper: oklch(0.985 0.01 90);
+  margin: 0 0 var(--space-6);
+}
+.summary {
+  width: fit-content; margin-bottom: var(--space-3); cursor: pointer;
+  font: italic var(--fw-regular) var(--fs-note)/1.2 var(--font-display); color: var(--color-ink-soft);
+}
+.map:not([open]) .summary { margin-bottom: 0; }
+
+.body { display: grid; grid-template-columns: minmax(0, 460px) minmax(180px, 220px); gap: var(--space-5); align-items: start; }
+
+.chart {
+  position: relative; aspect-ratio: 1; overflow: hidden;
+  border: 1px solid color-mix(in oklch, var(--color-ink) 30%, transparent); border-radius: var(--radius-slip);
+  box-shadow: var(--shadow-slip);
+}
+.chart img { display: block; width: 100%; height: 100%; }
+.chart svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+.zone { cursor: pointer; }
+.zone[data-zone="A"] { --z: var(--zone-a); } .zone[data-zone="B"] { --z: var(--zone-b); }
+.zone[data-zone="C"] { --z: var(--zone-c); } .zone[data-zone="D"] { --z: var(--zone-d); }
+.zone[data-zone="E"] { --z: var(--zone-e); } .zone[data-zone="F"] { --z: var(--zone-f); }
+.zone[data-zone="G"] { --z: var(--zone-g); } .zone[data-zone="H"] { --z: var(--zone-h); }
+.fill { fill: var(--z); fill-opacity: 0.34; transition: fill-opacity var(--dur-fast); }
+.edge { fill: none; stroke: var(--map-ink); stroke-opacity: 0.45; stroke-width: 0.035; stroke-linecap: square; }
+.zone:hover .fill { fill-opacity: 0.55; }
+svg[data-selection="true"] .zone .fill { fill-opacity: 0.1; }
+svg[data-selection="true"] .zone:hover .fill { fill-opacity: 0.3; }
+svg[data-selection="true"] .zone[data-selected="true"] .fill { fill-opacity: 0.6; }
+.zone[data-selected="true"] .edge { stroke-opacity: 1; stroke-width: 0.07; }
+
+.label circle { fill: var(--map-paper); stroke: var(--map-ink); stroke-width: 0.05; }
+.label text { text-anchor: middle; dominant-baseline: middle; font-family: var(--font-text); pointer-events: none; }
+.letter { font-size: 0.42px; font-weight: 800; fill: var(--map-ink); }
+.count {
+  font-size: 0.3px; font-weight: 700; fill: var(--map-ink); font-variant-numeric: tabular-nums;
+  paint-order: stroke; stroke: var(--map-paper); stroke-width: 0.09; stroke-linejoin: round;
+}
+.zone[data-selected="true"] .label circle { fill: var(--map-ink); }
+.zone[data-selected="true"] .letter { fill: var(--map-paper); }
+
+.side { display: grid; gap: var(--space-3); justify-items: start; }
+.hint { margin: 0; font: italic var(--fw-regular) var(--fs-note)/1.3 var(--font-display); color: var(--color-ink-soft); }
+.legend { display: grid; gap: 2px; width: 100%; margin: 0; padding: 0; list-style: none; }
+.legend button {
+  display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: var(--space-2); width: 100%;
+  padding: 4px var(--space-2); border: 1px solid transparent; border-radius: var(--radius-control);
+  background: none; color: var(--color-ink); font: var(--fw-regular) var(--fs-ui)/1.2 var(--font-text); text-align: left; cursor: pointer;
+}
+.legend button:hover { background: color-mix(in oklch, var(--color-ink) 6%, transparent); }
+.legend button[aria-pressed="true"] { background: var(--color-ink); color: var(--color-slip); }
+.legend button[aria-pressed="true"] :global(.of) { color: inherit; opacity: 0.75; }
+.legend button[data-done="true"] .n::after { content: " ✓"; color: var(--color-stamp); font-weight: 700; }
+.swatch {
+  display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: var(--radius-slip);
+  background: color-mix(in oklch, var(--zone) 55%, var(--map-paper)); border: 1px solid var(--map-ink);
+  color: var(--map-ink); font: 800 12px/1 var(--font-text);
+}
+.n { font-variant-numeric: tabular-nums; font-size: var(--fs-sm); }
+.credit { margin: 0; font-size: var(--fs-xs); color: var(--color-ink-faint); }
+
+@media (max-width: 760px) {
+  .body { grid-template-columns: 1fr; gap: var(--space-3); }
+  .legend { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .count { font-size: 0.34px; }
+}
+@media (prefers-reduced-motion: reduce) { .fill { transition: none; } }

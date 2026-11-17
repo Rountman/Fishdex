@@ -3,18 +3,18 @@
  *   src/data/fish.json, src/data/areas.json  – only the fields the UI needs
  *   public/fish/<id>.webp                      – same pixel size, never upscaled
  *   src/data/furniture.json, furnitureCollections.json, public/furniture/[sets/]<id>.webp
- * data/ is never modified. Unknown bait / spot tokens or broken records fail the build.
+ * data/ is never modified. Unknown locations, places, baits, fruits or broken records fail the build.
  *
  * Run: npm run data   (also runs before dev and build)
  */
-import { mkdir, readFile, rm, writeFile } from 'node:fs/promises';
+import { copyFile, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import sharp from 'sharp';
-import { BAITS, SPOTS, type Bait, type Spot } from '../src/i18n/dictionaries.ts';
+import { FRUITS, SPOTS, type Bait, type Fruit, type Spot } from '../src/i18n/dictionaries.ts';
 import {
   FURNITURE_RARITIES, type Area, type AreaKind, type Availability, type Fish, type FurnitureCollection, type FurnitureItem,
-  type FurnitureRarity, type FurnitureType, type MonthRange, type Schedule, type UncertainField,
+  type FurnitureRarity, type FurnitureType, type MonthRange, type Schedule, type Unlock, type Zone, ZONES,
 } from '../src/data/types.ts';
 
 const WEB = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -22,26 +22,14 @@ const REPO = join(WEB, '..');
 const OUT_DATA = join(WEB, 'src', 'data');
 const OUT_IMG = join(WEB, 'public', 'fish');
 const OUT_FURN = join(WEB, 'public', 'furniture');
+const OUT_MAPS = join(WEB, 'public', 'maps');
 
 // --- source shapes (only what we read) -------------------------------------
-type SrcWindow = { from: string; to: string };
+/** The archive scrape (data/fish.json) gives the id list, names, world record and image. */
 type SrcFish = {
   id: string;
   names: { cs?: string; en: string };
-  areas: string[];
-  area_spots: Record<string, string[]>;
-  time: SrcWindow[] | 'always' | null;
-  season: SrcWindow[] | 'always' | null;
-  rarity: number;
-  bait: string[];
   max_length_label: string | null;
-  length_cm: { min: number; avg: number; max: number } | null;
-  extra: {
-    fishao_cz?: { fields: Record<string, string | null | undefined> }[];
-    fishaofunwiki?: { time?: string | null; season?: string | null } | null;
-  };
-  has_glowing_variant: boolean | null;
-  uncertain: string[];
   image: string;
 };
 type SrcArea = { id: string; name: string; kind: string; spots: string[]; fish_ids: string[] };
@@ -64,150 +52,143 @@ type SrcSet = { id: string; names: { cs: string; en: string }; kind: 'set' | 'ty
 const errors: string[] = [];
 const fail = (msg: string) => errors.push(msg);
 
-const isBait = (b: string): b is Bait => b in BAITS;
-const isSpot = (s: string): s is Spot => s in SPOTS;
+const isFruit = (s: string): s is Fruit => s in FRUITS;
 
-/**
- * User decisions after auditing all sources. A spot list replaces the source one, [] = no spot.
- * The spots came from the wiki 5-star table, "(Py)" there is wrong against every other source.
- * Rarity: wiki and fishaofunwiki agree, fishao.cz alone differs.
- */
-const SPOT_CORRECTIONS: Record<string, Record<string, string[]>> = {
-  'candy-basslet': { 'mystic-desert': ['Furniture Factory'] },
-  'lavender-mbuna': { 'mystic-desert': [] },
-  'red-phantom-tetra': { club: ['Fresh Water Pond'] },
+// --- official wiki (data/fishao_net.json) -----------------------------------
+// User decision: fishao.net is the main source for where, rarity, bait, time, season, length,
+// breeding and unlocking. Names (cs) and world records stay from the archive scrape.
+type NetFish = {
+  fishdex_id: string | null; name: string; rating: number; factor: number;
+  min: number; avg: number; max: number; locs: number[]; baits: string[]; places: string[];
+  times: string[]; dates: string[]; collections: string[]; fruitCombos: string[];
+  clubPoints: number; clubPrice: number; breed: { cost: number; hours: number; rate: number } | null;
 };
-const RARITY_CORRECTIONS: Record<string, number> = { 'murray-cod': 4, xenacanthus: 2 };
+type NetData = { fish: NetFish[]; palm_island_zones: string[] };
 
-function applyCorrections(f: SrcFish) {
-  f.rarity = RARITY_CORRECTIONS[f.id] ?? f.rarity;
-  for (const [area, list] of Object.entries(SPOT_CORRECTIONS[f.id] ?? {})) {
-    if (list.length) f.area_spots[area] = list;
-    else delete f.area_spots[area];
+/** Official location id -> our area id. */
+const NET_AREA: Record<number, string> = {
+  1: 'laketown', 2: 'rio-tropical', 3: 'pinheira-beach', 4: 'cool-mountain', 5: 'mystic-desert', 6: 'sibiri-city',
+  7: 'aquayama', 8: 'seagull-harbor', 9: 'thombani-town', 10: 'marshville', 11: 'palm-island', 12: 'lucky-raft',
+  110: 'little-rio', 111: 'pirate-cave', 112: 'club', 201: 'boat-on-sea-tournament', 202: 'lake-run-tournament',
+  203: 'race-magic-15-tournament', 204: 'moray-tournament', 300: 'backyard',
+};
+/** "Hidden spots" the wiki lists as own locations; we keep them as a spot of their area. */
+const NET_HIDDEN: Record<number, [string, Spot]> = {
+  101: ['laketown', 'Trout Farm'], 104: ['mystic-desert', 'Pyramid'], 113: ['mystic-desert', 'Furniture Factory'],
+};
+/** Places inside an area: a fish with a place bites only there. */
+const NET_PLACE: Record<string, [string, Spot]> = {
+  EFPT_PANHEIRA_BEACH_JETTY: ['pinheira-beach', 'Pier'],
+  EFPT_COOL_MOUNTAIN_RAFT: ['cool-mountain', 'Raft'],
+  EFPT_SEAGULL_HARBOR_BOAT: ['seagull-harbor', 'Boat'],
+  EFPT_THOMBANI_TOWN_AFRICAN_LAKE: ['thombani-town', 'Enclosure'],
+  EFPT_CLUB_AREA_SALT: ['club', 'Salt Water Pond'],
+  EFPT_CLUB_AREA_FRESH: ['club', 'Fresh Water Pond'],
+};
+const LOST_VALLEY = 108;
+const PALM_ZONE = /^EFPT_PALM_ISLAND_ZONE_([A-H])$/;
+const NET_BAIT: Record<string, Bait> = {
+  fish: 'Fish', insects: 'Insects', vegetal: 'Vegetal', dough: 'Dough', lures: 'Lures', meat: 'Meat', hook: 'Hook',
+  prehistoric: 'Prehistoric Bait', shark: 'Shark Bait', monster: 'Monster Bait', barracuda: 'Barracuda Lure',
+  tuna: 'Tuna Lure', marlin: 'Marlin Lure', monkfish: 'Monkfish Lure', pelican: 'Pelican Lure', star: 'Star Lure',
+};
+
+type Where = { areas: string[]; spots: Record<string, Spot[]>; zones?: Zone[] };
+
+function netWhere(n: NetFish): Where {
+  const areas: string[] = [];
+  const spots: Record<string, Spot[]> = {};
+  const add = (area: string, spot?: Spot) => {
+    if (!areas.includes(area)) areas.push(area);
+    if (spot && !spots[area]?.includes(spot)) (spots[area] ??= []).push(spot);
+  };
+  let zones: Zone[] | undefined;
+  for (const p of n.places) {
+    if (!NET_PLACE[p] && !PALM_ZONE.test(p) && !p.startsWith('EFPT_LOST_VALLEY_POND_')) fail(`${n.name}: unknown place ${p}`);
   }
+  for (const loc of n.locs) {
+    if (NET_HIDDEN[loc]) { add(...NET_HIDDEN[loc]); continue; }
+    if (loc === LOST_VALLEY) {
+      const ponds = n.places.filter(p => p.startsWith('EFPT_LOST_VALLEY_POND_'));
+      if (!ponds.length) fail(`${n.name}: Lost Valley without a pond`);
+      for (const p of ponds) add(`lost-valley-${p.at(-1)}`);
+      continue;
+    }
+    const area = NET_AREA[loc];
+    if (!area) { fail(`${n.name}: unknown location ${loc}`); continue; }
+    if (area === 'palm-island') {
+      // no zone listed = the fish bites in every zone
+      const z = n.places.map(p => PALM_ZONE.exec(p)?.[1] as Zone | undefined).filter((x): x is Zone => !!x);
+      zones = z.length ? ZONES.filter(x => z.includes(x)) : [...ZONES];
+      for (const z of zones) add(area, `Zone ${z}`);
+      continue;
+    }
+    const own = n.places.filter(p => NET_PLACE[p]?.[0] === area);
+    if (own.length) for (const p of own) add(area, NET_PLACE[p][1]);
+    else add(area);
+  }
+  for (const list of Object.values(spots)) list.sort((a, b) => SPOT_ORDER.indexOf(a) - SPOT_ORDER.indexOf(b));
+  return { areas, spots, zones };
 }
+const SPOT_ORDER = Object.keys(SPOTS) as Spot[];
 
-/**
- * User decision: when another source states a different definite value, the UI shows "?".
- * Values are compared by what they cover, so "Sep-Dec, Jan-Mar" equals "Sep-Mar"; a source
- * text with "?" or "+" is not definite and starts no dispute.
- */
-type Window = { from: string; to: string };
-const CZ_TIME = 'Výskyt / čas', CZ_SEASON = 'Výskyt / období';
-const MONTH_DAYS = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-const two = (n: number | string) => String(n).padStart(2, '0');
-const dayOfYear = (mmdd: string) => {
+/** "05:00-11:00" / "03.01-06.30" -> windows; none listed = always. */
+const netTime = (times: string[]): Schedule =>
+  times.length ? times.map(s => { const [from, to] = s.split('-'); return { from, to }; }) : 'always';
+
+const nextDay = (mmdd: string) => {
+  const DAYS = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
   const [m, d] = mmdd.split('-').map(Number);
-  return MONTH_DAYS.slice(0, m - 1).reduce((a, b) => a + b, 0) + Math.min(d, MONTH_DAYS[m - 1]) - 1;
+  const pad = (x: number) => String(x).padStart(2, '0');
+  return d >= DAYS[m - 1] ? `${pad(m % 12 + 1)}-01` : `${pad(m)}-${pad(d + 1)}`;
 };
-/** Marks a..b on a ring; a window ending where it starts covers everything. */
-function cover(size: number, windows: Window[], at: (s: string) => number) {
-  const out = new Array<boolean>(size).fill(false);
-  for (const w of windows) {
-    let i = at(w.from);
-    const end = at(w.to);
-    do { out[i] = true; i = (i + 1) % size; } while (i !== end);
+/** Seasons, with windows that touch merged (the wiki writes Dec 1–31 + Jan 1–31 for Dec–Jan). */
+function netSeason(dates: string[]): Schedule {
+  if (!dates.length) return 'always';
+  const w = dates.map(s => { const [a, b] = s.split('-'); return { from: a.replace('.', '-'), to: b.replace('.', '-') }; });
+  for (let again = true; again;) {
+    again = false;
+    for (let i = 0; i < w.length && !again; i++) {
+      const j = w.findIndex((o, k) => k !== i && nextDay(w[i].to) === o.from);
+      if (j >= 0) { w[i] = { from: w[i].from, to: w[j].to }; w.splice(j, 1); again = true; }
+    }
   }
-  return out;
-}
-const quarter = (hhmm: string) => {
-  const [h, m] = hhmm.split(':').map(Number);
-  return Math.floor((h * 60 + m) / 15);
-};
-const timeCover = (v: Exclude<Schedule, null>) => (v === 'always' ? new Array<boolean>(96).fill(true) : cover(96, v, quarter));
-/** The season's last day counts too, unlike a time window's end. */
-const seasonCover = (v: Exclude<Schedule, null>) =>
-  (v === 'always' ? new Array<boolean>(365).fill(true) : cover(365, v.map(w => ({ from: w.from, to: dayAfter(w.to) })), dayOfYear));
-const dayAfter = (mmdd: string) => {
-  const [m, d] = mmdd.split('-').map(Number);
-  return d >= MONTH_DAYS[m - 1] ? `${two(m % 12 + 1)}-01` : `${two(m)}-${two(d + 1)}`;
-};
-const differingSlots = (a: boolean[], b: boolean[]) => a.filter((v, i) => v !== b[i]).length;
-
-function parseTimeText(text: string): Exclude<Schedule, null> | null {
-  if (/[?+]/.test(text)) return null;
-  if (/^(always|kdykoliv)$/i.test(text.trim())) return 'always';
-  const w = [...text.matchAll(/(\d{1,2}):(\d\d)\s*-\s*(\d{1,2}):(\d\d)/g)].map(m => ({ from: `${two(m[1])}:${m[2]}`, to: `${two(m[3])}:${m[4]}` }));
-  return w.length ? w : null;
-}
-function parseFunwikiSeason(text: string): Exclude<Schedule, null> | null {
-  if (/always/i.test(text)) return 'always';
-  const out: Window[] = [];
-  for (const part of text.split(',')) {
-    const m = part.trim().match(/([A-Za-z]+) (\d+)\s*-\s*(?:([A-Za-z]+) )?(\d+)/);
-    if (!m) return null;
-    const from = MONTHS.indexOf(m[1].toLowerCase()) + 1, to = m[3] ? MONTHS.indexOf(m[3].toLowerCase()) + 1 : from;
-    out.push({ from: `${two(from)}-${two(m[2])}`, to: `${two(to)}-${two(m[4])}` });
-  }
-  return out;
-}
-function parseCzSeason(text: string): Exclude<Schedule, null> | null {
-  if (text.includes('?')) return null;
-  if (/^vždy$/i.test(text.trim())) return 'always';
-  const w = [...text.matchAll(/(\d{1,2})\.(\d{1,2})\.(?:\d{4})?\s*-\s*(\d{1,2})\.(\d{1,2})\./g)]
-    .map(m => ({ from: `${two(m[2])}-${two(m[1])}`, to: `${two(m[4])}-${two(m[3])}` }));
-  return w.length ? w : null;
+  if (w.some(x => nextDay(x.to) === x.from)) return 'always';
+  return w.sort((a, b) => a.from.localeCompare(b.from));
 }
 
-function disputed(f: SrcFish, time: Schedule, season: Schedule): UncertainField[] {
-  const cz = (key: string) => (f.extra.fishao_cz ?? []).flatMap(p => (p.fields[key] ?? '').split('/')).filter(s => s.trim());
-  const out: UncertainField[] = [];
-  if (time !== null) {
-    const ours = timeCover(time);
-    const others = [f.extra.fishaofunwiki?.time ?? '', ...cz(CZ_TIME)].filter(Boolean).map(parseTimeText);
-    if (others.some(v => v && differingSlots(timeCover(v), ours) > 0)) out.push('time');
+/** "Balloon set" -> furniture set id, "Gyrodus fossils" -> fossil collection. */
+function netUnlock(n: NetFish, setIds: Map<string, string>): Unlock[] {
+  const out: Unlock[] = [];
+  for (const c of n.collections) {
+    const fossils = /^(.+) fossils$/.exec(c);
+    if (fossils) { out.push({ kind: 'fossils', name: fossils[1] }); continue; }
+    const set = setIds.get(c.toLowerCase());
+    if (set) out.push({ kind: 'set', set });
+    else fail(`${n.name}: collection "${c}" is neither fossils nor a furniture set`);
   }
-  if (season !== null) {
-    const ours = seasonCover(season);
-    const others = [
-      ...(f.extra.fishaofunwiki?.season ? [parseFunwikiSeason(f.extra.fishaofunwiki.season)] : []),
-      ...cz(CZ_SEASON).map(parseCzSeason),
-    ];
-    // a few days' difference is how sources write month ends, not a dispute
-    if (others.some(v => v && differingSlots(seasonCover(v), ours) > 3)) out.push('season');
+  for (const combo of n.fruitCombos) {
+    const fruits = combo.split(', ');
+    for (const f of fruits) if (!isFruit(f)) fail(`${n.name}: fruit "${f}" missing in src/i18n/dictionaries.ts`);
+    out.push({ kind: 'fruits', fruits: fruits.filter(isFruit) });
   }
+  if (n.clubPoints) out.push({ kind: 'clubPoints', points: n.clubPoints });
+  if (n.clubPrice) out.push({ kind: 'clubEarly', coins: n.clubPrice });
   return out;
 }
 
-/**
- * User decision: these places don't exist in the game. Pinheira Beach has no pyramid; the only
- * source is the giant-moray row of fishaofunwiki, wiki area table and fishao.cz both say pier.
- */
-const NOT_REAL_SPOTS: Record<string, string[]> = { 'pinheira-beach': ['Pyramid'] };
-const realSpots = (area: string, list: string[]) => list.filter(s => !NOT_REAL_SPOTS[area]?.includes(s));
-
-/** User decision: a spot here is a separate place, every fish with a spot bites only there. */
-const SPOT_ALWAYS_SEPARATE = new Set(['mystic-desert']);
-/**
- * User decision: separate too, but some spot fish also bite in the open area. Only fishao.cz tells
- * them apart: "Cool Mountain (z voru)" alone = raft only, plus plain "Cool Mountain" = both.
- */
-const SPOT_SEPARATE_PER_FISH: Record<string, string> = {
-  'cool-mountain': 'Cool Mountain',
-  'pinheira-beach': 'Pinheira Beach',
-  'thombani-town': 'Thombani Town',
-  'seagull-harbor': 'Seagull Harbor',
-  'laketown': 'Laketown',
-  'palm-island': 'Palm Island',
-  'club': 'Klub',
-};
-
-function spotAccess(f: SrcFish): Record<string, 'only' | 'also'> | undefined {
-  const places = new Set((f.extra.fishao_cz ?? []).flatMap(p => (p.fields['Výskyt / oblast'] ?? '').split('|').map(s => s.trim())));
-  const out: Record<string, 'only' | 'also'> = {};
-  for (const area of Object.keys(f.area_spots)) {
-    if (SPOT_ALWAYS_SEPARATE.has(area)) out[area] = 'only';
-    const name = SPOT_SEPARATE_PER_FISH[area];
-    if (!name) continue;
-    if (![...places].some(p => p.startsWith(name))) fail(`${f.id}: no fishao.cz location for ${name}`);
-    out[area] = places.has(name) ? 'also' : 'only';
-  }
-  return Object.keys(out).length ? out : undefined;
+/** The zone grid drives the map: 13x13 cells, every zone present, nothing unknown. */
+function checkZones(grid: string[]) {
+  if (grid.length !== 13 || grid.some(r => r.length !== 13)) fail('palm island zone grid is not 13x13');
+  const seen = new Set(grid.join('').replace(/\./g, ''));
+  for (const z of ZONES) if (!seen.has(z)) fail(`palm island zone ${z} missing in the grid`);
+  for (const z of seen) if (!ZONES.includes(z as Zone)) fail(`palm island zone ${z} unknown`);
 }
+
 const HHMM = /^([01]\d|2[0-3]):[0-5]\d$/;
 const MMDD = /^(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
 
-function schedule(id: string, field: string, v: SrcFish['time'], re: RegExp): Schedule {
+function schedule(id: string, field: string, v: Schedule, re: RegExp): Schedule {
   if (v === null || v === 'always') return v;
   if (!Array.isArray(v) || !v.length) { fail(`${id}: ${field} has unexpected value ${JSON.stringify(v)}`); return null; }
   for (const w of v) if (!re.test(w.from) || !re.test(w.to)) fail(`${id}: ${field} window ${w.from}–${w.to} is malformed`);
@@ -376,59 +357,69 @@ async function main() {
     await Promise.all(srcFish.slice(i, i + 16).map(async f => images.set(f.id, await convertImage(join(REPO, f.image), f.id))));
   }
 
+  const net: NetData = JSON.parse(await readFile(join(REPO, 'data', 'fishao_net.json'), 'utf8'));
+  checkZones(net.palm_island_zones);
+  const netById = new Map(net.fish.filter(n => n.fishdex_id).map(n => [n.fishdex_id!, n]));
+  const sets: SrcSet[] = JSON.parse(await readFile(join(REPO, 'data', 'furniture_sets.json'), 'utf8'));
+  const setIds = new Map(sets.filter(s => s.kind === 'set').map(s => [s.names.en.toLowerCase(), s.id]));
+
   const fish: Fish[] = [];
   for (const f of srcFish) {
-    applyCorrections(f);
     if (seen.has(f.id)) fail(`${f.id}: duplicate id`);
     seen.add(f.id);
     if (!f.names.cs) fail(`${f.id}: missing Czech name`);
-    if (![1, 2, 3, 4, 5].includes(f.rarity)) fail(`${f.id}: rarity ${f.rarity}`);
-    for (const a of f.areas) if (!areaIds.has(a)) fail(`${f.id}: unknown area ${a}`);
-    for (const b of f.bait) if (!isBait(b)) fail(`${f.id}: bait "${b}" missing in src/i18n/dictionaries.ts`);
-    const spots: Record<string, Spot[]> = {};
-    for (const [area, list] of Object.entries(f.area_spots)) {
-      for (const s of list) if (!isSpot(s)) fail(`${f.id}: spot "${s}" missing in src/i18n/dictionaries.ts`);
-      spots[area] = realSpots(area, list).filter(isSpot);
-      if (!spots[area].length) fail(`${f.id}: no real spot left in ${area}`);
-    }
+    const n = netById.get(f.id);
+    if (!n) { fail(`${f.id}: not on fishao.net`); continue; }
+    if (![1, 2, 3, 4, 5].includes(n.rating)) fail(`${f.id}: rarity ${n.rating}`);
+    for (const b of n.baits) if (!NET_BAIT[b]) fail(`${f.id}: bait category "${b}" not mapped`);
+    const where = netWhere(n);
+    for (const a of where.areas) if (!areaIds.has(a)) fail(`${f.id}: unknown area ${a}`);
+    if (!where.areas.length) fail(`${f.id}: no location`);
 
-    const time = schedule(f.id, 'time', f.time, HHMM);
-    const season = schedule(f.id, 'season', f.season, MMDD);
+    const time = schedule(f.id, 'time', netTime(n.times), HHMM);
+    const season = schedule(f.id, 'season', netSeason(n.dates), MMDD);
     const img = images.get(f.id)!;
     if (img.cleaned) cleanedIds.push(f.id);
     totalBytes += img.bytes;
     largest = Math.max(largest, img.bytes);
+    const unlock = netUnlock(n, setIds);
+    const rarer = n.factor < 1 ? Math.round(1 / n.factor) : 1;
 
     fish.push({
       id: f.id,
       names: { cs: f.names.cs ?? f.names.en, en: f.names.en },
-      areas: f.areas,
-      spots,
-      spotAccess: spotAccess(f),
+      areas: where.areas,
+      spots: where.spots,
+      ...(where.zones && { zones: where.zones }),
       time,
       season,
-      rarity: f.rarity as Fish['rarity'],
-      bait: f.bait.filter(isBait),
-      size: f.length_cm,
+      rarity: n.rating as Fish['rarity'],
+      ...(rarer > 1 && { rarer }),
+      bait: [...new Set(n.baits.map(b => NET_BAIT[b]).filter(Boolean))],
+      size: { min: n.min, avg: n.avg, max: n.max },
       record: f.max_length_label,
-      uncertain: [...new Set([
-        ...f.uncertain.filter((u): u is UncertainField => u === 'time' || u === 'season' || u === 'bait'),
-        ...disputed(f, time, season),
-      ])],
+      ...(n.breed && { breed: { cost: n.breed.cost, hours: n.breed.hours, chance: n.breed.rate } }),
+      ...(unlock.length && { unlock }),
       glowing: true,
       img: { w: img.w, h: img.h },
     });
   }
+  for (const n of net.fish) if (!n.fishdex_id || !seen.has(n.fishdex_id)) fail(`fishao.net ${n.name}: no fish in data/fish.json`);
+  for (const x of fish) if (x.breed && !x.areas.includes('backyard')) fail(`${x.id}: breeding outside the backyard`);
 
   const kinds: AreaKind[] = ['area', 'tournament', 'backyard'];
   const areas: Area[] = srcAreas.map(a => {
     if (!kinds.includes(a.kind as AreaKind)) fail(`area ${a.id}: kind ${a.kind}`);
-    for (const s of a.spots) if (!isSpot(s)) fail(`area ${a.id}: spot "${s}" missing in dictionaries`);
-    const count = fish.filter(f => f.areas.includes(a.id)).length;
-    if (count !== a.fish_ids.length) fail(`area ${a.id}: ${count} fish reference it, fish_ids has ${a.fish_ids.length}`);
-    const open = fish.some(f => f.areas.includes(a.id) && f.spotAccess?.[a.id] !== 'only');
-    return { id: a.id, name: a.name, kind: a.kind as AreaKind, spots: realSpots(a.id, a.spots).filter(isSpot), count, open };
+    const inIt = fish.filter(f => f.areas.includes(a.id));
+    if (!inIt.length) fail(`area ${a.id}: no fish`);
+    const spots = SPOT_ORDER.filter(s => inIt.some(f => f.spots[a.id]?.includes(s)));
+    // a spot is its own place: fish with a spot in this area don't bite in the open area
+    const open = inIt.some(f => !f.spots[a.id]?.length);
+    return { id: a.id, name: a.name, kind: a.kind as AreaKind, spots, count: inIt.length, open };
   });
+
+  const palm = fish.filter(f => f.zones);
+  const zoneCount = ZONES.map(z => `${z} ${palm.filter(f => f.zones!.includes(z)).length}`).join(', ');
 
   const furniture = await buildFurniture();
 
@@ -439,6 +430,10 @@ async function main() {
 
   await writeFile(join(OUT_DATA, 'fish.json'), JSON.stringify(fish));
   await writeFile(join(OUT_DATA, 'areas.json'), JSON.stringify(areas));
+  await writeFile(join(OUT_DATA, 'palmZones.json'), JSON.stringify(net.palm_island_zones));
+  // official Palm Island map (1000x1000 webp, ~90 kB), the zone grid is drawn over it
+  await mkdir(OUT_MAPS, { recursive: true });
+  await copyFile(join(REPO, 'images', 'maps', 'palm-island.webp'), join(OUT_MAPS, 'palm-island.webp'));
   await writeFile(join(OUT_DATA, 'furniture.json'), JSON.stringify(furniture.items));
   await writeFile(join(OUT_DATA, 'furnitureCollections.json'), JSON.stringify(furniture.collections));
 
@@ -446,6 +441,7 @@ async function main() {
   console.log(`build-data: ${fish.length} fish, ${areas.length} areas`);
   console.log(`  images: ${kb(totalBytes)} total, largest ${kb(largest)}`);
   console.log(`build-data: ${furniture.items.length} furniture items in ${furniture.collections.length} collections, images ${kb(furniture.bytes)}`);
+  console.log(`  palm island zones: ${zoneCount}`);
   console.log(`  white background removed (${cleanedIds.length}): ${cleanedIds.join(', ')}`);
 }
 

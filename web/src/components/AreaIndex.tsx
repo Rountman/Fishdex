@@ -55,22 +55,14 @@ export function AreaIndex({ areas, facets, area, spot, onSelect }: Props) {
             <ul className={styles.list}>
               {areas.filter(a => a.kind === kind).map(a => {
                 const tally = facets.areas.get(a.id) ?? EMPTY;
-                const whole = facets.wholeAreas.get(a.id) ?? EMPTY;
                 return (
                   <li key={a.id}>
-                    {a.open ? (
-                      <Row
-                        label={a.name} tally={tally} pressed={area === a.id && !spot} onClick={() => onSelect(a.id)}
-                        extra={kind === 'backyard' && (
-                          <span className={styles.bred}>{t.bredNote} {tally.bred}<span className="of">/{tally.total}</span></span>
-                        )}
-                      />
-                    ) : (
-                      <div className={styles.heading} data-done={whole.total > 0 && whole.caught === whole.total}>
-                        <span className={styles.name}>{a.name}</span>
-                        <Count tally={whole} />
-                      </div>
-                    )}
+                    <Row
+                      label={a.name} tally={tally} pressed={area === a.id && !spot} onClick={() => onSelect(a.id)}
+                      extra={kind === 'backyard' && (
+                        <span className={styles.bred}>{t.bredNote} {tally.bred}<span className="of">/{tally.total}</span></span>
+                      )}
+                    />
                     {a.spots.length > 0 && (
                       <ul className={styles.spots}>
                         {a.spots.map(sp => {
