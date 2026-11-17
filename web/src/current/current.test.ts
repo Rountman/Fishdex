@@ -1,7 +1,11 @@
 import { describe, expect, it } from 'vitest';
 import { FISH } from '../data';
 import type { Fish } from '../data/types';
-import { fixedOffset, fixedZone, isValidPref, offsetLabel, prefOffset, shiftTime, toHHMM, ZONE_CHOICES, zoneOffset } from '../time/zone';
+import { bitesAtHour } from '../state/filters';
+import { citiesByOffset } from '../time/cities';
+import {
+  fixedOffset, fixedZone, isValidPref, localizeFish, offsetLabel, pickerValue, prefOffset, shiftTime, toHHMM, ZONE_CHOICES, zoneOffset,
+} from '../time/zone';
 import { bitesAt, currentFish, inSeasonOn } from './current';
 
 const fish = (id: string, time: Fish['time'], season: Fish['season']): Fish => ({
@@ -80,8 +84,10 @@ describe('zones', () => {
 });
 
 describe('fixed UTC offsets', () => {
-  it('offers Czechia, the device and every offset from UTC−12 to UTC+14', () => {
-    expect(ZONE_CHOICES.slice(0, 2)).toEqual(['Europe/Prague', 'device']);
+  it('offers the device and every offset from UTC−12 to UTC+14, no named zones', () => {
+    expect(ZONE_CHOICES[0]).toBe('device');
+    expect(ZONE_CHOICES.slice(1).every(z => fixedOffset(z) !== null)).toBe(true);
+    expect(ZONE_CHOICES).toHaveLength(40);
     expect(ZONE_CHOICES).toContain('UTC-12:00');
     expect(ZONE_CHOICES).toContain('UTC+14:00');
     expect(ZONE_CHOICES).toContain('UTC+05:45');
@@ -105,5 +111,68 @@ describe('fixed UTC offsets', () => {
     expect(isValidPref('Europe/London')).toBe(true);
     expect(isValidPref('UTC+5')).toBe(false);
     expect(isValidPref('Mars/Base')).toBe(false);
+  });
+});
+
+describe('picker', () => {
+  const winter = at('2026-01-15T12:00:00Z'), summer = at('2026-07-15T12:00:00Z');
+  it('shows the default Czech time as its current offset', () => {
+    expect(pickerValue('Europe/Prague', winter)).toBe('UTC+01:00');
+    expect(pickerValue('Europe/Prague', summer)).toBe('UTC+02:00');
+    expect(pickerValue('UTC-03:30', summer)).toBe('UTC-03:30');
+    expect(pickerValue('device', summer)).toBe('device');
+  });
+  it('puts at most 3 example cities next to the offset they have now', () => {
+    const w = citiesByOffset('cs', winter), su = citiesByOffset('cs', summer);
+    expect(w.get(60)).toEqual(['Praha', 'Berlín', 'Paříž']);
+    expect(su.get(120)?.slice(0, 3)).toEqual(['Praha', 'Berlín', 'Paříž']);
+    expect(w.get(-300)?.[0]).toBe('New York');
+    expect(citiesByOffset('en', winter).get(330)).toEqual(['Delhi', 'Colombo']);
+    expect([...w.values()].every(l => l.length <= 3)).toBe(true);
+    expect(w.has(-720)).toBe(false);  // UTC−12: no city, label stays bare
+  });
+});
+
+describe('catch times converted to every offered zone', () => {
+  const timed = FISH.filter(f => Array.isArray(f.time));
+  const offsets = ZONE_CHOICES.slice(1).map(z => fixedOffset(z)!);
+
+  it('bite at exactly the same moments as in game time, minute by minute', () => {
+    let checks = 0;
+    for (const off of offsets) {
+      const local = localizeFish(timed, off);
+      timed.forEach((f, i) => {
+        for (let m = 0; m < 24 * 60; m++) {
+          if (bitesAt(local[i].time, m + off) !== bitesAt(f.time, m)) {
+            throw new Error(`${f.id} at ${offsetLabel(off)}: minute ${m} UTC differs`);
+          }
+          checks++;
+        }
+      });
+    }
+    expect(checks).toBe(timed.length * offsets.length * 1440);
+  });
+
+  it('keep the hour filter right: local hour h = game hour h − offset', () => {
+    for (const off of offsets.filter(o => o % 60 === 0)) {
+      const local = localizeFish(timed, off);
+      timed.forEach((f, i) => {
+        for (let h = 0; h < 24; h++) {
+          expect(bitesAtHour(local[i].time, h), `${f.id} ${offsetLabel(off)} ${h}h`).toBe(bitesAtHour(f.time, (h - off / 60 + 24) % 24));
+        }
+      });
+    }
+  });
+
+  it('give the expected windows for known fish', () => {
+    const t = (id: string, off: number) => localizeFish(FISH.filter(f => f.id === id), off)[0].time;
+    expect(t('horn-shark', 60)).toEqual([{ from: '00:00', to: '06:00' }]);
+    expect(t('horn-shark', 120)).toEqual([{ from: '01:00', to: '07:00' }]);
+    expect(t('horn-shark', -300)).toEqual([{ from: '18:00', to: '00:00' }]);
+    expect(t('horn-shark', 330)).toEqual([{ from: '04:30', to: '10:30' }]);
+    expect(t('arctic-char', 60)).toEqual([{ from: '06:00', to: '12:00' }, { from: '19:00', to: '01:00' }]);
+    expect(t('black-arowana', 60)).toEqual([{ from: '11:00', to: '11:15' }, { from: '14:45', to: '15:00' }, { from: '04:15', to: '04:30' }]);
+    // seasons are dates, not shifted
+    expect(localizeFish(FISH.filter(f => f.id === 'horn-shark'), 600)[0].season).toEqual([{ from: '02-01', to: '11-30' }]);
   });
 });

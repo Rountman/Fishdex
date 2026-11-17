@@ -46,7 +46,7 @@
 .zone { display: inline-flex; align-items: center; gap: var(--space-2); }
 .zone span { color: var(--color-ink-faint); font-size: var(--fs-xs); font-weight: var(--fw-strong); letter-spacing: 0.08em; text-transform: uppercase; }
 .zone select {
-  max-width: 170px; padding: 3px var(--space-1); border: 1.5px solid var(--color-ink-faint); border-radius: var(--radius-control);
+  max-width: 230px; padding: 3px var(--space-1); border: 1.5px solid var(--color-ink-faint); border-radius: var(--radius-control);
   background: var(--color-slip); color: var(--color-ink); font: inherit; font-size: var(--fs-sm);
 }
 .lang { display: inline-flex; border: 1.5px solid var(--color-ink-faint); border-radius: var(--radius-control); overflow: hidden; }
@@ -70,6 +70,9 @@
   .tools { flex-direction: column; align-items: flex-end; gap: 0; align-self: start; }
   .tools :global(.link) { font-size: var(--fs-sm); }
   .lang { margin-bottom: var(--space-1); }
+  .zone { margin-bottom: var(--space-1); }
+  .zone select { max-width: 132px; }
+  .title { min-width: 0; }
   .tabs { margin-top: var(--space-4); margin-bottom: calc(-1 * var(--space-4) - 2px); }
   .tab { flex: 1; font-size: 18px; }
 }

@@ -200,7 +200,7 @@ export default function App() {
             onBackup={() => setBackupOpen(true)}
             tab={tab} onTab={switchTab}
             furniture={{ owned: ownedCount(p.progress, FURNITURE_IDS), total: FURNITURE.length, setsDone, sets: SET_COUNT }}
-            zone={prefs.zone} onZone={z => setPrefs({ zone: z })}
+            zone={prefs.zone} onZone={z => setPrefs({ zone: z })} zoneAt={openedAt}
           />
           {notice && <StorageNotice kind={notice} onBackup={() => setBackupOpen(true)} />}
 

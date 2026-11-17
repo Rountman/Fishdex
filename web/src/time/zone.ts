@@ -3,17 +3,17 @@
 import type { Fish, Schedule } from '../data/types';
 
 /**
- * Stored preference: 'Europe/Prague' (default, follows summer time), 'device' = whatever the
+ * Stored preference: 'Europe/Prague' (default until the user picks, follows summer time), 'device' = whatever the
  * browser reports, a fixed offset 'UTC', 'UTC+05:30', 'UTC-03:00', or any other IANA id (older saves).
  */
 export type ZonePref = string;
 export const DEFAULT_ZONE: ZonePref = 'Europe/Prague';
 export const DEVICE_ZONE = 'device';
 
-/** Every UTC offset in use, in minutes: whole hours −12…+14 plus the half/quarter ones. */
+/** Every UTC offset in use, in minutes: whole hours −12…+14 plus the half/quarter ones (+13:45 = Chatham summer). */
 const FIXED_MINUTES = [
   ...Array.from({ length: 27 }, (_, i) => (i - 12) * 60),
-  -570, -210, 210, 270, 330, 345, 390, 525, 570, 630, 765,
+  -570, -210, 210, 270, 330, 345, 390, 525, 570, 630, 765, 825,
 ].sort((a, b) => a - b);
 
 const pad = (n: number) => String(n).padStart(2, '0');
@@ -30,8 +30,15 @@ export function fixedOffset(pref: ZonePref): number | null {
 export const offsetLabel = (m: number) =>
   m === 0 ? 'UTC' : `UTC${m > 0 ? '+' : '−'}${Math.floor(Math.abs(m) / 60)}${Math.abs(m) % 60 ? `:${pad(Math.abs(m) % 60)}` : ''}`;
 
-/** Offered in the masthead: Czechia, this device, then every fixed offset. */
-export const ZONE_CHOICES: readonly ZonePref[] = [DEFAULT_ZONE, DEVICE_ZONE, ...FIXED_MINUTES.map(fixedZone)];
+/** Offered in the masthead: this device, then every fixed offset. */
+export const ZONE_CHOICES: readonly ZonePref[] = [DEVICE_ZONE, ...FIXED_MINUTES.map(fixedZone)];
+
+/**
+ * What the picker shows as selected. The default (nothing picked yet, Czech time) and older saved
+ * zone ids show as their current offset: UTC+1 in winter, UTC+2 in summer for Czechia.
+ */
+export const pickerValue = (pref: ZonePref, at: number): ZonePref =>
+  pref === DEVICE_ZONE || fixedOffset(pref) !== null ? pref : fixedZone(prefOffset(pref, at));
 
 export const isValidPref = (pref: string) => pref === DEVICE_ZONE || fixedOffset(pref) !== null || isValidZone(pref);
 

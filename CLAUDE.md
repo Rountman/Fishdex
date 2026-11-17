@@ -126,10 +126,13 @@ prototypes/    # schválené mockupy a styleguide (fáze 1–2), DECISIONS.md
 
 ## Časové pásmo
 
-- Časy ryb v datech jsou herní čas = **UTC** (ověřeno proti fishao.net). V hlavičce jde vybrat pásmo:
-  výchozí **Česko** (SEČ/SELČ, sleduje letní čas), Podle zařízení, pak všechna pevná pásma UTC−12 … UTC+14
-  včetně půlhodinových (bez letního času). Uloženo v `fishdex:prefs:v1` (`zone`: `Europe/Prague`, `device`
-  nebo `UTC+05:30`; starší uložené IANA id dál platí).
+- Časy ryb v datech jsou herní čas = **UTC** (ověřeno proti fishao.net). V hlavičce jde vybrat
+  Podle zařízení nebo pevné pásmo UTC−12 … UTC+14 včetně půlhodinových (bez letního času), v závorce
+  max. 3 města, která v tu chvíli mají daný posun (`time/cities.ts`, letní čas je přesune).
+  Volba „Česko“ v seznamu není: dokud uživatel nic nevybere, platí český čas (`Europe/Prague`)
+  a ve výběru je označené jeho aktuální pásmo (UTC+1 / v létě UTC+2). Uloženo v `fishdex:prefs:v1`
+  (`zone`: `Europe/Prague`, `device` nebo `UTC+05:30`; starší uložené IANA id dál platí).
+- Test v `current.test.ts` ověřuje převod pro každou rybu, každé nabízené pásmo a každou minutu dne.
 - Převod je na jednom místě (`localizeFish` v `App.tsx`): karty, detail („(Praha)“) i filtr hodiny
   pracují v zvoleném pásmu. Sezóny se počítají podle data v UTC. Timery zůstávají v čase zařízení.
 

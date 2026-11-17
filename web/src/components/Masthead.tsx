@@ -1,7 +1,9 @@
+import { useMemo } from 'react';
 import { useI18n } from '../i18n/context';
 import { pct } from '../i18n/format';
 import type { Lang } from '../i18n/strings';
-import { DEFAULT_ZONE, DEVICE_ZONE, fixedOffset, offsetLabel, ZONE_CHOICES, type ZonePref } from '../time/zone';
+import { citiesByOffset } from '../time/cities';
+import { DEVICE_ZONE, fixedOffset, offsetLabel, pickerValue, ZONE_CHOICES, type ZonePref } from '../time/zone';
 import styles from './Masthead.module.css';
 
 import { TABS, type Tab } from '../state/tabs';
@@ -24,10 +26,21 @@ type Props = {
   furniture: FurnitureTally;
   zone: ZonePref;
   onZone: (zone: ZonePref) => void;
+  /** Moment the offsets and example cities are taken for (page load). */
+  zoneAt: number;
 };
 
-export function Masthead({ total, caught, glow, overviewOpen, dark, onOverview, onLang, onTheme, onBackup, tab, onTab, furniture: fu, zone, onZone }: Props) {
+export function Masthead({ total, caught, glow, overviewOpen, dark, onOverview, onLang, onTheme, onBackup, tab, onTab, furniture: fu, zone, onZone, zoneAt }: Props) {
   const { lang, t } = useI18n();
+  const cities = useMemo(() => citiesByOffset(lang, zoneAt), [lang, zoneAt]);
+  const value = pickerValue(zone, zoneAt);
+  const zoneText = (z: ZonePref) => {
+    if (z === DEVICE_ZONE) return t.tzDevice;
+    const m = fixedOffset(z);
+    if (m === null) return z;
+    const names = m === 0 ? [t.tzGame, ...(cities.get(0) ?? []).slice(0, 2)] : cities.get(m) ?? [];
+    return names.length ? `${offsetLabel(m)} (${names.join(', ')})` : offsetLabel(m);
+  };
   const complete = tab === 'fish' && total > 0 && caught === total;
   return (
     <header className={styles.head}>
@@ -83,14 +96,9 @@ export function Masthead({ total, caught, glow, overviewOpen, dark, onOverview, 
         </div>
         <label className={styles.zone}>
           <span aria-hidden="true">{t.zoneShort}</span>
-          <select value={zone} aria-label={t.zoneLabel} onChange={e => onZone(e.target.value)}>
-            {!ZONE_CHOICES.includes(zone) && <option value={zone}>{zone}</option>}
-            {ZONE_CHOICES.map(z => {
-              const fixed = fixedOffset(z);
-              const label = z === DEFAULT_ZONE ? t.tzCzech : z === DEVICE_ZONE ? t.tzDevice
-                : fixed === 0 ? `UTC (${t.tzGame})` : fixed !== null ? offsetLabel(fixed) : z;
-              return <option key={z} value={z}>{label}</option>;
-            })}
+          <select value={value} aria-label={t.zoneLabel} onChange={e => onZone(e.target.value)}>
+            {!ZONE_CHOICES.includes(value) && <option value={value}>{zoneText(value)}</option>}
+            {ZONE_CHOICES.map(z => <option key={z} value={z}>{zoneText(z)}</option>)}
           </select>
         </label>
         <button type="button" className="link" onClick={onTheme}>{dark ? t.themeToLight : t.themeToDark}</button>
