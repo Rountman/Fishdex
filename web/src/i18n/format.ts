@@ -24,6 +24,13 @@ const dm = (s: string, lang: Lang) => {
   return lang === 'cs' ? `${d}. ${m}.` : `${d} ${MON[m - 1]}`;
 };
 
+/** "MM-DD" → "30. 11." / "30 Nov". */
+export const fmtDay = dm;
+
+/** Minutes → "45 min", "3 h", "2 h 30 min" (same units in both languages). */
+export const fmtDuration = (m: number) =>
+  m < 60 ? `${m} min` : m % 60 ? `${Math.floor(m / 60)} h ${m % 60} min` : `${m / 60} h`;
+
 export function fmtSeason(season: Schedule, lang: Lang): Formatted {
   const t = STRINGS[lang];
   if (season === null) return { text: t.unknownF, unknown: true };

@@ -116,6 +116,21 @@ prototypes/    # schválené mockupy a styleguide (fáze 1–2), DECISIONS.md
 - Uloženo jen v `fishdex:timers:v1` → `{ version, collectedAt: { [id]: epochMs } }`, mimo export progresu.
 - URL `tab=timers`.
 
+## Záložka Aktuální
+
+- Inspirace přehledem fishao.net/wiki: Teď berou (zbývá), Brzy začnou (do 24 h), Sezóna končí
+  (dní včetně dneška + poslední den), Sezóna začne (za kolik dní + od kdy). Počítá se jen z dat
+  (`web/src/current/current.ts`, testy proti přehledu fishao.net), nic se nestahuje za běhu.
+- Filtry: Skrýt chycené (`chide=1`) a Oblast (`carea=`); URL `tab=current`. Klik na řádek otevře detail.
+- Mockup: `prototypes/b-aktualni/`.
+
+## Časové pásmo
+
+- Časy ryb v datech jsou herní čas = **UTC** (ověřeno proti fishao.net). V hlavičce jde vybrat pásmo,
+  výchozí **Praha**; uloženo v `fishdex:prefs:v1` (`zone`: IANA id nebo `device`).
+- Převod je na jednom místě (`localizeFish` v `App.tsx`): karty, detail („(Praha)“) i filtr hodiny
+  pracují v zvoleném pásmu. Sezóny se počítají podle data v UTC. Timery zůstávají v čase zařízení.
+
 ## Progres uživatele (localStorage)
 
 - Progres je per prohlížeč a zařízení, nesynchronizuje se. Každý

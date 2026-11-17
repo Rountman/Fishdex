@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fishdex · mockup Aktuální ryby</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400..900;1,400..900&family=Schibsted+Grotesk:wght@400..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../web/src/styles/tokens.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!--
+  Mockup záložky „Aktuální“ + přepínač časového pásma v hlavičce.
+  Data: skutečné web/src/data/fish.json (časy jsou herní UTC — ověřeno proti fishao.net/wiki).
+  Spouštět přes lokální server z kořene repa: /prototypes/b-aktualni/?now=2026-11-17T14:30Z
+-->
+<header class="mast">
+  <div class="mast-title">
+    <h1>Fishdex</h1>
+    <p class="sub">Terénní deník rybáře</p>
+  </div>
+  <nav class="tabs" aria-label="Záložky">
+    <a href="#">Ryby</a>
+    <a href="#" aria-current="page">Aktuální</a>
+    <a href="#">Nábytek</a>
+    <a href="#">Timery</a>
+  </nav>
+  <div class="tools">
+    <span class="seg"><button aria-pressed="true">CZ</button><button aria-pressed="false">EN</button></span>
+    <label class="tz">
+      <span class="tz-label">Čas</span>
+      <select id="tz" aria-label="Časové pásmo">
+        <option value="Europe/Prague">Praha (SEČ/SELČ)</option>
+        <option value="UTC">Herní čas (UTC)</option>
+        <option value="Europe/London">Londýn</option>
+        <option value="Europe/Istanbul">Istanbul</option>
+        <option value="Europe/Moscow">Moskva</option>
+        <option value="America/New_York">New York</option>
+        <option value="America/Sao_Paulo">São Paulo</option>
+        <option value="device">Podle zařízení</option>
+      </select>
+    </label>
+    <a href="#" class="link">Noční deník</a>
+    <a href="#" class="link">Záloha</a>
+  </div>
+</header>
+
+<main class="page">
+  <section class="clock" aria-label="Herní čas">
+    <div class="clock-main">
+      <span class="clock-k">Herní čas</span>
+      <span class="clock-v" id="game-time">—</span>
+      <span class="clock-z">UTC</span>
+    </div>
+    <div class="clock-local">
+      <span class="clock-k">U tebe</span>
+      <span class="clock-v sm" id="local-time">—</span>
+      <span class="clock-z" id="local-zone">—</span>
+    </div>
+    <div class="dial" aria-hidden="true">
+      <div class="dial-track"><span class="dial-now" id="dial-now"></span></div>
+      <div class="dial-ticks"><span>0</span><span>6</span><span>12</span><span>18</span><span>24</span></div>
+    </div>
+    <p class="clock-note">Časy berou podle herního času. Níže je převádíme do tvého pásma.</p>
+  </section>
+
+  <div class="filters">
+    <label class="chk"><input type="checkbox" id="hide-caught"> Skrýt chycené</label>
+    <label class="sel">Oblast
+      <select id="area"><option value="">Všechny</option></select>
+    </label>
+  </div>
+
+  <div class="cols">
+    <div class="col col-day">
+      <h2 class="col-h"><span>Dnes u vody</span><small>denní okna</small></h2>
+      <section class="block" id="now"></section>
+      <section class="block" id="soon"></section>
+    </div>
+    <div class="col col-season">
+      <h2 class="col-h"><span>Kalendář sezón</span><small>roční okna</small></h2>
+      <section class="block" id="ending"></section>
+      <section class="block" id="next"></section>
+    </div>
+  </div>
+</main>
+
+<template id="row">
+  <li class="row">
+    <img class="fish" alt="" loading="lazy" width="48" height="48">
+    <span class="who">
+      <span class="name"></span>
+      <span class="meta"></span>
+    </span>
+    <span class="when">
+      <span class="big"></span>
+      <span class="small"></span>
+    </span>
+    <span class="strip" aria-hidden="true"></span>
+  </li>
+</template>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>

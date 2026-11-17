@@ -2,6 +2,7 @@ import { MotionConfig } from 'motion/react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { AreaIndex } from './components/AreaIndex';
 import { BackupDialog } from './components/BackupDialog';
+import { CurrentView } from './components/CurrentView';
 import { ExportButton } from './components/ExportButton';
 import { CARD_HELP_ID } from './components/FishCard';
 import { FishDetail } from './components/FishDetail';
@@ -13,7 +14,7 @@ import { ITEM_HELP_ID } from './components/FurnitureCard';
 import { FurnitureFilters } from './components/FurnitureFilters';
 import { FurnitureIndex } from './components/FurnitureIndex';
 import { FurnitureView } from './components/FurnitureView';
-import { Masthead, type Tab } from './components/Masthead';
+import { Masthead } from './components/Masthead';
 import { BackupHint, StorageNotice } from './components/Notices';
 import { Overview } from './components/Overview';
 import { TimersView } from './components/TimersView';
@@ -34,9 +35,11 @@ import {
   type FurnitureFilters as FurnitureFilterState,
 } from './state/furnitureFilters';
 import { shouldShowHint, usePrefs } from './state/prefs';
+import { TABS, type Tab } from './state/tabs';
 import { buildIndex } from './state/search';
 import type { TimerId } from './timers/timers';
 import { useTimers } from './timers/useTimers';
+import { localizeFish, resolveZone, zoneOffset } from './time/zone';
 import { readParams, writeParams } from './url';
 import styles from './App.module.css';
 
@@ -44,6 +47,7 @@ const INDEX = buildIndex(FISH);
 const AREA_IDS = new Set(AREAS.map(a => a.id));
 const AREA_NAMES = new Map(AREAS.map(a => [a.id, a.name]));
 const FISH_BY_ID = new Map(FISH.map(f => [f.id, f]));
+const CURRENT_AREAS = AREAS.filter(a => a.count > 0);
 const areaName = (id: string) => AREA_NAMES.get(id) ?? id;
 const FINDEX = buildIndex(FURNITURE);
 const COLLECTION_IDS = new Set(COLLECTIONS.map(c => c.id));
@@ -51,7 +55,7 @@ const PRICES = FURNITURE.flatMap(x => (x.price === null ? [] : [x.price]));
 const PRICE_BOUNDS = { min: Math.min(...PRICES), max: Math.max(...PRICES) };
 const ITEM_BY_ID = new Map(FURNITURE.map(f => [f.id, f]));
 const SET_COUNT = COLLECTIONS.filter(c => c.kind === 'set').length;
-const parseTab = (v: string | null): Tab => (v === 'furniture' || v === 'timers' ? v : 'fish');
+const parseTab = (v: string | null): Tab => ((TABS as readonly string[]).includes(v ?? '') ? v as Tab : 'fish');
 
 export default function App() {
   const [prefs, setPrefs] = usePrefs();
@@ -62,12 +66,22 @@ export default function App() {
   const systemDark = useMediaQuery('(prefers-color-scheme: dark)');
   const dark = prefs.theme === 'dark' || (prefs.theme === 'auto' && systemDark);
 
+  // catch times in the data are game time (UTC); everything on screen uses the picked zone
+  const zone = resolveZone(prefs.zone);
+  const [openedAt] = useState(Date.now);
+  const offset = useMemo(() => zoneOffset(zone, openedAt), [zone, openedAt]);
+  const zoneName = prefs.zone === 'device' ? zone.split('/').pop()!.replace(/_/g, ' ') : t.tzNames[prefs.zone] ?? zone;
+  const fish = useMemo(() => localizeFish(FISH, offset), [offset]);
+  const fishById = useMemo(() => new Map(fish.map(f => [f.id, f])), [fish]);
+
   // ---- URL state ---------------------------------------------------------
   const [filters, setFilters] = useState<FilterState>(() => parseFilters(readParams(), AREA_IDS));
   const [sort, setSort] = useState<Sort>(() => parseSort(readParams()));
   const [tab, setTab] = useState<Tab>(() => parseTab(readParams().get('tab')));
   const [ffilters, setFFilters] = useState<FurnitureFilterState>(() => parseFurnitureFilters(readParams(), COLLECTION_IDS));
   const [fsort, setFSort] = useState<FurnitureSort>(() => parseFurnitureSort(readParams()));
+  const [curArea, setCurArea] = useState(() => { const a = readParams().get('carea'); return a && AREA_IDS.has(a) ? a : ''; });
+  const [curHide, setCurHide] = useState(() => readParams().get('chide') === '1');
   const [view, setView] = useState<View>(() => (readParams().get('view') === 'progress' ? 'progress' : 'grid'));
   const [openId, setOpenId] = useState<string | null>(() => {
     const id = readParams().get('fish');
@@ -81,8 +95,9 @@ export default function App() {
     writeParams({
       ...serializeFilters(filters), sort: serializeSort(sort), view: view === 'progress' ? 'progress' : null, fish: openId,
       tab: tab === 'fish' ? null : tab, ...serializeFurnitureFilters(ffilters), fsort: serializeFurnitureSort(fsort),
+      carea: curArea || null, chide: curHide ? '1' : null,
     });
-  }, [filters, sort, view, openId, tab, ffilters, fsort]);
+  }, [filters, sort, view, openId, tab, ffilters, fsort, curArea, curHide]);
 
   useEffect(() => { document.documentElement.lang = lang; }, [lang]);
   useEffect(() => {
@@ -118,9 +133,9 @@ export default function App() {
   }, [setTimer, showToast, lang]);
 
   const sum = totals(p.progress, FISH_IDS);
-  const visible = useMemo(() => sortFish(applyFilters(FISH, filters, p.progress, INDEX), sort, lang), [filters, p.progress, sort, lang]);
+  const visible = useMemo(() => sortFish(applyFilters(fish, filters, p.progress, INDEX), sort, lang), [fish, filters, p.progress, sort, lang]);
   // counts next to filter options follow the other active filters
-  const facets = useMemo(() => countFacets(FISH, filters, p.progress, INDEX), [filters, p.progress]);
+  const facets = useMemo(() => countFacets(fish, filters, p.progress, INDEX), [fish, filters, p.progress]);
   // the overview is the whole journal, no filters
   const overall = useMemo(() => countFacets(FISH, EMPTY_FILTERS, p.progress, INDEX), [p.progress]);
 
@@ -168,13 +183,13 @@ export default function App() {
 
   const notice = !p.persistent ? 'off' : p.status.blocked ? 'blocked' : p.status.recovered ? 'recovered' : null;
   const hint = p.persistent && !p.status.blocked && shouldShowHint(sum.caught, prefs);
-  const openFish = openId ? FISH_BY_ID.get(openId) ?? null : null;
+  const openFish = openId ? fishById.get(openId) ?? null : null;
 
   return (
     <I18nProvider lang={lang}>
       <MotionConfig reducedMotion="user">
-        <a className={styles.skip} href="#ryby">{tab === 'fish' ? t.skip : tab === 'furniture' ? t.skipFurniture : t.skipTimers}</a>
-        <div className={styles.page} data-view={tab === 'fish' ? view : tab === 'timers' ? 'timers' : 'grid'}>
+        <a className={styles.skip} href="#ryby">{{ fish: t.skip, current: t.skipCurrent, furniture: t.skipFurniture, timers: t.skipTimers }[tab]}</a>
+        <div className={styles.page} data-view={tab === 'fish' ? view : tab === 'furniture' ? 'grid' : 'wide'}>
           <Masthead
             total={FISH.length} caught={sum.caught} glow={sum.caughtGlowing} dark={dark}
             overviewOpen={view === 'progress'}
@@ -184,6 +199,7 @@ export default function App() {
             onBackup={() => setBackupOpen(true)}
             tab={tab} onTab={switchTab}
             furniture={{ owned: ownedCount(p.progress, FURNITURE_IDS), total: FURNITURE.length, setsDone, sets: SET_COUNT }}
+            zone={prefs.zone} onZone={z => setPrefs({ zone: z })}
           />
           {notice && <StorageNotice kind={notice} onBackup={() => setBackupOpen(true)} />}
 
@@ -197,7 +213,12 @@ export default function App() {
           <main className={styles.log} id="ryby" tabIndex={-1}>
             <p id={CARD_HELP_ID} className="visually-hidden">{t.cardHelp}</p>
             <p id={ITEM_HELP_ID} className="visually-hidden">{t.itemHelp}</p>
-            {tab === 'timers' ? (
+            {tab === 'current' ? (
+              <CurrentView
+                fish={FISH} areas={CURRENT_AREAS} progress={p.progress} offset={offset} zoneName={zoneName}
+                area={curArea} hideCaught={curHide} onArea={setCurArea} onHideCaught={setCurHide} onOpen={setOpenId}
+              />
+            ) : tab === 'timers' ? (
               <TimersView
                 timers={timers.state}
                 onCollect={id => changeTimer(id, Date.now(), t.toastTimerStarted)}
@@ -251,7 +272,7 @@ export default function App() {
 
         <FishDetail
           fish={openFish} state={openId ? p.state(openId) : { caught: false, caughtGlowing: false }}
-          areaName={areaName} onToggle={onToggle} onClose={() => setOpenId(null)}
+          areaName={areaName} zoneName={zoneName} onToggle={onToggle} onClose={() => setOpenId(null)}
         />
         <BackupDialog
           open={backupOpen} progress={p.progress} onClose={() => setBackupOpen(false)}

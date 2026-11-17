@@ -13,6 +13,8 @@ type Props = {
   fish: Fish | null;
   state: FishProgress;
   areaName: (id: string) => string;
+  /** Zone the catch times are shown in (fish.time is already shifted). */
+  zoneName: string;
   onToggle: (id: string, field: ProgressField) => void;
   onClose: () => void;
 };
@@ -38,17 +40,17 @@ function UnlockLine({ u }: { u: Unlock }) {
   }
 }
 
-export function FishDetail({ fish, state, areaName, onToggle, onClose }: Props) {
+export function FishDetail({ fish, state, areaName, zoneName, onToggle, onClose }: Props) {
   const ref = useModal(fish !== null, onClose);
   const titleId = useId();
   return (
     <dialog ref={ref} className={styles.dialog} aria-labelledby={titleId}>
-      {fish && <Body fish={fish} state={state} areaName={areaName} onToggle={onToggle} titleId={titleId} onClose={onClose} />}
+      {fish && <Body fish={fish} state={state} areaName={areaName} zoneName={zoneName} onToggle={onToggle} titleId={titleId} onClose={onClose} />}
     </dialog>
   );
 }
 
-function Body({ fish, state, areaName, onToggle, titleId, onClose }: Omit<Props, 'fish'> & { fish: Fish; titleId: string }) {
+function Body({ fish, state, areaName, zoneName, onToggle, titleId, onClose }: Omit<Props, 'fish'> & { fish: Fish; titleId: string }) {
   const { lang, t } = useI18n();
   const tm = fmtTime(fish.time, lang), se = fmtSeason(fish.season, lang);
   const rec = fmtRecord(fish.record);
@@ -88,6 +90,7 @@ function Body({ fish, state, areaName, onToggle, titleId, onClose }: Omit<Props,
         <dt>{t.when}</dt>
         <dd className={tm.unknown ? styles.unknown : undefined}>
           {tm.text}{tm.overnight && <> <span className="note">{t.overnight}</span></>}
+          {Array.isArray(fish.time) && <> <span className="note">({zoneName})</span></>}
         </dd>
         <dt>{t.season}</dt>
         <dd className={se.unknown ? styles.unknown : undefined}>{se.text}</dd>
