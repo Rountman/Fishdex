@@ -15,9 +15,7 @@ type Props = {
   total: number;
   caught: number;
   glow: number;
-  overviewOpen: boolean;
   dark: boolean;
-  onOverview: () => void;
   onLang: (l: Lang) => void;
   onTheme: () => void;
   onBackup: () => void;
@@ -30,7 +28,7 @@ type Props = {
   zoneAt: number;
 };
 
-export function Masthead({ total, caught, glow, overviewOpen, dark, onOverview, onLang, onTheme, onBackup, tab, onTab, furniture: fu, zone, onZone, zoneAt }: Props) {
+export function Masthead({ total, caught, glow, dark, onLang, onTheme, onBackup, tab, onTab, furniture: fu, zone, onZone, zoneAt }: Props) {
   const { lang, t } = useI18n();
   const cities = useMemo(() => citiesByOffset(lang, zoneAt), [lang, zoneAt]);
   const value = pickerValue(zone, zoneAt);
@@ -64,7 +62,7 @@ export function Masthead({ total, caught, glow, overviewOpen, dark, onOverview, 
             </span>
           </div>
         ) : (
-        <button type="button" className={styles.tally} aria-pressed={overviewOpen} onClick={onOverview}>
+        <div className={styles.tally}>
           <span className={styles.item}>
             <span className={styles.num}>{caught}<span className="of">/{total}</span></span>
             <span className={styles.label}>{t.caughtLabel} <span className="of">{pct(caught / total * 100, lang)}</span></span>
@@ -75,8 +73,7 @@ export function Masthead({ total, caught, glow, overviewOpen, dark, onOverview, 
             <span className={styles.label}>{t.glowLabel} <span className="of">{pct(glow / total * 100, lang)}</span></span>
             <span className="bar bar--glow"><span style={{ width: `${glow / total * 100}%` }} /></span>
           </span>
-          <span className={styles.link}>{t.overview}</span>
-        </button>
+        </div>
         )}
         {complete && (
           <p className={styles.complete}>

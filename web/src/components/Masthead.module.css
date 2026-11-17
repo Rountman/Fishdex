@@ -13,12 +13,6 @@
 .num { font: 600 var(--fs-h1)/1 var(--font-display); font-variant-numeric: lining-nums; }
 .num :global(.of) { font-size: 18px; font-weight: 400; }
 .label { color: var(--color-ink-soft); font-size: var(--fs-ui); }
-.link {
-  align-self: center; font: italic var(--fw-regular) 16px/1 var(--font-display); color: var(--color-ink-soft);
-  text-decoration: underline wavy 1px; text-underline-offset: 4px;
-}
-.tally:hover .link, .tally[aria-pressed="true"] .link { color: var(--color-ink); }
-.tally[aria-pressed="true"] .link { text-decoration-style: solid; }
 
 .complete { display: flex; align-items: center; gap: var(--space-4); margin: var(--space-4) 0 0; }
 .bigStamp { rotate: -4deg; padding: 3px 12px 1px; }
@@ -66,7 +60,6 @@
   .num :global(.of) { font-size: 14px; }
   .label { font-size: 12px; }
   .label :global(.of) { display: block; }
-  .link { flex-basis: 100%; font-size: 15px; }
   .tools { flex-direction: column; align-items: flex-end; gap: 0; align-self: start; }
   .tools :global(.link) { font-size: var(--fs-sm); }
   .lang { margin-bottom: var(--space-1); }

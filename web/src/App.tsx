@@ -193,8 +193,6 @@ export default function App() {
         <div className={styles.page} data-view={tab === 'fish' ? view : tab === 'furniture' ? 'grid' : 'wide'}>
           <Masthead
             total={FISH.length} caught={sum.caught} glow={sum.caughtGlowing} dark={dark}
-            overviewOpen={view === 'progress'}
-            onOverview={() => setView(v => (v === 'progress' ? 'grid' : 'progress'))}
             onLang={l => setPrefs({ lang: l })}
             onTheme={() => setPrefs({ theme: dark ? 'light' : 'dark' })}
             onBackup={() => setBackupOpen(true)}
