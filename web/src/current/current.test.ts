@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { FISH } from '../data';
 import type { Fish } from '../data/types';
-import { shiftTime, toHHMM, zoneOffset } from '../time/zone';
+import { fixedOffset, fixedZone, isValidPref, offsetLabel, prefOffset, shiftTime, toHHMM, ZONE_CHOICES, zoneOffset } from '../time/zone';
 import { bitesAt, currentFish, inSeasonOn } from './current';
 
 const fish = (id: string, time: Fish['time'], season: Fish['season']): Fish => ({
@@ -76,5 +76,34 @@ describe('zones', () => {
     expect(shiftTime([{ from: '02:00', to: '04:00' }], -300)).toEqual([{ from: '21:00', to: '23:00' }]);
     expect(shiftTime('always', 60)).toBe('always');
     expect(toHHMM(-30)).toBe('23:30');
+  });
+});
+
+describe('fixed UTC offsets', () => {
+  it('offers Czechia, the device and every offset from UTC−12 to UTC+14', () => {
+    expect(ZONE_CHOICES.slice(0, 2)).toEqual(['Europe/Prague', 'device']);
+    expect(ZONE_CHOICES).toContain('UTC-12:00');
+    expect(ZONE_CHOICES).toContain('UTC+14:00');
+    expect(ZONE_CHOICES).toContain('UTC+05:45');
+    expect(ZONE_CHOICES).toContain('UTC');
+  });
+  it('round-trips and labels offsets', () => {
+    expect(fixedZone(330)).toBe('UTC+05:30');
+    expect(fixedOffset('UTC-03:30')).toBe(-210);
+    expect(fixedOffset('Europe/Prague')).toBeNull();
+    expect(offsetLabel(-180)).toBe('UTC−3');
+    expect(offsetLabel(345)).toBe('UTC+5:45');
+  });
+  it('fixed offsets ignore summer time, Czechia follows it', () => {
+    const summer = at('2026-07-15T12:00:00Z');
+    expect(prefOffset('UTC+01:00', summer)).toBe(60);
+    expect(prefOffset('Europe/Prague', summer)).toBe(120);
+  });
+  it('accepts saved values it understands only', () => {
+    expect(isValidPref('UTC+05:30')).toBe(true);
+    expect(isValidPref('device')).toBe(true);
+    expect(isValidPref('Europe/London')).toBe(true);
+    expect(isValidPref('UTC+5')).toBe(false);
+    expect(isValidPref('Mars/Base')).toBe(false);
   });
 });

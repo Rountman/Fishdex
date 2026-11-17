@@ -3,7 +3,7 @@
 import { useCallback, useState } from 'react';
 import type { Lang } from '../i18n/strings';
 import { browserStorage } from '../progress/storage';
-import { DEFAULT_ZONE, DEVICE_ZONE, isValidZone, type ZonePref } from '../time/zone';
+import { DEFAULT_ZONE, isValidPref, type ZonePref } from '../time/zone';
 
 export const PREFS_KEY = 'fishdex:prefs:v1';
 
@@ -12,7 +12,7 @@ export type Theme = 'auto' | 'light' | 'dark';
 export type Prefs = {
   lang: Lang;
   theme: Theme;
-  /** Zone for catch times (data are game time = UTC): IANA id or 'device'. Default Prague. */
+  /** Zone for catch times (data are game time = UTC): 'Europe/Prague' (default), 'device' or a fixed 'UTC+05:30'. */
   zone: ZonePref;
   /** "Už neukazovat": the backup hint never shows again. */
   hintDismissed: boolean;
@@ -38,7 +38,7 @@ export function loadPrefs(): Prefs {
     return {
       lang: v.lang === 'cs' || v.lang === 'en' ? v.lang : d.lang,
       theme: v.theme === 'light' || v.theme === 'dark' ? v.theme : 'auto',
-      zone: typeof v.zone === 'string' && (v.zone === DEVICE_ZONE || isValidZone(v.zone)) ? v.zone : d.zone,
+      zone: typeof v.zone === 'string' && isValidPref(v.zone) ? v.zone : d.zone,
       hintDismissed: v.hintDismissed === true,
       hintAckAt: typeof v.hintAckAt === 'number' && v.hintAckAt >= 0 ? v.hintAckAt : 0,
     };

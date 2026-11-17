@@ -1,7 +1,7 @@
 import { useI18n } from '../i18n/context';
 import { pct } from '../i18n/format';
 import type { Lang } from '../i18n/strings';
-import { ZONE_CHOICES, type ZonePref } from '../time/zone';
+import { DEFAULT_ZONE, DEVICE_ZONE, fixedOffset, offsetLabel, ZONE_CHOICES, type ZonePref } from '../time/zone';
 import styles from './Masthead.module.css';
 
 import { TABS, type Tab } from '../state/tabs';
@@ -84,8 +84,13 @@ export function Masthead({ total, caught, glow, overviewOpen, dark, onOverview, 
         <label className={styles.zone}>
           <span aria-hidden="true">{t.zoneShort}</span>
           <select value={zone} aria-label={t.zoneLabel} onChange={e => onZone(e.target.value)}>
-            {!(ZONE_CHOICES as readonly string[]).includes(zone) && <option value={zone}>{zone}</option>}
-            {ZONE_CHOICES.map(z => <option key={z} value={z}>{t.tzNames[z]}</option>)}
+            {!ZONE_CHOICES.includes(zone) && <option value={zone}>{zone}</option>}
+            {ZONE_CHOICES.map(z => {
+              const fixed = fixedOffset(z);
+              const label = z === DEFAULT_ZONE ? t.tzCzech : z === DEVICE_ZONE ? t.tzDevice
+                : fixed === 0 ? `UTC (${t.tzGame})` : fixed !== null ? offsetLabel(fixed) : z;
+              return <option key={z} value={z}>{label}</option>;
+            })}
           </select>
         </label>
         <button type="button" className="link" onClick={onTheme}>{dark ? t.themeToLight : t.themeToDark}</button>

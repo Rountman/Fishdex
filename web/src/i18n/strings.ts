@@ -145,10 +145,7 @@ const cs = {
   tabCurrent: 'Aktuální',
   skipCurrent: 'Přeskočit na aktuální ryby',
   zoneLabel: 'Časové pásmo', zoneShort: 'Čas',
-  tzNames: {
-    'Europe/Prague': 'Praha', UTC: 'Herní čas (UTC)', 'Europe/London': 'Londýn', 'Europe/Istanbul': 'Istanbul',
-    'Europe/Moscow': 'Moskva', 'America/New_York': 'New York', 'America/Sao_Paulo': 'São Paulo', device: 'Podle zařízení',
-  } as Record<string, string>,
+  tzCzech: 'Česko (SEČ/SELČ)', tzCzechShort: 'Praha', tzDevice: 'Podle zařízení', tzGame: 'herní čas',
   cur: {
     title: 'Aktuální ryby',
     gameTime: 'Herní čas', yours: 'U tebe',
@@ -367,10 +364,7 @@ const en: Strings = {
   tabCurrent: 'Now',
   skipCurrent: 'Skip to current fish',
   zoneLabel: 'Time zone', zoneShort: 'Time',
-  tzNames: {
-    'Europe/Prague': 'Prague', UTC: 'Game time (UTC)', 'Europe/London': 'London', 'Europe/Istanbul': 'Istanbul',
-    'Europe/Moscow': 'Moscow', 'America/New_York': 'New York', 'America/Sao_Paulo': 'São Paulo', device: 'This device',
-  } as Record<string, string>,
+  tzCzech: 'Czechia (CET/CEST)', tzCzechShort: 'Prague', tzDevice: 'This device', tzGame: 'game time',
   cur: {
     title: 'Current fish',
     gameTime: 'Game time', yours: 'Yours',

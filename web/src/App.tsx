@@ -39,7 +39,7 @@ import { TABS, type Tab } from './state/tabs';
 import { buildIndex } from './state/search';
 import type { TimerId } from './timers/timers';
 import { useTimers } from './timers/useTimers';
-import { localizeFish, resolveZone, zoneOffset } from './time/zone';
+import { DEFAULT_ZONE, fixedOffset, localizeFish, offsetLabel, prefOffset, resolveZone } from './time/zone';
 import { readParams, writeParams } from './url';
 import styles from './App.module.css';
 
@@ -67,10 +67,11 @@ export default function App() {
   const dark = prefs.theme === 'dark' || (prefs.theme === 'auto' && systemDark);
 
   // catch times in the data are game time (UTC); everything on screen uses the picked zone
-  const zone = resolveZone(prefs.zone);
   const [openedAt] = useState(Date.now);
-  const offset = useMemo(() => zoneOffset(zone, openedAt), [zone, openedAt]);
-  const zoneName = prefs.zone === 'device' ? zone.split('/').pop()!.replace(/_/g, ' ') : t.tzNames[prefs.zone] ?? zone;
+  const offset = useMemo(() => prefOffset(prefs.zone, openedAt), [prefs.zone, openedAt]);
+  const fixed = fixedOffset(prefs.zone);
+  const zoneName = prefs.zone === DEFAULT_ZONE ? t.tzCzechShort
+    : fixed !== null ? offsetLabel(fixed) : resolveZone(prefs.zone).split('/').pop()!.replace(/_/g, ' ');
   const fish = useMemo(() => localizeFish(FISH, offset), [offset]);
   const fishById = useMemo(() => new Map(fish.map(f => [f.id, f])), [fish]);
 

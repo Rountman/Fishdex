@@ -6,7 +6,7 @@ import { useI18n } from '../i18n/context';
 import { fishName, fmtDay, fmtDuration, fmtSeason, fmtTime } from '../i18n/format';
 import type { Progress } from '../progress/schema';
 import { bitesAtHour, inSeasonMonth } from '../state/filters';
-import { DAY_MIN, shiftTime, toHHMM } from '../time/zone';
+import { DAY_MIN, offsetLabel, shiftTime, toHHMM } from '../time/zone';
 import { Stars } from './Stars';
 import styles from './CurrentView.module.css';
 
@@ -125,7 +125,7 @@ export function CurrentView({ fish, areas, progress, offset, zoneName, area, hid
             <p className={`${styles.reading} ${styles.local}`}>
               <span className={styles.k}>{c.yours}</span>
               <span className={styles.v}>{toHHMM(game + offset).replace(/^0/, '')}</span>
-              <span className={styles.z}>{zoneName} · UTC{offset > 0 ? '+' : '−'}{fmtOffset(Math.abs(offset))}</span>
+              <span className={styles.z}>{zoneName === offsetLabel(offset) ? zoneName : `${zoneName} · ${offsetLabel(offset)}`}</span>
             </p>
           )}
           <div className={styles.dial} aria-hidden="true">
@@ -168,8 +168,6 @@ export function CurrentView({ fish, areas, progress, offset, zoneName, area, hid
     </div>
   );
 }
-
-const fmtOffset = (m: number) => (m % 60 ? `${Math.floor(m / 60)}:${String(m % 60).padStart(2, '0')}` : `${m / 60}`);
 
 /** 24 hour cells in the picked zone, the hand at the current hour. */
 function DayStrip({ time, at, label }: { time: Fish['time']; at: number; label: string }) {
