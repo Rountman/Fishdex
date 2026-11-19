@@ -38,6 +38,7 @@ export type Filters = {
   bait: ReadonlySet<Bait>;      // empty = any; otherwise fish takes at least one
   status: Status;
   bred: Bred;                   // only applies while area = backyard
+  breeder: number | null;       // Chovatelé entry no.: only that player's backyard fish (area = backyard)
   hour: number | null;          // 0–23: catchable during that hour
   month: number | null;         // 1–12: in season during that month
   sizeMin: number | null;       // cm; fish can reach at least this
@@ -45,7 +46,7 @@ export type Filters = {
 };
 
 export const EMPTY_FILTERS: Filters = {
-  q: '', area: '', spot: '', spotOnly: false, rarity: new Set(), bait: new Set(), status: 'all', bred: '', hour: null, month: null, sizeMin: null, sizeMax: null,
+  q: '', area: '', spot: '', spotOnly: false, rarity: new Set(), bait: new Set(), status: 'all', bred: '', breeder: null, hour: null, month: null, sizeMin: null, sizeMax: null,
 };
 
 const STATUSES: Status[] = ['all', 'uncaught', 'caught', 'noglow'];
@@ -71,6 +72,7 @@ export function parseFilters(params: URLSearchParams, areaIds: ReadonlySet<strin
     bait: new Set((params.get('bait') ?? '').split(',').filter((b): b is Bait => b in BAITS)),
     status: STATUSES.includes(status) ? status : 'all',
     bred: area === 'backyard' && (bred === 'yes' || bred === 'no') ? bred : '',
+    breeder: area === 'backyard' ? int(params.get('breeder'), 1, 999999999) : null,
     hour: int(params.get('hour'), 0, 23),
     month: int(params.get('month'), 1, 12),
     sizeMin: int(params.get('sizemin'), 0, SIZE_LIMIT),
@@ -89,6 +91,7 @@ export function serializeFilters(f: Filters): Record<string, string | null> {
     bait: f.bait.size ? [...f.bait].join(',') : null,
     status: f.status === 'all' ? null : f.status,
     bred: f.area === 'backyard' && f.bred ? f.bred : null,
+    breeder: f.area === 'backyard' && f.breeder !== null ? String(f.breeder) : null,
     hour: f.hour === null ? null : String(f.hour),
     month: f.month === null ? null : String(f.month),
     sizemin: f.sizeMin === null ? null : String(f.sizeMin),
@@ -109,7 +112,7 @@ function parseSpot(v: string | null, areaIds: ReadonlySet<string>) {
 
 /** Picking an area (or "all") clears the spot; picking '<area>:<Spot>' sets both. */
 export const locationPatch = (value: string): Partial<Filters> =>
-  value.includes(':') ? { area: splitSpot(value).area, spot: value, spotOnly: false, bred: '' } : { area: value, spot: '', spotOnly: false, bred: '' };
+  value.includes(':') ? { area: splitSpot(value).area, spot: value, spotOnly: false, bred: '', breeder: null } : { area: value, spot: '', spotOnly: false, bred: '', breeder: null };
 
 /** Areas without open water (Palm Island, Club): picking one shows every fish of all its spots. */
 const HEADING_AREAS: ReadonlySet<string> = new Set(AREAS.filter(a => !a.open).map(a => a.id));
@@ -157,7 +160,10 @@ const NONE: FishProgress = { caught: false, caughtGlowing: false };
 /** Filter groups that show counts; a facet's counts ignore its own selection. */
 type FacetKey = 'location' | 'rarity' | 'bait' | 'status';
 
-function predicate(f: Filters, progress: Progress, index: SearchIndex, skip?: FacetKey) {
+/** Fish of the picked breeder; null = not known yet (register still loading), no narrowing. */
+export type BreederFish = ReadonlySet<string> | null;
+
+function predicate(f: Filters, progress: Progress, index: SearchIndex, skip?: FacetKey, breederFish: BreederFish = null) {
   const spot = f.spot ? splitSpot(f.spot) : null;
   return (x: Fish) => {
     const s = progress.fish[x.id] ?? NONE;
@@ -166,6 +172,7 @@ function predicate(f: Filters, progress: Progress, index: SearchIndex, skip?: Fa
       if (spot && f.spotOnly && !onlyAtSpot(x, spot.area)) return false;
       if (f.area === 'backyard' && f.bred === 'yes' && !s.bred) return false;
       if (f.area === 'backyard' && f.bred === 'no' && s.bred) return false;
+      if (f.area === 'backyard' && f.breeder !== null && breederFish && !breederFish.has(x.id)) return false;
     }
     if (skip !== 'rarity' && f.rarity.size && !f.rarity.has(x.rarity)) return false;
     if (skip !== 'bait' && f.bait.size && !x.bait.some(b => f.bait.has(b))) return false;
@@ -187,8 +194,8 @@ function sizeMatches(x: Fish, min: number | null, max: number | null) {
 const statusMatches = (status: Status, s: FishProgress) =>
   status === 'caught' ? s.caught : status === 'uncaught' ? !s.caught : status === 'noglow' ? !s.caughtGlowing : true;
 
-export function applyFilters(fish: readonly Fish[], f: Filters, progress: Progress, index: SearchIndex): Fish[] {
-  return fish.filter(predicate(f, progress, index));
+export function applyFilters(fish: readonly Fish[], f: Filters, progress: Progress, index: SearchIndex, breederFish: BreederFish = null): Fish[] {
+  return fish.filter(predicate(f, progress, index, undefined, breederFish));
 }
 
 export type Tally = { total: number; caught: number; glow: number; bred: number };
@@ -212,7 +219,7 @@ export type Facets = {
  * Counts shown next to each filter option: how many fish that option would
  * give together with all the *other* active filters (its own group ignored).
  */
-export function facets(fish: readonly Fish[], f: Filters, progress: Progress, index: SearchIndex): Facets {
+export function facets(fish: readonly Fish[], f: Filters, progress: Progress, index: SearchIndex, breederFish: BreederFish = null): Facets {
   const out: Facets = { all: tally(), areas: new Map(), spots: new Map(), spotOnly: 0, rarity: new Map(), bait: new Map(), status: { all: 0, uncaught: 0, caught: 0, noglow: 0 } };
   const add = (map: Map<string, Tally>, key: string, s: FishProgress) => {
     let t = map.get(key);
@@ -223,8 +230,8 @@ export function facets(fish: readonly Fish[], f: Filters, progress: Progress, in
     if (s.bred) t.bred++;
   };
   const selected = f.spot ? splitSpot(f.spot) : null;
-  const loc = predicate(f, progress, index, 'location'), rar = predicate(f, progress, index, 'rarity');
-  const bai = predicate(f, progress, index, 'bait'), sta = predicate(f, progress, index, 'status');
+  const loc = predicate(f, progress, index, 'location'), rar = predicate(f, progress, index, 'rarity', breederFish);
+  const bai = predicate(f, progress, index, 'bait', breederFish), sta = predicate(f, progress, index, 'status', breederFish);
   for (const x of fish) {
     const s = progress.fish[x.id] ?? NONE;
     if (loc(x)) {
@@ -246,5 +253,5 @@ export function facets(fish: readonly Fish[], f: Filters, progress: Progress, in
 /** Number of active filters, search excluded (shown on the mobile "Filtry (n)" button). */
 export const activeFilterCount = (f: Filters) =>
   (f.area ? 1 : 0) + (f.spot ? 1 : 0) + (f.spot && f.spotOnly ? 1 : 0) + f.rarity.size + f.bait.size + (f.status !== 'all' ? 1 : 0) +
-  (f.area === 'backyard' && f.bred ? 1 : 0) + (f.hour !== null ? 1 : 0) + (f.month !== null ? 1 : 0) +
+  (f.area === 'backyard' && f.bred ? 1 : 0) + (f.area === 'backyard' && f.breeder !== null ? 1 : 0) + (f.hour !== null ? 1 : 0) + (f.month !== null ? 1 : 0) +
   (f.sizeMin !== null || f.sizeMax !== null ? 1 : 0);

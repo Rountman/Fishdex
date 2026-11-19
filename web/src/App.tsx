@@ -21,7 +21,6 @@ import { Overview } from './components/Overview';
 import { TimersView } from './components/TimersView';
 import { Toast, type ToastData } from './components/Toast';
 import { AREAS, COLLECTIONS, FISH, FISH_IDS, FURNITURE, FURNITURE_IDS, isBackyard } from './data';
-import { parseBreederFilters, serializeBreederFilters, EMPTY_BREEDER_FILTERS, type BreederFilters } from './breeders/local';
 import { useBreeders } from './breeders/useBreeders';
 import { isZonedArea } from './data/types';
 import { MOBILE, useMediaQuery } from './hooks/useMediaQuery';
@@ -90,7 +89,6 @@ export default function App() {
   const [fsort, setFSort] = useState<FurnitureSort>(() => parseFurnitureSort(readParams()));
   const [curArea, setCurArea] = useState(() => { const a = readParams().get('carea'); return a && AREA_IDS.has(a) ? a : ''; });
   const [curHide, setCurHide] = useState(() => readParams().get('chide') === '1');
-  const [bfilters, setBFilters] = useState<BreederFilters>(() => parseBreederFilters(readParams(), BACKYARD_IDS));
   const [view, setView] = useState<View>(() => (readParams().get('view') === 'progress' ? 'progress' : 'grid'));
   const [openId, setOpenId] = useState<string | null>(() => {
     const id = readParams().get('fish');
@@ -104,9 +102,9 @@ export default function App() {
     writeParams({
       ...serializeFilters(filters), sort: serializeSort(sort), view: view === 'progress' ? 'progress' : null, fish: openId,
       tab: tab === 'fish' ? null : tab, ...serializeFurnitureFilters(ffilters), fsort: serializeFurnitureSort(fsort),
-      carea: curArea || null, chide: curHide ? '1' : null, ...serializeBreederFilters(bfilters),
+      carea: curArea || null, chide: curHide ? '1' : null,
     });
-  }, [filters, sort, view, openId, tab, ffilters, fsort, curArea, curHide, bfilters]);
+  }, [filters, sort, view, openId, tab, ffilters, fsort, curArea, curHide]);
 
   useEffect(() => { document.documentElement.lang = lang; }, [lang]);
   useEffect(() => {
@@ -117,7 +115,6 @@ export default function App() {
 
   const changeFilters = useCallback((patch: Partial<FilterState>) => setFilters(f => ({ ...f, ...patch })), []);
   const changeFFilters = useCallback((patch: Partial<FurnitureFilterState>) => setFFilters(f => ({ ...f, ...patch })), []);
-  const changeBFilters = useCallback((patch: Partial<BreederFilters>) => setBFilters(f => ({ ...f, ...patch })), []);
 
   // ---- progress ----------------------------------------------------------
   const toastId = useRef(0);
@@ -140,6 +137,17 @@ export default function App() {
   const breeders = useBreeders({
     progress: p.progress, backyard: BACKYARD_IDS, setBred: useCallback((ids: readonly string[]) => setBred(ids, BACKYARD_LIST), [setBred]),
   });
+  // Ryby › Backyard › Chovatel: one player's backyard fish (register loaded on demand)
+  const { ensureList, entries: breederEntries } = breeders;
+  useEffect(() => { if (filters.area === 'backyard') ensureList(); }, [filters.area, ensureList]);
+  const breederFish = useMemo(() => {
+    if (filters.area !== 'backyard' || filters.breeder === null || !breederEntries) return null;
+    return new Set(breederEntries.find(e => e.no === filters.breeder)?.fish ?? []);
+  }, [filters.area, filters.breeder, breederEntries]);
+  const breederOptions = useMemo(() => (breederEntries
+    ? [...breederEntries].sort((a, b) => a.nick.localeCompare(b.nick, lang))
+      .map(e => ({ no: e.no, nick: e.nick, count: e.fish.filter(id => BACKYARD_IDS.has(id)).length }))
+    : null), [breederEntries, lang]);
   const backyardSorted = useMemo(
     () => [...BACKYARD_FISH].sort((a, b) => fishName(a, lang).localeCompare(fishName(b, lang), lang)), [lang]);
 
@@ -151,9 +159,9 @@ export default function App() {
   }, [setTimer, showToast, lang]);
 
   const sum = totals(p.progress, FISH_IDS);
-  const visible = useMemo(() => sortFish(applyFilters(fish, filters, p.progress, INDEX), sort, lang), [fish, filters, p.progress, sort, lang]);
+  const visible = useMemo(() => sortFish(applyFilters(fish, filters, p.progress, INDEX, breederFish), sort, lang), [fish, filters, p.progress, sort, lang, breederFish]);
   // counts next to filter options follow the other active filters
-  const facets = useMemo(() => countFacets(fish, filters, p.progress, INDEX), [fish, filters, p.progress]);
+  const facets = useMemo(() => countFacets(fish, filters, p.progress, INDEX, breederFish), [fish, filters, p.progress, breederFish]);
   // the overview is the whole journal, no filters
   const overall = useMemo(() => countFacets(FISH, EMPTY_FILTERS, p.progress, INDEX), [p.progress]);
 
@@ -203,8 +211,16 @@ export default function App() {
   const hint = p.persistent && !p.status.blocked && shouldShowHint(sum.caught, prefs);
   const openFish = openId ? fishById.get(openId) ?? null : null;
   const openBackyard = !!openFish && BACKYARD_IDS.has(openFish.id) && breeders.enabled;
-  const { ensureList } = breeders;
   useEffect(() => { if (openBackyard) ensureList(); }, [openBackyard, ensureList]);
+  /** From the register or a fish detail: the journal grid with one player's backyard. */
+  const showBreeder = (no: number) => {
+    setFilters({ ...EMPTY_FILTERS, area: 'backyard', breeder: no });
+    setOpenId(null);
+    setView('grid');
+    setTab('fish');
+    setSheetOpen(false);
+    window.scrollTo({ top: 0 });
+  };
 
   return (
     <I18nProvider lang={lang}>
@@ -234,8 +250,7 @@ export default function App() {
             <p id={ITEM_HELP_ID} className="visually-hidden">{t.itemHelp}</p>
             {tab === 'breeders' ? (
               <BreedersView
-                b={breeders} backyard={backyardSorted} filters={bfilters} onFilters={changeBFilters}
-                onOpenFish={setOpenId} onToast={text => showToast(text)} mobile={mobile}
+                b={breeders} backyard={backyardSorted} onShowBreeder={showBreeder} onToast={text => showToast(text)} mobile={mobile}
               />
             ) : tab === 'current' ? (
               <CurrentView
@@ -272,7 +287,7 @@ export default function App() {
                 <h2 className="visually-hidden">{t.filters}</h2>
                 <Filters
                   filters={filters} facets={facets} areas={AREAS} shown={visible.length} total={FISH.length}
-                  sort={sort} onSort={setSort}
+                  sort={sort} onSort={setSort} breeders={breederOptions}
                   mobile={mobile} sheetOpen={sheetOpen} onSheet={setSheetOpen} onChange={changeFilters}
                 />
                 {hint && (
@@ -298,8 +313,8 @@ export default function App() {
           fish={openFish} state={openId ? p.state(openId) : { caught: false, caughtGlowing: false }}
           areaName={areaName} zoneName={zoneName} onToggle={onToggle} onClose={() => setOpenId(null)}
           breeders={openBackyard ? {
-            count: breeders.counts?.get(openFish!.id) ?? null,
-            onShow: () => { setBFilters({ ...EMPTY_BREEDER_FILTERS, fish: openFish!.id }); setOpenId(null); switchTab('breeders'); },
+            list: breederEntries ? breederEntries.filter(e => e.fish.includes(openFish!.id)).sort((a, b) => b.fish.length - a.fish.length || a.no - b.no) : null,
+            onPick: showBreeder,
           } : undefined}
         />
         <BackupDialog

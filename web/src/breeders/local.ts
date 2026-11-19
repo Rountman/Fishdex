@@ -2,7 +2,6 @@
 // logic around the register. Same storage rules as progress: every access guarded.
 import type { Progress } from '../progress/schema';
 import { browserStorage } from '../progress/storage';
-import { fold } from '../state/search';
 import type { Entry, Me } from './api';
 
 /** Bearer token from the Discord login. Never exported with the progress backup. */
@@ -93,27 +92,6 @@ export function breederCounts(entries: readonly Entry[]): Map<string, number> {
   return m;
 }
 
-export type BreederSort = 'count' | 'recent';
-export type BreederFilters = { q: string; fish: string; sort: BreederSort };
-export const EMPTY_BREEDER_FILTERS: BreederFilters = { q: '', fish: '', sort: 'count' };
-
-export function parseBreederFilters(params: URLSearchParams, fishIds: ReadonlySet<string>): BreederFilters {
-  const fish = params.get('bfish') ?? '';
-  return {
-    q: params.get('bq') ?? '',
-    fish: fishIds.has(fish) ? fish : '',
-    sort: params.get('bsort') === 'recent' ? 'recent' : 'count',
-  };
-}
-
-export const serializeBreederFilters = (f: BreederFilters) => ({
-  bq: f.q.trim() || null, bfish: f.fish || null, bsort: f.sort === 'recent' ? 'recent' : null,
-});
-
-export function filterEntries(entries: readonly Entry[], f: BreederFilters): Entry[] {
-  const q = fold(f.q.trim());
-  const out = entries.filter(e => (!q || fold(e.nick).includes(q)) && (!f.fish || e.fish.includes(f.fish)));
-  return out.sort(f.sort === 'recent'
-    ? (a, b) => b.updatedAt - a.updatedAt || a.no - b.no
-    : (a, b) => b.fish.length - a.fish.length || a.no - b.no);
-}
+/** Register order: most backyard fish first, then by entry number. */
+export const sortEntries = (entries: readonly Entry[]): Entry[] =>
+  [...entries].sort((a, b) => b.fish.length - a.fish.length || a.no - b.no);

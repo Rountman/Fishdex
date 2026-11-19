@@ -2,10 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { setBred } from '../progress/progress';
 import { emptyProgress, SCHEMA_VERSION, type Progress } from '../progress/schema';
 import type { Entry, Me } from './api';
-import {
-  bredIds, breederCounts, EMPTY_BREEDER_FILTERS, filterEntries, parseBreederFilters, planSync, readAuthFragment,
-  serializeBreederFilters,
-} from './local';
+import { bredIds, breederCounts, planSync, readAuthFragment, sortEntries } from './local';
 
 const T0 = new Date('2026-11-19T10:00:00Z');
 const BACKYARD = new Set(['ayu', 'discus', 'fire-eel']);
@@ -14,7 +11,7 @@ const me = (fish: string[] | null, extra: Partial<Me> = {}): Me => ({
   id: '42', admin: false, banned: false, avatar: null,
   entry: fish && { no: 1, nick: 'Kapr', avatar: null, fish, updatedAt: 0, hidden: null }, ...extra,
 });
-const entry = (no: number, nick: string, fish: string[], updatedAt = no): Entry => ({ no, nick, avatar: null, fish, updatedAt });
+const entry = (no: number, nick: string, fish: string[]): Entry => ({ no, nick, avatar: null, fish, updatedAt: no });
 
 describe('bredIds', () => {
   it('takes backyard fish marked bred, sorted', () => {
@@ -80,27 +77,14 @@ describe('readAuthFragment', () => {
   });
 });
 
-describe('register filters', () => {
-  const list = [entry(1, 'KaprKrál', ['ayu', 'discus'], 5), entry(2, 'Štika', ['ayu'], 9), entry(3, 'zubáč', ['ayu', 'discus', 'fire-eel'], 1)];
+describe('register', () => {
+  const list = [entry(1, 'KaprKrál', ['ayu', 'discus']), entry(2, 'Štika', ['ayu']), entry(3, 'zubáč', ['ayu', 'discus', 'fire-eel']), entry(4, 'Lin', ['discus'])];
 
-  it('sorts by fish count, then by entry number; or by last change', () => {
-    expect(filterEntries(list, EMPTY_BREEDER_FILTERS).map(e => e.no)).toEqual([3, 1, 2]);
-    expect(filterEntries(list, { ...EMPTY_BREEDER_FILTERS, sort: 'recent' }).map(e => e.no)).toEqual([2, 1, 3]);
-  });
-
-  it('searches nicknames without diacritics and filters by fish', () => {
-    expect(filterEntries(list, { ...EMPTY_BREEDER_FILTERS, q: 'stik' }).map(e => e.nick)).toEqual(['Štika']);
-    expect(filterEntries(list, { ...EMPTY_BREEDER_FILTERS, fish: 'discus' }).map(e => e.no)).toEqual([3, 1]);
+  it('lists most fish first, then by entry number', () => {
+    expect(sortEntries(list).map(e => e.no)).toEqual([3, 1, 2, 4]);
   });
 
   it('counts breeders per fish', () => {
-    expect(Object.fromEntries(breederCounts(list))).toEqual({ ayu: 3, discus: 2, 'fire-eel': 1 });
-  });
-
-  it('round-trips through the URL and ignores unknown fish', () => {
-    const f = { q: 'kapr', fish: 'ayu', sort: 'recent' as const };
-    const params = new URLSearchParams(Object.entries(serializeBreederFilters(f)).filter(([, v]) => v) as [string, string][]);
-    expect(parseBreederFilters(params, BACKYARD)).toEqual(f);
-    expect(parseBreederFilters(new URLSearchParams('bfish=shark&bsort=x'), BACKYARD)).toEqual(EMPTY_BREEDER_FILTERS);
+    expect(Object.fromEntries(breederCounts(list))).toEqual({ ayu: 3, discus: 3, 'fire-eel': 1 });
   });
 });

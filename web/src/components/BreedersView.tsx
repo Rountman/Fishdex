@@ -1,6 +1,6 @@
 import { useEffect, useId, useMemo, useState } from 'react';
 import type { Entry, ModAction } from '../breeders/api';
-import { filterEntries, type BreederFilters } from '../breeders/local';
+import { sortEntries } from '../breeders/local';
 import type { BreedersApi } from '../breeders/useBreeders';
 import { fishImage } from '../data';
 import type { Fish } from '../data/types';
@@ -10,11 +10,10 @@ import styles from './BreedersView.module.css';
 
 type Props = {
   b: BreedersApi;
-  /** Backyard fish, in the order of the "Chová rybu" picker. */
+  /** Backyard fish (names, and the "z 83" total). */
   backyard: Fish[];
-  filters: BreederFilters;
-  onFilters: (patch: Partial<BreederFilters>) => void;
-  onOpenFish: (id: string) => void;
+  /** Opens Ryby › Backyard filtered to this player's fish. */
+  onShowBreeder: (no: number) => void;
   onToast: (text: string) => void;
   mobile: boolean;
 };
@@ -39,7 +38,7 @@ function Avatar({ src, nick, big }: { src: string | null; nick: string; big?: bo
   return <img className={cls} src={src} alt="" width={48} height={48} loading="lazy" referrerPolicy="no-referrer" onError={() => setBroken(true)} />;
 }
 
-export function BreedersView({ b, backyard, filters, onFilters, onOpenFish, onToast, mobile }: Props) {
+export function BreedersView({ b, backyard, onShowBreeder, onToast, mobile }: Props) {
   const { t } = useI18n();
   const { ensureList } = b;
   useEffect(() => { ensureList(); }, [ensureList]);
@@ -47,14 +46,14 @@ export function BreedersView({ b, backyard, filters, onFilters, onOpenFish, onTo
   if (!b.enabled) {
     return (
       <>
-        <h2 className={styles.title}>{t.br.title}</h2>
+        <h2 className="visually-hidden">{t.br.title}</h2>
         <p className={styles.empty}>{t.br.off}</p>
       </>
     );
   }
   return (
     <div className={styles.layout}>
-      <Register b={b} backyard={backyard} filters={filters} onFilters={onFilters} onOpenFish={onOpenFish} onToast={onToast} mobile={mobile} />
+      <Register b={b} backyard={backyard} onShowBreeder={onShowBreeder} onToast={onToast} mobile={mobile} />
       <aside className={styles.me} aria-labelledby="br-me-title">
         <MySlip b={b} onToast={onToast} />
       </aside>
@@ -62,82 +61,26 @@ export function BreedersView({ b, backyard, filters, onFilters, onOpenFish, onTo
   );
 }
 
-// ---- the register ----------------------------------------------------------------
-function Register({ b, backyard, filters, onFilters, onOpenFish, onToast, mobile }: Props) {
-  const { lang, t } = useI18n();
+// ---- the register: just the players, most fish first ------------------------------
+function Register({ b, backyard, onShowBreeder, onToast, mobile }: Props) {
+  const { t } = useI18n();
   const byId = useMemo(() => new Map(backyard.map(f => [f.id, f])), [backyard]);
-  const all = useMemo(() => b.entries ?? [], [b.entries]);
-  const shown = useMemo(() => filterEntries(all, filters), [all, filters]);
-  const admin = !!b.me?.admin;
-  const reported = all.filter(e => (e.reports ?? 0) > 0).length;
-  const focus = filters.fish ? byId.get(filters.fish) : undefined;
-  const ids = { q: useId(), fish: useId(), sort: useId() };
+  const shown = useMemo(() => sortEntries(b.entries ?? []), [b.entries]);
 
   return (
     <section className={styles.register} aria-labelledby="br-title">
-      <header className={styles.head}>
-        <h2 id="br-title" className={styles.title}>{t.br.title}</h2>
-        {b.listState === 'ok' && <p className={styles.count}>{t.br.count(all.length, backyard.length)}</p>}
-      </header>
-      <p className={styles.intro}>{t.br.intro}</p>
-
-      {admin && b.listState === 'ok' && (
-        <p className={styles.adminSlip}>
-          <strong>{t.br.adminQueue}</strong> {reported ? t.br.adminN(reported) : t.br.adminNone}
-          <span className={styles.muted}> · {t.br.adminNote}</span>
-        </p>
-      )}
-
-      <div className={styles.filters}>
-        <label className={styles.field} htmlFor={ids.q}>
-          <span className={styles.k}>{t.br.search}</span>
-          <input id={ids.q} type="search" value={filters.q} placeholder={t.br.searchPh} autoComplete="off"
-            onChange={e => onFilters({ q: e.target.value })} />
-        </label>
-        <label className={styles.field} htmlFor={ids.fish}>
-          <span className={styles.k}>{t.br.fish}</span>
-          <select id={ids.fish} value={filters.fish} onChange={e => onFilters({ fish: e.target.value })}>
-            <option value="">{t.br.fishAny}</option>
-            {backyard.map(f => <option key={f.id} value={f.id}>{fishName(f, lang)}</option>)}
-          </select>
-        </label>
-        <div className={styles.field}>
-          <span className={styles.k} id={ids.sort}>{t.br.sort}</span>
-          <span className={styles.seg} role="group" aria-labelledby={ids.sort}>
-            {(['count', 'recent'] as const).map(s => (
-              <button key={s} type="button" aria-pressed={filters.sort === s} onClick={() => onFilters({ sort: s })}>
-                {s === 'count' ? t.br.sortCount : t.br.sortRecent}
-              </button>
-            ))}
-          </span>
-        </div>
-      </div>
-
-      {focus && b.listState === 'ok' && (
-        <div className={styles.focus}>
-          <img src={fishImage(focus.id)} alt="" width={56} height={56} />
-          <p><span className={styles.focusName}>{fishName(focus, lang)}</span> · {t.br.focus(b.counts?.get(focus.id) ?? 0)}</p>
-          <button type="button" className="link" onClick={() => onFilters({ fish: '' })}>{t.br.clearFish}</button>
-        </div>
-      )}
-
+      <h2 id="br-title" className="visually-hidden">{t.br.title}</h2>
       {b.listState === 'loading' || b.listState === 'idle' ? (
         <p className={styles.loading}>{t.br.loading}</p>
       ) : b.listState === 'error' ? (
         <p className={styles.empty}>{t.br.loadError} <button type="button" className="link" onClick={() => void b.reloadList()}>{t.br.retry}</button></p>
-      ) : !all.length ? (
-        <p className={styles.empty}>{t.br.empty}</p>
       ) : !shown.length ? (
-        <p className={styles.empty}>{t.br.emptyFilter}{' '}
-          <button type="button" className="link" onClick={() => onFilters({ q: '', fish: '' })}>{t.br.clearFilters}</button>
-        </p>
+        <p className={styles.empty}>{t.br.empty}</p>
       ) : (
         <ol className={styles.entries}>
           {shown.map(e => (
-            <EntryRow
-              key={e.no} e={e} b={b} byId={byId} total={backyard.length} limit={mobile ? 6 : 14}
-              hit={filters.fish} onOpenFish={onOpenFish} onToast={onToast}
-            />
+            <EntryRow key={e.no} e={e} b={b} byId={byId} total={backyard.length} limit={mobile ? 6 : 14}
+              onShowBreeder={onShowBreeder} onToast={onToast} />
           ))}
         </ol>
       )}
@@ -146,16 +89,14 @@ function Register({ b, backyard, filters, onFilters, onOpenFish, onToast, mobile
 }
 
 type RowProps = {
-  e: Entry; b: BreedersApi; byId: Map<string, Fish>; total: number; limit: number; hit: string;
-  onOpenFish: (id: string) => void; onToast: (text: string) => void;
+  e: Entry; b: BreedersApi; byId: Map<string, Fish>; total: number; limit: number;
+  onShowBreeder: (no: number) => void; onToast: (text: string) => void;
 };
 
-function EntryRow({ e, b, byId, total, limit, hit, onOpenFish, onToast }: RowProps) {
+function EntryRow({ e, b, byId, total, limit, onShowBreeder, onToast }: RowProps) {
   const { lang, t } = useI18n();
   const ago = useAgo();
-  const [open, setOpen] = useState(false);
   const fish = e.fish.filter(id => byId.has(id));
-  const visible = open ? fish : fish.slice(0, limit);
   const mine = b.me?.entry?.no === e.no;
   const admin = !!b.me?.admin;
   const hidden = e.hidden ?? null;
@@ -201,28 +142,20 @@ function EntryRow({ e, b, byId, total, limit, hit, onOpenFish, onToast }: RowPro
         <b>{fish.length}</b> <span>{t.br.of(total)}</span>
         <span className="bar bar--bred" aria-hidden="true"><span style={{ width: `${(fish.length / total) * 100}%` }} /></span>
       </p>
-      <ul className={styles.strip} aria-label={t.br.stripLabel(e.nick)}>
-        {!fish.length && <li className={styles.nothing}>{t.br.nothingYet}</li>}
-        {visible.map(id => {
-          const f = byId.get(id)!;
-          const name = fishName(f, lang);
-          return (
-            <li key={id} data-hit={id === hit || undefined}>
-              <button type="button" className={styles.thumb} title={name} aria-label={name} onClick={() => onOpenFish(id)}>
-                <img src={fishImage(id)} alt="" width={36} height={36} loading="lazy" />
-              </button>
-            </li>
-          );
-        })}
-        {fish.length > limit && (
-          <li>
-            <button type="button" className={styles.more} aria-expanded={open} onClick={() => setOpen(!open)}
-              aria-label={open ? undefined : t.br.moreLabel(fish.length - limit)}>
-              {open ? t.br.less : `+${fish.length - limit}`}
-            </button>
-          </li>
-        )}
-      </ul>
+      {fish.length ? (
+        // the whole strip is one way in: the journal grid filtered to this player's backyard
+        <button type="button" className={styles.strip} aria-label={t.br.showFish(e.nick, fish.length)} onClick={() => onShowBreeder(e.no)}>
+          {fish.slice(0, limit).map(id => (
+            <span key={id} className={styles.thumb} title={fishName(byId.get(id)!, lang)}>
+              <img src={fishImage(id)} alt="" width={36} height={36} loading="lazy" />
+            </span>
+          ))}
+          {fish.length > limit && <span className={styles.more}>+{fish.length - limit}</span>}
+          <span className={styles.go} aria-hidden="true">→</span>
+        </button>
+      ) : (
+        <p className={styles.nothing}>{t.br.nothingYet}</p>
+      )}
     </li>
   );
 }

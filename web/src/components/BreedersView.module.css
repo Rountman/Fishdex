@@ -1,39 +1,10 @@
 /* Chovatelé: a club register (ruled ledger lines) beside a glued-in slip for your own entry. */
 .layout { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: var(--space-7); align-items: start; }
 
-.head {
-  display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-4);
-  padding-bottom: 6px; border-bottom: 1.5px solid var(--color-ink);
-}
-.title { margin: 0; font: var(--fw-title) var(--fs-h2)/1.1 var(--font-display); }
-.count {
-  margin: 0; text-align: right; color: var(--color-ink-faint);
-  font: var(--fw-strong) var(--fs-xs)/1.2 var(--font-text); text-transform: uppercase; letter-spacing: 0.08em;
-}
-.intro { margin: 6px 0 var(--space-4); max-width: 60ch; color: var(--color-ink-soft); font: italic var(--fw-regular) 16px/1.3 var(--font-display); }
-.muted { color: var(--color-ink-soft); font-weight: var(--fw-regular); }
 .k {
   display: block; margin-bottom: var(--space-1); color: var(--color-ink-faint);
   font: var(--fw-strong) var(--fs-xs)/1.2 var(--font-text); text-transform: uppercase; letter-spacing: 0.08em;
 }
-
-.adminSlip { margin: 0 0 var(--space-4); padding: var(--space-2) var(--space-3); border: 1.5px dashed var(--color-warn); font-size: var(--fs-ui); }
-
-/* ---- filters ---- */
-.filters { display: flex; flex-wrap: wrap; align-items: end; gap: var(--space-4) var(--space-5); margin-bottom: var(--space-4); }
-.field input, .field select, .nickField input {
-  padding: 6px 10px; border: 1.5px solid var(--color-ink-faint); border-radius: var(--radius-control);
-  background: var(--color-slip); color: var(--color-ink); font: inherit; font-size: var(--fs-ui);
-}
-.field input, .field select { min-width: 210px; }
-.seg { display: inline-flex; border: 1.5px solid var(--color-ink-faint); border-radius: var(--radius-control); overflow: hidden; }
-.seg button { border: 0; background: none; padding: 6px 12px; font-size: var(--fs-sm); font-weight: var(--fw-strong); color: var(--color-ink); }
-.seg button[aria-pressed="true"] { background: var(--color-ink); color: var(--color-on-ink); }
-
-.focus { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-2) 0 var(--space-3); border-bottom: 1px solid var(--color-grid-bold); }
-.focus img { width: 56px; height: 56px; object-fit: contain; }
-.focus p { margin: 0; }
-.focusName { font: var(--fw-name) var(--fs-h4)/1.2 var(--font-display); }
 
 .loading, .empty {
   margin: var(--space-2) 0 0; padding: var(--space-4); border: 1px dashed var(--color-ink-faint);
@@ -72,16 +43,21 @@
 .tally b { color: var(--color-ink); font: var(--fw-name) var(--fs-h2)/1 var(--font-display); }
 .tally :global(.bar) { margin-top: 6px; height: 4px; }
 
-.strip { grid-column: 3 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-1); margin: var(--space-1) 0 0; padding: 0; list-style: none; }
-.strip li[data-hit] .thumb { outline: 2px solid var(--color-stamp); outline-offset: 1px; }
-.thumb { display: block; padding: 2px; border: 0; border-radius: var(--radius-slip); background: var(--color-slip); box-shadow: var(--shadow-slip); }
-.thumb:hover { box-shadow: var(--shadow-slip-lift); }
+/* the fish strip is one button into the journal grid */
+.strip {
+  grid-column: 3 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-1);
+  margin: var(--space-1) 0 0; padding: var(--space-1); border: 1px solid transparent; border-radius: var(--radius-control);
+  background: none; color: var(--color-ink); text-align: left; cursor: pointer;
+}
+.strip:hover { border-color: var(--color-ink-faint); background: var(--color-paper-deep); }
+.thumb { display: block; padding: 2px; border-radius: var(--radius-slip); background: var(--color-slip); box-shadow: var(--shadow-slip); }
 .thumb img { display: block; width: 36px; height: 36px; object-fit: contain; }
 .more {
-  min-width: 40px; height: 40px; padding: 0 var(--space-2); border: 1px dashed var(--color-ink-faint); border-radius: var(--radius-slip);
-  background: none; color: var(--color-ink); font-size: var(--fs-sm); font-weight: var(--fw-strong);
+  display: grid; place-items: center; min-width: 40px; height: 40px; padding: 0 var(--space-2);
+  border: 1px dashed var(--color-ink-faint); border-radius: var(--radius-slip); font-size: var(--fs-sm); font-weight: var(--fw-strong);
 }
-.nothing { color: var(--color-ink-faint); font: italic var(--fw-regular) 15px var(--font-display); }
+.go { margin-left: var(--space-2); font: var(--fw-name) var(--fs-h4)/1 var(--font-display); }
+.nothing { grid-column: 3 / -1; margin: 0; color: var(--color-ink-faint); font: italic var(--fw-regular) 15px var(--font-display); }
 
 /* glued-in photo */
 .avatar {
@@ -123,15 +99,11 @@
   .me { position: static; order: -1; }
 }
 @media (max-width: 560px) {
-  .head { flex-direction: column; align-items: start; gap: var(--space-1); }
-  .count { text-align: left; }
-  .field { flex: 1 1 100%; }
-  .field input, .field select { width: 100%; min-width: 0; }
   .entry { grid-template-columns: 44px minmax(0, 1fr) auto; gap: var(--space-1) var(--space-3); }
   .no { display: none; }
   .avatar { width: 44px; height: 44px; }
   .tally b { font-size: var(--fs-h3); }
   .tally :global(.bar) { width: 64px; margin-left: auto; }
-  .strip { grid-column: 1 / -1; }
+  .strip, .nothing { grid-column: 1 / -1; }
   .entry[data-mine]::before { left: -8px; }
 }

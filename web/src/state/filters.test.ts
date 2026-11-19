@@ -251,9 +251,9 @@ describe('applyFilters', () => {
   });
 
   it('picking a spot sets its area, picking an area clears the spot', () => {
-    expect(locationPatch('cool-mountain:Raft')).toEqual({ area: 'cool-mountain', spot: 'cool-mountain:Raft', spotOnly: false, bred: '' });
-    expect(locationPatch('club')).toEqual({ area: 'club', spot: '', spotOnly: false, bred: '' });
-    expect(locationPatch('')).toEqual({ area: '', spot: '', spotOnly: false, bred: '' });
+    expect(locationPatch('cool-mountain:Raft')).toEqual({ area: 'cool-mountain', spot: 'cool-mountain:Raft', spotOnly: false, bred: '', breeder: null });
+    expect(locationPatch('club')).toEqual({ area: 'club', spot: '', spotOnly: false, bred: '', breeder: null });
+    expect(locationPatch('')).toEqual({ area: '', spot: '', spotOnly: false, bred: '', breeder: null });
   });
 
   it('combines with search', () => {
@@ -261,19 +261,38 @@ describe('applyFilters', () => {
   });
 });
 
+describe('breeder filter (Chovatelé)', () => {
+  const backyard = FISH.filter(x => x.areas.includes('backyard'));
+  const theirs = new Set(backyard.slice(0, 3).map(x => x.id));
+
+  it('narrows Backyard to the player fish once the register is loaded', () => {
+    const f = { ...EMPTY_FILTERS, area: 'backyard', breeder: 4 };
+    expect(ids(applyFilters(FISH, f, emptyProgress(), index, theirs)).sort()).toEqual([...theirs].sort());
+    // not loaded yet: the whole backyard, never a guess
+    expect(applyFilters(FISH, f, emptyProgress(), index, null)).toHaveLength(backyard.length);
+  });
+
+  it('only lives in Backyard: other areas drop it from the URL and the filters', () => {
+    expect(parseFilters(new URLSearchParams('area=laketown&breeder=4'), areaIds).breeder).toBeNull();
+    expect(parseFilters(new URLSearchParams('area=backyard&breeder=x'), areaIds).breeder).toBeNull();
+    expect(serializeFilters({ ...EMPTY_FILTERS, area: 'laketown', breeder: 4 }).breeder).toBeNull();
+    expect(locationPatch('laketown').breeder).toBeNull();
+  });
+});
+
 describe('URL round trip', () => {
   it('serializes and parses back', () => {
     const f: Filters = {
       q: 'stika', area: 'backyard', spot: '', spotOnly: false, rarity: new Set([5, 4]), bait: new Set(['Fish', 'Insects']),
-      status: 'uncaught', bred: 'no', hour: 22, month: 12, sizeMin: 10, sizeMax: 50,
+      status: 'uncaught', bred: 'no', breeder: 7, hour: 22, month: 12, sizeMin: 10, sizeMax: 50,
     };
     const params = new URLSearchParams(Object.entries(serializeFilters(f)).filter(([, v]) => v) as [string, string][]);
-    expect(params.toString()).toBe('q=stika&area=backyard&rarity=4%2C5&bait=Fish%2CInsects&status=uncaught&bred=no&hour=22&month=12&sizemin=10&sizemax=50');
+    expect(params.toString()).toBe('q=stika&area=backyard&rarity=4%2C5&bait=Fish%2CInsects&status=uncaught&bred=no&breeder=7&hour=22&month=12&sizemin=10&sizemax=50');
     const withSpot = parseFilters(new URLSearchParams('spot=laketown:Trout Farm'), areaIds);
     expect(withSpot.spot).toBe('laketown:Trout Farm');
     expect(serializeFilters(withSpot).spot).toBe('laketown:Trout Farm');
     expect(parseFilters(params, areaIds)).toEqual(f);
-    expect(activeFilterCount(f)).toBe(10);
+    expect(activeFilterCount(f)).toBe(11);
   });
 
   it('"only here" round trips with a spot and is dropped without one', () => {

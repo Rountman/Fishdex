@@ -104,7 +104,7 @@ prototypes/    # schválené mockupy a styleguide (fáze 1–2), DECISIONS.md
   Řazení podle rarity: hvězdy, pak „× vzácnější“, pak jméno. U každé volby filtru počet ryb podle ostatních aktivních filtrů,
   rarita, návnada (multi-výběr, NEBO), čas, velikost (od–do cm, ryba
   se ukáže, když se její rozsah úlovku překrývá se zadaným), chyceno / nechyceno /
-  chybí zářivá; při vybrané oblasti Backyard i „za domem: mám / nemám“.
+  chybí zářivá; při vybrané oblasti Backyard i „za domem: mám / nemám“ a „Chovatel“ (hráč z registru).
 - Délky ryb se zobrazují jako text a filtrují rozmezím, žádné měřítko ani zadávání ulovené délky.
 - Vyhledávání podle jména (fuzzy, bez diakritiky).
 - Undo posledního kliknutí (toast s „Vrátit", 5 s).
@@ -136,12 +136,15 @@ prototypes/    # schválené mockupy a styleguide (fáze 1–2), DECISIONS.md
 ## Záložka Chovatelé (jediná část s backendem)
 
 - Veřejný registr toho, co hráči chovají za domem (`bred`). Nic jiného se nezveřejňuje.
-  URL `tab=breeders`, filtry `bq=` (přezdívka), `bfish=` (chová rybu), `bsort=`.
+  URL `tab=breeders`. Záložka je jen seznam hráčů (nejvíc ryb nahoře) + lístek Můj zápis, žádné filtry ani hlavička.
+  Pruh ryb u hráče je jedno tlačítko: otevře Ryby › Backyard s filtrem Chovatel (`area=backyard&breeder=<č. zápisu>`).
 - Přihlášení přes Discord OAuth, scope jen `identify`. Zobrazuje se **avatar z Discordu a Fishao přezdívka**,
   nikdy Discord jméno. Přezdívka 3–20 znaků, unikátní bez ohledu na velikost písmen, nepředvyplňuje se.
 - Zveřejnění je opt-in (tlačítko). Po zveřejnění se změny `bred` (detail, import) synchronizují samy
   (debounce ~2 s, při chybě čekají ve frontě a odešlou se později). Smazání zápisu i odhlášení jedním klikem.
-- Detail ryby z Backyardu: „Chová ji N hráčů →“ otevře záložku s filtrem `bfish`.
+- Filtr **Chovatel** jen u Backyardu (vedle Za domem: mám / nemám): mřížka jen s rybami toho hráče, kombinuje se
+  s ostatními filtry („on má, já ne“ = Chovatel + Za domem: nemám). Dokud se registr nenačte, nezužuje nic.
+- Detail ryby z Backyardu: řádek Chovatelé se jmény hráčů (max. 6 + „a N dalších“), jméno = filtr Chovatel.
 - Backend `worker/` (Cloudflare Worker + D1): `GET /breeders`, `/auth/login|callback`, `GET|PUT|DELETE /me`,
   `POST /breeders/:id/report`, `/admin/*`. Server přijme jen ID ryb z Backyardu (`worker/src/backyard.json`
   generuje `build-data.ts` z `data/`), CORS jen Pages + localhost, rate limit zápisů a nahlášení.

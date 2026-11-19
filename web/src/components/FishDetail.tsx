@@ -17,8 +17,8 @@ type Props = {
   zoneName: string;
   onToggle: (id: string, field: ProgressField) => void;
   onClose: () => void;
-  /** Backyard fish with the register on: how many breeders list it (null = not loaded). */
-  breeders?: { count: number | null; onShow: () => void };
+  /** Backyard fish with the register on: who breeds it (null = register not loaded yet). */
+  breeders?: { list: { no: number; nick: string }[] | null; onPick: (no: number) => void };
 };
 
 function UnlockLine({ u }: { u: Unlock }) {
@@ -113,10 +113,15 @@ function Body({ fish, state, areaName, zoneName, onToggle, titleId, onClose, bre
         </>}
         {breeders && <>
           <dt>{t.br.detailLabel}</dt>
-          <dd>
-            <button type="button" className={`link ${styles.breeders}`} onClick={breeders.onShow}>
-              {breeders.count === null ? t.br.detailUnknown : t.br.detailCount(breeders.count)} →
-            </button>
+          <dd className={breeders.list?.length === 0 ? styles.unknown : undefined}>
+            {breeders.list === null ? '…' : !breeders.list.length ? t.br.detailNone : <>
+              {breeders.list.slice(0, 6).map((e, i) => (
+                <span key={e.no}>{i > 0 && ', '}
+                  <button type="button" className={`link ${styles.breeders}`} aria-label={t.br.detailPick(e.nick)} onClick={() => breeders.onPick(e.no)}>{e.nick}</button>
+                </span>
+              ))}
+              {breeders.list.length > 6 && <> {t.br.detailMore(breeders.list.length - 6)}</>}
+            </>}
           </dd>
         </>}
         <dt>{t.length}</dt>

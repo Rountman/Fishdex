@@ -23,15 +23,19 @@ type Props = {
   onChange: (patch: Partial<F>) => void;
   sort: Sort;
   onSort: (sort: Sort) => void;
+  /** Players of the Chovatelé register for the backyard filter; null = not loaded or register off. */
+  breeders: BreederOption[] | null;
 };
+
+export type BreederOption = { no: number; nick: string; count: number };
 
 const STATUSES: Status[] = ['all', 'uncaught', 'caught', 'noglow'];
 /** Empty or not a whole number = no limit. */
 const sizeValue = (v: string) => (/^\d+$/.test(v) && Number(v) <= SIZE_LIMIT ? Number(v) : null);
 
-function Controls({ filters: f, facets, areas, mobile, onChange, sort, onSort }: Pick<Props, 'filters' | 'facets' | 'areas' | 'mobile' | 'onChange' | 'sort' | 'onSort'>) {
+function Controls({ filters: f, facets, areas, mobile, onChange, sort, onSort, breeders }: Pick<Props, 'filters' | 'facets' | 'areas' | 'mobile' | 'onChange' | 'sort' | 'onSort' | 'breeders'>) {
   const { lang, t } = useI18n();
-  const ids = { sort: useId(), rarity: useId(), status: useId(), bait: useId(), yard: useId(), area: useId(), hour: useId(), month: useId(), size: useId() };
+  const ids = { sort: useId(), rarity: useId(), status: useId(), bait: useId(), yard: useId(), breeder: useId(), area: useId(), hour: useId(), month: useId(), size: useId() };
   const statusLabel: Record<Status, string> = { all: t.statusAll, uncaught: t.uncaught, caught: t.caught, noglow: t.noglow };
   const toggleRarity = (r: number) => {
     const next = new Set(f.rarity);
@@ -123,6 +127,17 @@ function Controls({ filters: f, facets, areas, mobile, onChange, sort, onSort }:
           ))}
         </div>
       )}
+      {f.area === 'backyard' && (breeders?.length || f.breeder !== null) ? (
+        <div className={styles.row}>
+          <label className={styles.label} htmlFor={ids.breeder}>{t.breederLabel}</label>
+          <select id={ids.breeder} className={styles.select} value={f.breeder ?? ''}
+            onChange={e => onChange({ breeder: e.target.value === '' ? null : Number(e.target.value) })}>
+            <option value="">{t.breederAny}</option>
+            {f.breeder !== null && !breeders?.some(b => b.no === f.breeder) && <option value={f.breeder}>{t.breederNo(f.breeder)}</option>}
+            {breeders?.map(b => <option key={b.no} value={b.no}>{b.nick} ({b.count})</option>)}
+          </select>
+        </div>
+      ) : null}
       <details className={styles.more} open={timeOpen || undefined}>
         <summary>{t.more}</summary>
         <div className={styles.moreBody}>
@@ -145,7 +160,7 @@ function Controls({ filters: f, facets, areas, mobile, onChange, sort, onSort }:
   );
 }
 
-function ActiveChips({ filters: f, areas, onChange }: Pick<Props, 'filters' | 'areas' | 'onChange'>) {
+function ActiveChips({ filters: f, areas, onChange, breeders }: Pick<Props, 'filters' | 'areas' | 'onChange' | 'breeders'>) {
   const { lang, t } = useI18n();
   const chips: { key: string; label: ReactNode; text: string; clear: Partial<F> }[] = [];
   const q = f.q.trim();
@@ -153,7 +168,7 @@ function ActiveChips({ filters: f, areas, onChange }: Pick<Props, 'filters' | 'a
   const area = areas.find(a => a.id === f.area);
   if (f.area) {
     const name = area?.name ?? f.area;
-    chips.push({ key: 'area', label: name, text: name, clear: { area: '', spot: '', spotOnly: false, bred: '' } });
+    chips.push({ key: 'area', label: name, text: name, clear: { area: '', spot: '', spotOnly: false, bred: '', breeder: null } });
   }
   if (f.spot) {
     const { area, spot } = splitSpot(f.spot);
@@ -176,6 +191,10 @@ function ActiveChips({ filters: f, areas, onChange }: Pick<Props, 'filters' | 'a
   if (f.area === 'backyard' && f.bred) {
     const l = `${t.yard}: ${f.bred === 'yes' ? t.yardHave : t.yardNot}`;
     chips.push({ key: 'bred', label: l, text: l, clear: { bred: '' } });
+  }
+  if (f.area === 'backyard' && f.breeder !== null) {
+    const l = `${t.breederLabel}: ${breeders?.find(b => b.no === f.breeder)?.nick ?? t.breederNo(f.breeder)}`;
+    chips.push({ key: 'breeder', label: l, text: l, clear: { breeder: null } });
   }
   if (f.hour !== null) chips.push({ key: 'hour', label: `${t.hour} ${t.hourOpt(f.hour)}`, text: t.hourOpt(f.hour), clear: { hour: null } });
   if (f.month !== null) chips.push({ key: 'month', label: `${t.month} ${t.months[f.month - 1]}`, text: t.months[f.month - 1], clear: { month: null } });
