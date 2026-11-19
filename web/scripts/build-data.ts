@@ -463,6 +463,10 @@ async function main() {
   await writeFile(join(OUT_DATA, 'fish.json'), JSON.stringify(fish));
   await writeFile(join(OUT_DATA, 'areas.json'), JSON.stringify(areas));
   await writeFile(join(OUT_DATA, 'palmZones.json'), JSON.stringify(net.palm_island_zones));
+  // the Chovatelé API only accepts backyard fish; committed so the worker deploys on its own
+  // (CI checks it is up to date)
+  const backyard = fish.filter(f => f.areas.includes('backyard')).map(f => f.id).sort();
+  await writeFile(join(REPO, 'worker', 'src', 'backyard.json'), JSON.stringify(backyard, null, 1) + '\n');
   // official Palm Island map (1000x1000 webp, ~90 kB), the zone grid is drawn over it
   await mkdir(OUT_MAPS, { recursive: true });
   await copyFile(join(REPO, 'images', 'maps', 'palm-island.webp'), join(OUT_MAPS, 'palm-island.webp'));

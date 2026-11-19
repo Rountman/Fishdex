@@ -1,0 +1,18 @@
+name = "fishdex-api"
+main = "src/index.ts"
+compatibility_date = "2026-11-01"
+
+[vars]
+# Discord application (public id; the secret is set with `wrangler secret put DISCORD_CLIENT_SECRET`)
+DISCORD_CLIENT_ID = "1572926626805584002"
+# admins of the Chovatelé register (Discord user ids, comma-separated)
+ADMIN_IDS = "428601328571514900"
+# where the web app runs: CORS and allowed login return URLs
+ALLOWED_ORIGINS = "https://rountman.github.io,http://localhost:5173,http://localhost:4173"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "fishdex"
+# filled in after `wrangler d1 create fishdex`
+database_id = "00000000-0000-0000-0000-000000000000"
+migrations_dir = "migrations"
