@@ -50,6 +50,11 @@ export type Fish = {
   size: { min: number; avg: number; max: number } | null;
   /** World record label ("449 cm", "(448–449 cm)?"), `null` = unknown. Already carries its own "?". */
   record: string | null;
+  /**
+   * Fish Market sell price ESTIMATE in fishbucks (fishao-tracker.cz calculation, not an official or
+   * reported price): shown as "~min–max FB". Missing = unknown.
+   */
+  price?: { min: number; max: number };
   /** Breeding with Rex in the backyard: fishbucks, hours, success chance 0–1. Only Backyard fish. */
   breed?: { cost: number; hours: number; chance: number };
   unlock?: Unlock[];

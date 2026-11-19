@@ -36,6 +36,9 @@ prototypes/    # schválené mockupy a styleguide (fáze 1–2), DECISIONS.md
   `data/fishao-tracker-report.md`): jediný zdroj **zón Moray turnaje** (fishao.net je nemá). Stejné zóny
   A–H jako Palm Island (`EFPT_PALM_ISLAND_ZONE_*`; „Vnější oblast“ = A … „Malé ostrovy“ = H), zóny
   Palm Islandu z něj sedí s fishao.net. Bundle se čte jako text, nespouští se.
+  Z téhož bundlu i **odhad výkupní ceny** (`FISHAO_ESTIMATED_PRICES` → `estimated_prices` → `Fish.price`):
+  výpočet trackeru, ne skutečná cena, web ho ukazuje jen jako „~min–max FB“ (karta + detail, bez řazení
+  a filtru). Ceny od hráčů z jejich Firestore nebereme.
 - Ruční opravy dat ani „?“ u sporných časů se už nepoužívají — co říká fishao.net, platí.
 - Scraper: max 1 request/s na web.archive.org, vše cachovat, používat `id_`
   URL varianty pro čisté HTML.

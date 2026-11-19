@@ -798,5 +798,4312 @@
   "1202": "Štikovec indický",
   "1203": "Jehla cejlonská",
   "1e3": "Žralok grónský"
- }
+ },
+ "estimated_prices": [
+  {
+   "id": 14,
+   "fishdex_id": "piranha",
+   "name": "Piranha",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 15,
+   "fishdex_id": "arapaima",
+   "name": "Arapaima",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 16,
+   "fishdex_id": "barbel",
+   "name": "Barbel",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 17,
+   "fishdex_id": "bitterling",
+   "name": "Bitterling",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 18,
+   "fishdex_id": "largemouth-bass",
+   "name": "Largemouth Bass",
+   "min": 3,
+   "max": 7
+  },
+  {
+   "id": 20,
+   "fishdex_id": "bluegill",
+   "name": "Bluegill",
+   "min": 3,
+   "max": 7
+  },
+  {
+   "id": 22,
+   "fishdex_id": "blue-marlin",
+   "name": "Blue Marlin",
+   "min": 540,
+   "max": 1350
+  },
+  {
+   "id": 28,
+   "fishdex_id": "common-carp",
+   "name": "Common Carp",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 32,
+   "fishdex_id": "wels-catfish",
+   "name": "Wels Catfish",
+   "min": 81,
+   "max": 203
+  },
+  {
+   "id": 33,
+   "fishdex_id": "beluga-sturgeon",
+   "name": "Beluga Sturgeon",
+   "min": 270,
+   "max": 675
+  },
+  {
+   "id": 34,
+   "fishdex_id": "arctic-char",
+   "name": "Arctic Char",
+   "min": 27,
+   "max": 68
+  },
+  {
+   "id": 35,
+   "fishdex_id": "cherry-salmon",
+   "name": "Cherry Salmon",
+   "min": 16,
+   "max": 41
+  },
+  {
+   "id": 36,
+   "fishdex_id": "coelacanth",
+   "name": "Coelacanth",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 37,
+   "fishdex_id": "crucian-carp",
+   "name": "Crucian Carp",
+   "min": 3,
+   "max": 7
+  },
+  {
+   "id": 38,
+   "fishdex_id": "dab",
+   "name": "Dab",
+   "min": 7,
+   "max": 17
+  },
+  {
+   "id": 40,
+   "fishdex_id": "common-dace",
+   "name": "Common Dace",
+   "min": 3,
+   "max": 7
+  },
+  {
+   "id": 41,
+   "fishdex_id": "golden-dorado",
+   "name": "Golden Dorado",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 42,
+   "fishdex_id": "eel",
+   "name": "Eel",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 43,
+   "fishdex_id": "freshwater-goby",
+   "name": "Freshwater Goby",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 44,
+   "fishdex_id": "gar",
+   "name": "Gar",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 45,
+   "fishdex_id": "giant-snakehead",
+   "name": "Giant Snakehead",
+   "min": 43,
+   "max": 108
+  },
+  {
+   "id": 46,
+   "fishdex_id": "gold-carp",
+   "name": "Goldcarp",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 47,
+   "fishdex_id": "hammerhead-shark",
+   "name": "Hammerhead Shark",
+   "min": 162,
+   "max": 405
+  },
+  {
+   "id": 48,
+   "fishdex_id": "horse-mackerel",
+   "name": "Horse Mackerel",
+   "min": 7,
+   "max": 17
+  },
+  {
+   "id": 49,
+   "fishdex_id": "chinook-salmon",
+   "name": "Chinook Salmon",
+   "min": 54,
+   "max": 135
+  },
+  {
+   "id": 50,
+   "fishdex_id": "ocean-sunfish",
+   "name": "Ocean Sunfish",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 51,
+   "fishdex_id": "yellow-perch",
+   "name": "Yellow Perch",
+   "min": 3,
+   "max": 7
+  },
+  {
+   "id": 52,
+   "fishdex_id": "atlantic-bluefin-tuna",
+   "name": "Atlantic Bluefin Tuna",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 54,
+   "fishdex_id": "olive-flounder",
+   "name": "Olive Flounder",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 55,
+   "fishdex_id": "pale-chub",
+   "name": "Pale Chub",
+   "min": 5,
+   "max": 14
+  },
+  {
+   "id": 56,
+   "fishdex_id": "pond-smelt",
+   "name": "Pond Smelt",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 57,
+   "fishdex_id": "puffer-fish",
+   "name": "Puffer Fish",
+   "min": 3,
+   "max": 7
+  },
+  {
+   "id": 58,
+   "fishdex_id": "rainbow-trout",
+   "name": "Rainbow Trout",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 59,
+   "fishdex_id": "red-snapper",
+   "name": "Red Snapper",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 60,
+   "fishdex_id": "common-salmon",
+   "name": "Common Salmon",
+   "min": 3,
+   "max": 7
+  },
+  {
+   "id": 61,
+   "fishdex_id": "sea-bass",
+   "name": "Sea Bass",
+   "min": 3,
+   "max": 7
+  },
+  {
+   "id": 62,
+   "fishdex_id": "shark",
+   "name": "Shark",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 63,
+   "fishdex_id": "pike",
+   "name": "Pike",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 64,
+   "fishdex_id": "bream",
+   "name": "Bream",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 65,
+   "fishdex_id": "orangespotted-sunfish",
+   "name": "Orangespotted Sunfish",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 66,
+   "fishdex_id": "tench",
+   "name": "Tench",
+   "min": 16,
+   "max": 41
+  },
+  {
+   "id": 67,
+   "fishdex_id": "black-acara",
+   "name": "Black Acara",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 68,
+   "fishdex_id": "spotted-sorubim",
+   "name": "Spotted Sorubim",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 69,
+   "fishdex_id": "electric-eel",
+   "name": "Electric Eel",
+   "min": 864,
+   "max": 2160
+  },
+  {
+   "id": 70,
+   "fishdex_id": "blackfin-pearlfish",
+   "name": "Blackfin Pearlfish",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 71,
+   "fishdex_id": "marbled-headstander",
+   "name": "Marbled Headstander",
+   "min": 3,
+   "max": 7
+  },
+  {
+   "id": 72,
+   "fishdex_id": "pike-cichlid",
+   "name": "Pike Cichlid",
+   "min": 3,
+   "max": 7
+  },
+  {
+   "id": 73,
+   "fishdex_id": "sergeant-major",
+   "name": "Sergeant Major",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 74,
+   "fishdex_id": "honeycomb-cowfish",
+   "name": "Honeycomb Cowfish",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 75,
+   "fishdex_id": "barracuda",
+   "name": "Barracuda",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 76,
+   "fishdex_id": "tarpon-atlantic",
+   "name": "Tarpon Atlantic",
+   "min": 162,
+   "max": 405
+  },
+  {
+   "id": 77,
+   "fishdex_id": "rainbow-runner",
+   "name": "Rainbow Runner",
+   "min": 54,
+   "max": 135
+  },
+  {
+   "id": 80,
+   "fishdex_id": "pacuma-toadfish",
+   "name": "Pacuma Toadfish",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 81,
+   "fishdex_id": "leerfish",
+   "name": "Leerfish",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 82,
+   "fishdex_id": "coral-hind",
+   "name": "Coral Hind",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 83,
+   "fishdex_id": "sardinella",
+   "name": "Sardinella",
+   "min": 3,
+   "max": 7
+  },
+  {
+   "id": 84,
+   "fishdex_id": "kaluga-sturgeon",
+   "name": "Kaluga Sturgeon",
+   "min": 432,
+   "max": 1080
+  },
+  {
+   "id": 85,
+   "fishdex_id": "queen-angelfish",
+   "name": "Queen Angelfish",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 86,
+   "fishdex_id": "blue-striped-grunt",
+   "name": "Blue Striped Grunt",
+   "min": 3,
+   "max": 7
+  },
+  {
+   "id": 87,
+   "fishdex_id": "nassau-grouper",
+   "name": "Nassau Grouper",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 88,
+   "fishdex_id": "french-angelfish",
+   "name": "French Angelfish",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 89,
+   "fishdex_id": "wenchman",
+   "name": "Wenchman",
+   "min": 20,
+   "max": 51
+  },
+  {
+   "id": 90,
+   "fishdex_id": "sargassum-triggerfish",
+   "name": "Sargassum Triggerfish",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 91,
+   "fishdex_id": "pearly-razorfish",
+   "name": "Pearly Razorfish",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 92,
+   "fishdex_id": "bigeye-scad",
+   "name": "Bigeye Scad",
+   "min": 3,
+   "max": 7
+  },
+  {
+   "id": 93,
+   "fishdex_id": "ariidae",
+   "name": "Ariidae",
+   "min": 97,
+   "max": 243
+  },
+  {
+   "id": 94,
+   "fishdex_id": "livingstons-chichild",
+   "name": "Livingston's Cichlid",
+   "min": 12,
+   "max": 30
+  },
+  {
+   "id": 95,
+   "fishdex_id": "giant-gourami",
+   "name": "Giant Gourami",
+   "min": 130,
+   "max": 324
+  },
+  {
+   "id": 96,
+   "fishdex_id": "golden-arowana",
+   "name": "Golden Arowana",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 97,
+   "fishdex_id": "north-african-catfish",
+   "name": "North African Catfish",
+   "min": 32,
+   "max": 81
+  },
+  {
+   "id": 98,
+   "fishdex_id": "elongate-tigerfish",
+   "name": "Elongate Tigerfish",
+   "min": 32,
+   "max": 81
+  },
+  {
+   "id": 99,
+   "fishdex_id": "cornish-jack",
+   "name": "Cornish Jack",
+   "min": 324,
+   "max": 810
+  },
+  {
+   "id": 100,
+   "fishdex_id": "nile-tilapia",
+   "name": "Nile Tilapia",
+   "min": 4,
+   "max": 10
+  },
+  {
+   "id": 101,
+   "fishdex_id": "african-butter-catfish",
+   "name": "African Butter Catfish",
+   "min": 12,
+   "max": 30
+  },
+  {
+   "id": 102,
+   "fishdex_id": "clownfish",
+   "name": "Clownfish",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 105,
+   "fishdex_id": "common-rudd",
+   "name": "Common Rudd",
+   "min": 3,
+   "max": 8
+  },
+  {
+   "id": 107,
+   "fishdex_id": "nile-perch",
+   "name": "Nile Perch",
+   "min": 97,
+   "max": 243
+  },
+  {
+   "id": 108,
+   "fishdex_id": "walleye",
+   "name": "Walleye",
+   "min": 27,
+   "max": 68
+  },
+  {
+   "id": 109,
+   "fishdex_id": "peacock-bass",
+   "name": "Peacock Bass",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 110,
+   "fishdex_id": "largemouth-yellowfish",
+   "name": "Largemouth Yellowfish",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 111,
+   "fishdex_id": "freshwater-drum",
+   "name": "Freshwater Drum",
+   "min": 27,
+   "max": 68
+  },
+  {
+   "id": 112,
+   "fishdex_id": "clown-featherback",
+   "name": "Clown Featherback",
+   "min": 43,
+   "max": 108
+  },
+  {
+   "id": 113,
+   "fishdex_id": "chinese-false-gudgeon",
+   "name": "Chinese False Gudgeon",
+   "min": 5,
+   "max": 14
+  },
+  {
+   "id": 114,
+   "fishdex_id": "horseface-loach",
+   "name": "Horseface Loach",
+   "min": 16,
+   "max": 41
+  },
+  {
+   "id": 115,
+   "fishdex_id": "chinese-sturgeon",
+   "name": "Chinese Sturgeon",
+   "min": 130,
+   "max": 324
+  },
+  {
+   "id": 116,
+   "fishdex_id": "catla",
+   "name": "Catla",
+   "min": 16,
+   "max": 41
+  },
+  {
+   "id": 117,
+   "fishdex_id": "elephantfish",
+   "name": "Elephantfish",
+   "min": 259,
+   "max": 648
+  },
+  {
+   "id": 118,
+   "fishdex_id": "opah",
+   "name": "Opah",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 119,
+   "fishdex_id": "silver-scabbardfish",
+   "name": "Silver Scabbardfish",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 120,
+   "fishdex_id": "thicklip-grey-mullet",
+   "name": "Thicklip Grey Mullet",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 121,
+   "fishdex_id": "atlantic-herring",
+   "name": "Atlantic Herring",
+   "min": 3,
+   "max": 7
+  },
+  {
+   "id": 122,
+   "fishdex_id": "tope-shark",
+   "name": "Tope Shark",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 123,
+   "fishdex_id": "european-conger",
+   "name": "European Conger",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 124,
+   "fishdex_id": "lesser-weever",
+   "name": "Lesser Weever",
+   "min": 3,
+   "max": 7
+  },
+  {
+   "id": 125,
+   "fishdex_id": "haddock",
+   "name": "Haddock",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 126,
+   "fishdex_id": "goldsilk-bream",
+   "name": "Goldsilk Bream",
+   "min": 24,
+   "max": 61
+  },
+  {
+   "id": 127,
+   "fishdex_id": "electric-catfish",
+   "name": "Electric Catfish",
+   "min": 194,
+   "max": 486
+  },
+  {
+   "id": 128,
+   "fishdex_id": "brown-trout",
+   "name": "Brown Trout",
+   "min": 3,
+   "max": 7
+  },
+  {
+   "id": 129,
+   "fishdex_id": "alligator-gar",
+   "name": "Alligator Gar",
+   "min": 864,
+   "max": 2160
+  },
+  {
+   "id": 130,
+   "fishdex_id": "atlantic-wolffish",
+   "name": "Atlantic Wolffish",
+   "min": 540,
+   "max": 1350
+  },
+  {
+   "id": 131,
+   "fishdex_id": "bigmouth-buffalo",
+   "name": "Bigmouth Buffalo",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 132,
+   "fishdex_id": "grayling",
+   "name": "Grayling",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 133,
+   "fishdex_id": "flame-angelfish",
+   "name": "Flame Angelfish",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 134,
+   "fishdex_id": "golden-perch",
+   "name": "Golden Perch",
+   "min": 86,
+   "max": 216
+  },
+  {
+   "id": 135,
+   "fishdex_id": "goliath-tigerfish",
+   "name": "Goliath Tigerfish",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 136,
+   "fishdex_id": "green-sawfish",
+   "name": "Green Sawfish",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 137,
+   "fishdex_id": "lake-sturgeon",
+   "name": "Lake Sturgeon",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 138,
+   "fishdex_id": "lionhead-goldfish",
+   "name": "Lionhead Goldfish",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 139,
+   "fishdex_id": "murray-cod",
+   "name": "Murray Cod",
+   "min": 86,
+   "max": 216
+  },
+  {
+   "id": 140,
+   "fishdex_id": "oscar",
+   "name": "Oscar",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 141,
+   "fishdex_id": "painted-comber",
+   "name": "Painted Comber",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 142,
+   "fishdex_id": "payara",
+   "name": "Payara",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 143,
+   "fishdex_id": "pink-salmon",
+   "name": "Pink Salmon",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 144,
+   "fishdex_id": "sailfish",
+   "name": "Sailfish",
+   "min": 540,
+   "max": 1350
+  },
+  {
+   "id": 145,
+   "fishdex_id": "sleepy-cod",
+   "name": "Sleepy Cod",
+   "min": 32,
+   "max": 81
+  },
+  {
+   "id": 146,
+   "fishdex_id": "sockeye-salmon",
+   "name": "Sockeye Salmon",
+   "min": 81,
+   "max": 203
+  },
+  {
+   "id": 147,
+   "fishdex_id": "tailspot-ctenopoma",
+   "name": "Tailspot Ctenopoma",
+   "min": 32,
+   "max": 81
+  },
+  {
+   "id": 148,
+   "fishdex_id": "tambaqui",
+   "name": "Tambaqui",
+   "min": 32,
+   "max": 81
+  },
+  {
+   "id": 149,
+   "fishdex_id": "weever-fish",
+   "name": "Weever Fish",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 150,
+   "fishdex_id": "golden-trout",
+   "name": "Golden Trout",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 151,
+   "fishdex_id": "brook-trout",
+   "name": "Brook Trout",
+   "min": 3,
+   "max": 7
+  },
+  {
+   "id": 152,
+   "fishdex_id": "tiger-trout",
+   "name": "Tiger Trout",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 154,
+   "fishdex_id": "common-octopus",
+   "name": "Common Octopus",
+   "min": 162,
+   "max": 405
+  },
+  {
+   "id": 155,
+   "fishdex_id": "occelate-river-stingray",
+   "name": "Occelate River Stingray",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 156,
+   "fishdex_id": "deepwater-sculpin",
+   "name": "Deepwater Sculpin",
+   "min": 27,
+   "max": 68
+  },
+  {
+   "id": 157,
+   "fishdex_id": "mad-barb",
+   "name": "Mad Barb",
+   "min": 43,
+   "max": 108
+  },
+  {
+   "id": 158,
+   "fishdex_id": "siamese-tigerfish",
+   "name": "Siamese Tigerfish",
+   "min": 32,
+   "max": 81
+  },
+  {
+   "id": 159,
+   "fishdex_id": "sailray",
+   "name": "Sailray",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 160,
+   "fishdex_id": "european-flounder",
+   "name": "European Flounder",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 161,
+   "fishdex_id": "eastern-mudminnow",
+   "name": "Eastern Mudminnow",
+   "min": 3,
+   "max": 7
+  },
+  {
+   "id": 162,
+   "fishdex_id": "european-perch",
+   "name": "European Perch",
+   "min": 3,
+   "max": 7
+  },
+  {
+   "id": 164,
+   "fishdex_id": "goldfish",
+   "name": "Goldfish",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 165,
+   "fishdex_id": "european-chub",
+   "name": "European Chub",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 166,
+   "fishdex_id": "zander",
+   "name": "Zander",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 167,
+   "fishdex_id": "black-bullhead",
+   "name": "Black Bullhead",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 168,
+   "fishdex_id": "barreleye",
+   "name": "Barreleye",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 169,
+   "fishdex_id": "red-scorpionfish",
+   "name": "Red Scorpionfish",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 170,
+   "fishdex_id": "dolly-varden",
+   "name": "Dolly Varden",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 171,
+   "fishdex_id": "suckermouth-catfish",
+   "name": "Suckermouth Catfish",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 172,
+   "fishdex_id": "paddlefish",
+   "name": "Paddlefish",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 173,
+   "fishdex_id": "lionfish",
+   "name": "Lionfish",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 174,
+   "fishdex_id": "smooth-trunkfish",
+   "name": "Smooth Trunkfish",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 175,
+   "fishdex_id": "rainbow-parrotfish",
+   "name": "Rainbow Parrotfish",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 176,
+   "fishdex_id": "humpback-anglerfish",
+   "name": "Humpback Anglerfish",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 177,
+   "fishdex_id": "mekong-giant-catfish",
+   "name": "Mekong Giant Catfish",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 179,
+   "fishdex_id": "rock-bass",
+   "name": "Rock Bass",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 180,
+   "fishdex_id": "mandarinfish",
+   "name": "Mandarinfish",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 181,
+   "fishdex_id": "smallmouth-bass",
+   "name": "Smallmouth Bass",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 182,
+   "fishdex_id": "spotted-bass",
+   "name": "Spotted Bass",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 183,
+   "fishdex_id": "common-dolphinfish",
+   "name": "Common Dolphinfish",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 184,
+   "fishdex_id": "flying-fish",
+   "name": "Flying Fish",
+   "min": 20,
+   "max": 51
+  },
+  {
+   "id": 185,
+   "fishdex_id": "giant-moray",
+   "name": "Giant Moray",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 187,
+   "fishdex_id": "bagarius",
+   "name": "Bagarius",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 188,
+   "fishdex_id": "freshwater-hatchedfish",
+   "name": "Freshwater Hatchetfish",
+   "min": 3,
+   "max": 7
+  },
+  {
+   "id": 189,
+   "fishdex_id": "black-crappy",
+   "name": "Black Crappy",
+   "min": 3,
+   "max": 7
+  },
+  {
+   "id": 190,
+   "fishdex_id": "common-bleak",
+   "name": "Common Bleak",
+   "min": 3,
+   "max": 7
+  },
+  {
+   "id": 191,
+   "fishdex_id": "guppy",
+   "name": "Guppy",
+   "min": 3,
+   "max": 7
+  },
+  {
+   "id": 192,
+   "fishdex_id": "giant-barb",
+   "name": "Giant Barb",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 193,
+   "fishdex_id": "discus",
+   "name": "Discus",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 194,
+   "fishdex_id": "bagrus-bajad",
+   "name": "Bagrus Bajad",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 195,
+   "fishdex_id": "black-buffalo",
+   "name": "Black Buffalo",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 196,
+   "fishdex_id": "midas-cichlid",
+   "name": "Midas Cichlid",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 197,
+   "fishdex_id": "danube-salmon",
+   "name": "Danube Salmon",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 198,
+   "fishdex_id": "rainbow-darter",
+   "name": "Rainbow Darter",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 199,
+   "fishdex_id": "marbled-lungfish",
+   "name": "Marbled Lungfish",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 200,
+   "fishdex_id": "african-knifefish",
+   "name": "African Knifefish",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 201,
+   "fishdex_id": "burbot",
+   "name": "Burbot",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 202,
+   "fishdex_id": "ripsaw-catfish",
+   "name": "Ripsaw Catfish",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 203,
+   "fishdex_id": "vandellia",
+   "name": "Vandellia",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 204,
+   "fishdex_id": "tiger-muskellunge",
+   "name": "Tiger Muskellunge",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 205,
+   "fishdex_id": "bull-shark",
+   "name": "Bull Shark",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 206,
+   "fishdex_id": "giant-freshwater-stingray",
+   "name": "Giant Freshwater Stingray",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 207,
+   "fishdex_id": "texas-cichlid",
+   "name": "Texas Cichlid",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 208,
+   "fishdex_id": "flathead-catfish",
+   "name": "Flathead Catfish",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 209,
+   "fishdex_id": "bull-trout",
+   "name": "Bull Trout",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 210,
+   "fishdex_id": "apache-trout",
+   "name": "Apache Trout",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 211,
+   "fishdex_id": "blue-catfish",
+   "name": "Blue Catfish",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 212,
+   "fishdex_id": "alpine-bullhead",
+   "name": "Alpine Bullhead",
+   "min": 3,
+   "max": 7
+  },
+  {
+   "id": 213,
+   "fishdex_id": "zingel-streber",
+   "name": "Zingel Streber",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 214,
+   "fishdex_id": "pumpkinseed-sunfish",
+   "name": "Pumpkinseed Sunfish",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 215,
+   "fishdex_id": "fourhorned-sculpin",
+   "name": "Fourhorned Sculpin",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 216,
+   "fishdex_id": "red-striped-rasbora",
+   "name": "Red-Striped Rasbora",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 217,
+   "fishdex_id": "striped-headstander",
+   "name": "Striped Headstander",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 218,
+   "fishdex_id": "blue-lyretail",
+   "name": "Blue Lyretail",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 219,
+   "fishdex_id": "whitebarred-catfish",
+   "name": "Whitebarred Catfish",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 220,
+   "fishdex_id": "kuhli-loach",
+   "name": "Kuhli Loach",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 221,
+   "fishdex_id": "freshwater-butterflyfish",
+   "name": "Freshwater Butterflyfish",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 222,
+   "fishdex_id": "fire-eel",
+   "name": "Fire Eel",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 223,
+   "fishdex_id": "amazon-leaf-fish",
+   "name": "Amazon Leaf Fish",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 224,
+   "fishdex_id": "bowfin",
+   "name": "Bowfin",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 225,
+   "fishdex_id": "white-sturgeon",
+   "name": "White Sturgeon",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 226,
+   "fishdex_id": "hucho-taimen",
+   "name": "Hucho Taimen",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 227,
+   "fishdex_id": "giant-oarfish",
+   "name": "Giant Oarfish",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 228,
+   "fishdex_id": "dwarf-pufferfish",
+   "name": "Dwarf Pufferfish",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 229,
+   "fishdex_id": "rainbowfish",
+   "name": "Rainbowfish",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 230,
+   "fishdex_id": "paroon-shark",
+   "name": "Paroon Shark",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 231,
+   "fishdex_id": "silver-arowana",
+   "name": "Silver Arowana",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 232,
+   "fishdex_id": "asian-arowana",
+   "name": "Asian Arowana",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 233,
+   "fishdex_id": "siamese-fighting-fish",
+   "name": "Siamese Fighting Fish",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 234,
+   "fishdex_id": "congo-pufferfish",
+   "name": "Congo Pufferfish",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 235,
+   "fishdex_id": "hairy-pufferfish",
+   "name": "Hairy Pufferfish",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 236,
+   "fishdex_id": "chaca-chaca-catfish",
+   "name": "Chaca Chaca Catfish",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 237,
+   "fishdex_id": "freshwater-lionfish",
+   "name": "Freshwater Lionfish",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 238,
+   "fishdex_id": "sharpnose-sevengill-shark",
+   "name": "Sharpnose Sevengill Shark",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 239,
+   "fishdex_id": "frilled-shark",
+   "name": "Frilled Shark",
+   "min": 540,
+   "max": 1350
+  },
+  {
+   "id": 240,
+   "fishdex_id": "bramble-shark",
+   "name": "Bramble Shark",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 241,
+   "fishdex_id": "dogfish-shark",
+   "name": "Dogfish Shark",
+   "min": 162,
+   "max": 405
+  },
+  {
+   "id": 242,
+   "fishdex_id": "prickly-shark",
+   "name": "Prickly Shark",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 243,
+   "fishdex_id": "angel-shark",
+   "name": "Angel Shark",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 244,
+   "fishdex_id": "horn-shark",
+   "name": "Horn Shark",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 245,
+   "fishdex_id": "spotted-wobbegong",
+   "name": "Spotted Wobbegong",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 246,
+   "fishdex_id": "zebra-shark",
+   "name": "Zebra Shark",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 247,
+   "fishdex_id": "nurse-shark",
+   "name": "Nurse Shark",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 248,
+   "fishdex_id": "whale-shark",
+   "name": "Whale Shark",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 249,
+   "fishdex_id": "barbeled-houndshark",
+   "name": "Barbeled Houndshark",
+   "min": 54,
+   "max": 135
+  },
+  {
+   "id": 250,
+   "fishdex_id": "gollumshark",
+   "name": "Gollumshark",
+   "min": 54,
+   "max": 135
+  },
+  {
+   "id": 251,
+   "fishdex_id": "coral-catshark",
+   "name": "Coral Catshark",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 252,
+   "fishdex_id": "blue-shark",
+   "name": "Blue Shark",
+   "min": 162,
+   "max": 405
+  },
+  {
+   "id": 253,
+   "fishdex_id": "tiger-shark",
+   "name": "Tiger Shark",
+   "min": 540,
+   "max": 1350
+  },
+  {
+   "id": 254,
+   "fishdex_id": "goblin-shark",
+   "name": "Goblin Shark",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 255,
+   "fishdex_id": "basking-shark",
+   "name": "Basking Shark",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 256,
+   "fishdex_id": "megamouth-shark",
+   "name": "Megamouth Shark",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 257,
+   "fishdex_id": "thresher-shark",
+   "name": "Thresher Shark",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 258,
+   "fishdex_id": "longfin-mako-shark",
+   "name": "Longfin Mako Shark",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 259,
+   "fishdex_id": "great-white-shark",
+   "name": "Great White Shark",
+   "min": 540,
+   "max": 1350
+  },
+  {
+   "id": 260,
+   "fishdex_id": "lake-trout",
+   "name": "Lake Trout",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 261,
+   "fishdex_id": "chinese-paddlefish",
+   "name": "Chinese Paddlefish",
+   "min": 432,
+   "max": 1080
+  },
+  {
+   "id": 262,
+   "fishdex_id": "albino-catfish",
+   "name": "Albino Catfish",
+   "min": 648,
+   "max": 1620
+  },
+  {
+   "id": 263,
+   "fishdex_id": "silver-carp",
+   "name": "Silver Carp",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 264,
+   "fishdex_id": "south-american-lungfish",
+   "name": "South American Lungfish",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 265,
+   "fishdex_id": "ballan-wrasse",
+   "name": "Ballan Wrasse",
+   "min": 54,
+   "max": 135
+  },
+  {
+   "id": 266,
+   "fishdex_id": "bowmouth-guitarfish",
+   "name": "Bowmouth Guitarfish",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 267,
+   "fishdex_id": "giant-grouper",
+   "name": "Giant Grouper",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 268,
+   "fishdex_id": "halibut",
+   "name": "Halibut",
+   "min": 540,
+   "max": 1350
+  },
+  {
+   "id": 269,
+   "fishdex_id": "humphead-parrotfish",
+   "name": "Humphead Parrotfish",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 270,
+   "fishdex_id": "spotted-handfish",
+   "name": "Spotted Handfish",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 271,
+   "fishdex_id": "leafy-seadragon",
+   "name": "Leafy Seadragon",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 272,
+   "fishdex_id": "muraena-augusti",
+   "name": "Muraena Augusti",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 273,
+   "fishdex_id": "persian-sturgeon",
+   "name": "Persian Sturgeon",
+   "min": 270,
+   "max": 675
+  },
+  {
+   "id": 274,
+   "fishdex_id": "queen-triggerfish",
+   "name": "Queen Triggerfish",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 275,
+   "fishdex_id": "starry-sturgeon",
+   "name": "Starry Sturgeon",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 276,
+   "fishdex_id": "european-sea-sturgeon",
+   "name": "European Sea Sturgeon",
+   "min": 540,
+   "max": 1350
+  },
+  {
+   "id": 277,
+   "fishdex_id": "red-tail-golden-arowana",
+   "name": "Red-Tail Golden Arowana",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 278,
+   "fishdex_id": "black-arowana",
+   "name": "Black Arowana",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 279,
+   "fishdex_id": "african-arowana",
+   "name": "African Arowana",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 280,
+   "fishdex_id": "green-arowana",
+   "name": "Green Arowana",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 281,
+   "fishdex_id": "green-red-arowana",
+   "name": "Green Red Arowana",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 282,
+   "fishdex_id": "yellow-tail-arowana",
+   "name": "Yellow-Tail Arowana",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 283,
+   "fishdex_id": "asian-green-arowana",
+   "name": "Asian Green Arowana",
+   "min": 432,
+   "max": 1080
+  },
+  {
+   "id": 284,
+   "fishdex_id": "platinum-golden-arowana",
+   "name": "Platinum Golden Arowana",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 285,
+   "fishdex_id": "jardini-arowana",
+   "name": "Jardini Arowana",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 286,
+   "fishdex_id": "blue-malayan-arowana",
+   "name": "Blue Malayan Arowana",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 287,
+   "fishdex_id": "red-bellied-pacu",
+   "name": "Red Bellied Pacu",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 300,
+   "fishdex_id": "long-nosed-chimera",
+   "name": "Long-nosed Chimaera",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 301,
+   "fishdex_id": "spearfish-remora",
+   "name": "Spearfish Remora",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 302,
+   "fishdex_id": "scrawled-filefish",
+   "name": "Scrawled Filefish",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 303,
+   "fishdex_id": "treefish",
+   "name": "Treefish",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 304,
+   "fishdex_id": "ribbon-eel",
+   "name": "RibbonEel",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 305,
+   "fishdex_id": "giant-oceanic-manta-ray",
+   "name": "Giant Oceanic Manta Ray",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 306,
+   "fishdex_id": "alabama-sturgeon",
+   "name": "Alabama Sturgeon",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 307,
+   "fishdex_id": "giant-squid",
+   "name": "Giant Squid",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 308,
+   "fishdex_id": "swordfish",
+   "name": "Swordfish",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 309,
+   "fishdex_id": "gyrodus",
+   "name": "Gyrodus",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 310,
+   "fishdex_id": "acanthodes",
+   "name": "Acanthodes",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 311,
+   "fishdex_id": "antiarchi",
+   "name": "Antiarchi",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 312,
+   "fishdex_id": "dunkleosteus",
+   "name": "Dunkleosteus",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 313,
+   "fishdex_id": "xiphactinus",
+   "name": "Xiphactinus",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 314,
+   "fishdex_id": "titanichthys",
+   "name": "Titanichthys",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 315,
+   "fishdex_id": "thelodus",
+   "name": "Thelodus",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 316,
+   "fishdex_id": "osteolepis",
+   "name": "Osteolepis",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 317,
+   "fishdex_id": "pteraspis",
+   "name": "Pteraspis",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 318,
+   "fishdex_id": "platysomus",
+   "name": "Platysomus",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 319,
+   "fishdex_id": "cheirolepis",
+   "name": "Cheirolepis",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 320,
+   "fishdex_id": "materpiscis",
+   "name": "Materpiscis",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 321,
+   "fishdex_id": "macropoma",
+   "name": "Macropoma",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 322,
+   "fishdex_id": "leedsichthys",
+   "name": "Leedsichthys",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 323,
+   "fishdex_id": "hyneria",
+   "name": "Hyneria",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 324,
+   "fishdex_id": "helicoprion",
+   "name": "Helicoprion",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 325,
+   "fishdex_id": "megalodon",
+   "name": "Megalodon",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 326,
+   "fishdex_id": "arandaspis",
+   "name": "Arandaspis",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 327,
+   "fishdex_id": "aspidorhynchus",
+   "name": "Aspidorhynchus",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 328,
+   "fishdex_id": "cladoselache",
+   "name": "Cladoselache",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 329,
+   "fishdex_id": "cheiracanthus",
+   "name": "Cheiracanthus",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 330,
+   "fishdex_id": "cobelodus",
+   "name": "Cobelodus",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 331,
+   "fishdex_id": "coccosteus",
+   "name": "Coccosteus",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 332,
+   "fishdex_id": "dapedium",
+   "name": "Dapedium",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 333,
+   "fishdex_id": "drepanaspis",
+   "name": "Drepanaspis",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 334,
+   "fishdex_id": "enchodus",
+   "name": "Enchodus",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 335,
+   "fishdex_id": "gyrosteus",
+   "name": "Gyrosteus",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 336,
+   "fishdex_id": "moythomasia",
+   "name": "Moythomasia",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 337,
+   "fishdex_id": "orthacanthus",
+   "name": "Orthacanthus",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 338,
+   "fishdex_id": "pharyngolepis",
+   "name": "Pharyngolepis",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 339,
+   "fishdex_id": "pikaia",
+   "name": "Pikaia",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 340,
+   "fishdex_id": "saurychthis",
+   "name": "Saurichthys",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 341,
+   "fishdex_id": "semionotus",
+   "name": "Semionotus",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 342,
+   "fishdex_id": "stethacanthus",
+   "name": "Stethacanthus",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 343,
+   "fishdex_id": "xenacanthus",
+   "name": "Xenacanthus",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 400,
+   "fishdex_id": "blue-tang",
+   "name": "Blue Tang",
+   "min": 3,
+   "max": 7
+  },
+  {
+   "id": 401,
+   "fishdex_id": "hogfish",
+   "name": "Hogfish",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 402,
+   "fishdex_id": "trumpetfish",
+   "name": "Trumpetfish",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 403,
+   "fishdex_id": "bluehead-wrasse",
+   "name": "Bluehead Wrasse",
+   "min": 3,
+   "max": 7
+  },
+  {
+   "id": 404,
+   "fishdex_id": "spanish-hogfish",
+   "name": "Spanish Hogfish",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 405,
+   "fishdex_id": "queen-parrotfish",
+   "name": "Queen Parrotfish",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 406,
+   "fishdex_id": "blackbar-soldierfish",
+   "name": "Blackbar Soldierfish",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 407,
+   "fishdex_id": "sand-tilefish",
+   "name": "Sand Tilefish",
+   "min": 3,
+   "max": 7
+  },
+  {
+   "id": 408,
+   "fishdex_id": "yellowhead-wrasse",
+   "name": "Yellowhead Wrasse",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 409,
+   "fishdex_id": "glasseye-snapper",
+   "name": "Glasseye Snapper",
+   "min": 3,
+   "max": 7
+  },
+  {
+   "id": 410,
+   "fishdex_id": "yellow-tang",
+   "name": "Yellow Tang",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 411,
+   "fishdex_id": "fantail-filefish",
+   "name": "Fantail Filefish",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 412,
+   "fishdex_id": "blue-spotted-grouper",
+   "name": "Blue-spotted Grouper",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 413,
+   "fishdex_id": "bird-wrasse",
+   "name": "Bird Wrasse",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 414,
+   "fishdex_id": "moorish-idol",
+   "name": "Moorish Idol",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 415,
+   "fishdex_id": "ornate-butterflyfish",
+   "name": "Ornate Butterflyfish",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 416,
+   "fishdex_id": "blue-parrotfish",
+   "name": "Blue Parrotfish",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 417,
+   "fishdex_id": "picasso-triggerfish",
+   "name": "Picasso Triggerfish",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 418,
+   "fishdex_id": "yellowtail-wrasse",
+   "name": "Yellowtail Wrasse",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 419,
+   "fishdex_id": "pinktail-triggerfish",
+   "name": "Pinktail Triggerfish",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 420,
+   "fishdex_id": "bermuda-chub",
+   "name": "Bermuda Chub",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 421,
+   "fishdex_id": "banded-butterflyfish",
+   "name": "Banded Butterflyfish",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 422,
+   "fishdex_id": "peacock-flounder",
+   "name": "Peacock Flounder",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 423,
+   "fishdex_id": "rock-beauty",
+   "name": "Rock Beauty",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 424,
+   "fishdex_id": "spotted-eagle-ray",
+   "name": "Spotted Eagle Ray",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 425,
+   "fishdex_id": "bigfin-reef-squid",
+   "name": "Bigfin Reef Squid",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 426,
+   "fishdex_id": "midnight-parrotfish",
+   "name": "Midnight Parrotfish",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 427,
+   "fishdex_id": "palometa",
+   "name": "Palometa",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 428,
+   "fishdex_id": "titan-triggerfish",
+   "name": "Titan Triggerfish",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 429,
+   "fishdex_id": "bluestripe-snapper",
+   "name": "Bluestripe Snapper",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 430,
+   "fishdex_id": "phantom-bannerfish",
+   "name": "Phantom Bannerfish",
+   "min": 3,
+   "max": 7
+  },
+  {
+   "id": 431,
+   "fishdex_id": "oceanic-whitetip-shark",
+   "name": "Oceanic Whitetip Shark",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 432,
+   "fishdex_id": "sandbar-shark",
+   "name": "Sandbar Shark",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 433,
+   "fishdex_id": "spot-tail-shark",
+   "name": "Spot-tail Shark",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 434,
+   "fishdex_id": "cookiecutter-shark",
+   "name": "Cookiecutter Shark",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 435,
+   "fishdex_id": "lemon-shark",
+   "name": "Lemon Shark",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 436,
+   "fishdex_id": "milk-shark",
+   "name": "Milk Shark",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 437,
+   "fishdex_id": "red-lipped-batfish",
+   "name": "Red-lipped batfish",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 438,
+   "fishdex_id": "orange-banded-pipefish",
+   "name": "Orange-Banded Pipefish",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 439,
+   "fishdex_id": "bluespine-unicornfish",
+   "name": "Bluespine Unicornfish",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 440,
+   "fishdex_id": "cylindrical-lanternshark",
+   "name": "Cylindrical lanternshark",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 441,
+   "fishdex_id": "checkerboard-wrasse",
+   "name": "Checkerboard Wrasse",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 442,
+   "fishdex_id": "tiger-grouper",
+   "name": "Tiger Grouper",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 443,
+   "fishdex_id": "fairy-basslet",
+   "name": "Fairy Basslet",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 444,
+   "fishdex_id": "graysby",
+   "name": "Graysby",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 445,
+   "fishdex_id": "longnose-butterfly",
+   "name": "Longnose Butterfly",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 446,
+   "fishdex_id": "bluefin-trevally",
+   "name": "Bluefin Trevally",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 447,
+   "fishdex_id": "minute-leatherjacket",
+   "name": "Minute Leatherjacket",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 448,
+   "fishdex_id": "white-spotted-damsel",
+   "name": "White-Spotted Damsel",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 449,
+   "fishdex_id": "pennant-coralfish",
+   "name": "Pennant Coralfish",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 450,
+   "fishdex_id": "mexican-hogfish",
+   "name": "Mexican Hogfish",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 451,
+   "fishdex_id": "whitespotted-boxfish",
+   "name": "Whitespotted boxfish",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 452,
+   "fishdex_id": "black-triggerfish",
+   "name": "Black Triggerfish",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 453,
+   "fishdex_id": "blue-ring-angelfish",
+   "name": "Blue Ring Angelfish",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 454,
+   "fishdex_id": "devils-hole-pupfish",
+   "name": "Devils Hole Pupfish",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 455,
+   "fishdex_id": "redtail-catfish",
+   "name": "Redtail Catfish",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 456,
+   "fishdex_id": "roosterfish",
+   "name": "Roosterfish",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 500,
+   "fishdex_id": "zebra-moray",
+   "name": "Zebra Moray",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 501,
+   "fishdex_id": "snowflake-moray",
+   "name": "Snowflake Moray",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 502,
+   "fishdex_id": "green-moray",
+   "name": "Green Moray",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 503,
+   "fishdex_id": "spotted-moray",
+   "name": "Spotted Moray",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 504,
+   "fishdex_id": "yellowmargin-moray",
+   "name": "Yellowmargin Moray",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 505,
+   "fishdex_id": "leopard-moray",
+   "name": "Leopard Moray",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 506,
+   "fishdex_id": "goldentail-moray",
+   "name": "Goldentail Moray",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 507,
+   "fishdex_id": "yellow-mouth-moray",
+   "name": "Yellow-mouth Moray",
+   "min": 3,
+   "max": 7
+  },
+  {
+   "id": 508,
+   "fishdex_id": "fangtooth-moray",
+   "name": "Fangtooth Moray",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 509,
+   "fishdex_id": "paint-spotted-moray",
+   "name": "Paint-Spotted Moray",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 510,
+   "fishdex_id": "whitemouth-moray",
+   "name": "Whitemouth Moray",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 511,
+   "fishdex_id": "dragon-moray",
+   "name": "Dragon Moray",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 512,
+   "fishdex_id": "chain-moray",
+   "name": "Chain Moray",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 513,
+   "fishdex_id": "blackcheek-moray",
+   "name": "Blackcheek Moray",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 514,
+   "fishdex_id": "viper-moray",
+   "name": "Viper Moray",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 515,
+   "fishdex_id": "yellowhead-moray",
+   "name": "Yellowhead Moray",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 516,
+   "fishdex_id": "white-eyed-moray",
+   "name": "White-Eyed Moray",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 517,
+   "fishdex_id": "salpa-maggiore",
+   "name": "Salpa Maggiore",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 518,
+   "fishdex_id": "french-grunt",
+   "name": "French Grunt",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 519,
+   "fishdex_id": "harlequin-bass",
+   "name": "Harlequin Bass",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 520,
+   "fishdex_id": "schoolmaster-snapper",
+   "name": "Schoolmaster Snapper",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 521,
+   "fishdex_id": "sand-diver",
+   "name": "Sand Diver",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 522,
+   "fishdex_id": "porkfish",
+   "name": "Porkfish",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 523,
+   "fishdex_id": "clown-frogfish",
+   "name": "Clown Frogfish",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 524,
+   "fishdex_id": "broomtail-wrasse",
+   "name": "Broomtail Wrasse",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 525,
+   "fishdex_id": "mirror-carp",
+   "name": "Mirror Carp",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 526,
+   "fishdex_id": "coho-salmon",
+   "name": "Coho Salmon",
+   "min": 27,
+   "max": 68
+  },
+  {
+   "id": 527,
+   "fishdex_id": "long-finned-eel",
+   "name": "Long-finned Eel",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 528,
+   "fishdex_id": "albino-alligator-gar",
+   "name": "Albino Alligator Gar",
+   "min": 864,
+   "max": 2160
+  },
+  {
+   "id": 529,
+   "fishdex_id": "japanese-eel",
+   "name": "Japanese Eel",
+   "min": 130,
+   "max": 324
+  },
+  {
+   "id": 530,
+   "fishdex_id": "hybrid-striped-bass",
+   "name": "Hybrid Striped Bass",
+   "min": 81,
+   "max": 203
+  },
+  {
+   "id": 531,
+   "fishdex_id": "white-bass",
+   "name": "White Bass",
+   "min": 3,
+   "max": 7
+  },
+  {
+   "id": 532,
+   "fishdex_id": "striped-bass",
+   "name": "Striped Bass",
+   "min": 10,
+   "max": 25
+  },
+  {
+   "id": 533,
+   "fishdex_id": "long-snouted-lancetfish",
+   "name": "Long-snouted Lancetfish",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 600,
+   "fishdex_id": "grass-carp",
+   "name": "Grass Carp",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 601,
+   "fishdex_id": "bighead-carp",
+   "name": "Bighead Carp",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 602,
+   "fishdex_id": "mrigal-carp",
+   "name": "Mrigal Carp",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 603,
+   "fishdex_id": "black-sharkminnow",
+   "name": "Black Sharkminnow",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 604,
+   "fishdex_id": "atlantic-needlefish",
+   "name": "Atlantic Needlefish",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 605,
+   "fishdex_id": "gold-nugget-pleco",
+   "name": "Gold Nugget Pleco",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 606,
+   "fishdex_id": "senegal-bichir",
+   "name": "Senegal Bichir",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 607,
+   "fishdex_id": "piraiba-catfish",
+   "name": "Piraíba Catfish",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 608,
+   "fishdex_id": "mbu-pufferfish",
+   "name": "Mbu Pufferfish",
+   "min": 3,
+   "max": 7
+  },
+  {
+   "id": 609,
+   "fishdex_id": "black-ghost-knifefish",
+   "name": "Black Ghost Knifefish",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 610,
+   "fishdex_id": "zebra-pleco",
+   "name": "Zebra Pleco",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 611,
+   "fishdex_id": "corydoras-julii",
+   "name": "Corydoras Julii",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 612,
+   "fishdex_id": "wrestling-halfbeak",
+   "name": "Wrestling Halfbeak",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 613,
+   "fishdex_id": "amur-pike",
+   "name": "Amur Pike",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 614,
+   "fishdex_id": "ayu",
+   "name": "Ayu",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 615,
+   "fishdex_id": "clown-loach",
+   "name": "Clown Loach",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 616,
+   "fishdex_id": "largetooth-sawfish",
+   "name": "Largetooth Sawfish",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 617,
+   "fishdex_id": "black-molly",
+   "name": "Black Molly",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 618,
+   "fishdex_id": "white-crappie",
+   "name": "White Crappie",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 619,
+   "fishdex_id": "clown-killi",
+   "name": "Clown Killi",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 620,
+   "fishdex_id": "frontosa-chiclid",
+   "name": "Frontosa Cichlid",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 621,
+   "fishdex_id": "tire-track-eel",
+   "name": "Tire Track Eel",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 700,
+   "fishdex_id": "cyclops-shark",
+   "name": "Cyclops Shark",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 701,
+   "fishdex_id": "pelican-eel",
+   "name": "Pelican Eel",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 702,
+   "fishdex_id": "meadia-roseni",
+   "name": "Meadia Roseni",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 703,
+   "fishdex_id": "blobfish",
+   "name": "Blobfish",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 704,
+   "fishdex_id": "angler-monkfish",
+   "name": "Angler Monkfish",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 705,
+   "fishdex_id": "stareater",
+   "name": "Stareater",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 706,
+   "fishdex_id": "sarcastic-fringehead",
+   "name": "Sarcastic Fringehead",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 707,
+   "fishdex_id": "white-spotted-puffer",
+   "name": "White-spotted Puffer",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 708,
+   "fishdex_id": "gold-spotted-rabbitfish",
+   "name": "Gold-spotted Rabbitfish",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 709,
+   "fishdex_id": "tomato-clownfish",
+   "name": "Tomato Clownfish",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 710,
+   "fishdex_id": "blue-green-chromis",
+   "name": "Blue-Green Chromis",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 711,
+   "fishdex_id": "potters-angelfish",
+   "name": "Potter's Angelfish",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 712,
+   "fishdex_id": "fiddler-ray",
+   "name": "Fiddler Ray",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 713,
+   "fishdex_id": "longhorn-cowfish",
+   "name": "Longhorn Cowfish",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 714,
+   "fishdex_id": "cortez-rainbow-wrasse",
+   "name": "Cortez Rainbow Wrasse",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 715,
+   "fishdex_id": "black-dragonfish",
+   "name": "Black Dragonfish",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 716,
+   "fishdex_id": "orange-spotted-snakehead",
+   "name": "Orange-spotted Snakehead",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 717,
+   "fishdex_id": "redfin-pickerel",
+   "name": "Redfin Pickerel",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 718,
+   "fishdex_id": "grass-pickerel",
+   "name": "Grass Pickerel",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 719,
+   "fishdex_id": "golden-pike",
+   "name": "Golden Pike",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 720,
+   "fishdex_id": "butterfly-cichlid",
+   "name": "Butterfly Cichlid",
+   "min": 3,
+   "max": 7
+  },
+  {
+   "id": 721,
+   "fishdex_id": "panther-grouper",
+   "name": "Panther Grouper",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 722,
+   "fishdex_id": "hound-needlefish",
+   "name": "Hound Needlefish",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 723,
+   "fishdex_id": "milkfish",
+   "name": "Milkfish",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 724,
+   "fishdex_id": "longnose-sawshark",
+   "name": "Longnose Sawshark",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 725,
+   "fishdex_id": "malawi-eye-biter",
+   "name": "Malawi Eye Biter",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 726,
+   "fishdex_id": "weedy-seadragon",
+   "name": "Weedy Seadragon",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 727,
+   "fishdex_id": "indian-glassfish",
+   "name": "Indian Glass Fish",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 728,
+   "fishdex_id": "australian-ghostshark",
+   "name": "Australian Ghostshark",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 729,
+   "fishdex_id": "humpback-batfish",
+   "name": "Humpback Batfish",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 730,
+   "fishdex_id": "dragon-wrasse",
+   "name": "Dragon Wrasse",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 731,
+   "fishdex_id": "red-indianfish",
+   "name": "Red Indianfish",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 732,
+   "fishdex_id": "deepsea-lizardfish",
+   "name": "Deepsea Lizardfish",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 733,
+   "fishdex_id": "black-alligator-gar",
+   "name": "Black Alligator Gar",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 734,
+   "fishdex_id": "oriental-sweetlips",
+   "name": "Oriental Sweetlips",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 735,
+   "fishdex_id": "elegant-firefish",
+   "name": "Elegant Firefish",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 736,
+   "fishdex_id": "chevron-butterflyfish",
+   "name": "Chevron Butterflyfish",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 737,
+   "fishdex_id": "lemonpeel-angelfish",
+   "name": "Lemonpeel Angelfish",
+   "min": 3,
+   "max": 7
+  },
+  {
+   "id": 738,
+   "fishdex_id": "ocellated-pufferfish",
+   "name": "Ocellated Pufferfish",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 739,
+   "fishdex_id": "common-ponyfish",
+   "name": "Common Ponyfish ",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 740,
+   "fishdex_id": "neon-tetra",
+   "name": "Neon Tetra",
+   "min": 3,
+   "max": 7
+  },
+  {
+   "id": 741,
+   "fishdex_id": "satanoperca",
+   "name": "Satanoperca",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 742,
+   "fishdex_id": "pearl-danio",
+   "name": "Pearl Danio",
+   "min": 3,
+   "max": 7
+  },
+  {
+   "id": 743,
+   "fishdex_id": "giant-kokopu",
+   "name": "Giant Kokopu",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 744,
+   "fishdex_id": "amur-sturgeon",
+   "name": "Amur Sturgeon",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 745,
+   "fishdex_id": "giant-devil-ray",
+   "name": "Giant Devil Ray",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 746,
+   "fishdex_id": "rusty-parrotfish",
+   "name": "Rusty Parrotfish",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 747,
+   "fishdex_id": "emperor-angelfish",
+   "name": "Emperor Angelfish",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 748,
+   "fishdex_id": "ornate-ghost-pipefish",
+   "name": "Ornate Ghost Pipefish",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 749,
+   "fishdex_id": "crested-bullhead-shark",
+   "name": "Crested Bullhead Shark",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 750,
+   "fishdex_id": "pink-frogfish",
+   "name": "Pink Frogfish",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 751,
+   "fishdex_id": "pineapplefish",
+   "name": "Pineapplefish",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 752,
+   "fishdex_id": "marine-betta",
+   "name": "Marine Betta",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 753,
+   "fishdex_id": "northern-lampfish",
+   "name": "Northern Lampfish",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 754,
+   "fishdex_id": "moon-wrasse",
+   "name": "Moon Wrasse",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 755,
+   "fishdex_id": "longnose-hawkfish",
+   "name": "Longnose Hawkfish",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 756,
+   "fishdex_id": "yellow-boxfish",
+   "name": "Yellow Boxfish",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 757,
+   "fishdex_id": "achilles-tang",
+   "name": "Achilles Tang",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 758,
+   "fishdex_id": "yangtze-sturgeon",
+   "name": "Yangtze Sturgeon",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 759,
+   "fishdex_id": "persian-carpet-sole",
+   "name": "Persian Carpet Sole",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 760,
+   "fishdex_id": "emperor-red-snapper",
+   "name": "Emperor Red Snapper",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 761,
+   "fishdex_id": "basketfish",
+   "name": "Basketfish",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 762,
+   "fishdex_id": "red-striped-goby",
+   "name": "Red-striped Goby",
+   "min": 3,
+   "max": 7
+  },
+  {
+   "id": 763,
+   "fishdex_id": "siberian-sturgeon",
+   "name": "Siberian Sturgeon",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 764,
+   "fishdex_id": "shortnose-sturgeon",
+   "name": "Shortnose Sturgeon",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 765,
+   "fishdex_id": "florida-gar",
+   "name": "Florida Gar",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 800,
+   "fishdex_id": "yellowfin-tuna",
+   "name": "Yellowfin Tuna",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 801,
+   "fishdex_id": "bigeye-tuna",
+   "name": "Bigeye Tuna",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 802,
+   "fishdex_id": "pacific-bluefin-tuna",
+   "name": "Pacific Bluefin Tuna",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 803,
+   "fishdex_id": "black-marlin",
+   "name": "Black Marlin",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 804,
+   "fishdex_id": "striped-marlin",
+   "name": "Striped Marlin",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 805,
+   "fishdex_id": "white-marlin",
+   "name": "White Marlin",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 806,
+   "fishdex_id": "sharpfin-barracuda",
+   "name": "Sharpfin Barracuda",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 807,
+   "fishdex_id": "pelican-barracuda",
+   "name": "Pelican Barracuda",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 808,
+   "fishdex_id": "yellowtail-barracuda",
+   "name": "Yellowtail Barracuda",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 809,
+   "fishdex_id": "bigeye-barracuda",
+   "name": "Bigeye Barracuda",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 810,
+   "fishdex_id": "spotted-gar",
+   "name": "Spotted Gar",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 811,
+   "fishdex_id": "betta-brownorum",
+   "name": "Betta Brownorum",
+   "min": 3,
+   "max": 7
+  },
+  {
+   "id": 812,
+   "fishdex_id": "death-valley-pupfish",
+   "name": "Death Valley Pupfish",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 813,
+   "fishdex_id": "spotted-pike-characin",
+   "name": "Spotted Pike-characin",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 814,
+   "fishdex_id": "spikefin-goby",
+   "name": "Spikefin Goby",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 815,
+   "fishdex_id": "pacific-barracuda",
+   "name": "Pacific Barracuda",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 816,
+   "fishdex_id": "guachanche-barracuda",
+   "name": "Guachanche Barracuda",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 817,
+   "fishdex_id": "hellers-barracuda",
+   "name": "Heller's Barracuda",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 818,
+   "fishdex_id": "pickhandle-barracuda",
+   "name": "Pickhandle Barracuda",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 819,
+   "fishdex_id": "australian-barracuda",
+   "name": "Australian Barracuda",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 1000,
+   "fishdex_id": "greenland-shark",
+   "name": "Greenland Shark",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 1001,
+   "fishdex_id": "smalltooth-sawfish",
+   "name": "Smalltooth Sawfish",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 1002,
+   "fishdex_id": "common-sawfish",
+   "name": "Common Sawfish",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 1003,
+   "fishdex_id": "spotted-sicklefish",
+   "name": "Spotted Sicklefish",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 1004,
+   "fishdex_id": "blind-cave-eel",
+   "name": "Blind Cave Eel",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 1005,
+   "fishdex_id": "golden-trevally",
+   "name": "Golden Trevally",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 1006,
+   "fishdex_id": "bonnethead-shark",
+   "name": "Bonnethead Shark",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 1007,
+   "fishdex_id": "winghead-shark",
+   "name": "Winghead Shark",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 1008,
+   "fishdex_id": "blue-bellied-night-wanderer",
+   "name": "Blue-bellied Night Wanderer",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 1009,
+   "fishdex_id": "american-barrelfish",
+   "name": "American Barrelfish",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 1010,
+   "fishdex_id": "marcusenius-furcidens",
+   "name": "Marcusenius Furcidens",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 1011,
+   "fishdex_id": "red-phantom-tetra",
+   "name": "Red Phantom Tetra",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 1012,
+   "fishdex_id": "black-diamond-cichlid",
+   "name": "Black Diamond Cichlid",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 1013,
+   "fishdex_id": "piraya",
+   "name": "Piraya",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 1014,
+   "fishdex_id": "austrolebias-adloffi",
+   "name": "Austrolebias Adloffi",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 1100,
+   "fishdex_id": "candy-basslet",
+   "name": "Candy Basslet",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 1101,
+   "fishdex_id": "orangespotted-soapfish",
+   "name": "Orangespotted Soapfish",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 1102,
+   "fishdex_id": "garish-hind",
+   "name": "Garish Hind",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 1103,
+   "fishdex_id": "masked-angelfish",
+   "name": "Masked Angelfish",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 1104,
+   "fishdex_id": "peppermint-angelfish",
+   "name": "Peppermint Angelfish",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 1105,
+   "fishdex_id": "albacore-tuna",
+   "name": "Albacore Tuna",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 1106,
+   "fishdex_id": "southern-bluefin-tuna",
+   "name": "Southern Bluefin Tuna",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 1107,
+   "fishdex_id": "blackfin-tuna",
+   "name": "Blackfin Tuna",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 1108,
+   "fishdex_id": "longtail-tuna",
+   "name": "Longtail Tuna",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 1109,
+   "fishdex_id": "bullet-tuna",
+   "name": "Bullet Tuna",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 1110,
+   "fishdex_id": "aphyonidae",
+   "name": "Aphyonidae",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 1111,
+   "fishdex_id": "grideye-fish",
+   "name": "Grideye Fish",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 1112,
+   "fishdex_id": "lavender-mbuna",
+   "name": "Lavender Mbuna",
+   "min": 324,
+   "max": 810
+  },
+  {
+   "id": 1113,
+   "fishdex_id": "inlecypris-jayarami",
+   "name": "Inlecypris Jayarami",
+   "min": 432,
+   "max": 1080
+  },
+  {
+   "id": 1114,
+   "fishdex_id": "isichthys-henryi",
+   "name": "Isichthys Henryi",
+   "min": 97,
+   "max": 243
+  },
+  {
+   "id": 1115,
+   "fishdex_id": "whitebar-eelpout",
+   "name": "Whitebar Eelpout",
+   "min": 162,
+   "max": 405
+  },
+  {
+   "id": 1116,
+   "fishdex_id": "blackfin-dartfish",
+   "name": "Blackfin Dartfish",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 1117,
+   "fishdex_id": "gloved-snailfish",
+   "name": "Gloved Snailfish",
+   "min": 162,
+   "max": 405
+  },
+  {
+   "id": 1118,
+   "fishdex_id": "pangio-mariarum",
+   "name": "Pangio Mariarum",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 1119,
+   "fishdex_id": "razorback-sucker",
+   "name": "Razorback Sucker",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 1120,
+   "fishdex_id": "chilhuil-sea-catfish",
+   "name": "Chilhuil Sea Catfish",
+   "min": 162,
+   "max": 405
+  },
+  {
+   "id": 1121,
+   "fishdex_id": "common-nase",
+   "name": "Common Nase",
+   "min": 3,
+   "max": 7
+  },
+  {
+   "id": 1122,
+   "fishdex_id": "common-roach",
+   "name": "Common Roach",
+   "min": 3,
+   "max": 8
+  },
+  {
+   "id": 1123,
+   "fishdex_id": "common-minnow",
+   "name": "Common Minnow",
+   "min": 10,
+   "max": 25
+  },
+  {
+   "id": 1124,
+   "fishdex_id": "atlantic-mackerel",
+   "name": "Atlantic Mackerel",
+   "min": 54,
+   "max": 135
+  },
+  {
+   "id": 1125,
+   "fishdex_id": "european-anchovy",
+   "name": "European Anchovy",
+   "min": 7,
+   "max": 17
+  },
+  {
+   "id": 1126,
+   "fishdex_id": "european-sprat",
+   "name": "European Sprat",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 1127,
+   "fishdex_id": "eurasian-ruffe",
+   "name": "Eurasian Ruffe",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 1128,
+   "fishdex_id": "peled",
+   "name": "Peled",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 1129,
+   "fishdex_id": "freshwater-angelfish",
+   "name": "Freshwater Angelfish",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 1130,
+   "fishdex_id": "three-spined-stickleback",
+   "name": "Three-spined Stickleback",
+   "min": 27,
+   "max": 68
+  },
+  {
+   "id": 1131,
+   "fishdex_id": "ruby-seadragon",
+   "name": "Ruby Seadragon",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 1132,
+   "fishdex_id": "barramundi",
+   "name": "Barramundi",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 1133,
+   "fishdex_id": "parachaenichthys-charcoti",
+   "name": "Parachaenichthys charcoti",
+   "min": 540,
+   "max": 1350
+  },
+  {
+   "id": 1134,
+   "fishdex_id": "spinner-shark",
+   "name": "Spinner Shark",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 1135,
+   "fishdex_id": "blacktip-reef-shark",
+   "name": "Blacktip Reef Shark",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 1136,
+   "fishdex_id": "kitefin-shark",
+   "name": "Kitefin Shark",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 1137,
+   "fishdex_id": "indonesian-speckled-carpetshark",
+   "name": "Indonesian Speckled Carpetshark",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 1138,
+   "fishdex_id": "sawback-angelshark",
+   "name": "Sawback Angelshark",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 1139,
+   "fishdex_id": "greater-blue-ringed-octopus",
+   "name": "Greater Blue-ringed Octopus",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 1140,
+   "fishdex_id": "leafscale-gulper-shark",
+   "name": "Leafscale Gulper Shark",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 1141,
+   "fishdex_id": "dusky-shark",
+   "name": "Dusky Shark",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 1142,
+   "fishdex_id": "banggai-cardinalfish",
+   "name": "Banggai Cardinalfish",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 1143,
+   "fishdex_id": "blue-dot-jawfish",
+   "name": "Blue Dot Jawfish",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 1144,
+   "fishdex_id": "chinstrap-jawfish",
+   "name": "Chinstrap Jawfish",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 1145,
+   "fishdex_id": "gulf-signal-blenny",
+   "name": "Gulf Signal Blenny",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 1146,
+   "fishdex_id": "red-irish-lord",
+   "name": "Red Irish lord",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 1147,
+   "fishdex_id": "broad-barred-goby",
+   "name": "Broad-barred Goby",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 1148,
+   "fishdex_id": "twin-spot-goby",
+   "name": "Twin-spot Goby",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 1149,
+   "fishdex_id": "allis-shad",
+   "name": "Allis shad",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 1150,
+   "fishdex_id": "asp",
+   "name": "Asp",
+   "min": 27,
+   "max": 68
+  },
+  {
+   "id": 1151,
+   "fishdex_id": "sunbleak",
+   "name": "Sunbleak",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 1152,
+   "fishdex_id": "vimba-bream",
+   "name": "Vimba Bream",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 1153,
+   "fishdex_id": "stone-loach",
+   "name": "Stone Loach",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 1154,
+   "fishdex_id": "carcharocles-chubutensis",
+   "name": "Carcharocles chubutensis",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 1155,
+   "fishdex_id": "cretoxyrhina",
+   "name": "Cretoxyrhina",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 1156,
+   "fishdex_id": "deltoptychius",
+   "name": "Deltoptychius",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 1157,
+   "fishdex_id": "ischnacanthus",
+   "name": "Ischnacanthus",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 1158,
+   "fishdex_id": "ctenurella",
+   "name": "Ctenurella",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 1159,
+   "fishdex_id": "astraspis",
+   "name": "Astraspis",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 1160,
+   "fishdex_id": "boreaspis",
+   "name": "Boreaspis",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 1161,
+   "fishdex_id": "dartmuthia",
+   "name": "Dartmuthia",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 1162,
+   "fishdex_id": "doryaspis-arctica",
+   "name": "Doryaspis arctica",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 1163,
+   "fishdex_id": "doryaspis-nathorsti",
+   "name": "Doryaspis nathorsti",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 1164,
+   "fishdex_id": "parrot-cichlid",
+   "name": "Parrot Cichlid",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 1165,
+   "fishdex_id": "jack-dempsey",
+   "name": "Jack Dempsey",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 1166,
+   "fishdex_id": "guapote",
+   "name": "Guapote",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 1167,
+   "fishdex_id": "jaguar-guapote",
+   "name": "Jaguar Guapote",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 1168,
+   "fishdex_id": "redhead-cichlid",
+   "name": "Redhead Cichlid",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 1169,
+   "fishdex_id": "golden-cave-catfish",
+   "name": "Golden Cave Catfish",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 1170,
+   "fishdex_id": "pictus-catfish",
+   "name": "Pictus Catfish",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 1171,
+   "fishdex_id": "giant-salmon-carp",
+   "name": "Giant Salmon Carp",
+   "min": 432,
+   "max": 1080
+  },
+  {
+   "id": 1172,
+   "fishdex_id": "bridled-leatherjacket",
+   "name": "Bridled Leatherjacket",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 1173,
+   "fishdex_id": "rissos-smooth-head",
+   "name": "Risso's Smooth-head",
+   "min": 162,
+   "max": 405
+  },
+  {
+   "id": 1174,
+   "fishdex_id": "boulengerella-cuvieri",
+   "name": "Boulengerella Cuvieri",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 1175,
+   "fishdex_id": "narrowhead-catshark",
+   "name": "Narrowhead Catshark",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 1176,
+   "fishdex_id": "painted-electric-ray",
+   "name": "Painted electric ray",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 1177,
+   "fishdex_id": "evermannella-balbo",
+   "name": "Evermannella Balbo",
+   "min": 54,
+   "max": 135
+  },
+  {
+   "id": 1178,
+   "fishdex_id": "unicorn-crestfish",
+   "name": "Unicorn Crestfish",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 1179,
+   "fishdex_id": "azul-peacock-bass",
+   "name": "Azul Peacock Bass",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 1180,
+   "fishdex_id": "red-wolf-fish",
+   "name": "Red Wolf Fish",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 1181,
+   "fishdex_id": "spotted-tiger-shovelnose-catfish",
+   "name": "Spotted Tiger Shovelnose Catfish",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 1182,
+   "fishdex_id": "tadpole-snailfish",
+   "name": "Tadpole Snailfish",
+   "min": 540,
+   "max": 1350
+  },
+  {
+   "id": 1183,
+   "fishdex_id": "midwater-eelpout",
+   "name": "Midwater Eelpout",
+   "min": 162,
+   "max": 405
+  },
+  {
+   "id": 1184,
+   "fishdex_id": "mariana-snailfish",
+   "name": "Mariana Snailfish",
+   "min": 540,
+   "max": 1350
+  },
+  {
+   "id": 1185,
+   "fishdex_id": "dwarf-moray",
+   "name": "Dwarf Moray",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 1186,
+   "fishdex_id": "smoothtail-mobula",
+   "name": "Smoothtail Mobula",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 1187,
+   "fishdex_id": "taylors-inflator-filefish",
+   "name": "Taylor's Inflator Filefish",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 1188,
+   "fishdex_id": "shortdorsal-cutthroat-eel",
+   "name": "Shortdorsal Cutthroat Eel",
+   "min": 540,
+   "max": 1350
+  },
+  {
+   "id": 1189,
+   "fishdex_id": "fresh-water-moray",
+   "name": "Freshwater Moray",
+   "min": 130,
+   "max": 324
+  },
+  {
+   "id": 1190,
+   "fishdex_id": "grammonus-yunokawai",
+   "name": "Grammonus Yunokawai",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 1191,
+   "fishdex_id": "green-birdmouth-wrasse",
+   "name": "Green Birdmouth Wrasse",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 1192,
+   "fishdex_id": "red-rainbowfish",
+   "name": "Red Rainbowfish",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 1193,
+   "fishdex_id": "angler-snake-eel",
+   "name": "Angler Snake Eel",
+   "min": 162,
+   "max": 405
+  },
+  {
+   "id": 1194,
+   "fishdex_id": "birdbeak-dogfish",
+   "name": "Birdbeak Dogfish",
+   "min": 65,
+   "max": 162
+  },
+  {
+   "id": 1195,
+   "fishdex_id": "barnards-lanterfish",
+   "name": "Barnards Lanternfish",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 1196,
+   "fishdex_id": "arrowhead-soapfish",
+   "name": "Arrowhead Soapfish",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 1197,
+   "fishdex_id": "flourescing-goatfish",
+   "name": "Fluorescing Goatfish",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 1198,
+   "fishdex_id": "golden-gar",
+   "name": "Golden Gar",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 1199,
+   "fishdex_id": "bluestripe-pipefish",
+   "name": "Bluestripe Pipefish",
+   "min": 22,
+   "max": 54
+  },
+  {
+   "id": 1200,
+   "fishdex_id": "sulawesi-coelacanth",
+   "name": "Sulawesi Coelacanth",
+   "min": 216,
+   "max": 540
+  },
+  {
+   "id": 1201,
+   "fishdex_id": "african-mottled-eel",
+   "name": "African Mottled Eel",
+   "min": 648,
+   "max": 1620
+  },
+  {
+   "id": 1202,
+   "fishdex_id": "blue-panchax",
+   "name": "Blue Panchax",
+   "min": 8,
+   "max": 20
+  },
+  {
+   "id": 1203,
+   "fishdex_id": "crocodile-tooth-pipefish",
+   "name": "Crocodile-tooth Pipefish",
+   "min": 65,
+   "max": 162
+  }
+ ]
 }

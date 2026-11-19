@@ -46,6 +46,15 @@ Data jsou objektové literály v `dist/app.2cda1c5ad9.min.js`; čtou se jako tex
 
 - ryby turnaje na fishao.net, které tracker nemá (0): —
 
+## Odhad výkupní ceny ve Fish Marketu (615 ryb)
+
+`FISHAO_ESTIMATED_PRICES` z bundlu: rozpětí min–max ve FB. Je to **výpočet trackeru** (hvězdy, nejnižší úroveň
+lokace, 10% snížení), ne oficiální ani nahlášená cena, proto ho web ukazuje s „~“. Ceny, které zapisují hráči,
+jsou ve Firestore trackeru a nebereme je.
+
+- ryby z fishao.net bez odhadu (1): Greenland Shark
+- rozpětí: nejlevnější 3 FB, nejdražší 2160 FB
+
 ## Kontrola: zóny Palm Islandu proti fishao.net
 
 Shodné u všech ryb.

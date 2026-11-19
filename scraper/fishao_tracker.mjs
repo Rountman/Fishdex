@@ -3,7 +3,8 @@
 // Fan tracker (Czech). Used for one thing fishao.net does not have: the zones of the Moray
 // tournament, which is fished on the Palm Island map with the same zones A–H
 // (EFPT_PALM_ISLAND_ZONE_*, labels "Vnější oblast", "Pod lodí", …). Its Czech fish names are kept
-// too, as the last fallback after the archive and fishao.net.
+// too, as the last fallback after the archive and fishao.net, and its Fish Market price estimate
+// (shown on the site as "~min–max FB").
 //
 // The app bundle holds the fish database (`FISHAO_DATA={allFishes:[…]}`) and the names
 // (`{14:{cs:…,en:…,pl:…},…}`) as object literals; both are read as TEXT, never executed.
@@ -66,6 +67,22 @@ async function main() {
   // match on fishao.net ids (the tracker uses the same ones)
   const net = JSON.parse(await readFile(join(REPO, 'data', 'fishao_net.json'), 'utf8'));
   const netById = new Map(net.fish.map(f => [f.id, f]));
+
+  // Fish Market sell price ESTIMATE (`FISHAO_ESTIMATED_PRICES={14:{min:65,max:162},…}`): the tracker's
+  // own calculation from stars, the lowest location level and a 10 % cut — "not an official price".
+  // The prices players log are in the tracker's Firestore; we do not read that.
+  const estAt = src.indexOf('FISHAO_ESTIMATED_PRICES={');
+  if (estAt < 0) throw new Error('FISHAO_ESTIMATED_PRICES literal not found');
+  const est = parseLiteral(src, estAt + 'FISHAO_ESTIMATED_PRICES='.length);
+  const prices = [];
+  for (const [id, p] of Object.entries(est)) {
+    const n = netById.get(+id);
+    if (!n) throw new Error(`price of tracker fish ${id}: not on fishao.net`);
+    if (!(p.min > 0 && p.max >= p.min)) throw new Error(`price of ${n.name}: bad range ${p.min}–${p.max}`);
+    prices.push({ id: +id, fishdex_id: n.fishdex_id, name: n.name, min: p.min, max: p.max });
+  }
+  prices.sort((a, b) => a.id - b.id);
+  const unpriced = net.fish.filter(n => !(n.id in est)).map(n => n.name);
   const zonesOf = f => [...new Set((f.places ?? []).map(p => ZONE.exec(p)?.[1]).filter(Boolean))].sort();
 
   const moray = data.allFishes.filter(f => f.locations.includes(MORAY)).map(f => {
@@ -95,6 +112,7 @@ async function main() {
     zone_labels: labels,
     moray_tournament: moray,
     names_cs,
+    estimated_prices: prices,
   };
   await writeFile(join(REPO, 'data', 'fishao_tracker.json'), JSON.stringify(out, null, 1) + '\n');
 
@@ -122,12 +140,21 @@ ${moray.map(m => `| ${m.id} | ${m.name} | ${m.zones.join(', ') || '— (všechny
 
 - ryby turnaje na fishao.net, které tracker nemá (${notInTracker.length}): ${notInTracker.join(', ') || '—'}
 
+## Odhad výkupní ceny ve Fish Marketu (${prices.length} ryb)
+
+\`FISHAO_ESTIMATED_PRICES\` z bundlu: rozpětí min–max ve FB. Je to **výpočet trackeru** (hvězdy, nejnižší úroveň
+lokace, 10% snížení), ne oficiální ani nahlášená cena, proto ho web ukazuje s „~“. Ceny, které zapisují hráči,
+jsou ve Firestore trackeru a nebereme je.
+
+- ryby z fishao.net bez odhadu (${unpriced.length}): ${unpriced.join(', ') || '—'}
+- rozpětí: nejlevnější ${Math.min(...prices.map(p => p.min))} FB, nejdražší ${Math.max(...prices.map(p => p.max))} FB
+
 ## Kontrola: zóny Palm Islandu proti fishao.net
 
 ${palmDiff.length ? `Liší se (${palmDiff.length}), platí fishao.net:\n\n${palmDiff.map(s => `- ${s}`).join('\n')}` : 'Shodné u všech ryb.'}
 `;
   await writeFile(join(REPO, 'data', 'fishao-tracker-report.md'), report);
-  console.log(`fishao_tracker: ${moray.length} Moray tournament fish, ${Object.keys(names_cs).length} cs names, ${palmDiff.length} Palm Island zone differences`);
+  console.log(`fishao_tracker: ${moray.length} Moray tournament fish, ${Object.keys(names_cs).length} cs names, ${prices.length} price estimates, ${palmDiff.length} Palm Island zone differences`);
   if (notInTracker.length) process.exitCode = 1;
 }
 

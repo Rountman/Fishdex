@@ -69,6 +69,8 @@ type NetData = { fish: NetFish[]; palm_island_zones: string[] };
 type TrackerData = {
   moray_tournament: { id: number; fishdex_id: string | null; zones: string[] }[];
   names_cs: Record<string, string>;
+  /** Fish Market sell price estimate in FB (the tracker's own calculation, not a reported price). */
+  estimated_prices: { id: number; min: number; max: number }[];
 };
 const MORAY = 'moray-tournament';
 
@@ -380,6 +382,7 @@ async function main() {
   const netById = new Map(net.fish.filter(n => n.fishdex_id).map(n => [n.fishdex_id!, n]));
   const tracker: TrackerData = JSON.parse(await readFile(join(REPO, 'data', 'fishao_tracker.json'), 'utf8'));
   const morayZones = new Map(tracker.moray_tournament.map(m => [m.id, m.zones]));
+  const prices = new Map(tracker.estimated_prices.map(p => [p.id, { min: p.min, max: p.max }]));
   for (const z of tracker.moray_tournament.flatMap(m => m.zones)) if (!ZONES.includes(z as Zone)) fail(`fishao-tracker zone ${z} unknown`);
   /** Archive name unless it is only the English one copied over; then fishao.net, then the tracker. */
   const nameCs = (f: SrcFish, n: NetFish) => {
@@ -428,6 +431,7 @@ async function main() {
       bait: [...new Set(n.baits.map(b => NET_BAIT[b]).filter(Boolean))],
       size: { min: n.min, avg: n.avg, max: n.max },
       record: f.max_length_label,
+      ...(prices.has(n.id) && { price: prices.get(n.id)! }),
       ...(n.breed && { breed: { cost: n.breed.cost, hours: n.breed.hours, chance: n.breed.rate } }),
       ...(unlock.length && { unlock }),
       glowing: true,
