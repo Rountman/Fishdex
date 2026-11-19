@@ -22,7 +22,7 @@ const sample = [
   avatar: i % 5 === 3 ? null : `hsl(${(i * 47) % 360} 35% 55%)`, reports: 0,
 }));
 sample[6].reports = 2; sample[10].reports = 1;
-const MY = { id: 'me', no: 15, nick: 'Weronika_FishAO', avatar: 'hsl(205 40% 50%)', reports: 0 };
+const MY = { id: 'me', no: 15, nick: 'Weronika_Fishao', avatar: 'hsl(205 40% 50%)', reports: 0 };
 const myBred = pick(12);
 
 // ---------- helpers ----------
@@ -135,7 +135,7 @@ function render() {
     return renderMe();
   }
   if (state.list === 'empty') {
-    ol.append(el('li', { class: 'empty' }, 'Do registru se zatím nikdo nezapsal. Buď první — stačí Discord a přezdívka z FishAO.'));
+    ol.append(el('li', { class: 'empty' }, 'Do registru se zatím nikdo nezapsal. Buď první — stačí Discord a přezdívka z Fishao.'));
     return renderMe();
   }
   if (!list.length) {
@@ -197,7 +197,7 @@ function renderMe() {
     el('div', {}, el('span', { class: 'k' }, 'Přihlášen přes Discord'),
       el('button', { type: 'button', class: 'linkbtn', onclick: () => { state.me = 'out'; sync(); } }, 'Odhlásit')));
   const nickField = (val, err) => el('label', { class: 'field wide' },
-    el('span', { class: 'k' }, 'Přezdívka ve FishAO'),
+    el('span', { class: 'k' }, 'Přezdívka ve Fishao'),
     el('input', { type: 'text', value: val, maxlength: 20, placeholder: 'Jak se jmenuješ ve hře', 'aria-invalid': err ? 'true' : null,
       'aria-describedby': err ? 'nick-err' : null }),
     err && el('span', { class: 'err', id: 'nick-err' }, err));

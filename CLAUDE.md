@@ -1,6 +1,6 @@
 # Fishdex — CLAUDE.md
 
-Fanouškovská pomůcka do hry FishAO: album všech ryb s možností odškrtávat
+Fanouškovská pomůcka do hry Fishao: album všech ryb s možností odškrtávat
 chycené ryby. Rekonstrukce zaniklého fishaowiki.com/fishdex z dat
 vytažených z Wayback Machine.
 
@@ -137,7 +137,7 @@ prototypes/    # schválené mockupy a styleguide (fáze 1–2), DECISIONS.md
 
 - Veřejný registr toho, co hráči chovají za domem (`bred`). Nic jiného se nezveřejňuje.
   URL `tab=breeders`, filtry `bq=` (přezdívka), `bfish=` (chová rybu), `bsort=`.
-- Přihlášení přes Discord OAuth, scope jen `identify`. Zobrazuje se **avatar z Discordu a FishAO přezdívka**,
+- Přihlášení přes Discord OAuth, scope jen `identify`. Zobrazuje se **avatar z Discordu a Fishao přezdívka**,
   nikdy Discord jméno. Přezdívka 3–20 znaků, unikátní bez ohledu na velikost písmen, nepředvyplňuje se.
 - Zveřejnění je opt-in (tlačítko). Po zveřejnění se změny `bred` (detail, import) synchronizují samy
   (debounce ~2 s, při chybě čekají ve frontě a odešlou se později). Smazání zápisu i odhlášení jedním klikem.
