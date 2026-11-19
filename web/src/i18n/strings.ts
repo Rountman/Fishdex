@@ -254,8 +254,8 @@ const cs = {
   timersTitle: 'Timery',
   timersHint: 'Klikni, jakmile si ve hře odměnu vyzvedneš. Odpočet běží od té chvíle, i když stránku zavřeš.',
   timers: {
-    meat: { name: 'Maso od Sida', detail: 'Sid v Aquayamě, 10 návnad maso', every: 'každých 10 dní' },
-    bob: { name: 'Bob', detail: 'Rio Tropical u ohniště v táboře, minihra až o 10 mincí', every: 'každých 7 dní' },
+    meat: { name: 'Maso od Sida', detail: 'Sid v Aquayamě, 10 návnad maso', every: 'každých 10 dní, nový den o půlnoci UTC' },
+    bob: { name: 'Bob', detail: 'Rio Tropical u ohniště v táboře, minihra až o 10 mincí', every: 'každých 7 dní, nový den o půlnoci UTC' },
     factory: { name: 'Továrna na nábytek', every: 'každé 2 dny' },
   } as Record<TimerId, TimerText>,
   timerIdle: 'Zatím nespuštěno',
@@ -555,8 +555,8 @@ const en: Strings = {
   timersTitle: 'Timers',
   timersHint: 'Click as soon as you collect the reward in the game. The countdown runs from then on, even with this page closed.',
   timers: {
-    meat: { name: 'Meat from Sid', detail: 'Sid in Aquayama, 10 meat baits', every: 'every 10 days' },
-    bob: { name: 'Bob', detail: 'Rio Tropical by the camp bonfire, minigame for up to 10 coins', every: 'every 7 days' },
+    meat: { name: 'Meat from Sid', detail: 'Sid in Aquayama, 10 meat baits', every: 'every 10 days, new day at midnight UTC' },
+    bob: { name: 'Bob', detail: 'Rio Tropical by the camp bonfire, minigame for up to 10 coins', every: 'every 7 days, new day at midnight UTC' },
     factory: { name: 'Furniture factory', every: 'every 2 days' },
   },
   timerIdle: 'Not started yet',

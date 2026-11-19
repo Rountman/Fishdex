@@ -21,9 +21,24 @@ describe('timerStatus', () => {
   });
 });
 
+describe('whole game days', () => {
+  const wed = Date.UTC(2026, 10, 18); // Wednesday 00:00 UTC
+  it('ignores the hour of collecting: ready at midnight UTC of the 7th day', () => {
+    for (const at of [wed, wed + 1, wed + DAY - 1]) {
+      expect(timerStatus(at, 7 * DAY, at, true)).toMatchObject({ kind: 'running', readyAt: wed + 7 * DAY });
+      expect(timerStatus(at, 7 * DAY, wed + 7 * DAY - 1, true).kind).toBe('running');
+      expect(timerStatus(at, 7 * DAY, wed + 7 * DAY, true).kind).toBe('ready');
+    }
+  });
+  it('bar and countdown run from the click to that midnight', () => {
+    const at = wed + DAY / 2;
+    expect(timerStatus(at, 7 * DAY, at + DAY, true)).toEqual({ kind: 'running', readyAt: wed + 7 * DAY, remainingMs: 5.5 * DAY, elapsed: 1 / 6.5 });
+  });
+});
+
 describe('periods', () => {
   it('meat 10 days, Bob 7 days, factory 2 days', () => {
-    expect(TIMERS.map(t => [t.id, t.periodMs / DAY])).toEqual([['meat', 10], ['bob', 7], ['factory', 2]]);
+    expect(TIMERS.map(t => [t.id, t.periodMs / DAY, !!t.wholeDays])).toEqual([['meat', 10, true], ['bob', 7, true], ['factory', 2, false]]);
   });
 });
 

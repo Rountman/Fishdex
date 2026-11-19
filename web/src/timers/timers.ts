@@ -7,9 +7,10 @@ export const TIMERS_KEY = 'fishdex:timers:v1';
 const VERSION = 1;
 
 export type TimerId = 'meat' | 'bob' | 'factory';
-export const TIMERS: readonly { id: TimerId; periodMs: number }[] = [
-  { id: 'meat', periodMs: 10 * DAY },
-  { id: 'bob', periodMs: 7 * DAY },
+/** `wholeDays`: counts game days (midnight UTC), the hour of collecting does not matter. */
+export const TIMERS: readonly { id: TimerId; periodMs: number; wholeDays?: true }[] = [
+  { id: 'meat', periodMs: 10 * DAY, wholeDays: true },
+  { id: 'bob', periodMs: 7 * DAY, wholeDays: true },
   { id: 'factory', periodMs: 2 * DAY },
 ];
 
@@ -21,11 +22,15 @@ export type TimerStatus =
   | { kind: 'ready'; readyAt: number }
   | { kind: 'running'; readyAt: number; remainingMs: number; elapsed: number };
 
-export function timerStatus(lastAt: number | undefined, periodMs: number, now: number): TimerStatus {
+/** Start of the game day (UTC) containing `ms`. */
+const utcDayStart = (ms: number) => Math.floor(ms / DAY) * DAY;
+
+export function timerStatus(lastAt: number | undefined, periodMs: number, now: number, wholeDays = false): TimerStatus {
   if (lastAt === undefined) return { kind: 'idle' };
-  const readyAt = lastAt + periodMs;
+  const readyAt = (wholeDays ? utcDayStart(lastAt) : lastAt) + periodMs;
   if (now >= readyAt) return { kind: 'ready', readyAt };
-  return { kind: 'running', readyAt, remainingMs: Math.min(readyAt - now, periodMs), elapsed: Math.max(0, (now - lastAt) / periodMs) };
+  const span = readyAt - lastAt;
+  return { kind: 'running', readyAt, remainingMs: Math.min(readyAt - now, span), elapsed: Math.max(0, (now - lastAt) / span) };
 }
 
 const pad = (n: number) => String(n).padStart(2, '0');

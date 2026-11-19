@@ -125,6 +125,8 @@ prototypes/    # schválené mockupy a styleguide (fáze 1–2), DECISIONS.md
 - Herní odpočty v `web/src/timers/`: maso od Sida (Aquayama) 10 dní (archiv fishao.cz),
   Bob (Rio Tropical) 7 dní (neoficiální přepisy wiki),
   továrna na nábytek 2 dny (ověřeno uživatelem, bez popisku). Odpočet běží od kliknutí na „Vybráno“, čas jde ručně upravit.
+- Sid a Bob počítají celé herní dny (`wholeDays`): hodina vyzvednutí se nebere v úvahu, hotovo o půlnoci UTC
+  N-tého dne (Bob vybraný ve středu → od půlnoci UTC na příští středu). Továrna počítá přesně od kliknutí.
 - Uloženo jen v `fishdex:timers:v1` → `{ version, collectedAt: { [id]: epochMs } }`, mimo export progresu.
 - URL `tab=timers`.
 

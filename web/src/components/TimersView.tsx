@@ -10,12 +10,12 @@ type Props = {
   onClear: (id: TimerId) => void;
 };
 
-type RowProps = Omit<Props, 'timers'> & { id: TimerId; periodMs: number; lastAt: number | undefined; now: number };
+type RowProps = Omit<Props, 'timers'> & { id: TimerId; periodMs: number; wholeDays?: boolean; lastAt: number | undefined; now: number };
 
-function TimerRow({ id, periodMs, lastAt, now, onCollect, onEdit, onClear }: RowProps) {
+function TimerRow({ id, periodMs, wholeDays, lastAt, now, onCollect, onEdit, onClear }: RowProps) {
   const { lang, t } = useI18n();
   const text = t.timers[id];
-  const status = timerStatus(lastAt, periodMs, now);
+  const status = timerStatus(lastAt, periodMs, now, wholeDays);
   const [open, setOpen] = useState(false);
   const [draft, setDraft] = useState('');
   const [invalid, setInvalid] = useState(false);
@@ -98,8 +98,8 @@ export function TimersView({ timers, ...actions }: Props) {
       <h2 className={styles.title}>{t.timersTitle}</h2>
       <p className={styles.hint}>{t.timersHint}</p>
       <ul className={styles.list}>
-        {TIMERS.map(({ id, periodMs }) => (
-          <TimerRow key={id} id={id} periodMs={periodMs} lastAt={timers[id]} now={now} {...actions} />
+        {TIMERS.map(({ id, periodMs, wholeDays }) => (
+          <TimerRow key={id} id={id} periodMs={periodMs} wholeDays={wholeDays} lastAt={timers[id]} now={now} {...actions} />
         ))}
       </ul>
     </>
