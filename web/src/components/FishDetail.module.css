@@ -46,3 +46,6 @@
   .facts { grid-template-columns: 80px 1fr; }
 }
 @media (prefers-reduced-motion: reduce) { .dialog[open] { animation: none; } }
+
+/* "Chová ji 5 hráčů →": opens the Chovatelé tab filtered to this fish */
+.breeders { padding: 0; color: var(--color-ink); font-size: var(--fs-body); font-weight: var(--fw-strong); text-align: left; }

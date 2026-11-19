@@ -30,6 +30,25 @@ export function toggle(p: Progress, id: string, field: ProgressField, now = new 
 export const restore = (p: Progress, id: string, prev: FishProgress, now = new Date()): Progress =>
   withFish(p, id, { ...prev }, now);
 
+/**
+ * Chovatelé "use the register": `bred` becomes exactly `ids` among `scope` (the backyard fish).
+ * Caught / glowing stay as they are.
+ */
+export function setBred(p: Progress, ids: Iterable<string>, scope: Iterable<string>, now = new Date()): Progress {
+  const want = new Set(ids);
+  const fish = { ...p.fish };
+  for (const id of scope) {
+    const cur = fish[id] ?? NONE;
+    if (!!cur.bred === want.has(id)) continue;
+    const next: FishProgress = { ...cur };
+    if (want.has(id)) next.bred = true;
+    else delete next.bred;
+    if (hasAny(next)) fish[id] = next;
+    else delete fish[id];
+  }
+  return { ...p, updatedAt: now.toISOString(), fish };
+}
+
 function withItem(p: Progress, id: string, next: FurnitureProgress, now: Date): Progress {
   const furniture = { ...p.furniture };
   if (next.owned) furniture[id] = next;

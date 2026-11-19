@@ -17,6 +17,8 @@ type Props = {
   zoneName: string;
   onToggle: (id: string, field: ProgressField) => void;
   onClose: () => void;
+  /** Backyard fish with the register on: how many breeders list it (null = not loaded). */
+  breeders?: { count: number | null; onShow: () => void };
 };
 
 function UnlockLine({ u }: { u: Unlock }) {
@@ -40,17 +42,17 @@ function UnlockLine({ u }: { u: Unlock }) {
   }
 }
 
-export function FishDetail({ fish, state, areaName, zoneName, onToggle, onClose }: Props) {
+export function FishDetail({ fish, state, areaName, zoneName, onToggle, onClose, breeders }: Props) {
   const ref = useModal(fish !== null, onClose);
   const titleId = useId();
   return (
     <dialog ref={ref} className={styles.dialog} aria-labelledby={titleId}>
-      {fish && <Body fish={fish} state={state} areaName={areaName} zoneName={zoneName} onToggle={onToggle} titleId={titleId} onClose={onClose} />}
+      {fish && <Body fish={fish} state={state} areaName={areaName} zoneName={zoneName} onToggle={onToggle} titleId={titleId} onClose={onClose} breeders={breeders} />}
     </dialog>
   );
 }
 
-function Body({ fish, state, areaName, zoneName, onToggle, titleId, onClose }: Omit<Props, 'fish'> & { fish: Fish; titleId: string }) {
+function Body({ fish, state, areaName, zoneName, onToggle, titleId, onClose, breeders }: Omit<Props, 'fish'> & { fish: Fish; titleId: string }) {
   const { lang, t } = useI18n();
   const tm = fmtTime(fish.time, lang), se = fmtSeason(fish.season, lang);
   const rec = fmtRecord(fish.record);
@@ -108,6 +110,14 @@ function Body({ fish, state, areaName, zoneName, onToggle, titleId, onClose }: O
         {fish.breed && <>
           <dt>{t.breed}</dt>
           <dd>{t.breedText(fmtNum(fish.breed.cost, lang), fish.breed.hours, Math.round(fish.breed.chance * 100))}</dd>
+        </>}
+        {breeders && <>
+          <dt>{t.br.detailLabel}</dt>
+          <dd>
+            <button type="button" className={`link ${styles.breeders}`} onClick={breeders.onShow}>
+              {breeders.count === null ? t.br.detailUnknown : t.br.detailCount(breeders.count)} →
+            </button>
+          </dd>
         </>}
         <dt>{t.length}</dt>
         <dd className={fish.size ? undefined : styles.unknown}>

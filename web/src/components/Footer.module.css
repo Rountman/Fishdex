@@ -5,3 +5,5 @@
 }
 .foot p { margin: 0; }
 .handle { font-family: var(--font-text); font-weight: var(--fw-strong); color: var(--color-ink); }
+.privacy { max-width: 70ch; }
+.privacy p + p { margin-top: var(--space-2); }

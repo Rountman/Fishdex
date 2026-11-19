@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
-import { fishState, itemState, merge, replace, restore, restoreItem, toggle, toggleOwned } from './progress';
+import { fishState, itemState, merge, replace, restore, restoreItem, setBred, toggle, toggleOwned } from './progress';
 import type { FishProgress, FurnitureProgress, Progress, ProgressField } from './schema';
 import { createProgressStore, type LoadResult, type ProgressStore } from './storage';
 
@@ -16,6 +16,8 @@ export type ProgressApi = {
   restoreItem: (id: string, prev: FurnitureProgress) => void;
   importMerge: (incoming: Progress) => void;
   importReplace: (incoming: Progress) => void;
+  /** `bred` becomes exactly `ids` among the backyard fish `scope` (Chovatelé: take the register version). */
+  setBred: (ids: readonly string[], scope: readonly string[]) => void;
 };
 
 export function useProgress(store?: ProgressStore): ProgressApi {
@@ -54,5 +56,6 @@ export function useProgress(store?: ProgressStore): ProgressApi {
     restoreItem: (id: string, prev: FurnitureProgress) => setProgress(p => restoreItem(p, id, prev)),
     importMerge: (incoming: Progress) => setProgress(p => merge(p, incoming)),
     importReplace: (incoming: Progress) => setProgress(() => replace(incoming)),
+    setBred: (ids: readonly string[], scope: readonly string[]) => setProgress(p => setBred(p, ids, scope)),
   }), [progress, toggleFish, toggleItem, initial, backend]);
 }

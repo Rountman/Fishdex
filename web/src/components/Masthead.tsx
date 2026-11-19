@@ -48,7 +48,7 @@ export function Masthead({ total, caught, glow, dark, onLang, onTheme, onBackup,
       </div>
 
       <div className={styles.tallyWrap}>
-        {tab === 'timers' || tab === 'current' ? null : tab === 'furniture' ? (
+        {tab === 'timers' || tab === 'current' || tab === 'breeders' ? null : tab === 'furniture' ? (
           <div className={styles.tally}>
             <span className={styles.item}>
               <span className={styles.num}>{fu.owned}<span className="of">/{fu.total}</span></span>
@@ -105,7 +105,7 @@ export function Masthead({ total, caught, glow, dark, onLang, onTheme, onBackup,
       <nav className={styles.tabs} aria-label={t.tabsLabel}>
         {TABS.map(k => (
           <button key={k} type="button" className={styles.tab} aria-current={tab === k ? 'page' : undefined} onClick={() => onTab(k)}>
-            {{ fish: t.tabFish, current: t.tabCurrent, furniture: t.tabFurniture, timers: t.tabTimers }[k]}
+            {{ fish: t.tabFish, current: t.tabCurrent, furniture: t.tabFurniture, timers: t.tabTimers, breeders: t.tabBreeders }[k]}
           </button>
         ))}
       </nav>
