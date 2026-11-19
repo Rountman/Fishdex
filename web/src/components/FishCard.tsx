@@ -1,10 +1,10 @@
 import { memo, useRef, useState, type KeyboardEvent, type MouseEvent, type PointerEvent } from 'react';
 import { fishImage, isBackyard } from '../data';
 import { isZonedArea, type Fish } from '../data/types';
-import { baitLabel, fishName, fmtRecord, fmtSeason, fmtSize, fmtTime, spotLabel } from '../i18n/format';
+import { baitLabel, fishName, fmtPrice, fmtRecord, fmtSeason, fmtSize, fmtTime, spotLabel } from '../i18n/format';
 import { useI18n } from '../i18n/context';
 import type { FishProgress, ProgressField } from '../progress/schema';
-import { CalendarIcon, ClockIcon, GlowIcon, HouseIcon } from './icons';
+import { CalendarIcon, ClockIcon, CoinIcon, GlowIcon, HouseIcon } from './icons';
 import { Stars } from './Stars';
 import styles from './FishCard.module.css';
 
@@ -104,6 +104,13 @@ function FishCardImpl({ fish, state, areaName, onToggle, onOpen, priority }: Pro
           <span><Stars r={fish.rarity} /> <Rarer fish={fish} /></span>
           <span className={styles.len}>{fmtSize(fish.size) ?? fmtRecord(fish.record)?.text ?? t.lenUnknown}</span>
         </p>
+        {fish.price && (
+          <p className={styles.price}>
+            <CoinIcon />
+            <span aria-hidden="true">{fmtPrice(fish.price, lang)}</span>
+            <span className="visually-hidden">{t.sellSpoken(fish.price.min, fish.price.max)}</span>
+          </p>
+        )}
         {/* real windows only: "always" / "all year" and unknown stay off the card (all of it is in the detail) */}
         {Array.isArray(fish.time) && (
           <p className={styles.time}>

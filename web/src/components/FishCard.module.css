@@ -53,7 +53,11 @@
   display: flex; align-items: center; gap: 5px; margin: 3px 0 0;
   font-size: var(--fs-sm); font-variant-numeric: tabular-nums; color: var(--color-ink);
 }
-.time svg { width: 13px; height: 13px; flex: none; fill: none; stroke: var(--color-ink-soft); stroke-width: 1.5; stroke-linecap: round; }
+.price {
+  display: flex; align-items: center; gap: 5px; margin: 3px 0 0;
+  font-size: var(--fs-sm); font-variant-numeric: tabular-nums; color: var(--color-ink-soft); white-space: nowrap;
+}
+.price svg, .time svg { width: 13px; height: 13px; flex: none; fill: none; stroke: var(--color-ink-soft); stroke-width: 1.5; stroke-linecap: round; }
 .bait :global(.unsure), .time :global(.unsure) { width: 16px; height: 16px; margin-left: 2px; font-size: 11px; }
 .where { margin: 2px 0 0; padding-right: 60px; font-size: var(--fs-sm); color: var(--color-ink-soft); }
 .bred { margin: var(--space-1) 0 0; font: italic var(--fw-regular) 15px/1.1 var(--font-display); }
@@ -74,7 +78,7 @@
 @media (max-width: 760px) {
   .card { padding: var(--space-2) var(--space-2) var(--space-3); contain-intrinsic-size: auto 250px; }
   .name { font-size: 16px; }
-  .bait, .meta, .where, .time { font-size: 12px; }
+  .bait, .meta, .where, .time, .price { font-size: 12px; }
   .meta { flex-direction: column; gap: 0; }
   .glow { top: var(--space-1); right: var(--space-1); }
   .bredBtn { top: 40px; right: var(--space-1); }

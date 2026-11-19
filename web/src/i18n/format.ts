@@ -44,6 +44,13 @@ export function fmtSize(size: Fish['size']): string | null {
   return size.min === size.max ? `${size.max} cm` : `${size.min}–${size.max} cm`;
 }
 
+/** Fish Market sell price estimate, always approximate: "~65–162 FB". */
+export function fmtPrice(price: Fish['price'], lang: Lang): string | null {
+  if (!price) return null;
+  const [a, b] = [fmtNum(price.min, lang), fmtNum(price.max, lang)];
+  return a === b ? `~${a} FB` : `~${a}–${b} FB`;
+}
+
 /** World record label; the source marks an uncertain one as "(118–119 cm)?". */
 export function fmtRecord(record: string | null): { text: string; unsure: boolean } | null {
   if (!record) return null;

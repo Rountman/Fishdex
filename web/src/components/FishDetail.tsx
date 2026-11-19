@@ -1,7 +1,7 @@
 import { useId } from 'react';
 import { COLLECTIONS, fishImage, isBackyard } from '../data';
 import type { Fish, Unlock } from '../data/types';
-import { altName, baitLabel, fishName, fmtNum, fmtRecord, fmtSeason, fmtSize, fmtTime, fruitLabel, itemName } from '../i18n/format';
+import { altName, baitLabel, fishName, fmtNum, fmtPrice, fmtRecord, fmtSeason, fmtSize, fmtTime, fruitLabel, itemName } from '../i18n/format';
 import { useI18n } from '../i18n/context';
 import { useModal } from '../hooks/useModal';
 import type { FishProgress, ProgressField } from '../progress/schema';
@@ -127,6 +127,13 @@ function Body({ fish, state, areaName, zoneName, onToggle, titleId, onClose, bre
         <dt>{t.length}</dt>
         <dd className={fish.size ? undefined : styles.unknown}>
           {fmtSize(fish.size) ?? t.unknownF}{fish.size && <> <span className="note">{t.avgLen(fish.size.avg)}</span></>}
+        </dd>
+        <dt>{t.sell}</dt>
+        <dd className={fish.price ? undefined : styles.unknown}>
+          {fish.price
+            ? <><span aria-hidden="true">{fmtPrice(fish.price, lang)}</span><span className="visually-hidden">{t.sellSpoken(fish.price.min, fish.price.max)}</span>
+              {' '}<span className="note">{t.sellNote}</span></>
+            : t.unknownF}
         </dd>
         <dt>{t.record}</dt>
         <dd className={rec ? undefined : styles.unknown}>
