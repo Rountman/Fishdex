@@ -250,7 +250,13 @@ export default function App() {
             <p id={ITEM_HELP_ID} className="visually-hidden">{t.itemHelp}</p>
             {tab === 'breeders' ? (
               <BreedersView
-                b={breeders} backyard={backyardSorted} onShowBreeder={showBreeder} onToast={text => showToast(text)} mobile={mobile}
+                b={breeders} backyard={backyardSorted} onToast={text => showToast(text)} mobile={mobile}
+                renderFish={ids => (
+                  <FishGrid
+                    fish={sortFish(fish.filter(f => ids.includes(f.id)), sort, lang)} progress={p.progress} query="" areaName={areaName}
+                    onToggle={onToggle} onOpen={setOpenId} onReset={() => {}}
+                  />
+                )}
               />
             ) : tab === 'current' ? (
               <CurrentView

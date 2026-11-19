@@ -137,7 +137,8 @@ prototypes/    # schválené mockupy a styleguide (fáze 1–2), DECISIONS.md
 
 - Veřejný registr toho, co hráči chovají za domem (`bred`). Nic jiného se nezveřejňuje.
   URL `tab=breeders`. Záložka je jen seznam hráčů (nejvíc ryb nahoře) + lístek Můj zápis, žádné filtry ani hlavička.
-  Pruh ryb u hráče je jedno tlačítko: otevře Ryby › Backyard s filtrem Chovatel (`area=backyard&breeder=<č. zápisu>`).
+  Pruh ryb u hráče je jedno tlačítko: rozbalí pod řádkem jeho ryby jako karty z mřížky (FishGrid, tvoje stavy, detail);
+  žádné přesměrování. Filtr Chovatel v Ryby › Backyard (`area=backyard&breeder=<č. zápisu>`) zůstává.
 - Přihlášení přes Discord OAuth, scope jen `identify`. Zobrazuje se **avatar z Discordu a Fishao přezdívka**,
   nikdy Discord jméno. Přezdívka 3–20 znaků, unikátní bez ohledu na velikost písmen, nepředvyplňuje se.
 - Zveřejnění je opt-in (tlačítko). Po zveřejnění se změny `bred` (detail, import) synchronizují samy

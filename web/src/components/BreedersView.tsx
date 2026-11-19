@@ -1,4 +1,4 @@
-import { useEffect, useId, useMemo, useState } from 'react';
+import { useEffect, useId, useMemo, useState, type ReactNode } from 'react';
 import type { Entry, ModAction } from '../breeders/api';
 import { sortEntries } from '../breeders/local';
 import type { BreedersApi } from '../breeders/useBreeders';
@@ -12,8 +12,8 @@ type Props = {
   b: BreedersApi;
   /** Backyard fish (names, and the "z 83" total). */
   backyard: Fish[];
-  /** Opens Ryby › Backyard filtered to this player's fish. */
-  onShowBreeder: (no: number) => void;
+  /** The journal grid (same cards as an area) for these fish, shown under an opened player. */
+  renderFish: (ids: string[]) => ReactNode;
   onToast: (text: string) => void;
   mobile: boolean;
 };
@@ -38,7 +38,7 @@ function Avatar({ src, nick, big }: { src: string | null; nick: string; big?: bo
   return <img className={cls} src={src} alt="" width={48} height={48} loading="lazy" referrerPolicy="no-referrer" onError={() => setBroken(true)} />;
 }
 
-export function BreedersView({ b, backyard, onShowBreeder, onToast, mobile }: Props) {
+export function BreedersView({ b, backyard, renderFish, onToast, mobile }: Props) {
   const { t } = useI18n();
   const { ensureList } = b;
   useEffect(() => { ensureList(); }, [ensureList]);
@@ -53,7 +53,7 @@ export function BreedersView({ b, backyard, onShowBreeder, onToast, mobile }: Pr
   }
   return (
     <div className={styles.layout}>
-      <Register b={b} backyard={backyard} onShowBreeder={onShowBreeder} onToast={onToast} mobile={mobile} />
+      <Register b={b} backyard={backyard} renderFish={renderFish} onToast={onToast} mobile={mobile} />
       <aside className={styles.me} aria-labelledby="br-me-title">
         <MySlip b={b} onToast={onToast} />
       </aside>
@@ -62,7 +62,7 @@ export function BreedersView({ b, backyard, onShowBreeder, onToast, mobile }: Pr
 }
 
 // ---- the register: just the players, most fish first ------------------------------
-function Register({ b, backyard, onShowBreeder, onToast, mobile }: Props) {
+function Register({ b, backyard, renderFish, onToast, mobile }: Props) {
   const { t } = useI18n();
   const byId = useMemo(() => new Map(backyard.map(f => [f.id, f])), [backyard]);
   const shown = useMemo(() => sortEntries(b.entries ?? []), [b.entries]);
@@ -80,7 +80,7 @@ function Register({ b, backyard, onShowBreeder, onToast, mobile }: Props) {
         <ol className={styles.entries}>
           {shown.map(e => (
             <EntryRow key={e.no} e={e} b={b} byId={byId} total={backyard.length} limit={mobile ? 6 : 14}
-              onShowBreeder={onShowBreeder} onToast={onToast} />
+              renderFish={renderFish} onToast={onToast} />
           ))}
         </ol>
       )}
@@ -90,12 +90,14 @@ function Register({ b, backyard, onShowBreeder, onToast, mobile }: Props) {
 
 type RowProps = {
   e: Entry; b: BreedersApi; byId: Map<string, Fish>; total: number; limit: number;
-  onShowBreeder: (no: number) => void; onToast: (text: string) => void;
+  renderFish: (ids: string[]) => ReactNode; onToast: (text: string) => void;
 };
 
-function EntryRow({ e, b, byId, total, limit, onShowBreeder, onToast }: RowProps) {
+function EntryRow({ e, b, byId, total, limit, renderFish, onToast }: RowProps) {
   const { lang, t } = useI18n();
   const ago = useAgo();
+  const [open, setOpen] = useState(false);
+  const panelId = useId();
   const fish = e.fish.filter(id => byId.has(id));
   const mine = b.me?.entry?.no === e.no;
   const admin = !!b.me?.admin;
@@ -143,19 +145,22 @@ function EntryRow({ e, b, byId, total, limit, onShowBreeder, onToast }: RowProps
         <span className="bar bar--bred" aria-hidden="true"><span style={{ width: `${(fish.length / total) * 100}%` }} /></span>
       </p>
       {fish.length ? (
-        // the whole strip is one way in: the journal grid filtered to this player's backyard
-        <button type="button" className={styles.strip} aria-label={t.br.showFish(e.nick, fish.length)} onClick={() => onShowBreeder(e.no)}>
-          {fish.slice(0, limit).map(id => (
+        // the whole strip opens this player's fish as full cards right under the row
+        <button type="button" className={styles.strip} aria-label={t.br.showFish(e.nick, fish.length)}
+          aria-expanded={open} aria-controls={panelId} onClick={() => setOpen(!open)}>
+          {!open && fish.slice(0, limit).map(id => (
             <span key={id} className={styles.thumb} title={fishName(byId.get(id)!, lang)}>
               <img src={fishImage(id)} alt="" width={36} height={36} loading="lazy" />
             </span>
           ))}
-          {fish.length > limit && <span className={styles.more}>+{fish.length - limit}</span>}
-          <span className={styles.go} aria-hidden="true">→</span>
+          {!open && fish.length > limit && <span className={styles.more}>+{fish.length - limit}</span>}
+          {open && <span className={styles.hideLabel}>{t.br.hideFish}</span>}
+          <span className={styles.go} data-open={open || undefined} aria-hidden="true">▾</span>
         </button>
       ) : (
         <p className={styles.nothing}>{t.br.nothingYet}</p>
       )}
+      {open && <div id={panelId} className={styles.panel}>{renderFish(fish)}</div>}
     </li>
   );
 }

@@ -56,7 +56,11 @@
   display: grid; place-items: center; min-width: 40px; height: 40px; padding: 0 var(--space-2);
   border: 1px dashed var(--color-ink-faint); border-radius: var(--radius-slip); font-size: var(--fs-sm); font-weight: var(--fw-strong);
 }
-.go { margin-left: var(--space-2); font: var(--fw-name) var(--fs-h4)/1 var(--font-display); }
+.go { margin-left: var(--space-2); font: var(--fw-name) var(--fs-h4)/1 var(--font-text); transition: rotate var(--dur-fast) var(--ease-out); }
+.go[data-open] { rotate: 180deg; }
+.hideLabel { font-size: var(--fs-ui); font-weight: var(--fw-strong); }
+/* the player's fish as journal cards, right under their line */
+.panel { grid-column: 1 / -1; padding: var(--space-4) 0 var(--space-3); }
 .nothing { grid-column: 3 / -1; margin: 0; color: var(--color-ink-faint); font: italic var(--fw-regular) 15px var(--font-display); }
 
 /* glued-in photo */
