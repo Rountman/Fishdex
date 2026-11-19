@@ -48,6 +48,8 @@ prototypes/    # schválené mockupy a styleguide (fáze 1–2), DECISIONS.md
 - Animace: Motion (framer-motion) pro UI, GSAP jen pro scroll efekty.
 - Bez backendu. Stav chycených ryb v `localStorage` (vše v try/catch),
   plus export/import do JSON souboru, ať uživatel nepřijde o progres.
+  **Jediná výjimka:** veřejný chov v záložce Chovatelé (Cloudflare Worker + D1 ve `worker/`,
+  viz sekce níže). Vše ostatní funguje bez přihlášení i bez dostupného serveru.
 - Hosting: **GitHub Pages** (viz sekce níže).
 
 ## GitHub Pages — povinná pravidla
@@ -130,6 +132,30 @@ prototypes/    # schválené mockupy a styleguide (fáze 1–2), DECISIONS.md
   (`web/src/current/current.ts`, testy proti přehledu fishao.net), nic se nestahuje za běhu.
 - Filtry: Skrýt chycené (`chide=1`) a Oblast (`carea=`); URL `tab=current`. Klik na řádek otevře detail.
 - Mockup: `prototypes/b-aktualni/`.
+
+## Záložka Chovatelé (jediná část s backendem)
+
+- Veřejný registr toho, co hráči chovají za domem (`bred`). Nic jiného se nezveřejňuje.
+  URL `tab=breeders`, filtry `bq=` (přezdívka), `bfish=` (chová rybu), `bsort=`.
+- Přihlášení přes Discord OAuth, scope jen `identify`. Zobrazuje se **avatar z Discordu a FishAO přezdívka**,
+  nikdy Discord jméno. Přezdívka 3–20 znaků, unikátní bez ohledu na velikost písmen, nepředvyplňuje se.
+- Zveřejnění je opt-in (tlačítko). Po zveřejnění se změny `bred` (detail, import) synchronizují samy
+  (debounce ~2 s, při chybě čekají ve frontě a odešlou se později). Smazání zápisu i odhlášení jedním klikem.
+- Detail ryby z Backyardu: „Chová ji N hráčů →“ otevře záložku s filtrem `bfish`.
+- Backend `worker/` (Cloudflare Worker + D1): `GET /breeders`, `/auth/login|callback`, `GET|PUT|DELETE /me`,
+  `POST /breeders/:id/report`, `/admin/*`. Server přijme jen ID ryb z Backyardu (`worker/src/backyard.json`
+  generuje `build-data.ts` z `data/`), CORS jen Pages + localhost, rate limit zápisů a nahlášení.
+- Moderace: nahlášení, po 3 nahlášeních od různých účtů se zápis sám skryje; admin (`ADMIN_IDS` ve Workeru)
+  skryje / obnoví / smaže / zabanuje přímo v záložce.
+- Uložené na serveru: Discord id, hash avataru, přezdívka, ID ryb, časy. Popsané v patičce („Co ukládáme“).
+- localStorage: `fishdex:session:v1` (token, mimo export), `fishdex:breeders:v1` (zveřejněno, fronta změn).
+  `fishdex:progress:v2` se kvůli tomu nemění. Bez dostupného API nefunguje jen tahle záložka.
+- Client Secret Discordu jen ve `wrangler secret`, nikdy v repu ani v kódu webu. API URL přes `VITE_API_URL`.
+- Sync: posílá se, jen když server drží to, co tento prohlížeč naposledy poslal (`planSync`); jinak (nové
+  zařízení, změna jinde) ukáže volbu „Převzít z registru“ / „Poslat tento deník“, nikdy nepřepíše sám.
+- Lokálně bez Cloudflare: `worker/test/dev-server.ts --seed` (stejná aplikace nad node:sqlite, falešný Discord),
+  web s `VITE_API_URL=http://localhost:8787`. Bez `VITE_API_URL` záložka jen řekne, že registr není zapnutý.
+- Mockup: `prototypes/c-chovatele/`.
 
 ## Časové pásmo
 

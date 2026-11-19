@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fishdex · mockup Chovatelé</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400..900;1,400..900&family=Schibsted+Grotesk:wght@400..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../web/src/styles/tokens.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!--
+  Mockup záložky „Chovatelé“ (veřejný chov za domem, přihlášení přes Discord).
+  Ryby: skutečné web/src/data/fish.json (jen areas ∋ backyard). Hráči jsou UKÁZKOVÍ, server zatím neexistuje.
+  Spouštět přes lokální server z kořene repa: /prototypes/c-chovatele/
+  Stavy: lišta „Mockup“ dole (můj zápis, seznam, admin) nebo ?me=out|new|published|pending|offline|taken|hidden|banned&list=ok|empty|error&admin=1&bfish=fire-eel
+-->
+<header class="mast">
+  <div class="mast-title">
+    <h1>Fishdex</h1>
+    <p class="sub">Terénní deník rybáře</p>
+  </div>
+  <nav class="tabs" aria-label="Záložky">
+    <a href="#">Ryby</a>
+    <a href="#">Aktuální</a>
+    <a href="#">Nábytek</a>
+    <a href="#">Timery</a>
+    <a href="#" aria-current="page">Chovatelé</a>
+  </nav>
+  <div class="tools">
+    <span class="seg"><button aria-pressed="true">CZ</button><button aria-pressed="false">EN</button></span>
+    <a href="#" class="link">Noční deník</a>
+    <a href="#" class="link">Záloha</a>
+  </div>
+</header>
+
+<main class="page">
+  <div class="layout">
+    <section class="register" aria-labelledby="reg-h">
+      <header class="reg-head">
+        <h2 id="reg-h">Registr chovatelů</h2>
+        <p class="reg-count" id="reg-count">—</p>
+      </header>
+      <p class="note">Co hráči chovají za domem. Zapisuje se přes Discord, ukazuje se jen avatar a přezdívka z&nbsp;FishAO.</p>
+
+      <div class="admin-slip" id="admin-slip" hidden></div>
+
+      <div class="filters">
+        <label class="field">
+          <span class="k">Přezdívka</span>
+          <input type="search" id="q" placeholder="Hledat hráče" autocomplete="off">
+        </label>
+        <label class="field">
+          <span class="k">Chová rybu</span>
+          <select id="bfish"><option value="">Kteroukoli</option></select>
+        </label>
+        <div class="field">
+          <span class="k" id="sort-k">Řadit</span>
+          <span class="seg" role="group" aria-labelledby="sort-k">
+            <button type="button" data-sort="count" aria-pressed="true">Nejvíc ryb</button>
+            <button type="button" data-sort="recent" aria-pressed="false">Naposledy</button>
+          </span>
+        </div>
+      </div>
+
+      <div id="fish-focus"></div>
+      <ol class="entries" id="entries"></ol>
+    </section>
+
+    <aside class="me" aria-labelledby="me-h">
+      <div class="slip" id="me"></div>
+    </aside>
+  </div>
+
+  <section class="excerpt" aria-labelledby="ex-h">
+    <h2 id="ex-h" class="ex-h">V detailu ryby <small>(výřez, jen ryby z Backyardu)</small></h2>
+    <div class="ex-body" id="excerpt"></div>
+  </section>
+</main>
+
+<footer class="foot">
+  <a href="#" id="privacy-link">Co ukládáme</a>
+  <div class="privacy" id="privacy" hidden>
+    <p><strong>Na serveru</strong> (jen když klikneš na Zveřejnit): Discord id, odkaz na avatar, přezdívka z&nbsp;FishAO,
+      seznam ryb za domem a čas poslední změny. Discord jméno, e-mail ani servery nebereme.</p>
+    <p><strong>V prohlížeči:</strong> celý deník (ryby, nábytek, timery) a přihlašovací token. Smazáním zápisu zmizí ze serveru vše.</p>
+  </div>
+</footer>
+
+<div class="mockbar" role="region" aria-label="Ovládání mockupu">
+  <strong>Mockup</strong>
+  <label>Můj zápis
+    <select id="m-me">
+      <option value="out">nepřihlášen</option>
+      <option value="new">přihlášen, nezveřejněno</option>
+      <option value="taken">přezdívka obsazená</option>
+      <option value="published">zveřejněno</option>
+      <option value="pending">čeká na odeslání</option>
+      <option value="offline">server nedostupný</option>
+      <option value="hidden">skryto moderátorem</option>
+      <option value="banned">zablokovaný účet</option>
+    </select>
+  </label>
+  <label>Seznam
+    <select id="m-list">
+      <option value="ok">plný</option>
+      <option value="empty">zatím nikdo</option>
+      <option value="error">nenačetl se</option>
+    </select>
+  </label>
+  <label><input type="checkbox" id="m-admin"> admin</label>
+</div>
+
+<div class="toast" id="toast" role="status" hidden></div>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>
