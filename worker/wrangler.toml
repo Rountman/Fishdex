@@ -13,6 +13,5 @@ ALLOWED_ORIGINS = "https://rountman.github.io,http://localhost:5173,http://local
 [[d1_databases]]
 binding = "DB"
 database_name = "fishdex"
-# filled in after `wrangler d1 create fishdex`
-database_id = "00000000-0000-0000-0000-000000000000"
+database_id = "7d6603fa-c031-4a1f-b7f2-c09447db1caf"
 migrations_dir = "migrations"
