@@ -14,7 +14,7 @@ import sharp from 'sharp';
 import { FRUITS, SPOTS, type Bait, type Fruit, type Spot } from '../src/i18n/dictionaries.ts';
 import {
   FURNITURE_RARITIES, type Area, type AreaKind, type Availability, type Fish, type FurnitureCollection, type FurnitureItem,
-  type FurnitureRarity, type FurnitureType, type MonthRange, type Schedule, type Unlock, type Zone, ZONES,
+  type FurnitureRarity, type FurnitureType, type MonthRange, type Schedule, type Unlock, type Zone, ZONES, isZonedArea,
 } from '../src/data/types.ts';
 
 const WEB = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -56,14 +56,21 @@ const isFruit = (s: string): s is Fruit => s in FRUITS;
 
 // --- official wiki (data/fishao_net.json) -----------------------------------
 // User decision: fishao.net is the main source for where, rarity, bait, time, season, length,
-// breeding and unlocking. Names (cs) and world records stay from the archive scrape.
+// breeding and unlocking. Names (cs) and world records stay from the archive scrape; where the
+// archive only has the English name, the Czech one comes from fishao.net, then fishao-tracker.cz.
 type NetFish = {
-  fishdex_id: string | null; name: string; rating: number; factor: number;
+  id: number; fishdex_id: string | null; name: string; name_cs?: string; rating: number; factor: number;
   min: number; avg: number; max: number; locs: number[]; baits: string[]; places: string[];
   times: string[]; dates: string[]; collections: string[]; fruitCombos: string[];
   clubPoints: number; clubPrice: number; breed: { cost: number; hours: number; rate: number } | null;
 };
 type NetData = { fish: NetFish[]; palm_island_zones: string[] };
+/** fishao-tracker.cz (data/fishao_tracker.json): Moray tournament zones + Czech names, by fishao.net id. */
+type TrackerData = {
+  moray_tournament: { id: number; fishdex_id: string | null; zones: string[] }[];
+  names_cs: Record<string, string>;
+};
+const MORAY = 'moray-tournament';
 
 /** Official location id -> our area id. */
 const NET_AREA: Record<number, string> = {
@@ -95,7 +102,10 @@ const NET_BAIT: Record<string, Bait> = {
 
 type Where = { areas: string[]; spots: Record<string, Spot[]>; zones?: Zone[] };
 
-function netWhere(n: NetFish): Where {
+/** "A".."H" from the source, none listed = the fish bites in every zone. */
+const zoneList = (z: string[]): Zone[] => (z.length ? ZONES.filter(x => z.includes(x)) : [...ZONES]);
+
+function netWhere(n: NetFish, morayZones: Map<number, string[]>): Where {
   const areas: string[] = [];
   const spots: Record<string, Spot[]> = {};
   const add = (area: string, spot?: Spot) => {
@@ -116,11 +126,19 @@ function netWhere(n: NetFish): Where {
     }
     const area = NET_AREA[loc];
     if (!area) { fail(`${n.name}: unknown location ${loc}`); continue; }
-    if (area === 'palm-island') {
-      // no zone listed = the fish bites in every zone
-      const z = n.places.map(p => PALM_ZONE.exec(p)?.[1] as Zone | undefined).filter((x): x is Zone => !!x);
-      zones = z.length ? ZONES.filter(x => z.includes(x)) : [...ZONES];
-      for (const z of zones) add(area, `Zone ${z}`);
+    if (isZonedArea(area)) {
+      if (zones) fail(`${n.name}: in two zoned areas, Fish.zones holds only one`);
+      let z: string[];
+      if (area === MORAY) {
+        // fishao.net has no Moray tournament zones, fishao-tracker.cz does
+        const t = morayZones.get(n.id);
+        if (!t) fail(`${n.name}: Moray tournament fish missing in data/fishao_tracker.json`);
+        z = t ?? [];
+      } else {
+        z = n.places.map(p => PALM_ZONE.exec(p)?.[1]).filter((x): x is string => !!x);
+      }
+      zones = zoneList(z);
+      for (const x of zones) add(area, `Zone ${x}`);
       continue;
     }
     const own = n.places.filter(p => NET_PLACE[p]?.[0] === area);
@@ -360,6 +378,16 @@ async function main() {
   const net: NetData = JSON.parse(await readFile(join(REPO, 'data', 'fishao_net.json'), 'utf8'));
   checkZones(net.palm_island_zones);
   const netById = new Map(net.fish.filter(n => n.fishdex_id).map(n => [n.fishdex_id!, n]));
+  const tracker: TrackerData = JSON.parse(await readFile(join(REPO, 'data', 'fishao_tracker.json'), 'utf8'));
+  const morayZones = new Map(tracker.moray_tournament.map(m => [m.id, m.zones]));
+  for (const z of tracker.moray_tournament.flatMap(m => m.zones)) if (!ZONES.includes(z as Zone)) fail(`fishao-tracker zone ${z} unknown`);
+  /** Archive name unless it is only the English one copied over; then fishao.net, then the tracker. */
+  const nameCs = (f: SrcFish, n: NetFish) => {
+    const en = f.names.en;
+    for (const cs of [f.names.cs, n.name_cs, tracker.names_cs[n.id]]) if (cs && cs !== en && cs !== n.name) return cs;
+    return f.names.cs ?? en;
+  };
+  const filledCs: string[] = [];
   const sets: SrcSet[] = JSON.parse(await readFile(join(REPO, 'data', 'furniture_sets.json'), 'utf8'));
   const setIds = new Map(sets.filter(s => s.kind === 'set').map(s => [s.names.en.toLowerCase(), s.id]));
 
@@ -372,7 +400,9 @@ async function main() {
     if (!n) { fail(`${f.id}: not on fishao.net`); continue; }
     if (![1, 2, 3, 4, 5].includes(n.rating)) fail(`${f.id}: rarity ${n.rating}`);
     for (const b of n.baits) if (!NET_BAIT[b]) fail(`${f.id}: bait category "${b}" not mapped`);
-    const where = netWhere(n);
+    const where = netWhere(n, morayZones);
+    const cs = nameCs(f, n);
+    if (cs !== f.names.cs) filledCs.push(`${f.names.en} → ${cs}`);
     for (const a of where.areas) if (!areaIds.has(a)) fail(`${f.id}: unknown area ${a}`);
     if (!where.areas.length) fail(`${f.id}: no location`);
 
@@ -387,7 +417,7 @@ async function main() {
 
     fish.push({
       id: f.id,
-      names: { cs: f.names.cs ?? f.names.en, en: f.names.en },
+      names: { cs, en: f.names.en },
       areas: where.areas,
       spots: where.spots,
       ...(where.zones && { zones: where.zones }),
@@ -418,8 +448,10 @@ async function main() {
     return { id: a.id, name: a.name, kind: a.kind as AreaKind, spots, count: inIt.length, open };
   });
 
-  const palm = fish.filter(f => f.zones);
-  const zoneCount = ZONES.map(z => `${z} ${palm.filter(f => f.zones!.includes(z)).length}`).join(', ');
+  const zoneCount = (area: string) => {
+    const inIt = fish.filter(f => f.zones && f.areas.includes(area));
+    return ZONES.map(z => `${z} ${inIt.filter(f => f.zones!.includes(z)).length}`).join(', ');
+  };
 
   const furniture = await buildFurniture();
 
@@ -441,7 +473,9 @@ async function main() {
   console.log(`build-data: ${fish.length} fish, ${areas.length} areas`);
   console.log(`  images: ${kb(totalBytes)} total, largest ${kb(largest)}`);
   console.log(`build-data: ${furniture.items.length} furniture items in ${furniture.collections.length} collections, images ${kb(furniture.bytes)}`);
-  console.log(`  palm island zones: ${zoneCount}`);
+  console.log(`  palm island zones: ${zoneCount('palm-island')}`);
+  console.log(`  moray tournament zones: ${zoneCount(MORAY)}`);
+  console.log(`  Czech names filled in (${filledCs.length}): ${filledCs.join(', ')}`);
   console.log(`  white background removed (${cleanedIds.length}): ${cleanedIds.join(', ')}`);
 }
 

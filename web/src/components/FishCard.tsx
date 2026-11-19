@@ -1,6 +1,6 @@
 import { memo, useRef, useState, type KeyboardEvent, type MouseEvent, type PointerEvent } from 'react';
 import { fishImage, isBackyard } from '../data';
-import type { Fish } from '../data/types';
+import { isZonedArea, type Fish } from '../data/types';
 import { baitLabel, fishName, fmtRecord, fmtSeason, fmtSize, fmtTime, spotLabel } from '../i18n/format';
 import { useI18n } from '../i18n/context';
 import type { FishProgress, ProgressField } from '../progress/schema';
@@ -21,7 +21,7 @@ type Props = {
   priority?: 'high' | 'eager';
 };
 
-/** Areas with their spots; Palm Island lists its zones in short ("zóny B, C, G", "všechny zóny"). */
+/** Areas with their spots; zoned areas list their zones in short ("zóny B, C, G", "všechny zóny"). */
 export function Where({ fish, areaName, first }: { fish: Fish; areaName: (id: string) => string; first?: boolean }) {
   const { lang, t } = useI18n();
   const list = first ? fish.areas.slice(0, 1) : fish.areas;
@@ -29,7 +29,7 @@ export function Where({ fish, areaName, first }: { fish: Fish; areaName: (id: st
     <span key={a}>
       {i > 0 && (first ? ' ' : <br />)}
       {areaName(a)}
-      {a === 'palm-island' && fish.zones
+      {isZonedArea(a) && fish.zones
         ? <> <span className="note">{t.zones(fish.zones)}</span></>
         : fish.spots[a] && <> <span className="note">{fish.spots[a].map(s => spotLabel(s, lang).text).join(', ')}</span></>}
     </span>

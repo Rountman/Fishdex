@@ -1,5 +1,6 @@
 // UI copy for both languages. Fish names, baits and spots come from data + dictionaries.
 
+import type { ZonedArea } from '../data/types';
 import type { TimerId } from '../timers/timers';
 
 export type Lang = 'cs' | 'en';
@@ -84,11 +85,11 @@ const cs = {
   unlockFruits: 'Jahni na Palm Islandu rozdrtí v tomto pořadí:',
   unlockClub: (n: string) => `klub potřebuje ${n} klubových bodů`,
   unlockEarly: (n: string) => `v klubových vodách dřív za ${n} fishcoinů`,
-  mapTitle: 'Mapa Palm Islandu',
-  mapAlt: 'Mapa Palm Islandu se zónami A až H',
-  mapHint: 'Vyber zónu na mapě nebo v seznamu. Opětovný výběr ukáže celý ostrov.',
-  mapAll: 'Celý ostrov',
-  mapCredit: 'Mapa a zóny: fishao.net',
+  mapTitle: (a: ZonedArea): string => (a === 'palm-island' ? 'Mapa Palm Islandu' : 'Mapa Moray turnaje (Palm Island)'),
+  mapAlt: (a: ZonedArea): string => (a === 'palm-island' ? 'Mapa Palm Islandu se zónami A až H' : 'Mapa Palm Islandu se zónami A až H, na které se chytá Moray turnaj'),
+  mapHint: (a: ZonedArea) => `Vyber zónu na mapě nebo v seznamu. Opětovný výběr ukáže ${a === 'palm-island' ? 'celý ostrov' : 'celý turnaj'}.`,
+  mapAll: (a: ZonedArea): string => (a === 'palm-island' ? 'Celý ostrov' : 'Celý turnaj'),
+  mapCredit: (a: ZonedArea): string => (a === 'palm-island' ? 'Mapa a zóny: fishao.net' : 'Mapa: fishao.net, zóny turnaje: fishao-tracker.cz'),
   zoneName: (z: string) => `Zóna ${z}`,
   zoneAria: (z: string, c: number, n: number) => `Zóna ${z}: ${c} z ${n} ulovených`,
   where: 'Kde', when: 'Kdy', season: 'Sezóna', length: 'Délka', avgLen: (n: number) => `průměrně ${n} cm`, record: 'Rekord', unknownF: 'Neznámá',
@@ -302,11 +303,11 @@ const en: Strings = {
   unlockFruits: 'Jahni on Palm Island crushes, in this order:',
   unlockClub: n => `your club needs ${n} club points`,
   unlockEarly: n => `early in club waters for ${n} fishcoins`,
-  mapTitle: 'Palm Island map',
-  mapAlt: 'Map of Palm Island with zones A to H',
-  mapHint: 'Pick a zone on the map or in the list. Pick it again for the whole island.',
-  mapAll: 'Whole island',
-  mapCredit: 'Map and zones: fishao.net',
+  mapTitle: a => (a === 'palm-island' ? 'Palm Island map' : 'Moray Tournament map (Palm Island)'),
+  mapAlt: a => (a === 'palm-island' ? 'Map of Palm Island with zones A to H' : 'Map of Palm Island with zones A to H, where the Moray Tournament is fished'),
+  mapHint: a => `Pick a zone on the map or in the list. Pick it again for the whole ${a === 'palm-island' ? 'island' : 'tournament'}.`,
+  mapAll: a => (a === 'palm-island' ? 'Whole island' : 'Whole tournament'),
+  mapCredit: a => (a === 'palm-island' ? 'Map and zones: fishao.net' : 'Map: fishao.net, tournament zones: fishao-tracker.cz'),
   zoneName: z => `Zone ${z}`,
   zoneAria: (z, c, n) => `Zone ${z}: ${c} of ${n} caught`,
   where: 'Where', when: 'Time', season: 'Season', length: 'Length', avgLen: (n: number) => `${n} cm on average`, record: 'World record', unknownF: 'Unknown',

@@ -1,7 +1,7 @@
 {
  "source": "https://www.fishao.net/wiki",
  "bundle": "/_app/immutable/chunks/DwFZ_zyP.js",
- "fetched_at": "2026-11-17",
+ "fetched_at": "2026-11-19",
  "fish": [
   {
    "id": 14,
@@ -32,7 +32,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "piranha"
+   "fishdex_id": "piranha",
+   "name_cs": "Piraňa obecná"
   },
   {
    "id": 15,
@@ -63,7 +64,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "arapaima"
+   "fishdex_id": "arapaima",
+   "name_cs": "Arapaima velká"
   },
   {
    "id": 16,
@@ -92,7 +94,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "barbel"
+   "fishdex_id": "barbel",
+   "name_cs": "Parma obecná"
   },
   {
    "id": 17,
@@ -118,7 +121,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "bitterling"
+   "fishdex_id": "bitterling",
+   "name_cs": "Hořavka duhová"
   },
   {
    "id": 18,
@@ -146,7 +150,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "largemouth-bass"
+   "fishdex_id": "largemouth-bass",
+   "name_cs": "Okounek pstruhový"
   },
   {
    "id": 20,
@@ -176,7 +181,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "bluegill"
+   "fishdex_id": "bluegill",
+   "name_cs": "Slunečnice velkoploutvá"
   },
   {
    "id": 22,
@@ -205,7 +211,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "blue-marlin"
+   "fishdex_id": "blue-marlin",
+   "name_cs": "Marlín modrý"
   },
   {
    "id": 28,
@@ -235,7 +242,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "common-carp"
+   "fishdex_id": "common-carp",
+   "name_cs": "Kapr obecný"
   },
   {
    "id": 32,
@@ -266,7 +274,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "wels-catfish"
+   "fishdex_id": "wels-catfish",
+   "name_cs": "Sumec velký"
   },
   {
    "id": 33,
@@ -293,7 +302,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "beluga-sturgeon"
+   "fishdex_id": "beluga-sturgeon",
+   "name_cs": "Vyza velká"
   },
   {
    "id": 34,
@@ -327,7 +337,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "arctic-char"
+   "fishdex_id": "arctic-char",
+   "name_cs": "Siven severní"
   },
   {
    "id": 35,
@@ -356,7 +367,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "cherry-salmon"
+   "fishdex_id": "cherry-salmon",
+   "name_cs": "Losos masu"
   },
   {
    "id": 36,
@@ -383,7 +395,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "coelacanth"
+   "fishdex_id": "coelacanth",
+   "name_cs": "Latimérie podivná"
   },
   {
    "id": 37,
@@ -410,7 +423,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "crucian-carp"
+   "fishdex_id": "crucian-carp",
+   "name_cs": "Karas obecný"
   },
   {
    "id": 38,
@@ -436,7 +450,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "dab"
+   "fishdex_id": "dab",
+   "name_cs": "Limanda obecná"
   },
   {
    "id": 40,
@@ -463,7 +478,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "common-dace"
+   "fishdex_id": "common-dace",
+   "name_cs": "Jelec proudník"
   },
   {
    "id": 41,
@@ -493,7 +509,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "golden-dorado"
+   "fishdex_id": "golden-dorado",
+   "name_cs": "Kujaba brazilská"
   },
   {
    "id": 42,
@@ -523,7 +540,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "eel"
+   "fishdex_id": "eel",
+   "name_cs": "Úhoř"
   },
   {
    "id": 43,
@@ -550,7 +568,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "freshwater-goby"
+   "fishdex_id": "freshwater-goby",
+   "name_cs": "Hlaváč"
   },
   {
    "id": 44,
@@ -576,7 +595,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "gar"
+   "fishdex_id": "gar",
+   "name_cs": "Kostlín"
   },
   {
    "id": 45,
@@ -605,7 +625,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "giant-snakehead"
+   "fishdex_id": "giant-snakehead",
+   "name_cs": "Hadohlavec červený"
   },
   {
    "id": 46,
@@ -634,7 +655,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "gold-carp"
+   "fishdex_id": "gold-carp",
+   "name_cs": "Kapr zlatý"
   },
   {
    "id": 47,
@@ -665,7 +687,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "hammerhead-shark"
+   "fishdex_id": "hammerhead-shark",
+   "name_cs": "Žralok kladivoun"
   },
   {
    "id": 48,
@@ -690,7 +713,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "horse-mackerel"
+   "fishdex_id": "horse-mackerel",
+   "name_cs": "Kranas obecný"
   },
   {
    "id": 49,
@@ -716,7 +740,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "chinook-salmon"
+   "fishdex_id": "chinook-salmon",
+   "name_cs": "Losos čavyča"
   },
   {
    "id": 50,
@@ -741,7 +766,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "ocean-sunfish"
+   "fishdex_id": "ocean-sunfish",
+   "name_cs": "Měsíčník svítivý"
   },
   {
    "id": 51,
@@ -768,7 +794,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "yellow-perch"
+   "fishdex_id": "yellow-perch",
+   "name_cs": "Okoun žlutý"
   },
   {
    "id": 52,
@@ -794,7 +821,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "atlantic-bluefin-tuna"
+   "fishdex_id": "atlantic-bluefin-tuna",
+   "name_cs": "Tuňák obecný"
   },
   {
    "id": 54,
@@ -820,7 +848,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "olive-flounder"
+   "fishdex_id": "olive-flounder",
+   "name_cs": "Platýs velký"
   },
   {
    "id": 55,
@@ -846,7 +875,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "pale-chub"
+   "fishdex_id": "pale-chub",
+   "name_cs": "Zako japonský"
   },
   {
    "id": 56,
@@ -872,7 +902,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "pond-smelt"
+   "fishdex_id": "pond-smelt",
+   "name_cs": "Koruška maloústá"
   },
   {
    "id": 57,
@@ -902,7 +933,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "puffer-fish"
+   "fishdex_id": "puffer-fish",
+   "name_cs": "Čtverzubec"
   },
   {
    "id": 58,
@@ -931,7 +963,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "rainbow-trout"
+   "fishdex_id": "rainbow-trout",
+   "name_cs": "Pstruh duhový"
   },
   {
    "id": 59,
@@ -958,7 +991,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "red-snapper"
+   "fishdex_id": "red-snapper",
+   "name_cs": "Chňapal červený"
   },
   {
    "id": 60,
@@ -984,7 +1018,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "common-salmon"
+   "fishdex_id": "common-salmon",
+   "name_cs": "Losos obecný"
   },
   {
    "id": 61,
@@ -1010,7 +1045,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "sea-bass"
+   "fishdex_id": "sea-bass",
+   "name_cs": "Mořčák evropský"
   },
   {
    "id": 62,
@@ -1036,7 +1072,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "shark"
+   "fishdex_id": "shark",
+   "name_cs": "Žralok"
   },
   {
    "id": 63,
@@ -1064,7 +1101,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "pike"
+   "fishdex_id": "pike",
+   "name_cs": "Štika obecná"
   },
   {
    "id": 64,
@@ -1090,7 +1128,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "bream"
+   "fishdex_id": "bream",
+   "name_cs": "Cejn velký"
   },
   {
    "id": 65,
@@ -1116,7 +1155,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "orangespotted-sunfish"
+   "fishdex_id": "orangespotted-sunfish",
+   "name_cs": "Slunečnice malá"
   },
   {
    "id": 66,
@@ -1142,7 +1182,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "tench"
+   "fishdex_id": "tench",
+   "name_cs": "Lín obecný"
   },
   {
    "id": 67,
@@ -1167,7 +1208,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "black-acara"
+   "fishdex_id": "black-acara",
+   "name_cs": "Akara dvouskvrnná"
   },
   {
    "id": 68,
@@ -1194,7 +1236,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "spotted-sorubim"
+   "fishdex_id": "spotted-sorubim",
+   "name_cs": "Anténovec paranánský"
   },
   {
    "id": 69,
@@ -1220,7 +1263,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "electric-eel"
+   "fishdex_id": "electric-eel",
+   "name_cs": "Paúhoř elektrický"
   },
   {
    "id": 70,
@@ -1246,7 +1290,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "blackfin-pearlfish"
+   "fishdex_id": "blackfin-pearlfish",
+   "name_cs": "Vějířovka černoploutvá"
   },
   {
    "id": 71,
@@ -1272,7 +1317,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "marbled-headstander"
+   "fishdex_id": "marbled-headstander",
+   "name_cs": "Úzkotlamka cejnovitá"
   },
   {
    "id": 72,
@@ -1298,7 +1344,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "pike-cichlid"
+   "fishdex_id": "pike-cichlid",
+   "name_cs": "Hřebenáč paví"
   },
   {
    "id": 73,
@@ -1324,7 +1371,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "sergeant-major"
+   "fishdex_id": "sergeant-major",
+   "name_cs": "Útesník pruhovaný"
   },
   {
    "id": 74,
@@ -1351,7 +1399,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "honeycomb-cowfish"
+   "fishdex_id": "honeycomb-cowfish",
+   "name_cs": "Havýš plástevný"
   },
   {
    "id": 75,
@@ -1379,7 +1428,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "barracuda"
+   "fishdex_id": "barracuda",
+   "name_cs": "Soltýn barakuda"
   },
   {
    "id": 76,
@@ -1405,7 +1455,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "tarpon-atlantic"
+   "fishdex_id": "tarpon-atlantic",
+   "name_cs": "Tarpon atlantský"
   },
   {
    "id": 77,
@@ -1435,7 +1486,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "rainbow-runner"
+   "fishdex_id": "rainbow-runner",
+   "name_cs": "Kranas duhový"
   },
   {
    "id": 80,
@@ -1460,7 +1512,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "pacuma-toadfish"
+   "fishdex_id": "pacuma-toadfish",
+   "name_cs": "Žabohlavec surinamský"
   },
   {
    "id": 81,
@@ -1486,7 +1539,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "leerfish"
+   "fishdex_id": "leerfish",
+   "name_cs": "Vidlatka tuňákovitá"
   },
   {
    "id": 82,
@@ -1512,7 +1566,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "coral-hind"
+   "fishdex_id": "coral-hind",
+   "name_cs": "Kanic modroskvrnný"
   },
   {
    "id": 83,
@@ -1538,7 +1593,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "sardinella"
+   "fishdex_id": "sardinella",
+   "name_cs": "Sardinka oblá"
   },
   {
    "id": 84,
@@ -1564,7 +1620,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "kaluga-sturgeon"
+   "fishdex_id": "kaluga-sturgeon",
+   "name_cs": "Vyza malá"
   },
   {
    "id": 85,
@@ -1590,7 +1647,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "queen-angelfish"
+   "fishdex_id": "queen-angelfish",
+   "name_cs": "Pomec modročelý"
   },
   {
    "id": 86,
@@ -1616,7 +1674,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "blue-striped-grunt"
+   "fishdex_id": "blue-striped-grunt",
+   "name_cs": "Chrochtal modropásý"
   },
   {
    "id": 87,
@@ -1650,7 +1709,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "nassau-grouper"
+   "fishdex_id": "nassau-grouper",
+   "name_cs": "Kanic bělopruhý"
   },
   {
    "id": 88,
@@ -1676,7 +1736,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "french-angelfish"
+   "fishdex_id": "french-angelfish",
+   "name_cs": "Pomec černý"
   },
   {
    "id": 89,
@@ -1702,7 +1763,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "wenchman"
+   "fishdex_id": "wenchman",
+   "name_cs": "Chňapal"
   },
   {
    "id": 90,
@@ -1729,7 +1791,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "sargassum-triggerfish"
+   "fishdex_id": "sargassum-triggerfish",
+   "name_cs": "Ostenec sargasový"
   },
   {
    "id": 91,
@@ -1756,7 +1819,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "pearly-razorfish"
+   "fishdex_id": "pearly-razorfish",
+   "name_cs": "Pyskoun perlový"
   },
   {
    "id": 92,
@@ -1782,7 +1846,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "bigeye-scad"
+   "fishdex_id": "bigeye-scad",
+   "name_cs": "Kranas mosazopruhý"
   },
   {
    "id": 93,
@@ -1811,7 +1876,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "ariidae"
+   "fishdex_id": "ariidae",
+   "name_cs": "Křížovec dlouhoploutvý"
   },
   {
    "id": 94,
@@ -1836,7 +1902,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "livingstons-chichild"
+   "fishdex_id": "livingstons-chichild",
+   "name_cs": "Tlamovec Livingstonův"
   },
   {
    "id": 95,
@@ -1863,7 +1930,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "giant-gourami"
+   "fishdex_id": "giant-gourami",
+   "name_cs": "Gurama velká"
   },
   {
    "id": 96,
@@ -1889,7 +1957,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "golden-arowana"
+   "fishdex_id": "golden-arowana",
+   "name_cs": "Arowana zlatá"
   },
   {
    "id": 97,
@@ -1919,7 +1988,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "north-african-catfish"
+   "fishdex_id": "north-african-catfish",
+   "name_cs": "Keříčkovec červenolemý"
   },
   {
    "id": 98,
@@ -1947,7 +2017,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "elongate-tigerfish"
+   "fishdex_id": "elongate-tigerfish",
+   "name_cs": "Afrotetra Forskållova"
   },
   {
    "id": 99,
@@ -1974,7 +2045,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "cornish-jack"
+   "fishdex_id": "cornish-jack",
+   "name_cs": "Rypoun úhořovitý"
   },
   {
    "id": 100,
@@ -2000,7 +2072,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "nile-tilapia"
+   "fishdex_id": "nile-tilapia",
+   "name_cs": "Tlamoun nilský"
   },
   {
    "id": 101,
@@ -2030,7 +2103,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "african-butter-catfish"
+   "fishdex_id": "african-butter-catfish",
+   "name_cs": "Sumčík stříbřitý"
   },
   {
    "id": 102,
@@ -2056,7 +2130,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "clownfish"
+   "fishdex_id": "clownfish",
+   "name_cs": "Klaun očkatý"
   },
   {
    "id": 105,
@@ -2083,7 +2158,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "common-rudd"
+   "fishdex_id": "common-rudd",
+   "name_cs": "Perlín ostrobřichý"
   },
   {
    "id": 107,
@@ -2111,7 +2187,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "nile-perch"
+   "fishdex_id": "nile-perch",
+   "name_cs": "Robalo nilský"
   },
   {
    "id": 108,
@@ -2138,7 +2215,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "walleye"
+   "fishdex_id": "walleye",
+   "name_cs": "Candát severoamerický"
   },
   {
    "id": 109,
@@ -2164,7 +2242,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "peacock-bass"
+   "fishdex_id": "peacock-bass",
+   "name_cs": "Cichlida"
   },
   {
    "id": 110,
@@ -2193,7 +2272,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "largemouth-yellowfish"
+   "fishdex_id": "largemouth-yellowfish",
+   "name_cs": "Parma velkotlamá"
   },
   {
    "id": 111,
@@ -2220,7 +2300,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "freshwater-drum"
+   "fishdex_id": "freshwater-drum",
+   "name_cs": "Smuha chrochtavá"
   },
   {
    "id": 112,
@@ -2247,7 +2328,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "clown-featherback"
+   "fishdex_id": "clown-featherback",
+   "name_cs": "Nožovec velký"
   },
   {
    "id": 113,
@@ -2273,7 +2355,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "chinese-false-gudgeon"
+   "fishdex_id": "chinese-false-gudgeon",
+   "name_cs": "Hrouzkovka skvrnoploutvá"
   },
   {
    "id": 114,
@@ -2299,7 +2382,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "horseface-loach"
+   "fishdex_id": "horseface-loach",
+   "name_cs": "Sekavec vepřorypý"
   },
   {
    "id": 115,
@@ -2324,7 +2408,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "chinese-sturgeon"
+   "fishdex_id": "chinese-sturgeon",
+   "name_cs": "Jeseter čínský"
   },
   {
    "id": 116,
@@ -2351,7 +2436,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "catla"
+   "fishdex_id": "catla",
+   "name_cs": "Katla obecná"
   },
   {
    "id": 117,
@@ -2376,7 +2462,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "elephantfish"
+   "fishdex_id": "elephantfish",
+   "name_cs": "Rypoun zobanitý"
   },
   {
    "id": 118,
@@ -2402,7 +2489,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "opah"
+   "fishdex_id": "opah",
+   "name_cs": "Leskyně skvrnitá"
   },
   {
    "id": 119,
@@ -2430,7 +2518,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "silver-scabbardfish"
+   "fishdex_id": "silver-scabbardfish",
+   "name_cs": "Tkaničnice stříbřitá"
   },
   {
    "id": 120,
@@ -2457,7 +2546,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "thicklip-grey-mullet"
+   "fishdex_id": "thicklip-grey-mullet",
+   "name_cs": "Cípal pyskatý"
   },
   {
    "id": 121,
@@ -2483,7 +2573,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "atlantic-herring"
+   "fishdex_id": "atlantic-herring",
+   "name_cs": "Sleď obecný"
   },
   {
    "id": 122,
@@ -2510,7 +2601,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "tope-shark"
+   "fishdex_id": "tope-shark",
+   "name_cs": "Žralok psí"
   },
   {
    "id": 123,
@@ -2535,7 +2627,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "european-conger"
+   "fishdex_id": "european-conger",
+   "name_cs": "Úhořovec mořský"
   },
   {
    "id": 124,
@@ -2561,7 +2654,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "lesser-weever"
+   "fishdex_id": "lesser-weever",
+   "name_cs": "Ostnatec zmijí"
   },
   {
    "id": 125,
@@ -2587,7 +2681,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "haddock"
+   "fishdex_id": "haddock",
+   "name_cs": "Treska skvrnitá"
   },
   {
    "id": 126,
@@ -2615,7 +2710,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "goldsilk-bream"
+   "fishdex_id": "goldsilk-bream",
+   "name_cs": "Mořan zlatý"
   },
   {
    "id": 127,
@@ -2646,7 +2742,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "electric-catfish"
+   "fishdex_id": "electric-catfish",
+   "name_cs": "Pasumec elektrický"
   },
   {
    "id": 128,
@@ -2675,7 +2772,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "brown-trout"
+   "fishdex_id": "brown-trout",
+   "name_cs": "Pstruh obecný"
   },
   {
    "id": 129,
@@ -2702,7 +2800,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "alligator-gar"
+   "fishdex_id": "alligator-gar",
+   "name_cs": "Kostlín obrovský"
   },
   {
    "id": 130,
@@ -2730,7 +2829,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "atlantic-wolffish"
+   "fishdex_id": "atlantic-wolffish",
+   "name_cs": "Vlkouš obecný"
   },
   {
    "id": 131,
@@ -2755,7 +2855,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "bigmouth-buffalo"
+   "fishdex_id": "bigmouth-buffalo",
+   "name_cs": "Kaprovec velkoústý"
   },
   {
    "id": 132,
@@ -2781,7 +2882,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "grayling"
+   "fishdex_id": "grayling",
+   "name_cs": "Lipan podhorní"
   },
   {
    "id": 133,
@@ -2807,7 +2909,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "flame-angelfish"
+   "fishdex_id": "flame-angelfish",
+   "name_cs": "Pomčík ohnivý"
   },
   {
    "id": 134,
@@ -2834,7 +2937,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "golden-perch"
+   "fishdex_id": "golden-perch",
+   "name_cs": "Paokoun zlatavý"
   },
   {
    "id": 135,
@@ -2860,7 +2964,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "goliath-tigerfish"
+   "fishdex_id": "goliath-tigerfish",
+   "name_cs": "Binga tygří"
   },
   {
    "id": 136,
@@ -2888,7 +2993,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "green-sawfish"
+   "fishdex_id": "green-sawfish",
+   "name_cs": "Piloun mnohozubý"
   },
   {
    "id": 137,
@@ -2914,7 +3020,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "lake-sturgeon"
+   "fishdex_id": "lake-sturgeon",
+   "name_cs": "Jeseter jezerní"
   },
   {
    "id": 138,
@@ -2941,7 +3048,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "lionhead-goldfish"
+   "fishdex_id": "lionhead-goldfish",
+   "name_cs": "Karas Lví hlava"
   },
   {
    "id": 139,
@@ -2968,7 +3076,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "murray-cod"
+   "fishdex_id": "murray-cod",
+   "name_cs": "Paokoun mramorovaný"
   },
   {
    "id": 140,
@@ -2995,7 +3104,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "oscar"
+   "fishdex_id": "oscar",
+   "name_cs": "Vrubozubec paví"
   },
   {
    "id": 141,
@@ -3022,7 +3132,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "painted-comber"
+   "fishdex_id": "painted-comber",
+   "name_cs": "Kanic písmenkový"
   },
   {
    "id": 142,
@@ -3048,7 +3159,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "payara"
+   "fishdex_id": "payara",
+   "name_cs": "Zubatice makrelová"
   },
   {
    "id": 143,
@@ -3075,7 +3187,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "pink-salmon"
+   "fishdex_id": "pink-salmon",
+   "name_cs": "Losos gorbuša"
   },
   {
    "id": 144,
@@ -3103,7 +3216,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "sailfish"
+   "fishdex_id": "sailfish",
+   "name_cs": "Plachetník širokoploutvý"
   },
   {
    "id": 145,
@@ -3130,7 +3244,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "sleepy-cod"
+   "fishdex_id": "sleepy-cod",
+   "name_cs": "Hlavačka"
   },
   {
    "id": 146,
@@ -3159,7 +3274,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "sockeye-salmon"
+   "fishdex_id": "sockeye-salmon",
+   "name_cs": "Losos nerka"
   },
   {
    "id": 147,
@@ -3186,7 +3302,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "tailspot-ctenopoma"
+   "fishdex_id": "tailspot-ctenopoma",
+   "name_cs": "Ostnovec skvrnoocasý"
   },
   {
    "id": 148,
@@ -3212,7 +3329,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "tambaqui"
+   "fishdex_id": "tambaqui",
+   "name_cs": "Piraňa rostlinožravá"
   },
   {
    "id": 149,
@@ -3240,7 +3358,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "weever-fish"
+   "fishdex_id": "weever-fish",
+   "name_cs": "Ostnatec skvrnkovaný"
   },
   {
    "id": 150,
@@ -3269,7 +3388,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "golden-trout"
+   "fishdex_id": "golden-trout",
+   "name_cs": "Pstruh aguabonita"
   },
   {
    "id": 151,
@@ -3298,7 +3418,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "brook-trout"
+   "fishdex_id": "brook-trout",
+   "name_cs": "Siven americký"
   },
   {
    "id": 152,
@@ -3327,7 +3448,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "tiger-trout"
+   "fishdex_id": "tiger-trout",
+   "name_cs": "Tygří ryba"
   },
   {
    "id": 154,
@@ -3358,7 +3480,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "common-octopus"
+   "fishdex_id": "common-octopus",
+   "name_cs": "Chobotnice pobřežní"
   },
   {
    "id": 155,
@@ -3385,7 +3508,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "occelate-river-stingray"
+   "fishdex_id": "occelate-river-stingray",
+   "name_cs": "Rejnok říční"
   },
   {
    "id": 156,
@@ -3412,7 +3536,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "deepwater-sculpin"
+   "fishdex_id": "deepwater-sculpin",
+   "name_cs": "Vranka mnohoostná"
   },
   {
    "id": 157,
@@ -3438,7 +3563,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "mad-barb"
+   "fishdex_id": "mad-barb",
+   "name_cs": "Amuřice Hoevenova"
   },
   {
    "id": 158,
@@ -3465,7 +3591,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "siamese-tigerfish"
+   "fishdex_id": "siamese-tigerfish",
+   "name_cs": "Pilohřbetec malošupinatý"
   },
   {
    "id": 159,
@@ -3491,7 +3618,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "sailray"
+   "fishdex_id": "sailray",
+   "name_cs": "Rejnok severní"
   },
   {
    "id": 160,
@@ -3517,7 +3645,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "european-flounder"
+   "fishdex_id": "european-flounder",
+   "name_cs": "Platýs bradavičnatý"
   },
   {
    "id": 161,
@@ -3542,7 +3671,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "eastern-mudminnow"
+   "fishdex_id": "eastern-mudminnow",
+   "name_cs": "Blatňák menší"
   },
   {
    "id": 162,
@@ -3569,7 +3699,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "european-perch"
+   "fishdex_id": "european-perch",
+   "name_cs": "Okoun říční"
   },
   {
    "id": 164,
@@ -3596,7 +3727,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "goldfish"
+   "fishdex_id": "goldfish",
+   "name_cs": "Karas zlatý"
   },
   {
    "id": 165,
@@ -3625,7 +3757,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "european-chub"
+   "fishdex_id": "european-chub",
+   "name_cs": "Jelec tloušť"
   },
   {
    "id": 166,
@@ -3652,7 +3785,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "zander"
+   "fishdex_id": "zander",
+   "name_cs": "Candát obecný"
   },
   {
    "id": 167,
@@ -3681,7 +3815,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "black-bullhead"
+   "fishdex_id": "black-bullhead",
+   "name_cs": "Sumeček černý"
   },
   {
    "id": 168,
@@ -3708,7 +3843,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "barreleye"
+   "fishdex_id": "barreleye",
+   "name_cs": "Strašík maloústý"
   },
   {
    "id": 169,
@@ -3735,7 +3871,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "red-scorpionfish"
+   "fishdex_id": "red-scorpionfish",
+   "name_cs": "Ropušnice malá"
   },
   {
    "id": 170,
@@ -3762,7 +3899,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "dolly-varden"
+   "fishdex_id": "dolly-varden",
+   "name_cs": "Siven malma"
   },
   {
    "id": 171,
@@ -3788,7 +3926,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "suckermouth-catfish"
+   "fishdex_id": "suckermouth-catfish",
+   "name_cs": "Krunýřovec guyanský"
   },
   {
    "id": 172,
@@ -3813,7 +3952,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "paddlefish"
+   "fishdex_id": "paddlefish",
+   "name_cs": "Veslonos americký"
   },
   {
    "id": 173,
@@ -3841,7 +3981,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "lionfish"
+   "fishdex_id": "lionfish",
+   "name_cs": "Perutýn ohnivý"
   },
   {
    "id": 174,
@@ -3867,7 +4008,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "smooth-trunkfish"
+   "fishdex_id": "smooth-trunkfish",
+   "name_cs": "Havýš hladký"
   },
   {
    "id": 175,
@@ -3892,7 +4034,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "rainbow-parrotfish"
+   "fishdex_id": "rainbow-parrotfish",
+   "name_cs": "Ploskozubec duhový"
   },
   {
    "id": 176,
@@ -3922,7 +4065,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "humpback-anglerfish"
+   "fishdex_id": "humpback-anglerfish",
+   "name_cs": "Velkotlamec Johnsonův"
   },
   {
    "id": 177,
@@ -3951,7 +4095,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "mekong-giant-catfish"
+   "fishdex_id": "mekong-giant-catfish",
+   "name_cs": "Pangas velký"
   },
   {
    "id": 179,
@@ -3978,7 +4123,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "rock-bass"
+   "fishdex_id": "rock-bass",
+   "name_cs": "Slunečnice červenooká"
   },
   {
    "id": 180,
@@ -4008,7 +4154,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "mandarinfish"
+   "fishdex_id": "mandarinfish",
+   "name_cs": "Vřeténka mandarín"
   },
   {
    "id": 181,
@@ -4035,7 +4182,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "smallmouth-bass"
+   "fishdex_id": "smallmouth-bass",
+   "name_cs": "Okounek černý"
   },
   {
    "id": 182,
@@ -4062,7 +4210,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "spotted-bass"
+   "fishdex_id": "spotted-bass",
+   "name_cs": "Okounek tmavoskvrnný"
   },
   {
    "id": 183,
@@ -4090,7 +4239,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "common-dolphinfish"
+   "fishdex_id": "common-dolphinfish",
+   "name_cs": "Koryféna velká"
   },
   {
    "id": 184,
@@ -4116,7 +4266,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "flying-fish"
+   "fishdex_id": "flying-fish",
+   "name_cs": "Letoun středomořský"
   },
   {
    "id": 185,
@@ -4145,7 +4296,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "giant-moray"
+   "fishdex_id": "giant-moray",
+   "name_cs": "Muréna jávská"
   },
   {
    "id": 187,
@@ -4178,7 +4330,8 @@
     "hours": 32,
     "rate": 0.47
    },
-   "fishdex_id": "bagarius"
+   "fishdex_id": "bagarius",
+   "name_cs": "Sisora Yarrellova"
   },
   {
    "id": 188,
@@ -4209,7 +4362,8 @@
     "hours": 3,
     "rate": 0.88
    },
-   "fishdex_id": "freshwater-hatchedfish"
+   "fishdex_id": "freshwater-hatchedfish",
+   "name_cs": "Sekernatka drobná"
   },
   {
    "id": 189,
@@ -4242,7 +4396,8 @@
     "hours": 5,
     "rate": 0.95
    },
-   "fishdex_id": "black-crappy"
+   "fishdex_id": "black-crappy",
+   "name_cs": "Okounek černoskvrnný"
   },
   {
    "id": 190,
@@ -4272,7 +4427,8 @@
     "hours": 4,
     "rate": 0.94
    },
-   "fishdex_id": "common-bleak"
+   "fishdex_id": "common-bleak",
+   "name_cs": "Ouklej obecná"
   },
   {
    "id": 191,
@@ -4302,7 +4458,8 @@
     "hours": 2,
     "rate": 0.99
    },
-   "fishdex_id": "guppy"
+   "fishdex_id": "guppy",
+   "name_cs": "Živorodka duhová"
   },
   {
    "id": 192,
@@ -4333,7 +4490,8 @@
     "hours": 47,
     "rate": 0.38
    },
-   "fishdex_id": "giant-barb"
+   "fishdex_id": "giant-barb",
+   "name_cs": "Veleparma thajská"
   },
   {
    "id": 193,
@@ -4365,7 +4523,8 @@
     "hours": 9,
     "rate": 0.82
    },
-   "fishdex_id": "discus"
+   "fishdex_id": "discus",
+   "name_cs": "Terčovec"
   },
   {
    "id": 194,
@@ -4398,7 +4557,8 @@
     "hours": 12,
     "rate": 0.77
    },
-   "fishdex_id": "bagrus-bajad"
+   "fishdex_id": "bagrus-bajad",
+   "name_cs": "Sumíček bajad"
   },
   {
    "id": 195,
@@ -4429,7 +4589,8 @@
     "hours": 17,
     "rate": 0.81
    },
-   "fishdex_id": "black-buffalo"
+   "fishdex_id": "black-buffalo",
+   "name_cs": "Kaprovec černý"
   },
   {
    "id": 196,
@@ -4461,7 +4622,8 @@
     "hours": 29,
     "rate": 0.39
    },
-   "fishdex_id": "midas-cichlid"
+   "fishdex_id": "midas-cichlid",
+   "name_cs": "Kančík citrónový"
   },
   {
    "id": 197,
@@ -4492,7 +4654,8 @@
     "hours": 77,
     "rate": 0.23
    },
-   "fishdex_id": "danube-salmon"
+   "fishdex_id": "danube-salmon",
+   "name_cs": "Hlavatka obecná"
   },
   {
    "id": 198,
@@ -4526,7 +4689,8 @@
     "hours": 14,
     "rate": 0.89
    },
-   "fishdex_id": "rainbow-darter"
+   "fishdex_id": "rainbow-darter",
+   "name_cs": "Candátek modropásý"
   },
   {
    "id": 199,
@@ -4558,7 +4722,8 @@
     "hours": 35,
     "rate": 0.44
    },
-   "fishdex_id": "marbled-lungfish"
+   "fishdex_id": "marbled-lungfish",
+   "name_cs": "Bahník východoafrický"
   },
   {
    "id": 200,
@@ -4588,7 +4753,8 @@
     "hours": 10,
     "rate": 0.57
    },
-   "fishdex_id": "african-knifefish"
+   "fishdex_id": "african-knifefish",
+   "name_cs": "Nožovec černý"
   },
   {
    "id": 201,
@@ -4622,7 +4788,8 @@
     "hours": 25,
     "rate": 0.62
    },
-   "fishdex_id": "burbot"
+   "fishdex_id": "burbot",
+   "name_cs": "Mník jednovousý"
   },
   {
    "id": 202,
@@ -4655,7 +4822,8 @@
     "hours": 22,
     "rate": 0.52
    },
-   "fishdex_id": "ripsaw-catfish"
+   "fishdex_id": "ripsaw-catfish",
+   "name_cs": "Trnovec černý"
   },
   {
    "id": 203,
@@ -4685,7 +4853,8 @@
     "hours": 48,
     "rate": 0.17
    },
-   "fishdex_id": "vandellia"
+   "fishdex_id": "vandellia",
+   "name_cs": "Vandélie obecná"
   },
   {
    "id": 204,
@@ -4719,7 +4888,8 @@
     "hours": 40,
     "rate": 0.34
    },
-   "fishdex_id": "tiger-muskellunge"
+   "fishdex_id": "tiger-muskellunge",
+   "name_cs": "Štika muskalunga"
   },
   {
    "id": 205,
@@ -4753,7 +4923,8 @@
     "hours": 100,
     "rate": 0.19
    },
-   "fishdex_id": "bull-shark"
+   "fishdex_id": "bull-shark",
+   "name_cs": "Žralok bělavý"
   },
   {
    "id": 206,
@@ -4785,7 +4956,8 @@
     "hours": 80,
     "rate": 0.28
    },
-   "fishdex_id": "giant-freshwater-stingray"
+   "fishdex_id": "giant-freshwater-stingray",
+   "name_cs": "Trnucha thajská"
   },
   {
    "id": 207,
@@ -4814,7 +4986,8 @@
     "hours": 11,
     "rate": 0.68
    },
-   "fishdex_id": "texas-cichlid"
+   "fishdex_id": "texas-cichlid",
+   "name_cs": "Kančík modroskvrnný"
   },
   {
    "id": 208,
@@ -4847,7 +5020,8 @@
     "hours": 19,
     "rate": 0.48
    },
-   "fishdex_id": "flathead-catfish"
+   "fishdex_id": "flathead-catfish",
+   "name_cs": "Sumeček plochohlavý"
   },
   {
    "id": 209,
@@ -4884,7 +5058,8 @@
     "hours": 22,
     "rate": 0.38
    },
-   "fishdex_id": "bull-trout"
+   "fishdex_id": "bull-trout",
+   "name_cs": "Siven velkohlavý"
   },
   {
    "id": 210,
@@ -4921,7 +5096,8 @@
     "hours": 76,
     "rate": 0.22
    },
-   "fishdex_id": "apache-trout"
+   "fishdex_id": "apache-trout",
+   "name_cs": "Pstruh apačský"
   },
   {
    "id": 211,
@@ -4954,7 +5130,8 @@
     "hours": 52,
     "rate": 0.04
    },
-   "fishdex_id": "blue-catfish"
+   "fishdex_id": "blue-catfish",
+   "name_cs": "Sumeček velký"
   },
   {
    "id": 212,
@@ -4983,7 +5160,8 @@
     "hours": 4,
     "rate": 0.97
    },
-   "fishdex_id": "alpine-bullhead"
+   "fishdex_id": "alpine-bullhead",
+   "name_cs": "Vranka pruhoploutvá"
   },
   {
    "id": 213,
@@ -5012,7 +5190,8 @@
     "hours": 7,
     "rate": 0.86
    },
-   "fishdex_id": "zingel-streber"
+   "fishdex_id": "zingel-streber",
+   "name_cs": "Drsek menší"
   },
   {
    "id": 214,
@@ -5045,7 +5224,8 @@
     "hours": 8,
     "rate": 0.62
    },
-   "fishdex_id": "pumpkinseed-sunfish"
+   "fishdex_id": "pumpkinseed-sunfish",
+   "name_cs": "Slunečnice pestrá"
   },
   {
    "id": 215,
@@ -5074,7 +5254,8 @@
     "hours": 13,
     "rate": 0.47
    },
-   "fishdex_id": "fourhorned-sculpin"
+   "fishdex_id": "fourhorned-sculpin",
+   "name_cs": "Vranka čtyřrohá"
   },
   {
    "id": 216,
@@ -5105,7 +5286,8 @@
     "hours": 33,
     "rate": 0.19
    },
-   "fishdex_id": "red-striped-rasbora"
+   "fishdex_id": "red-striped-rasbora",
+   "name_cs": "Razbora červenopruhá"
   },
   {
    "id": 217,
@@ -5138,7 +5320,8 @@
     "hours": 12,
     "rate": 0.75
    },
-   "fishdex_id": "striped-headstander"
+   "fishdex_id": "striped-headstander",
+   "name_cs": "Úzkotlamka nádherná"
   },
   {
    "id": 218,
@@ -5170,7 +5353,8 @@
     "hours": 17,
     "rate": 0.55
    },
-   "fishdex_id": "blue-lyretail"
+   "fishdex_id": "blue-lyretail",
+   "name_cs": "Halančík Gardnerův"
   },
   {
    "id": 219,
@@ -5201,7 +5385,8 @@
     "hours": 28,
     "rate": 0.17
    },
-   "fishdex_id": "whitebarred-catfish"
+   "fishdex_id": "whitebarred-catfish",
+   "name_cs": "Trnovec hřebenočelý"
   },
   {
    "id": 220,
@@ -5232,7 +5417,8 @@
     "hours": 41,
     "rate": 0.33
    },
-   "fishdex_id": "kuhli-loach"
+   "fishdex_id": "kuhli-loach",
+   "name_cs": "Sekavec příčnopásý"
   },
   {
    "id": 221,
@@ -5263,7 +5449,8 @@
     "hours": 27,
     "rate": 0.45
    },
-   "fishdex_id": "freshwater-butterflyfish"
+   "fishdex_id": "freshwater-butterflyfish",
+   "name_cs": "Motýlkovec africký"
   },
   {
    "id": 222,
@@ -5295,7 +5482,8 @@
     "hours": 75,
     "rate": 0.17
    },
-   "fishdex_id": "fire-eel"
+   "fishdex_id": "fire-eel",
+   "name_cs": "Hrotočelec ohnivý"
   },
   {
    "id": 223,
@@ -5327,7 +5515,8 @@
     "hours": 44,
     "rate": 0.48
    },
-   "fishdex_id": "amazon-leaf-fish"
+   "fishdex_id": "amazon-leaf-fish",
+   "name_cs": "Ostnáč jednovousý"
   },
   {
    "id": 224,
@@ -5361,7 +5550,8 @@
     "hours": 26,
     "rate": 0.42
    },
-   "fishdex_id": "bowfin"
+   "fishdex_id": "bowfin",
+   "name_cs": "Kaproun obecný"
   },
   {
    "id": 225,
@@ -5392,7 +5582,8 @@
     "hours": 92,
     "rate": 0.15
    },
-   "fishdex_id": "white-sturgeon"
+   "fishdex_id": "white-sturgeon",
+   "name_cs": "Jeseter bílý"
   },
   {
    "id": 226,
@@ -5427,7 +5618,8 @@
     "hours": 55,
     "rate": 0.43
    },
-   "fishdex_id": "hucho-taimen"
+   "fishdex_id": "hucho-taimen",
+   "name_cs": "Hlavatka sibiřská"
   },
   {
    "id": 227,
@@ -5457,7 +5649,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "giant-oarfish"
+   "fishdex_id": "giant-oarfish",
+   "name_cs": "Hlístoun červenohřívý"
   },
   {
    "id": 228,
@@ -5487,7 +5680,8 @@
     "hours": 41,
     "rate": 0.27
    },
-   "fishdex_id": "dwarf-pufferfish"
+   "fishdex_id": "dwarf-pufferfish",
+   "name_cs": "Čtverzubec trpasličí"
   },
   {
    "id": 229,
@@ -5517,7 +5711,8 @@
     "hours": 52,
     "rate": 0.51
    },
-   "fishdex_id": "rainbowfish"
+   "fishdex_id": "rainbowfish",
+   "name_cs": "Duhovka"
   },
   {
    "id": 230,
@@ -5554,7 +5749,8 @@
     "hours": 160,
     "rate": 0.11
    },
-   "fishdex_id": "paroon-shark"
+   "fishdex_id": "paroon-shark",
+   "name_cs": "Pangas vláknoploutvý"
   },
   {
    "id": 231,
@@ -5587,7 +5783,8 @@
     "hours": 72,
     "rate": 0.04
    },
-   "fishdex_id": "silver-arowana"
+   "fishdex_id": "silver-arowana",
+   "name_cs": "Arowana dvojvousá"
   },
   {
    "id": 232,
@@ -5618,7 +5815,8 @@
     "hours": 111,
     "rate": 0.02
    },
-   "fishdex_id": "asian-arowana"
+   "fishdex_id": "asian-arowana",
+   "name_cs": "Arowana asijská"
   },
   {
    "id": 233,
@@ -5647,7 +5845,8 @@
     "hours": 18,
     "rate": 0.11
    },
-   "fishdex_id": "siamese-fighting-fish"
+   "fishdex_id": "siamese-fighting-fish",
+   "name_cs": "Bojovnice pestrá"
   },
   {
    "id": 234,
@@ -5677,7 +5876,8 @@
     "hours": 16,
     "rate": 0.61
    },
-   "fishdex_id": "congo-pufferfish"
+   "fishdex_id": "congo-pufferfish",
+   "name_cs": "Čtverzubec konžský"
   },
   {
    "id": 235,
@@ -5707,7 +5907,8 @@
     "hours": 13,
     "rate": 0.59
    },
-   "fishdex_id": "hairy-pufferfish"
+   "fishdex_id": "hairy-pufferfish",
+   "name_cs": "Čtverzubec baileyi"
   },
   {
    "id": 236,
@@ -5736,7 +5937,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "chaca-chaca-catfish"
+   "fishdex_id": "chaca-chaca-catfish",
+   "name_cs": "Chaka indonéská"
   },
   {
    "id": 237,
@@ -5763,7 +5965,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "freshwater-lionfish"
+   "fishdex_id": "freshwater-lionfish",
+   "name_cs": "Žabohlavec trojtrnný"
   },
   {
    "id": 238,
@@ -5788,7 +5991,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "sharpnose-sevengill-shark"
+   "fishdex_id": "sharpnose-sevengill-shark",
+   "name_cs": "Žralok sedmižábrý"
   },
   {
    "id": 239,
@@ -5817,7 +6021,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "frilled-shark"
+   "fishdex_id": "frilled-shark",
+   "name_cs": "Žralok límcový"
   },
   {
    "id": 240,
@@ -5844,7 +6049,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "bramble-shark"
+   "fishdex_id": "bramble-shark",
+   "name_cs": "Žralok trnitý"
   },
   {
    "id": 241,
@@ -5871,7 +6077,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "dogfish-shark"
+   "fishdex_id": "dogfish-shark",
+   "name_cs": "Ostroun obecný"
   },
   {
    "id": 242,
@@ -5898,7 +6105,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "prickly-shark"
+   "fishdex_id": "prickly-shark",
+   "name_cs": "Žralok Cookeův"
   },
   {
    "id": 243,
@@ -5923,7 +6131,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "angel-shark"
+   "fishdex_id": "angel-shark",
+   "name_cs": "Polorejnok"
   },
   {
    "id": 244,
@@ -5952,7 +6161,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "horn-shark"
+   "fishdex_id": "horn-shark",
+   "name_cs": "Různozubec Francisův"
   },
   {
    "id": 245,
@@ -5979,7 +6189,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "spotted-wobbegong"
+   "fishdex_id": "spotted-wobbegong",
+   "name_cs": "Wobegong skvrnitý"
   },
   {
    "id": 246,
@@ -6006,7 +6217,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "zebra-shark"
+   "fishdex_id": "zebra-shark",
+   "name_cs": "Žralok zebrovitý"
   },
   {
    "id": 247,
@@ -6036,7 +6248,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "nurse-shark"
+   "fishdex_id": "nurse-shark",
+   "name_cs": "Žralok vouskatý"
   },
   {
    "id": 248,
@@ -6061,7 +6274,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "whale-shark"
+   "fishdex_id": "whale-shark",
+   "name_cs": "Žralok obrovský"
   },
   {
    "id": 249,
@@ -6086,7 +6300,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "barbeled-houndshark"
+   "fishdex_id": "barbeled-houndshark",
+   "name_cs": "Vousatec Smithův"
   },
   {
    "id": 250,
@@ -6113,7 +6328,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "gollumshark"
+   "fishdex_id": "gollumshark",
+   "name_cs": "Pruhoun novozélandský"
   },
   {
    "id": 251,
@@ -6138,7 +6354,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "coral-catshark"
+   "fishdex_id": "coral-catshark",
+   "name_cs": "Máčka korálová"
   },
   {
    "id": 252,
@@ -6165,7 +6382,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "blue-shark"
+   "fishdex_id": "blue-shark",
+   "name_cs": "Žralok modrý"
   },
   {
    "id": 253,
@@ -6192,7 +6410,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "tiger-shark"
+   "fishdex_id": "tiger-shark",
+   "name_cs": "Žralok tygří"
   },
   {
    "id": 254,
@@ -6219,7 +6438,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "goblin-shark"
+   "fishdex_id": "goblin-shark",
+   "name_cs": "Žralok šotek"
   },
   {
    "id": 255,
@@ -6246,7 +6466,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "basking-shark"
+   "fishdex_id": "basking-shark",
+   "name_cs": "Žralok veliký"
   },
   {
    "id": 256,
@@ -6271,7 +6492,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "megamouth-shark"
+   "fishdex_id": "megamouth-shark",
+   "name_cs": "Žralok velkoústý"
   },
   {
    "id": 257,
@@ -6296,7 +6518,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "thresher-shark"
+   "fishdex_id": "thresher-shark",
+   "name_cs": "Liškoun obecný"
   },
   {
    "id": 258,
@@ -6321,7 +6544,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "longfin-mako-shark"
+   "fishdex_id": "longfin-mako-shark",
+   "name_cs": "Žralok východní"
   },
   {
    "id": 259,
@@ -6348,7 +6572,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "great-white-shark"
+   "fishdex_id": "great-white-shark",
+   "name_cs": "Žralok bílý"
   },
   {
    "id": 260,
@@ -6376,7 +6601,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "lake-trout"
+   "fishdex_id": "lake-trout",
+   "name_cs": "Siven obří"
   },
   {
    "id": 261,
@@ -6405,7 +6631,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "chinese-paddlefish"
+   "fishdex_id": "chinese-paddlefish",
+   "name_cs": "Veslonos čínský"
   },
   {
    "id": 262,
@@ -6434,7 +6661,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "albino-catfish"
+   "fishdex_id": "albino-catfish",
+   "name_cs": "Sumec albín"
   },
   {
    "id": 263,
@@ -6465,7 +6693,8 @@
     "hours": 48,
     "rate": 0.08
    },
-   "fishdex_id": "silver-carp"
+   "fishdex_id": "silver-carp",
+   "name_cs": "Tolstolobik bílý"
   },
   {
    "id": 264,
@@ -6500,7 +6729,8 @@
     "hours": 60,
     "rate": 0.12
    },
-   "fishdex_id": "south-american-lungfish"
+   "fishdex_id": "south-american-lungfish",
+   "name_cs": "Bahník americký"
   },
   {
    "id": 265,
@@ -6529,7 +6759,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "ballan-wrasse"
+   "fishdex_id": "ballan-wrasse",
+   "name_cs": "Pyskoun skvrnitý"
   },
   {
    "id": 266,
@@ -6554,7 +6785,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "bowmouth-guitarfish"
+   "fishdex_id": "bowmouth-guitarfish",
+   "name_cs": "Kytarovec křivoústý"
   },
   {
    "id": 267,
@@ -6584,7 +6816,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "giant-grouper"
+   "fishdex_id": "giant-grouper",
+   "name_cs": "Kanic obrovský"
   },
   {
    "id": 268,
@@ -6611,7 +6844,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "halibut"
+   "fishdex_id": "halibut",
+   "name_cs": "Platýs tichomořský"
   },
   {
    "id": 269,
@@ -6638,7 +6872,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "humphead-parrotfish"
+   "fishdex_id": "humphead-parrotfish",
+   "name_cs": "Ploskozubec vysokočelý"
   },
   {
    "id": 270,
@@ -6663,7 +6898,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "spotted-handfish"
+   "fishdex_id": "spotted-handfish",
+   "name_cs": "Udicovka tasmánská"
   },
   {
    "id": 271,
@@ -6689,7 +6925,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "leafy-seadragon"
+   "fishdex_id": "leafy-seadragon",
+   "name_cs": "Řasovník rozedraný"
   },
   {
    "id": 272,
@@ -6718,7 +6955,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "muraena-augusti"
+   "fishdex_id": "muraena-augusti",
+   "name_cs": "Muréna obecná"
   },
   {
    "id": 273,
@@ -6747,7 +6985,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "persian-sturgeon"
+   "fishdex_id": "persian-sturgeon",
+   "name_cs": "Jeseter perský"
   },
   {
    "id": 274,
@@ -6773,7 +7012,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "queen-triggerfish"
+   "fishdex_id": "queen-triggerfish",
+   "name_cs": "Ostenec chřestivý"
   },
   {
    "id": 275,
@@ -6801,7 +7041,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "starry-sturgeon"
+   "fishdex_id": "starry-sturgeon",
+   "name_cs": "Jeseter hvězdnatý"
   },
   {
    "id": 276,
@@ -6826,7 +7067,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "european-sea-sturgeon"
+   "fishdex_id": "european-sea-sturgeon",
+   "name_cs": "Jeseter velký"
   },
   {
    "id": 277,
@@ -6856,7 +7098,8 @@
     "hours": 80,
     "rate": 0.03
    },
-   "fishdex_id": "red-tail-golden-arowana"
+   "fishdex_id": "red-tail-golden-arowana",
+   "name_cs": "Arowana zlatá červenoocasá"
   },
   {
    "id": 278,
@@ -6886,7 +7129,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "black-arowana"
+   "fishdex_id": "black-arowana",
+   "name_cs": "Arowana černá"
   },
   {
    "id": 279,
@@ -6916,7 +7160,8 @@
     "hours": 15,
     "rate": 0.36
    },
-   "fishdex_id": "african-arowana"
+   "fishdex_id": "african-arowana",
+   "name_cs": "Fantang nilský"
   },
   {
    "id": 280,
@@ -6948,7 +7193,8 @@
     "hours": 3,
     "rate": 0.19
    },
-   "fishdex_id": "green-arowana"
+   "fishdex_id": "green-arowana",
+   "name_cs": "Zelená arowana"
   },
   {
    "id": 281,
@@ -6978,7 +7224,8 @@
     "hours": 120,
     "rate": 0.01
    },
-   "fishdex_id": "green-red-arowana"
+   "fishdex_id": "green-red-arowana",
+   "name_cs": "Zeleno-červená arowana"
   },
   {
    "id": 282,
@@ -7011,7 +7258,8 @@
     "hours": 50,
     "rate": 0.1
    },
-   "fishdex_id": "yellow-tail-arowana"
+   "fishdex_id": "yellow-tail-arowana",
+   "name_cs": "Arowana žlutoocasá"
   },
   {
    "id": 283,
@@ -7039,7 +7287,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "asian-green-arowana"
+   "fishdex_id": "asian-green-arowana",
+   "name_cs": "Baramundi malajský"
   },
   {
    "id": 284,
@@ -7071,7 +7320,8 @@
     "hours": 80,
     "rate": 0.11
    },
-   "fishdex_id": "platinum-golden-arowana"
+   "fishdex_id": "platinum-golden-arowana",
+   "name_cs": "Arowana platinová"
   },
   {
    "id": 285,
@@ -7103,7 +7353,8 @@
     "hours": 28,
     "rate": 0.4
    },
-   "fishdex_id": "jardini-arowana"
+   "fishdex_id": "jardini-arowana",
+   "name_cs": "Baramundi severní"
   },
   {
    "id": 286,
@@ -7135,7 +7386,8 @@
     "hours": 160,
     "rate": 0.01
    },
-   "fishdex_id": "blue-malayan-arowana"
+   "fishdex_id": "blue-malayan-arowana",
+   "name_cs": "Arowana modrá"
   },
   {
    "id": 287,
@@ -7163,7 +7415,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "red-bellied-pacu"
+   "fishdex_id": "red-bellied-pacu",
+   "name_cs": "Piraňa plodožravá"
   },
   {
    "id": 300,
@@ -7190,7 +7443,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "long-nosed-chimera"
+   "fishdex_id": "long-nosed-chimera",
+   "name_cs": "Pachiméra sagamská"
   },
   {
    "id": 301,
@@ -7219,7 +7473,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "spearfish-remora"
+   "fishdex_id": "spearfish-remora",
+   "name_cs": "Štítovec krátkoploutvý"
   },
   {
    "id": 302,
@@ -7247,7 +7502,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "scrawled-filefish"
+   "fishdex_id": "scrawled-filefish",
+   "name_cs": "Pilníkotrn velký"
   },
   {
    "id": 303,
@@ -7275,7 +7531,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "treefish"
+   "fishdex_id": "treefish",
+   "name_cs": "Okouník černopásý"
   },
   {
    "id": 304,
@@ -7302,7 +7559,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "ribbon-eel"
+   "fishdex_id": "ribbon-eel",
+   "name_cs": "Muréna nosatá"
   },
   {
    "id": 305,
@@ -7329,7 +7587,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "giant-oceanic-manta-ray"
+   "fishdex_id": "giant-oceanic-manta-ray",
+   "name_cs": "Manta obrovská"
   },
   {
    "id": 306,
@@ -7356,7 +7615,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "alabama-sturgeon"
+   "fishdex_id": "alabama-sturgeon",
+   "name_cs": "Lopatonos alabamský"
   },
   {
    "id": 307,
@@ -7383,7 +7643,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "giant-squid"
+   "fishdex_id": "giant-squid",
+   "name_cs": "Krakatice obrovská"
   },
   {
    "id": 308,
@@ -7411,7 +7672,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "swordfish"
+   "fishdex_id": "swordfish",
+   "name_cs": "Mečoun obecný"
   },
   {
    "id": 309,
@@ -7440,7 +7702,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "gyrodus"
+   "fishdex_id": "gyrodus",
+   "name_cs": "Gyrodus"
   },
   {
    "id": 310,
@@ -7469,7 +7732,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "acanthodes"
+   "fishdex_id": "acanthodes",
+   "name_cs": "Acanthodes"
   },
   {
    "id": 311,
@@ -7498,7 +7762,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "antiarchi"
+   "fishdex_id": "antiarchi",
+   "name_cs": "Antiarchi"
   },
   {
    "id": 312,
@@ -7527,7 +7792,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "dunkleosteus"
+   "fishdex_id": "dunkleosteus",
+   "name_cs": "Dunkleosteus"
   },
   {
    "id": 313,
@@ -7556,7 +7822,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "xiphactinus"
+   "fishdex_id": "xiphactinus",
+   "name_cs": "Xiphactinus"
   },
   {
    "id": 314,
@@ -7585,7 +7852,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "titanichthys"
+   "fishdex_id": "titanichthys",
+   "name_cs": "Titanichthys"
   },
   {
    "id": 315,
@@ -7614,7 +7882,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "thelodus"
+   "fishdex_id": "thelodus",
+   "name_cs": "Thelodus"
   },
   {
    "id": 316,
@@ -7643,7 +7912,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "osteolepis"
+   "fishdex_id": "osteolepis",
+   "name_cs": "Osteolepis"
   },
   {
    "id": 317,
@@ -7672,7 +7942,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "pteraspis"
+   "fishdex_id": "pteraspis",
+   "name_cs": "Pteraspis"
   },
   {
    "id": 318,
@@ -7701,7 +7972,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "platysomus"
+   "fishdex_id": "platysomus",
+   "name_cs": "Platysomus"
   },
   {
    "id": 319,
@@ -7730,7 +8002,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "cheirolepis"
+   "fishdex_id": "cheirolepis",
+   "name_cs": "Cheirolepis"
   },
   {
    "id": 320,
@@ -7759,7 +8032,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "materpiscis"
+   "fishdex_id": "materpiscis",
+   "name_cs": "Materpiscis"
   },
   {
    "id": 321,
@@ -7788,7 +8062,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "macropoma"
+   "fishdex_id": "macropoma",
+   "name_cs": "Macropoma"
   },
   {
    "id": 322,
@@ -7817,7 +8092,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "leedsichthys"
+   "fishdex_id": "leedsichthys",
+   "name_cs": "Leedsichthys"
   },
   {
    "id": 323,
@@ -7846,7 +8122,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "hyneria"
+   "fishdex_id": "hyneria",
+   "name_cs": "Hyneria"
   },
   {
    "id": 324,
@@ -7875,7 +8152,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "helicoprion"
+   "fishdex_id": "helicoprion",
+   "name_cs": "Helicoprion"
   },
   {
    "id": 325,
@@ -7904,7 +8182,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "megalodon"
+   "fishdex_id": "megalodon",
+   "name_cs": "Megalodon"
   },
   {
    "id": 326,
@@ -7933,7 +8212,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "arandaspis"
+   "fishdex_id": "arandaspis",
+   "name_cs": "Arandaspis"
   },
   {
    "id": 327,
@@ -7962,7 +8242,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "aspidorhynchus"
+   "fishdex_id": "aspidorhynchus",
+   "name_cs": "Aspidorhynchus"
   },
   {
    "id": 328,
@@ -7991,7 +8272,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "cladoselache"
+   "fishdex_id": "cladoselache",
+   "name_cs": "Cladoselache"
   },
   {
    "id": 329,
@@ -8020,7 +8302,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "cheiracanthus"
+   "fishdex_id": "cheiracanthus",
+   "name_cs": "Cheiracanthus"
   },
   {
    "id": 330,
@@ -8049,7 +8332,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "cobelodus"
+   "fishdex_id": "cobelodus",
+   "name_cs": "Cobelodus"
   },
   {
    "id": 331,
@@ -8078,7 +8362,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "coccosteus"
+   "fishdex_id": "coccosteus",
+   "name_cs": "Coccosteus"
   },
   {
    "id": 332,
@@ -8107,7 +8392,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "dapedium"
+   "fishdex_id": "dapedium",
+   "name_cs": "Dapedium"
   },
   {
    "id": 333,
@@ -8136,7 +8422,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "drepanaspis"
+   "fishdex_id": "drepanaspis",
+   "name_cs": "Drepanaspis"
   },
   {
    "id": 334,
@@ -8165,7 +8452,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "enchodus"
+   "fishdex_id": "enchodus",
+   "name_cs": "Enchodus"
   },
   {
    "id": 335,
@@ -8194,7 +8482,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "gyrosteus"
+   "fishdex_id": "gyrosteus",
+   "name_cs": "Gyrosteus"
   },
   {
    "id": 336,
@@ -8223,7 +8512,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "moythomasia"
+   "fishdex_id": "moythomasia",
+   "name_cs": "Moythomasia"
   },
   {
    "id": 337,
@@ -8252,7 +8542,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "orthacanthus"
+   "fishdex_id": "orthacanthus",
+   "name_cs": "Orthacanthus"
   },
   {
    "id": 338,
@@ -8281,7 +8572,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "pharyngolepis"
+   "fishdex_id": "pharyngolepis",
+   "name_cs": "Pharyngolepis"
   },
   {
    "id": 339,
@@ -8310,7 +8602,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "pikaia"
+   "fishdex_id": "pikaia",
+   "name_cs": "Pikaia"
   },
   {
    "id": 340,
@@ -8339,7 +8632,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "saurychthis"
+   "fishdex_id": "saurychthis",
+   "name_cs": "Saurichthys"
   },
   {
    "id": 341,
@@ -8368,7 +8662,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "semionotus"
+   "fishdex_id": "semionotus",
+   "name_cs": "Semionotus"
   },
   {
    "id": 342,
@@ -8397,7 +8692,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "stethacanthus"
+   "fishdex_id": "stethacanthus",
+   "name_cs": "Stethacanthus"
   },
   {
    "id": 343,
@@ -8426,7 +8722,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "xenacanthus"
+   "fishdex_id": "xenacanthus",
+   "name_cs": "Xenacanthus"
   },
   {
    "id": 400,
@@ -8457,7 +8754,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "blue-tang"
+   "fishdex_id": "blue-tang",
+   "name_cs": "Bodlok pestrý"
   },
   {
    "id": 401,
@@ -8486,7 +8784,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "hogfish"
+   "fishdex_id": "hogfish",
+   "name_cs": "Pyskoun korunkatý"
   },
   {
    "id": 402,
@@ -8516,7 +8815,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "trumpetfish"
+   "fishdex_id": "trumpetfish",
+   "name_cs": "Trubkotlamka skvrnitá"
   },
   {
    "id": 403,
@@ -8548,7 +8848,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "bluehead-wrasse"
+   "fishdex_id": "bluehead-wrasse",
+   "name_cs": "Kněžík dvoupruhý"
   },
   {
    "id": 404,
@@ -8581,7 +8882,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "spanish-hogfish"
+   "fishdex_id": "spanish-hogfish",
+   "name_cs": "Ostnatec ryšavý"
   },
   {
    "id": 405,
@@ -8610,7 +8912,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "queen-parrotfish"
+   "fishdex_id": "queen-parrotfish",
+   "name_cs": "Ploskozubec královský"
   },
   {
    "id": 406,
@@ -8641,7 +8944,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "blackbar-soldierfish"
+   "fishdex_id": "blackbar-soldierfish",
+   "name_cs": "Pruhatec černopruhý"
   },
   {
    "id": 407,
@@ -8671,7 +8975,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "sand-tilefish"
+   "fishdex_id": "sand-tilefish",
+   "name_cs": "Štíhlice písečná"
   },
   {
    "id": 408,
@@ -8701,7 +9006,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "yellowhead-wrasse"
+   "fishdex_id": "yellowhead-wrasse",
+   "name_cs": "Kněžík Garnotův"
   },
   {
    "id": 409,
@@ -8730,7 +9036,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "glasseye-snapper"
+   "fishdex_id": "glasseye-snapper",
+   "name_cs": "Očař noční"
   },
   {
    "id": 410,
@@ -8764,7 +9071,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "yellow-tang"
+   "fishdex_id": "yellow-tang",
+   "name_cs": "Bodlok žlutý"
   },
   {
    "id": 411,
@@ -8794,7 +9102,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "fantail-filefish"
+   "fishdex_id": "fantail-filefish",
+   "name_cs": "Jednotrn vlajkoocasý"
   },
   {
    "id": 412,
@@ -8825,7 +9134,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "blue-spotted-grouper"
+   "fishdex_id": "blue-spotted-grouper",
+   "name_cs": "Kanic tmavý"
   },
   {
    "id": 413,
@@ -8853,7 +9163,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "bird-wrasse"
+   "fishdex_id": "bird-wrasse",
+   "name_cs": "Akilolo zelený"
   },
   {
    "id": 414,
@@ -8884,7 +9195,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "moorish-idol"
+   "fishdex_id": "moorish-idol",
+   "name_cs": "Bičonoš zobanovitý"
   },
   {
    "id": 415,
@@ -8909,7 +9221,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "ornate-butterflyfish"
+   "fishdex_id": "ornate-butterflyfish",
+   "name_cs": "Klipka žlutopruhá"
   },
   {
    "id": 416,
@@ -8942,7 +9255,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "blue-parrotfish"
+   "fishdex_id": "blue-parrotfish",
+   "name_cs": "Ploskozubec modrý"
   },
   {
    "id": 417,
@@ -8977,7 +9291,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "picasso-triggerfish"
+   "fishdex_id": "picasso-triggerfish",
+   "name_cs": "Ostenec Picassův"
   },
   {
    "id": 418,
@@ -9006,7 +9321,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "yellowtail-wrasse"
+   "fishdex_id": "yellowtail-wrasse",
+   "name_cs": "Kněžík žlutoocasý"
   },
   {
    "id": 419,
@@ -9037,7 +9353,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "pinktail-triggerfish"
+   "fishdex_id": "pinktail-triggerfish",
+   "name_cs": "Ostenec vdova"
   },
   {
    "id": 420,
@@ -9069,7 +9386,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "bermuda-chub"
+   "fishdex_id": "bermuda-chub",
+   "name_cs": "Tloušťovka bermudská"
   },
   {
    "id": 421,
@@ -9100,7 +9418,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "banded-butterflyfish"
+   "fishdex_id": "banded-butterflyfish",
+   "name_cs": "Klipka příčnopruhá"
   },
   {
    "id": 422,
@@ -9132,7 +9451,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "peacock-flounder"
+   "fishdex_id": "peacock-flounder",
+   "name_cs": "Kambala tropická"
   },
   {
    "id": 423,
@@ -9157,7 +9477,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "rock-beauty"
+   "fishdex_id": "rock-beauty",
+   "name_cs": "Pomec tříbarevný"
   },
   {
    "id": 424,
@@ -9187,7 +9508,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "spotted-eagle-ray"
+   "fishdex_id": "spotted-eagle-ray",
+   "name_cs": "Siba skvrnitá"
   },
   {
    "id": 425,
@@ -9220,7 +9542,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "bigfin-reef-squid"
+   "fishdex_id": "bigfin-reef-squid",
+   "name_cs": "Oliheň Lessonova"
   },
   {
    "id": 426,
@@ -9251,7 +9574,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "midnight-parrotfish"
+   "fishdex_id": "midnight-parrotfish",
+   "name_cs": "Ploskozubec půlnoční"
   },
   {
    "id": 427,
@@ -9282,7 +9606,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "palometa"
+   "fishdex_id": "palometa",
+   "name_cs": "Vidlatka palometa"
   },
   {
    "id": 428,
@@ -9312,7 +9637,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "titan-triggerfish"
+   "fishdex_id": "titan-triggerfish",
+   "name_cs": "Ostenec zelenavý"
   },
   {
    "id": 429,
@@ -9351,7 +9677,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "bluestripe-snapper"
+   "fishdex_id": "bluestripe-snapper",
+   "name_cs": "Chňapal modropruhý"
   },
   {
    "id": 430,
@@ -9379,7 +9706,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "phantom-bannerfish"
+   "fishdex_id": "phantom-bannerfish",
+   "name_cs": "Klipka fantomová"
   },
   {
    "id": 431,
@@ -9412,7 +9740,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "oceanic-whitetip-shark"
+   "fishdex_id": "oceanic-whitetip-shark",
+   "name_cs": "Žralok dlouhoploutvý"
   },
   {
    "id": 432,
@@ -9441,7 +9770,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "sandbar-shark"
+   "fishdex_id": "sandbar-shark",
+   "name_cs": "Žralok hnědý"
   },
   {
    "id": 433,
@@ -9470,7 +9800,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "spot-tail-shark"
+   "fishdex_id": "spot-tail-shark",
+   "name_cs": "Žralok západoaustralský"
   },
   {
    "id": 434,
@@ -9498,7 +9829,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "cookiecutter-shark"
+   "fishdex_id": "cookiecutter-shark",
+   "name_cs": "Žraloček brazilský"
   },
   {
    "id": 435,
@@ -9529,7 +9861,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "lemon-shark"
+   "fishdex_id": "lemon-shark",
+   "name_cs": "Žralok citronový"
   },
   {
    "id": 436,
@@ -9562,7 +9895,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "milk-shark"
+   "fishdex_id": "milk-shark",
+   "name_cs": "Žralok ostrý"
   },
   {
    "id": 437,
@@ -9590,7 +9924,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "red-lipped-batfish"
+   "fishdex_id": "red-lipped-batfish",
+   "name_cs": "Chřestivec Darwinův"
   },
   {
    "id": 438,
@@ -9621,7 +9956,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "orange-banded-pipefish"
+   "fishdex_id": "orange-banded-pipefish",
+   "name_cs": "Jehla pruhovaná"
   },
   {
    "id": 439,
@@ -9648,7 +9984,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "bluespine-unicornfish"
+   "fishdex_id": "bluespine-unicornfish",
+   "name_cs": "Bodlok jednorohý"
   },
   {
    "id": 440,
@@ -9681,7 +10018,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "cylindrical-lanternshark"
+   "fishdex_id": "cylindrical-lanternshark",
+   "name_cs": "Světloun Carterův"
   },
   {
    "id": 441,
@@ -9706,7 +10044,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "checkerboard-wrasse"
+   "fishdex_id": "checkerboard-wrasse",
+   "name_cs": "Kněžík šachovnicovitý"
   },
   {
    "id": 442,
@@ -9739,7 +10078,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "tiger-grouper"
+   "fishdex_id": "tiger-grouper",
+   "name_cs": "Kanic tygří"
   },
   {
    "id": 443,
@@ -9769,7 +10109,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "fairy-basslet"
+   "fishdex_id": "fairy-basslet",
+   "name_cs": "Kanícek fialovožlutý"
   },
   {
    "id": 444,
@@ -9805,7 +10146,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "graysby"
+   "fishdex_id": "graysby",
+   "name_cs": "Kanic hřbetoskvrnný"
   },
   {
    "id": 445,
@@ -9840,7 +10182,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "longnose-butterfly"
+   "fishdex_id": "longnose-butterfly",
+   "name_cs": "Klipka žlutá"
   },
   {
    "id": 446,
@@ -9868,7 +10211,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "bluefin-trevally"
+   "fishdex_id": "bluefin-trevally",
+   "name_cs": "Kranas modroploutvý"
   },
   {
    "id": 447,
@@ -9895,7 +10239,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "minute-leatherjacket"
+   "fishdex_id": "minute-leatherjacket",
+   "name_cs": "Pilníkotrn nejmenší"
   },
   {
    "id": 448,
@@ -9923,7 +10268,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "white-spotted-damsel"
+   "fishdex_id": "white-spotted-damsel",
+   "name_cs": "Komorník havajský"
   },
   {
    "id": 449,
@@ -9960,7 +10306,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "pennant-coralfish"
+   "fishdex_id": "pennant-coralfish",
+   "name_cs": "Klipka hrotcová"
   },
   {
    "id": 450,
@@ -9990,7 +10337,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "mexican-hogfish"
+   "fishdex_id": "mexican-hogfish",
+   "name_cs": "Bodianus diplotaenia"
   },
   {
    "id": 451,
@@ -10019,7 +10367,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "whitespotted-boxfish"
+   "fishdex_id": "whitespotted-boxfish",
+   "name_cs": "Havýš běloskvrnný"
   },
   {
    "id": 452,
@@ -10049,7 +10398,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "black-triggerfish"
+   "fishdex_id": "black-triggerfish",
+   "name_cs": "Ostenec bělolemý"
   },
   {
    "id": 453,
@@ -10077,7 +10427,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "blue-ring-angelfish"
+   "fishdex_id": "blue-ring-angelfish",
+   "name_cs": "Pomec prstenčitý"
   },
   {
    "id": 454,
@@ -10106,7 +10457,8 @@
     "hours": 220,
     "rate": 0.01
    },
-   "fishdex_id": "devils-hole-pupfish"
+   "fishdex_id": "devils-hole-pupfish",
+   "name_cs": "Halančíkovec ďábelský"
   },
   {
    "id": 455,
@@ -10133,7 +10485,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "redtail-catfish"
+   "fishdex_id": "redtail-catfish",
+   "name_cs": "Anténovec červenoocasý"
   },
   {
    "id": 456,
@@ -10161,7 +10514,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "roosterfish"
+   "fishdex_id": "roosterfish",
+   "name_cs": "Kohoutovec dlouhoploutvý"
   },
   {
    "id": 500,
@@ -10188,7 +10542,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "zebra-moray"
+   "fishdex_id": "zebra-moray",
+   "name_cs": "Muréna zebrovaná"
   },
   {
    "id": 501,
@@ -10216,7 +10571,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "snowflake-moray"
+   "fishdex_id": "snowflake-moray",
+   "name_cs": "Muréna hvězdovitá"
   },
   {
    "id": 502,
@@ -10247,7 +10603,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "green-moray"
+   "fishdex_id": "green-moray",
+   "name_cs": "Muréna zelenavá"
   },
   {
    "id": 503,
@@ -10276,7 +10633,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "spotted-moray"
+   "fishdex_id": "spotted-moray",
+   "name_cs": "Muréna poskvrněná"
   },
   {
    "id": 504,
@@ -10303,7 +10661,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "yellowmargin-moray"
+   "fishdex_id": "yellowmargin-moray",
+   "name_cs": "Muréna žlutolemá"
   },
   {
    "id": 505,
@@ -10333,7 +10692,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "leopard-moray"
+   "fishdex_id": "leopard-moray",
+   "name_cs": "Muréna leopardí"
   },
   {
    "id": 506,
@@ -10362,7 +10722,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "goldentail-moray"
+   "fishdex_id": "goldentail-moray",
+   "name_cs": "Muréna žlutoocasá"
   },
   {
    "id": 507,
@@ -10390,7 +10751,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "yellow-mouth-moray"
+   "fishdex_id": "yellow-mouth-moray",
+   "name_cs": "Muréna žlutotlamá"
   },
   {
    "id": 508,
@@ -10418,7 +10780,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "fangtooth-moray"
+   "fishdex_id": "fangtooth-moray",
+   "name_cs": "Muréna tygrovitá"
   },
   {
    "id": 509,
@@ -10452,7 +10815,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "paint-spotted-moray"
+   "fishdex_id": "paint-spotted-moray",
+   "name_cs": "Muréna pestrá"
   },
   {
    "id": 510,
@@ -10486,7 +10850,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "whitemouth-moray"
+   "fishdex_id": "whitemouth-moray",
+   "name_cs": "Muréna běloústá"
   },
   {
    "id": 511,
@@ -10515,7 +10880,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "dragon-moray"
+   "fishdex_id": "dragon-moray",
+   "name_cs": "Muréna pardálí"
   },
   {
    "id": 512,
@@ -10543,7 +10909,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "chain-moray"
+   "fishdex_id": "chain-moray",
+   "name_cs": "Muréna řetízková"
   },
   {
    "id": 513,
@@ -10571,7 +10938,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "blackcheek-moray"
+   "fishdex_id": "blackcheek-moray",
+   "name_cs": "Muréna Breedenova"
   },
   {
    "id": 514,
@@ -10598,7 +10966,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "viper-moray"
+   "fishdex_id": "viper-moray",
+   "name_cs": "Muréna psí"
   },
   {
    "id": 515,
@@ -10628,7 +10997,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "yellowhead-moray"
+   "fishdex_id": "yellowhead-moray",
+   "name_cs": "Muréna žlutohlavá"
   },
   {
    "id": 516,
@@ -10657,7 +11027,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "white-eyed-moray"
+   "fishdex_id": "white-eyed-moray",
+   "name_cs": "Muréna bělooká"
   },
   {
    "id": 517,
@@ -10684,7 +11055,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "salpa-maggiore"
+   "fishdex_id": "salpa-maggiore",
+   "name_cs": "Salpa Maggiore"
   },
   {
    "id": 518,
@@ -10714,7 +11086,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "french-grunt"
+   "fishdex_id": "french-grunt",
+   "name_cs": "Chrochtal žlutopruhý"
   },
   {
    "id": 519,
@@ -10742,7 +11115,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "harlequin-bass"
+   "fishdex_id": "harlequin-bass",
+   "name_cs": "Kanic tygrovaný"
   },
   {
    "id": 520,
@@ -10779,7 +11153,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "schoolmaster-snapper"
+   "fishdex_id": "schoolmaster-snapper",
+   "name_cs": "Chňapal žlutoploutvý"
   },
   {
    "id": 521,
@@ -10806,7 +11181,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "sand-diver"
+   "fishdex_id": "sand-diver",
+   "name_cs": "Ještěrohlavec prostřední"
   },
   {
    "id": 522,
@@ -10835,7 +11211,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "porkfish"
+   "fishdex_id": "porkfish",
+   "name_cs": "Chrochtal prasečí"
   },
   {
    "id": 523,
@@ -10861,7 +11238,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "clown-frogfish"
+   "fishdex_id": "clown-frogfish",
+   "name_cs": "Rozedranec červenoskvrnný"
   },
   {
    "id": 524,
@@ -10891,7 +11269,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "broomtail-wrasse"
+   "fishdex_id": "broomtail-wrasse",
+   "name_cs": "Pyskoun dlouhoploutvý"
   },
   {
    "id": 525,
@@ -10919,7 +11298,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "mirror-carp"
+   "fishdex_id": "mirror-carp",
+   "name_cs": "Kapr lysec"
   },
   {
    "id": 526,
@@ -10947,7 +11327,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "coho-salmon"
+   "fishdex_id": "coho-salmon",
+   "name_cs": "Losos kisuč"
   },
   {
    "id": 527,
@@ -10976,7 +11357,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "long-finned-eel"
+   "fishdex_id": "long-finned-eel",
+   "name_cs": "Úhoř novozélandský"
   },
   {
    "id": 528,
@@ -11004,7 +11386,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "albino-alligator-gar"
+   "fishdex_id": "albino-alligator-gar",
+   "name_cs": "Kostlín albín"
   },
   {
    "id": 529,
@@ -11032,7 +11415,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "japanese-eel"
+   "fishdex_id": "japanese-eel",
+   "name_cs": "Úhoř japonský"
   },
   {
    "id": 530,
@@ -11061,7 +11445,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "hybrid-striped-bass"
+   "fishdex_id": "hybrid-striped-bass",
+   "name_cs": "Hybridní mořčák pruhovaný"
   },
   {
    "id": 531,
@@ -11089,7 +11474,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "white-bass"
+   "fishdex_id": "white-bass",
+   "name_cs": "Mořčák stříbřitý"
   },
   {
    "id": 532,
@@ -11118,7 +11504,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "striped-bass"
+   "fishdex_id": "striped-bass",
+   "name_cs": "Mořčák pruhovaný"
   },
   {
    "id": 533,
@@ -11145,7 +11532,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "long-snouted-lancetfish"
+   "fishdex_id": "long-snouted-lancetfish",
+   "name_cs": "Dlouhonos třásnitý"
   },
   {
    "id": 600,
@@ -11173,7 +11561,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "grass-carp"
+   "fishdex_id": "grass-carp",
+   "name_cs": "Amur bílý"
   },
   {
    "id": 601,
@@ -11199,7 +11588,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "bighead-carp"
+   "fishdex_id": "bighead-carp",
+   "name_cs": "Tolstolobec pestrý"
   },
   {
    "id": 602,
@@ -11224,7 +11614,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "mrigal-carp"
+   "fishdex_id": "mrigal-carp",
+   "name_cs": "Příčnoústka čtyřvousá"
   },
   {
    "id": 603,
@@ -11250,7 +11641,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "black-sharkminnow"
+   "fishdex_id": "black-sharkminnow",
+   "name_cs": "Labeo černé"
   },
   {
    "id": 604,
@@ -11276,7 +11668,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "atlantic-needlefish"
+   "fishdex_id": "atlantic-needlefish",
+   "name_cs": "Jehlice lagunová"
   },
   {
    "id": 605,
@@ -11303,7 +11696,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "gold-nugget-pleco"
+   "fishdex_id": "gold-nugget-pleco",
+   "name_cs": "Krunýřovec"
   },
   {
    "id": 606,
@@ -11331,7 +11725,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "senegal-bichir"
+   "fishdex_id": "senegal-bichir",
+   "name_cs": "Bichir senegalský"
   },
   {
    "id": 607,
@@ -11359,7 +11754,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "piraiba-catfish"
+   "fishdex_id": "piraiba-catfish",
+   "name_cs": "Anténovec vláknovitý"
   },
   {
    "id": 608,
@@ -11384,7 +11780,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "mbu-pufferfish"
+   "fishdex_id": "mbu-pufferfish",
+   "name_cs": "Čtverzubec mbu"
   },
   {
    "id": 609,
@@ -11410,7 +11807,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "black-ghost-knifefish"
+   "fishdex_id": "black-ghost-knifefish",
+   "name_cs": "Nožovka běločelá"
   },
   {
    "id": 610,
@@ -11439,7 +11837,8 @@
     "hours": 8,
     "rate": 0.56
    },
-   "fishdex_id": "zebra-pleco"
+   "fishdex_id": "zebra-pleco",
+   "name_cs": "Krunýřovec zebra"
   },
   {
    "id": 611,
@@ -11470,7 +11869,8 @@
     "hours": 6,
     "rate": 0.72
    },
-   "fishdex_id": "corydoras-julii"
+   "fishdex_id": "corydoras-julii",
+   "name_cs": "Panceřníček Juliin"
   },
   {
    "id": 612,
@@ -11500,7 +11900,8 @@
     "hours": 8,
     "rate": 0.39
    },
-   "fishdex_id": "wrestling-halfbeak"
+   "fishdex_id": "wrestling-halfbeak",
+   "name_cs": "Polozobánka malajská"
   },
   {
    "id": 613,
@@ -11531,7 +11932,8 @@
     "hours": 52,
     "rate": 0.18
    },
-   "fishdex_id": "amur-pike"
+   "fishdex_id": "amur-pike",
+   "name_cs": "Štika amurská"
   },
   {
    "id": 614,
@@ -11561,7 +11963,8 @@
     "hours": 17,
     "rate": 0.39
    },
-   "fishdex_id": "ayu"
+   "fishdex_id": "ayu",
+   "name_cs": "Aju východní"
   },
   {
    "id": 615,
@@ -11591,7 +11994,8 @@
     "hours": 12,
     "rate": 0.63
    },
-   "fishdex_id": "clown-loach"
+   "fishdex_id": "clown-loach",
+   "name_cs": "Sekavka nádherná"
   },
   {
    "id": 616,
@@ -11620,7 +12024,8 @@
     "hours": 101,
     "rate": 0.02
    },
-   "fishdex_id": "largetooth-sawfish"
+   "fishdex_id": "largetooth-sawfish",
+   "name_cs": "Piloun mikrodon"
   },
   {
    "id": 617,
@@ -11650,7 +12055,8 @@
     "hours": 5,
     "rate": 0.62
    },
-   "fishdex_id": "black-molly"
+   "fishdex_id": "black-molly",
+   "name_cs": "Živorodka ostrotlamá"
   },
   {
    "id": 618,
@@ -11680,7 +12086,8 @@
     "hours": 18,
     "rate": 0.47
    },
-   "fishdex_id": "white-crappie"
+   "fishdex_id": "white-crappie",
+   "name_cs": "Okounek světlý"
   },
   {
    "id": 619,
@@ -11709,7 +12116,8 @@
     "hours": 38,
     "rate": 0.35
    },
-   "fishdex_id": "clown-killi"
+   "fishdex_id": "clown-killi",
+   "name_cs": "Panchax prstencový"
   },
   {
    "id": 620,
@@ -11738,7 +12146,8 @@
     "hours": 61,
     "rate": 0.21
    },
-   "fishdex_id": "frontosa-chiclid"
+   "fishdex_id": "frontosa-chiclid",
+   "name_cs": "Tlamovec čelnatý"
   },
   {
    "id": 621,
@@ -11770,7 +12179,8 @@
     "hours": 99,
     "rate": 0.18
    },
-   "fishdex_id": "tire-track-eel"
+   "fishdex_id": "tire-track-eel",
+   "name_cs": "Hrotočelec ozbrojený"
   },
   {
    "id": 700,
@@ -11795,7 +12205,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "cyclops-shark"
+   "fishdex_id": "cyclops-shark",
+   "name_cs": "Žralok kyklop"
   },
   {
    "id": 701,
@@ -11820,7 +12231,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "pelican-eel"
+   "fishdex_id": "pelican-eel",
+   "name_cs": "Šírotlamka pelikánovitá"
   },
   {
    "id": 702,
@@ -11845,7 +12257,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "meadia-roseni"
+   "fishdex_id": "meadia-roseni",
+   "name_cs": "Tupohlavec Rosenův"
   },
   {
    "id": 703,
@@ -11870,7 +12283,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "blobfish"
+   "fishdex_id": "blobfish",
+   "name_cs": "Sliznatá ryba"
   },
   {
    "id": 704,
@@ -11895,7 +12309,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "angler-monkfish"
+   "fishdex_id": "angler-monkfish",
+   "name_cs": "Ďas mořský"
   },
   {
    "id": 705,
@@ -11920,7 +12335,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "stareater"
+   "fishdex_id": "stareater",
+   "name_cs": "Svítivec"
   },
   {
    "id": 706,
@@ -11945,7 +12361,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "sarcastic-fringehead"
+   "fishdex_id": "sarcastic-fringehead",
+   "name_cs": "Neoclinus blanchardi"
   },
   {
    "id": 707,
@@ -11973,7 +12390,8 @@
    "clubPoints": 25,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "white-spotted-puffer"
+   "fishdex_id": "white-spotted-puffer",
+   "name_cs": "Čtverzubec běloskvrnný"
   },
   {
    "id": 708,
@@ -12002,7 +12420,8 @@
    "clubPoints": 0,
    "clubPrice": 25,
    "breed": null,
-   "fishdex_id": "gold-spotted-rabbitfish"
+   "fishdex_id": "gold-spotted-rabbitfish",
+   "name_cs": "Králíčkovec zlatoskvrnný"
   },
   {
    "id": 709,
@@ -12031,7 +12450,8 @@
    "clubPoints": 50,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "tomato-clownfish"
+   "fishdex_id": "tomato-clownfish",
+   "name_cs": "Klaun uzdičkatý"
   },
   {
    "id": 710,
@@ -12059,7 +12479,8 @@
    "clubPoints": 100,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "blue-green-chromis"
+   "fishdex_id": "blue-green-chromis",
+   "name_cs": "Sapín zelený"
   },
   {
    "id": 711,
@@ -12086,7 +12507,8 @@
    "clubPoints": 200,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "potters-angelfish"
+   "fishdex_id": "potters-angelfish",
+   "name_cs": "Pomčík Potterův"
   },
   {
    "id": 712,
@@ -12116,7 +12538,8 @@
    "clubPoints": 1000,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "fiddler-ray"
+   "fishdex_id": "fiddler-ray",
+   "name_cs": "Pilohřbet jihoaustralský"
   },
   {
    "id": 713,
@@ -12145,7 +12568,8 @@
    "clubPoints": 300,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "longhorn-cowfish"
+   "fishdex_id": "longhorn-cowfish",
+   "name_cs": "Havýš rohatý"
   },
   {
    "id": 714,
@@ -12173,7 +12597,8 @@
    "clubPoints": 0,
    "clubPrice": 18,
    "breed": null,
-   "fishdex_id": "cortez-rainbow-wrasse"
+   "fishdex_id": "cortez-rainbow-wrasse",
+   "name_cs": "Kněžík duhový"
   },
   {
    "id": 715,
@@ -12202,7 +12627,8 @@
    "clubPoints": 5000,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "black-dragonfish"
+   "fishdex_id": "black-dragonfish",
+   "name_cs": "Pásovka černá"
   },
   {
    "id": 716,
@@ -12232,7 +12658,8 @@
    "clubPoints": 0,
    "clubPrice": 49,
    "breed": null,
-   "fishdex_id": "orange-spotted-snakehead"
+   "fishdex_id": "orange-spotted-snakehead",
+   "name_cs": "Channa aurantimaculata"
   },
   {
    "id": 717,
@@ -12261,7 +12688,8 @@
    "clubPoints": 0,
    "clubPrice": 50,
    "breed": null,
-   "fishdex_id": "redfin-pickerel"
+   "fishdex_id": "redfin-pickerel",
+   "name_cs": "Štika americká červenoploutvá"
   },
   {
    "id": 718,
@@ -12290,7 +12718,8 @@
    "clubPoints": 75,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "grass-pickerel"
+   "fishdex_id": "grass-pickerel",
+   "name_cs": "Štika americká"
   },
   {
    "id": 719,
@@ -12319,7 +12748,8 @@
    "clubPoints": 3000,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "golden-pike"
+   "fishdex_id": "golden-pike",
+   "name_cs": "Štika zlatá"
   },
   {
    "id": 720,
@@ -12348,7 +12778,8 @@
    "clubPoints": 15,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "butterfly-cichlid"
+   "fishdex_id": "butterfly-cichlid",
+   "name_cs": "Tlamovec Thomasův"
   },
   {
    "id": 721,
@@ -12375,7 +12806,8 @@
    "clubPoints": 400,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "panther-grouper"
+   "fishdex_id": "panther-grouper",
+   "name_cs": "Kanic tečkovaný"
   },
   {
    "id": 722,
@@ -12403,7 +12835,8 @@
    "clubPoints": 500,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "hound-needlefish"
+   "fishdex_id": "hound-needlefish",
+   "name_cs": "Jehlice krokodýlí"
   },
   {
    "id": 723,
@@ -12430,7 +12863,8 @@
    "clubPoints": 600,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "milkfish"
+   "fishdex_id": "milkfish",
+   "name_cs": "Chanos stříbřitý"
   },
   {
    "id": 724,
@@ -12457,7 +12891,8 @@
    "clubPoints": 700,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "longnose-sawshark"
+   "fishdex_id": "longnose-sawshark",
+   "name_cs": "Pilonos vouskatý"
   },
   {
    "id": 725,
@@ -12485,7 +12920,8 @@
    "clubPoints": 800,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "malawi-eye-biter"
+   "fishdex_id": "malawi-eye-biter",
+   "name_cs": "Cichlida plochohlavá"
   },
   {
    "id": 726,
@@ -12513,7 +12949,8 @@
    "clubPoints": 900,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "weedy-seadragon"
+   "fishdex_id": "weedy-seadragon",
+   "name_cs": "Řasovník protáhlý"
   },
   {
    "id": 727,
@@ -12540,7 +12977,8 @@
    "clubPoints": 1100,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "indian-glassfish"
+   "fishdex_id": "indian-glassfish",
+   "name_cs": "Okouníček sklovitý"
   },
   {
    "id": 728,
@@ -12569,7 +13007,8 @@
    "clubPoints": 1200,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "australian-ghostshark"
+   "fishdex_id": "australian-ghostshark",
+   "name_cs": "Chimérovka tasmánská"
   },
   {
    "id": 729,
@@ -12599,7 +13038,8 @@
    "clubPoints": 1350,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "humpback-batfish"
+   "fishdex_id": "humpback-batfish",
+   "name_cs": "Netopýrník hrbohlavý"
   },
   {
    "id": 730,
@@ -12627,7 +13067,8 @@
    "clubPoints": 1400,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "dragon-wrasse"
+   "fishdex_id": "dragon-wrasse",
+   "name_cs": "Pyskoun třásniploutvý"
   },
   {
    "id": 731,
@@ -12655,7 +13096,8 @@
    "clubPoints": 0,
    "clubPrice": 199,
    "breed": null,
-   "fishdex_id": "red-indianfish"
+   "fishdex_id": "red-indianfish",
+   "name_cs": "Vlajkovka červenavá"
   },
   {
    "id": 732,
@@ -12687,7 +13129,8 @@
    "clubPoints": 0,
    "clubPrice": 999,
    "breed": null,
-   "fishdex_id": "deepsea-lizardfish"
+   "fishdex_id": "deepsea-lizardfish",
+   "name_cs": "Ještěrohlavec hlubokomořský"
   },
   {
    "id": 733,
@@ -12715,7 +13158,8 @@
    "clubPoints": 4000,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "black-alligator-gar"
+   "fishdex_id": "black-alligator-gar",
+   "name_cs": "Kostlín černý"
   },
   {
    "id": 734,
@@ -12744,7 +13188,8 @@
    "clubPoints": 1300,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "oriental-sweetlips"
+   "fishdex_id": "oriental-sweetlips",
+   "name_cs": "Chrochtal východní"
   },
   {
    "id": 735,
@@ -12771,7 +13216,8 @@
    "clubPoints": 1450,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "elegant-firefish"
+   "fishdex_id": "elegant-firefish",
+   "name_cs": "Hlaváčovec nádherný"
   },
   {
    "id": 736,
@@ -12800,7 +13246,8 @@
    "clubPoints": 1500,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "chevron-butterflyfish"
+   "fishdex_id": "chevron-butterflyfish",
+   "name_cs": "Klipka krokvicová"
   },
   {
    "id": 737,
@@ -12829,7 +13276,8 @@
    "clubPoints": 10,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "lemonpeel-angelfish"
+   "fishdex_id": "lemonpeel-angelfish",
+   "name_cs": "Pomčík citronový"
   },
   {
    "id": 738,
@@ -12857,7 +13305,8 @@
    "clubPoints": 1600,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "ocellated-pufferfish"
+   "fishdex_id": "ocellated-pufferfish",
+   "name_cs": "Čtverzubec lysý"
   },
   {
    "id": 739,
@@ -12885,7 +13334,8 @@
    "clubPoints": 1700,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "common-ponyfish"
+   "fishdex_id": "common-ponyfish",
+   "name_cs": "Plošák stříbřitý"
   },
   {
    "id": 740,
@@ -12913,7 +13363,8 @@
    "clubPoints": 0,
    "clubPrice": 75,
    "breed": null,
-   "fishdex_id": "neon-tetra"
+   "fishdex_id": "neon-tetra",
+   "name_cs": "Neonka obecná"
   },
   {
    "id": 741,
@@ -12941,7 +13392,8 @@
    "clubPoints": 1800,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "satanoperca"
+   "fishdex_id": "satanoperca",
+   "name_cs": "Perleťovka démon"
   },
   {
    "id": 742,
@@ -12970,7 +13422,8 @@
    "clubPoints": 1900,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "pearl-danio"
+   "fishdex_id": "pearl-danio",
+   "name_cs": "Dánio duhové"
   },
   {
    "id": 743,
@@ -12997,7 +13450,8 @@
    "clubPoints": 2000,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "giant-kokopu"
+   "fishdex_id": "giant-kokopu",
+   "name_cs": "Galaxie velká"
   },
   {
    "id": 744,
@@ -13024,7 +13478,8 @@
    "clubPoints": 0,
    "clubPrice": 99,
    "breed": null,
-   "fishdex_id": "amur-sturgeon"
+   "fishdex_id": "amur-sturgeon",
+   "name_cs": "Jeseter amurský"
   },
   {
    "id": 745,
@@ -13051,7 +13506,8 @@
    "clubPoints": 0,
    "clubPrice": 99,
    "breed": null,
-   "fishdex_id": "giant-devil-ray"
+   "fishdex_id": "giant-devil-ray",
+   "name_cs": "Manta velká"
   },
   {
    "id": 746,
@@ -13083,7 +13539,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "rusty-parrotfish"
+   "fishdex_id": "rusty-parrotfish",
+   "name_cs": "Ploskozubec zelenozubý"
   },
   {
    "id": 747,
@@ -13115,7 +13572,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "emperor-angelfish"
+   "fishdex_id": "emperor-angelfish",
+   "name_cs": "Pomec císařský"
   },
   {
    "id": 748,
@@ -13143,7 +13601,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "ornate-ghost-pipefish"
+   "fishdex_id": "ornate-ghost-pipefish",
+   "name_cs": "Vějířník třásnitý"
   },
   {
    "id": 749,
@@ -13175,7 +13634,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "crested-bullhead-shark"
+   "fishdex_id": "crested-bullhead-shark",
+   "name_cs": "Různozubec přilbovitý"
   },
   {
    "id": 750,
@@ -13201,7 +13661,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "pink-frogfish"
+   "fishdex_id": "pink-frogfish",
+   "name_cs": "Rozedranec pestrý"
   },
   {
    "id": 751,
@@ -13230,7 +13691,8 @@
    "clubPoints": 1625,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "pineapplefish"
+   "fishdex_id": "pineapplefish",
+   "name_cs": "Trnonoš australský"
   },
   {
    "id": 752,
@@ -13260,7 +13722,8 @@
    "clubPoints": 0,
    "clubPrice": 39,
    "breed": null,
-   "fishdex_id": "marine-betta"
+   "fishdex_id": "marine-betta",
+   "name_cs": "Oblohlav divukrásný"
   },
   {
    "id": 753,
@@ -13291,7 +13754,8 @@
    "clubPoints": 1750,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "northern-lampfish"
+   "fishdex_id": "northern-lampfish",
+   "name_cs": "Lampař severní"
   },
   {
    "id": 754,
@@ -13318,7 +13782,8 @@
    "clubPoints": 0,
    "clubPrice": 49,
    "breed": null,
-   "fishdex_id": "moon-wrasse"
+   "fishdex_id": "moon-wrasse",
+   "name_cs": "Kněžík srpkovitý"
   },
   {
    "id": 755,
@@ -13346,7 +13811,8 @@
    "clubPoints": 1850,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "longnose-hawkfish"
+   "fishdex_id": "longnose-hawkfish",
+   "name_cs": "Štětičkovec obecný"
   },
   {
    "id": 756,
@@ -13375,7 +13841,8 @@
    "clubPoints": 0,
    "clubPrice": 79,
    "breed": null,
-   "fishdex_id": "yellow-boxfish"
+   "fishdex_id": "yellow-boxfish",
+   "name_cs": "Havýš žlutohnědý"
   },
   {
    "id": 757,
@@ -13404,7 +13871,8 @@
    "clubPoints": 1950,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "achilles-tang"
+   "fishdex_id": "achilles-tang",
+   "name_cs": "Bodlok Achillův"
   },
   {
    "id": 758,
@@ -13431,7 +13899,8 @@
    "clubPoints": 0,
    "clubPrice": 499,
    "breed": null,
-   "fishdex_id": "yangtze-sturgeon"
+   "fishdex_id": "yangtze-sturgeon",
+   "name_cs": "Jeseter jihočínský"
   },
   {
    "id": 759,
@@ -13458,7 +13927,8 @@
    "clubPoints": 2100,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "persian-carpet-sole"
+   "fishdex_id": "persian-carpet-sole",
+   "name_cs": "Pardachirus morrowi"
   },
   {
    "id": 760,
@@ -13486,7 +13956,8 @@
    "clubPoints": 0,
    "clubPrice": 45,
    "breed": null,
-   "fishdex_id": "emperor-red-snapper"
+   "fishdex_id": "emperor-red-snapper",
+   "name_cs": "Chňapal císařský"
   },
   {
    "id": 761,
@@ -13515,7 +13986,8 @@
    "clubPoints": 2300,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "basketfish"
+   "fishdex_id": "basketfish",
+   "name_cs": "Čtverzubec ostnatý"
   },
   {
    "id": 762,
@@ -13543,7 +14015,8 @@
    "clubPoints": 0,
    "clubPrice": 30,
    "breed": null,
-   "fishdex_id": "red-striped-goby"
+   "fishdex_id": "red-striped-goby",
+   "name_cs": "Hlaváč červenopruhý"
   },
   {
    "id": 763,
@@ -13570,7 +14043,8 @@
    "clubPoints": 2200,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "siberian-sturgeon"
+   "fishdex_id": "siberian-sturgeon",
+   "name_cs": "Jeseter sibiřský"
   },
   {
    "id": 764,
@@ -13597,7 +14071,8 @@
    "clubPoints": 2500,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "shortnose-sturgeon"
+   "fishdex_id": "shortnose-sturgeon",
+   "name_cs": "Jeseter krátkorypý"
   },
   {
    "id": 765,
@@ -13628,7 +14103,8 @@
    "clubPoints": 0,
    "clubPrice": 180,
    "breed": null,
-   "fishdex_id": "florida-gar"
+   "fishdex_id": "florida-gar",
+   "name_cs": "Kostlín floridský"
   },
   {
    "id": 800,
@@ -13653,7 +14129,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "yellowfin-tuna"
+   "fishdex_id": "yellowfin-tuna",
+   "name_cs": "Tuňák žlutoploutvý"
   },
   {
    "id": 801,
@@ -13681,7 +14158,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "bigeye-tuna"
+   "fishdex_id": "bigeye-tuna",
+   "name_cs": "Tuňák velkooký"
   },
   {
    "id": 802,
@@ -13709,7 +14187,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "pacific-bluefin-tuna"
+   "fishdex_id": "pacific-bluefin-tuna",
+   "name_cs": "Tuňák tichomořský"
   },
   {
    "id": 803,
@@ -13734,7 +14213,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "black-marlin"
+   "fishdex_id": "black-marlin",
+   "name_cs": "Marlín černý"
   },
   {
    "id": 804,
@@ -13759,7 +14239,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "striped-marlin"
+   "fishdex_id": "striped-marlin",
+   "name_cs": "Marlín pruhovaný"
   },
   {
    "id": 805,
@@ -13784,7 +14265,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "white-marlin"
+   "fishdex_id": "white-marlin",
+   "name_cs": "Marlín bílý"
   },
   {
    "id": 806,
@@ -13809,7 +14291,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "sharpfin-barracuda"
+   "fishdex_id": "sharpfin-barracuda",
+   "name_cs": "Soltýn ostroploutvý"
   },
   {
    "id": 807,
@@ -13834,7 +14317,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "pelican-barracuda"
+   "fishdex_id": "pelican-barracuda",
+   "name_cs": "Soltýn pelikání"
   },
   {
    "id": 808,
@@ -13859,7 +14343,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "yellowtail-barracuda"
+   "fishdex_id": "yellowtail-barracuda",
+   "name_cs": "Soltýn žlutoocasý"
   },
   {
    "id": 809,
@@ -13884,7 +14369,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "bigeye-barracuda"
+   "fishdex_id": "bigeye-barracuda",
+   "name_cs": "Soltýn velkooký"
   },
   {
    "id": 810,
@@ -13915,7 +14401,8 @@
    "clubPoints": 2750,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "spotted-gar"
+   "fishdex_id": "spotted-gar",
+   "name_cs": "Kostlín skvrnitý"
   },
   {
    "id": 811,
@@ -13944,7 +14431,8 @@
    "clubPoints": 0,
    "clubPrice": 12,
    "breed": null,
-   "fishdex_id": "betta-brownorum"
+   "fishdex_id": "betta-brownorum",
+   "name_cs": "Bojovnice Brownových"
   },
   {
    "id": 812,
@@ -13972,7 +14460,8 @@
    "clubPoints": 3250,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "death-valley-pupfish"
+   "fishdex_id": "death-valley-pupfish",
+   "name_cs": "Halančíkovec slaništní"
   },
   {
    "id": 813,
@@ -14001,7 +14490,8 @@
    "clubPoints": 0,
    "clubPrice": 62,
    "breed": null,
-   "fishdex_id": "spotted-pike-characin"
+   "fishdex_id": "spotted-pike-characin",
+   "name_cs": "Štikovka skvrnitá"
   },
   {
    "id": 814,
@@ -14029,7 +14519,8 @@
    "clubPoints": 2550,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "spikefin-goby"
+   "fishdex_id": "spikefin-goby",
+   "name_cs": "Hlaváč Griessingerův"
   },
   {
    "id": 815,
@@ -14054,7 +14545,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "pacific-barracuda"
+   "fishdex_id": "pacific-barracuda",
+   "name_cs": "Soltýn stříbřitý"
   },
   {
    "id": 816,
@@ -14079,7 +14571,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "guachanche-barracuda"
+   "fishdex_id": "guachanche-barracuda",
+   "name_cs": "Soltýn pobřežní"
   },
   {
    "id": 817,
@@ -14106,7 +14599,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "hellers-barracuda"
+   "fishdex_id": "hellers-barracuda",
+   "name_cs": "Soltýn Hellerův"
   },
   {
    "id": 818,
@@ -14131,7 +14625,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "pickhandle-barracuda"
+   "fishdex_id": "pickhandle-barracuda",
+   "name_cs": "Soltýn tmavopruhý"
   },
   {
    "id": 819,
@@ -14156,7 +14651,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "australian-barracuda"
+   "fishdex_id": "australian-barracuda",
+   "name_cs": "Soltýn Australský"
   },
   {
    "id": 1000,
@@ -14183,7 +14679,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "greenland-shark"
+   "fishdex_id": "greenland-shark",
+   "name_cs": "Žralok grónský"
   },
   {
    "id": 1001,
@@ -14210,7 +14707,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "smalltooth-sawfish"
+   "fishdex_id": "smalltooth-sawfish",
+   "name_cs": "Piloun malozubý"
   },
   {
    "id": 1002,
@@ -14237,7 +14735,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "common-sawfish"
+   "fishdex_id": "common-sawfish",
+   "name_cs": "Piloun obecný"
   },
   {
    "id": 1003,
@@ -14264,7 +14763,8 @@
    "clubPoints": 0,
    "clubPrice": 20,
    "breed": null,
-   "fishdex_id": "spotted-sicklefish"
+   "fishdex_id": "spotted-sicklefish",
+   "name_cs": "Lesklec africký"
   },
   {
    "id": 1004,
@@ -14295,7 +14795,8 @@
    "clubPoints": 3500,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "blind-cave-eel"
+   "fishdex_id": "blind-cave-eel",
+   "name_cs": "Hrdložábřík bělavý"
   },
   {
    "id": 1005,
@@ -14324,7 +14825,8 @@
    "clubPoints": 0,
    "clubPrice": 59,
    "breed": null,
-   "fishdex_id": "golden-trevally"
+   "fishdex_id": "golden-trevally",
+   "name_cs": "Kranas zlatý"
   },
   {
    "id": 1006,
@@ -14351,7 +14853,8 @@
    "clubPoints": 2800,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "bonnethead-shark"
+   "fishdex_id": "bonnethead-shark",
+   "name_cs": "Kladivoun tiburo"
   },
   {
    "id": 1007,
@@ -14381,7 +14884,8 @@
    "clubPoints": 0,
    "clubPrice": 555,
    "breed": null,
-   "fishdex_id": "winghead-shark"
+   "fishdex_id": "winghead-shark",
+   "name_cs": "Kladivoun křídlohlavý"
   },
   {
    "id": 1008,
@@ -14409,7 +14913,8 @@
    "clubPoints": 10000,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "blue-bellied-night-wanderer"
+   "fishdex_id": "blue-bellied-night-wanderer",
+   "name_cs": "Noční poutník"
   },
   {
    "id": 1009,
@@ -14437,7 +14942,8 @@
    "clubPoints": 3300,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "american-barrelfish"
+   "fishdex_id": "american-barrelfish",
+   "name_cs": "Medúzovec okounovitý"
   },
   {
    "id": 1010,
@@ -14464,7 +14970,8 @@
    "clubPoints": 6000,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "marcusenius-furcidens"
+   "fishdex_id": "marcusenius-furcidens",
+   "name_cs": "Rypoun vidlozubý"
   },
   {
    "id": 1011,
@@ -14493,7 +15000,8 @@
    "clubPoints": 7000,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "red-phantom-tetra"
+   "fishdex_id": "red-phantom-tetra",
+   "name_cs": "Tetra Sweglesova"
   },
   {
    "id": 1012,
@@ -14521,7 +15029,8 @@
    "clubPoints": 8000,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "black-diamond-cichlid"
+   "fishdex_id": "black-diamond-cichlid",
+   "name_cs": "Cichlida madagaskarská"
   },
   {
    "id": 1013,
@@ -14551,7 +15060,8 @@
    "clubPoints": 9000,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "piraya"
+   "fishdex_id": "piraya",
+   "name_cs": "Piraňa tmavá"
   },
   {
    "id": 1014,
@@ -14580,7 +15090,8 @@
    "clubPoints": 9500,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "austrolebias-adloffi"
+   "fishdex_id": "austrolebias-adloffi",
+   "name_cs": "Vějířovka příčnopruhá"
   },
   {
    "id": 1100,
@@ -14609,7 +15120,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "candy-basslet"
+   "fishdex_id": "candy-basslet",
+   "name_cs": "Kanic cukrový"
   },
   {
    "id": 1101,
@@ -14638,7 +15150,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "orangespotted-soapfish"
+   "fishdex_id": "orangespotted-soapfish",
+   "name_cs": "Kanic oranžovoskvrnný"
   },
   {
    "id": 1102,
@@ -14666,7 +15179,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "garish-hind"
+   "fishdex_id": "garish-hind",
+   "name_cs": "Kanic křiklavý"
   },
   {
    "id": 1103,
@@ -14694,7 +15208,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "masked-angelfish"
+   "fishdex_id": "masked-angelfish",
+   "name_cs": "Pomec maskový"
   },
   {
    "id": 1104,
@@ -14722,7 +15237,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "peppermint-angelfish"
+   "fishdex_id": "peppermint-angelfish",
+   "name_cs": "Pomčík Boyleův"
   },
   {
    "id": 1105,
@@ -14747,7 +15263,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "albacore-tuna"
+   "fishdex_id": "albacore-tuna",
+   "name_cs": "Tuňák křídlatý"
   },
   {
    "id": 1106,
@@ -14772,7 +15289,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "southern-bluefin-tuna"
+   "fishdex_id": "southern-bluefin-tuna",
+   "name_cs": "Tuňák australský"
   },
   {
    "id": 1107,
@@ -14797,7 +15315,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "blackfin-tuna"
+   "fishdex_id": "blackfin-tuna",
+   "name_cs": "Tuňák atlantský"
   },
   {
    "id": 1108,
@@ -14822,7 +15341,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "longtail-tuna"
+   "fishdex_id": "longtail-tuna",
+   "name_cs": "Tuňák dlouhoocasý"
   },
   {
    "id": 1109,
@@ -14847,7 +15367,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "bullet-tuna"
+   "fishdex_id": "bullet-tuna",
+   "name_cs": "Tuňák malý"
   },
   {
    "id": 1110,
@@ -14878,7 +15399,8 @@
    "clubPoints": 15000,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "aphyonidae"
+   "fishdex_id": "aphyonidae",
+   "name_cs": "Hlubinář"
   },
   {
    "id": 1111,
@@ -14906,7 +15428,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "grideye-fish"
+   "fishdex_id": "grideye-fish",
+   "name_cs": "Ipnops"
   },
   {
    "id": 1112,
@@ -14931,7 +15454,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "lavender-mbuna"
+   "fishdex_id": "lavender-mbuna",
+   "name_cs": "Tlamovec sprengerae"
   },
   {
    "id": 1113,
@@ -14957,7 +15481,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "inlecypris-jayarami"
+   "fishdex_id": "inlecypris-jayarami",
+   "name_cs": "Dánio jayarami"
   },
   {
    "id": 1114,
@@ -14984,7 +15509,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "isichthys-henryi"
+   "fishdex_id": "isichthys-henryi",
+   "name_cs": "Rypoun západoafrický"
   },
   {
    "id": 1115,
@@ -15013,7 +15539,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "whitebar-eelpout"
+   "fishdex_id": "whitebar-eelpout",
+   "name_cs": "Slimule bělopruhá"
   },
   {
    "id": 1116,
@@ -15040,7 +15567,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "blackfin-dartfish"
+   "fishdex_id": "blackfin-dartfish",
+   "name_cs": "Hlaváčovec černoploutvý"
   },
   {
    "id": 1117,
@@ -15069,7 +15597,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "gloved-snailfish"
+   "fishdex_id": "gloved-snailfish",
+   "name_cs": "Terčovka Beckerova"
   },
   {
    "id": 1118,
@@ -15099,7 +15628,8 @@
     "hours": 8,
     "rate": 0.18
    },
-   "fishdex_id": "pangio-mariarum"
+   "fishdex_id": "pangio-mariarum",
+   "name_cs": "Sekavec sabažský"
   },
   {
    "id": 1119,
@@ -15130,7 +15660,8 @@
     "hours": 168,
     "rate": 0.03
    },
-   "fishdex_id": "razorback-sucker"
+   "fishdex_id": "razorback-sucker",
+   "name_cs": "Pakaprovec ostrohřbetý"
   },
   {
    "id": 1120,
@@ -15157,7 +15688,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "chilhuil-sea-catfish"
+   "fishdex_id": "chilhuil-sea-catfish",
+   "name_cs": "Křížovec panamský"
   },
   {
    "id": 1121,
@@ -15184,7 +15716,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "common-nase"
+   "fishdex_id": "common-nase",
+   "name_cs": "Ostroretka stěhovavá"
   },
   {
    "id": 1122,
@@ -15211,7 +15744,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "common-roach"
+   "fishdex_id": "common-roach",
+   "name_cs": "Plotice obecná"
   },
   {
    "id": 1123,
@@ -15238,7 +15772,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "common-minnow"
+   "fishdex_id": "common-minnow",
+   "name_cs": "Střevle potoční"
   },
   {
    "id": 1124,
@@ -15267,7 +15802,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "atlantic-mackerel"
+   "fishdex_id": "atlantic-mackerel",
+   "name_cs": "Makrela obecná"
   },
   {
    "id": 1125,
@@ -15293,7 +15829,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "european-anchovy"
+   "fishdex_id": "european-anchovy",
+   "name_cs": "Sardel obecná"
   },
   {
    "id": 1126,
@@ -15319,7 +15856,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "european-sprat"
+   "fishdex_id": "european-sprat",
+   "name_cs": "Šprot obecný"
   },
   {
    "id": 1127,
@@ -15348,7 +15886,8 @@
     "hours": 72,
     "rate": 0.08
    },
-   "fishdex_id": "eurasian-ruffe"
+   "fishdex_id": "eurasian-ruffe",
+   "name_cs": "Ježdík obecný"
   },
   {
    "id": 1128,
@@ -15379,7 +15918,8 @@
     "hours": 96,
     "rate": 0.12
    },
-   "fishdex_id": "peled"
+   "fishdex_id": "peled",
+   "name_cs": "Síh peleď"
   },
   {
    "id": 1129,
@@ -15410,7 +15950,8 @@
     "hours": 96,
     "rate": 0.06
    },
-   "fishdex_id": "freshwater-angelfish"
+   "fishdex_id": "freshwater-angelfish",
+   "name_cs": "Skalára amazonská"
   },
   {
    "id": 1130,
@@ -15437,7 +15978,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "three-spined-stickleback"
+   "fishdex_id": "three-spined-stickleback",
+   "name_cs": "Koljuška tříostná"
   },
   {
    "id": 1131,
@@ -15468,7 +16010,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "ruby-seadragon"
+   "fishdex_id": "ruby-seadragon",
+   "name_cs": "Řasovník rubínový"
   },
   {
    "id": 1132,
@@ -15496,7 +16039,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "barramundi"
+   "fishdex_id": "barramundi",
+   "name_cs": "Lates stříbřitý"
   },
   {
    "id": 1133,
@@ -15528,7 +16072,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "parachaenichthys-charcoti"
+   "fishdex_id": "parachaenichthys-charcoti",
+   "name_cs": "Parachaenichthys charcoti"
   },
   {
    "id": 1134,
@@ -15558,7 +16103,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "spinner-shark"
+   "fishdex_id": "spinner-shark",
+   "name_cs": "Žralok krátkoploutvý"
   },
   {
    "id": 1135,
@@ -15591,7 +16137,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "blacktip-reef-shark"
+   "fishdex_id": "blacktip-reef-shark",
+   "name_cs": "Žralok černoploutvý"
   },
   {
    "id": 1136,
@@ -15618,7 +16165,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "kitefin-shark"
+   "fishdex_id": "kitefin-shark",
+   "name_cs": "Světloun Bonnaterrův"
   },
   {
    "id": 1137,
@@ -15648,7 +16196,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "indonesian-speckled-carpetshark"
+   "fishdex_id": "indonesian-speckled-carpetshark",
+   "name_cs": "Žralůček indonéský"
   },
   {
    "id": 1138,
@@ -15675,7 +16224,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "sawback-angelshark"
+   "fishdex_id": "sawback-angelshark",
+   "name_cs": "Polorejnok obecný"
   },
   {
    "id": 1139,
@@ -15703,7 +16253,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "greater-blue-ringed-octopus"
+   "fishdex_id": "greater-blue-ringed-octopus",
+   "name_cs": "Chobotnice kroužkovaná"
   },
   {
    "id": 1140,
@@ -15732,7 +16283,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "leafscale-gulper-shark"
+   "fishdex_id": "leafscale-gulper-shark",
+   "name_cs": "Bezkýlovec listošupinatý"
   },
   {
    "id": 1141,
@@ -15761,7 +16313,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "dusky-shark"
+   "fishdex_id": "dusky-shark",
+   "name_cs": "Žralok velrybář"
   },
   {
    "id": 1142,
@@ -15795,7 +16348,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "banggai-cardinalfish"
+   "fishdex_id": "banggai-cardinalfish",
+   "name_cs": "Parmovec skvělý"
   },
   {
    "id": 1143,
@@ -15828,7 +16382,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "blue-dot-jawfish"
+   "fishdex_id": "blue-dot-jawfish",
+   "name_cs": "Studnař Rosenblattův"
   },
   {
    "id": 1144,
@@ -15860,7 +16415,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "chinstrap-jawfish"
+   "fishdex_id": "chinstrap-jawfish",
+   "name_cs": "Studnař řemínkový"
   },
   {
    "id": 1145,
@@ -15895,7 +16451,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "gulf-signal-blenny"
+   "fishdex_id": "gulf-signal-blenny",
+   "name_cs": "Slizoun znamenitý"
   },
   {
    "id": 1146,
@@ -15925,7 +16482,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "red-irish-lord"
+   "fishdex_id": "red-irish-lord",
+   "name_cs": "Vranka červená"
   },
   {
    "id": 1147,
@@ -15961,7 +16519,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "broad-barred-goby"
+   "fishdex_id": "broad-barred-goby",
+   "name_cs": "Hlaváč širokopruhý"
   },
   {
    "id": 1148,
@@ -15995,7 +16554,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "twin-spot-goby"
+   "fishdex_id": "twin-spot-goby",
+   "name_cs": "Hlaváč krabí"
   },
   {
    "id": 1149,
@@ -16021,7 +16581,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "allis-shad"
+   "fishdex_id": "allis-shad",
+   "name_cs": "Placka pomořanská"
   },
   {
    "id": 1150,
@@ -16049,7 +16610,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "asp"
+   "fishdex_id": "asp",
+   "name_cs": "Bolen dravý"
   },
   {
    "id": 1151,
@@ -16079,7 +16641,8 @@
     "hours": 3,
     "rate": 0.18
    },
-   "fishdex_id": "sunbleak"
+   "fishdex_id": "sunbleak",
+   "name_cs": "Slunka obecná"
   },
   {
    "id": 1152,
@@ -16104,7 +16667,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "vimba-bream"
+   "fishdex_id": "vimba-bream",
+   "name_cs": "Podoustev říční"
   },
   {
    "id": 1153,
@@ -16129,7 +16693,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "stone-loach"
+   "fishdex_id": "stone-loach",
+   "name_cs": "Mřenka mramorovaná"
   },
   {
    "id": 1154,
@@ -16158,7 +16723,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "carcharocles-chubutensis"
+   "fishdex_id": "carcharocles-chubutensis",
+   "name_cs": "Carcharocles chubutensis"
   },
   {
    "id": 1155,
@@ -16187,7 +16753,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "cretoxyrhina"
+   "fishdex_id": "cretoxyrhina",
+   "name_cs": "Cretoxyrhina"
   },
   {
    "id": 1156,
@@ -16216,7 +16783,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "deltoptychius"
+   "fishdex_id": "deltoptychius",
+   "name_cs": "Deltoptychius"
   },
   {
    "id": 1157,
@@ -16245,7 +16813,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "ischnacanthus"
+   "fishdex_id": "ischnacanthus",
+   "name_cs": "Ischnacanthus"
   },
   {
    "id": 1158,
@@ -16274,7 +16843,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "ctenurella"
+   "fishdex_id": "ctenurella",
+   "name_cs": "Ctenurella"
   },
   {
    "id": 1159,
@@ -16303,7 +16873,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "astraspis"
+   "fishdex_id": "astraspis",
+   "name_cs": "Astraspis"
   },
   {
    "id": 1160,
@@ -16332,7 +16903,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "boreaspis"
+   "fishdex_id": "boreaspis",
+   "name_cs": "Boreaspis"
   },
   {
    "id": 1161,
@@ -16361,7 +16933,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "dartmuthia"
+   "fishdex_id": "dartmuthia",
+   "name_cs": "Dartmuthia"
   },
   {
    "id": 1162,
@@ -16390,7 +16963,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "doryaspis-arctica"
+   "fishdex_id": "doryaspis-arctica",
+   "name_cs": "Doryaspis arctica"
   },
   {
    "id": 1163,
@@ -16419,7 +16993,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "doryaspis-nathorsti"
+   "fishdex_id": "doryaspis-nathorsti",
+   "name_cs": "Doryaspis nathorsti"
   },
   {
    "id": 1164,
@@ -16449,7 +17024,8 @@
     "hours": 90,
     "rate": 0.32
    },
-   "fishdex_id": "parrot-cichlid"
+   "fishdex_id": "parrot-cichlid",
+   "name_cs": "Kančík papouščí"
   },
   {
    "id": 1165,
@@ -16479,7 +17055,8 @@
     "hours": 22,
     "rate": 0.29
    },
-   "fishdex_id": "jack-dempsey"
+   "fishdex_id": "jack-dempsey",
+   "name_cs": "Kančík perleťový"
   },
   {
    "id": 1166,
@@ -16509,7 +17086,8 @@
     "hours": 75,
     "rate": 0.14
    },
-   "fishdex_id": "guapote"
+   "fishdex_id": "guapote",
+   "name_cs": "Kančík Doviův"
   },
   {
    "id": 1167,
@@ -16539,7 +17117,8 @@
     "hours": 32,
     "rate": 0.45
    },
-   "fishdex_id": "jaguar-guapote"
+   "fishdex_id": "jaguar-guapote",
+   "name_cs": "Kančík managujský"
   },
   {
    "id": 1168,
@@ -16570,7 +17149,8 @@
     "hours": 25,
     "rate": 0.35
    },
-   "fishdex_id": "redhead-cichlid"
+   "fishdex_id": "redhead-cichlid",
+   "name_cs": "Kančík červenohlavý"
   },
   {
    "id": 1169,
@@ -16597,7 +17177,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "golden-cave-catfish"
+   "fishdex_id": "golden-cave-catfish",
+   "name_cs": "Keříčkovec jeskynní"
   },
   {
    "id": 1170,
@@ -16623,7 +17204,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "pictus-catfish"
+   "fishdex_id": "pictus-catfish",
+   "name_cs": "Anténovec ozdobný"
   },
   {
    "id": 1171,
@@ -16648,7 +17230,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "giant-salmon-carp"
+   "fishdex_id": "giant-salmon-carp",
+   "name_cs": "Sanak asijský"
   },
   {
    "id": 1172,
@@ -16675,7 +17258,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "bridled-leatherjacket"
+   "fishdex_id": "bridled-leatherjacket",
+   "name_cs": "Pilníkotrn slepený"
   },
   {
    "id": 1173,
@@ -16706,7 +17290,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "rissos-smooth-head"
+   "fishdex_id": "rissos-smooth-head",
+   "name_cs": "Uzlatka východoatlantská"
   },
   {
    "id": 1174,
@@ -16731,7 +17316,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "boulengerella-cuvieri"
+   "fishdex_id": "boulengerella-cuvieri",
+   "name_cs": "Štikovka brazilská"
   },
   {
    "id": 1175,
@@ -16758,7 +17344,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "narrowhead-catshark"
+   "fishdex_id": "narrowhead-catshark",
+   "name_cs": "Máčka úzkohlavá"
   },
   {
    "id": 1176,
@@ -16784,7 +17371,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "painted-electric-ray"
+   "fishdex_id": "painted-electric-ray",
+   "name_cs": "Narcina surinamská"
   },
   {
    "id": 1177,
@@ -16811,7 +17399,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "evermannella-balbo"
+   "fishdex_id": "evermannella-balbo",
+   "name_cs": "Dlouhozubec dravý"
   },
   {
    "id": 1178,
@@ -16838,7 +17427,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "unicorn-crestfish"
+   "fishdex_id": "unicorn-crestfish",
+   "name_cs": "Páskoun pruhovaný"
   },
   {
    "id": 1179,
@@ -16864,7 +17454,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "azul-peacock-bass"
+   "fishdex_id": "azul-peacock-bass",
+   "name_cs": "Cichlida piquiti"
   },
   {
    "id": 1180,
@@ -16890,7 +17481,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "red-wolf-fish"
+   "fishdex_id": "red-wolf-fish",
+   "name_cs": "Trahir krátkoocasý"
   },
   {
    "id": 1181,
@@ -16916,7 +17508,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "spotted-tiger-shovelnose-catfish"
+   "fishdex_id": "spotted-tiger-shovelnose-catfish",
+   "name_cs": "Anténovec skvrnitý"
   },
   {
    "id": 1182,
@@ -16945,7 +17538,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "tadpole-snailfish"
+   "fishdex_id": "tadpole-snailfish",
+   "name_cs": "Terčovka pulcovitá"
   },
   {
    "id": 1183,
@@ -16972,7 +17566,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "midwater-eelpout"
+   "fishdex_id": "midwater-eelpout",
+   "name_cs": "Slimule pelagická"
   },
   {
    "id": 1184,
@@ -17001,7 +17596,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "mariana-snailfish"
+   "fishdex_id": "mariana-snailfish",
+   "name_cs": "Pseudoliparis Swirei"
   },
   {
    "id": 1185,
@@ -17030,7 +17626,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "dwarf-moray"
+   "fishdex_id": "dwarf-moray",
+   "name_cs": "Muréna zlatá"
   },
   {
    "id": 1186,
@@ -17055,7 +17652,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "smoothtail-mobula"
+   "fishdex_id": "smoothtail-mobula",
+   "name_cs": "Manta mexická"
   },
   {
    "id": 1187,
@@ -17083,7 +17681,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "taylors-inflator-filefish"
+   "fishdex_id": "taylors-inflator-filefish",
+   "name_cs": "Pilníkotrn Taylorův"
   },
   {
    "id": 1188,
@@ -17112,7 +17711,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "shortdorsal-cutthroat-eel"
+   "fishdex_id": "shortdorsal-cutthroat-eel",
+   "name_cs": "Tupohlavec krátkochvostý"
   },
   {
    "id": 1189,
@@ -17139,7 +17739,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "fresh-water-moray"
+   "fishdex_id": "fresh-water-moray",
+   "name_cs": "Muréna sladkovodní"
   },
   {
    "id": 1190,
@@ -17170,7 +17771,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "grammonus-yunokawai"
+   "fishdex_id": "grammonus-yunokawai",
+   "name_cs": "Jeskyňovka Yunokawa"
   },
   {
    "id": 1191,
@@ -17198,7 +17800,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "green-birdmouth-wrasse"
+   "fishdex_id": "green-birdmouth-wrasse",
+   "name_cs": "Akilolo nosatý"
   },
   {
    "id": 1192,
@@ -17228,7 +17831,8 @@
     "hours": 50,
     "rate": 0.15
    },
-   "fishdex_id": "red-rainbowfish"
+   "fishdex_id": "red-rainbowfish",
+   "name_cs": "Duhovka lososová"
   },
   {
    "id": 1193,
@@ -17258,7 +17862,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "angler-snake-eel"
+   "fishdex_id": "angler-snake-eel",
+   "name_cs": "Hadař zubatkový"
   },
   {
    "id": 1194,
@@ -17287,7 +17892,8 @@
    "clubPoints": 17500,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "birdbeak-dogfish"
+   "fishdex_id": "birdbeak-dogfish",
+   "name_cs": "Bezkýlovec lopatonosý"
   },
   {
    "id": 1195,
@@ -17315,7 +17921,8 @@
    "clubPoints": 22500,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "barnards-lanterfish"
+   "fishdex_id": "barnards-lanterfish",
+   "name_cs": "Lampovníček Barnardův"
   },
   {
    "id": 1196,
@@ -17342,7 +17949,8 @@
    "clubPoints": 27500,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "arrowhead-soapfish"
+   "fishdex_id": "arrowhead-soapfish",
+   "name_cs": "Kanic šípohlavý"
   },
   {
    "id": 1197,
@@ -17370,7 +17978,8 @@
    "clubPoints": 30000,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "flourescing-goatfish"
+   "fishdex_id": "flourescing-goatfish",
+   "name_cs": "Parmice pruhovaná"
   },
   {
    "id": 1198,
@@ -17398,7 +18007,8 @@
    "clubPoints": 40000,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "golden-gar"
+   "fishdex_id": "golden-gar",
+   "name_cs": "Kostlín zlatý"
   },
   {
    "id": 1199,
@@ -17425,7 +18035,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "bluestripe-pipefish"
+   "fishdex_id": "bluestripe-pipefish",
+   "name_cs": "Jehlice modropruhá"
   },
   {
    "id": 1200,
@@ -17454,7 +18065,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "sulawesi-coelacanth"
+   "fishdex_id": "sulawesi-coelacanth",
+   "name_cs": "Celakant ze Sulawesi"
   },
   {
    "id": 1201,
@@ -17483,7 +18095,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "african-mottled-eel"
+   "fishdex_id": "african-mottled-eel",
+   "name_cs": "Úhoř africký skvrnitý"
   },
   {
    "id": 1202,
@@ -17508,7 +18121,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "blue-panchax"
+   "fishdex_id": "blue-panchax",
+   "name_cs": "Panchax modrý"
   },
   {
    "id": 1203,
@@ -17533,7 +18147,8 @@
    "clubPoints": 0,
    "clubPrice": 0,
    "breed": null,
-   "fishdex_id": "crocodile-tooth-pipefish"
+   "fishdex_id": "crocodile-tooth-pipefish",
+   "name_cs": "Jehlice krokodýlozubá"
   }
  ],
  "locations": [

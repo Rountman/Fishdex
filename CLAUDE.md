@@ -30,6 +30,12 @@ prototypes/    # schválené mockupy a styleguide (fáze 1–2), DECISIONS.md
   oblasti, místa, zóny Palm Islandu, rarita, „× vzácnější“, návnady, čas, sezóna, délky, chov, odemknutí.
   Databáze je JS literál v bundlu wiki — čte se jako text, NIKDY se nespouští. Archivní scrape
   (`data/fish.json`) dává už jen id, české názvy, světové rekordy a obrázky.
+- České názvy: z archivu; kde archiv má jen kopii anglického, doplní se z fishao.net (`name_cs`, stránka
+  ryby `/wiki/fish/<id>` s `Accept-Language: cs`), pak z fishao-tracker.cz. Doplnění vypíše `npm run data`.
+- **fishao-tracker.cz** (`data/fishao_tracker.json`, `node scraper/fishao_tracker.mjs`, report
+  `data/fishao-tracker-report.md`): jediný zdroj **zón Moray turnaje** (fishao.net je nemá). Stejné zóny
+  A–H jako Palm Island (`EFPT_PALM_ISLAND_ZONE_*`; „Vnější oblast“ = A … „Malé ostrovy“ = H), zóny
+  Palm Islandu z něj sedí s fishao.net. Bundle se čte jako text, nespouští se.
 - Ruční opravy dat ani „?“ u sporných časů se už nepoužívají — co říká fishao.net, platí.
 - Scraper: max 1 request/s na web.archive.org, vše cachovat, používat `id_`
   URL varianty pro čisté HTML.
@@ -83,14 +89,15 @@ prototypes/    # schválené mockupy a styleguide (fáze 1–2), DECISIONS.md
   je místo vždy oddělené: ryba s místem v oblasti bere JEN tam, ve volné vodě oblasti ne (žádné „i odsud“).
   Místa: Laketown (farma), Mystic Desert (pyramida, továrna), Cool Mountain (vor), Pinheira Beach (molo),
   Thombani Town (za plotem), Seagull Harbor (člun), Club (slaná / sladká nádrž; Monster Pond neexistuje),
-  Palm Island (zóny A–H jako místa `Zone A`…; `zones` u ryby, ryba bez zóny ve zdroji = všechny zóny).
-  Palm Island a Club nemají volnou vodu (`open: false`): jejich výběr ukáže všechny ryby všech jejich míst,
-  každou jednou. Přepínač „Jen odsud“ (`only=1`) se ukáže jen tam, kde ryba může být na víc místech
-  oblasti (zóny Palm Islandu).
-- Mapa Palm Islandu (`PalmMap`) nad mřížkou po výběru ostrova nebo zóny: oficiální obrázek
-  (`images/maps/palm-island.webp` ze scraperu → `public/maps/`) a přes něj naše vrstva zón z mřížky
-  13 × 13 (`palmZones.json`, viewBox 0 0 12.5 12.5 jako na fishao.net). Klik na zónu = filtr zóny,
-  znovu = celý ostrov. Ovládání klávesnicí přes legendu vedle mapy (SVG je `aria-hidden`).
+  Palm Island a Moray turnaj (`ZONED_AREAS`: zóny A–H jako místa `Zone A`…; `zones` u ryby, ryba bez zóny
+  ve zdroji = všechny zóny). Palm Island, Moray turnaj a Club nemají volnou vodu (`open: false`): jejich výběr
+  ukáže všechny ryby všech jejich míst, každou jednou. Přepínač „Jen odsud“ (`only=1`) se ukáže jen tam,
+  kde ryba může být na víc místech oblasti (zóny).
+- Mapa se zónami (`ZoneMap`, prop `area`) nad mřížkou po výběru Palm Islandu, Moray turnaje nebo jejich zóny:
+  oficiální obrázek Palm Islandu (`images/maps/palm-island.webp` ze scraperu → `public/maps/`), turnaj se
+  chytá na téže mapě. Přes něj naše vrstva zón z mřížky 13 × 13 (`palmZones.json`, viewBox 0 0 12.5 12.5
+  jako na fishao.net). Klik na zónu = filtr zóny, znovu = celá oblast. Ovládání klávesnicí přes legendu
+  vedle mapy (SVG je `aria-hidden`).
   V detailu ryby žádná mapka, jen text „zóny B, C, G“ / „všechny zóny“.
   Řazení podle rarity: hvězdy, pak „× vzácnější“, pak jméno. U každé volby filtru počet ryb podle ostatních aktivních filtrů,
   rarita, návnada (multi-výběr, NEBO), čas, velikost (od–do cm, ryba

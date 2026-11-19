@@ -1,8 +1,10 @@
 // Official Fishao wiki (www.fishao.net/wiki) -> data/fishao_net.json + data/fishao-net-report.md.
 //
 // The wiki is a SvelteKit app: the whole fish database is one object literal in a JS chunk.
-// The chunk is read as TEXT by a small literal parser below and is never executed.
+// The chunk is read as TEXT by the literal parser in literal.mjs and is never executed.
 // Palm Island zones come from the SVG grid on /wiki/areas/palm-island.
+// Czech fish names: only the server-rendered fish pages carry them (/wiki/fish/<id> with
+// Accept-Language: cs, the <h1>), so the first run fetches one page per fish (~10 min).
 //
 // Polite: max 1 request/s, every response cached in scraper/cache/fishao_net/ (gitignored).
 // Run: node scraper/fishao_net.mjs   [--refresh  = refetch the HTML pages, chunks stay cached]
@@ -11,6 +13,7 @@ import { existsSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { parseLiteral } from './literal.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const REPO = join(HERE, '..');
@@ -21,74 +24,19 @@ const REFRESH = process.argv.includes('--refresh');
 
 let last = 0;
 /** Cached GET; `binary` returns a Buffer (images), otherwise text. */
-async function get(path, { immutable = false, binary = false } = {}) {
-  const file = join(CACHE, createHash('sha1').update(path).digest('hex').slice(0, 16) + (binary ? '.bin' : '.txt'));
+async function get(path, { immutable = false, binary = false, lang = null } = {}) {
+  const key = lang ? `${lang}:${path}` : path;
+  const file = join(CACHE, createHash('sha1').update(key).digest('hex').slice(0, 16) + (binary ? '.bin' : '.txt'));
   if (existsSync(file) && (immutable || !REFRESH)) return binary ? readFile(file) : readFile(file, 'utf8');
   const wait = last + 1000 - Date.now();
   if (wait > 0) await new Promise(r => setTimeout(r, wait));
   last = Date.now();
-  const res = await fetch(BASE + path, { headers: { 'User-Agent': UA } });
+  const res = await fetch(BASE + path, { headers: { 'User-Agent': UA, ...(lang && { 'Accept-Language': lang }) } });
   if (!res.ok) throw new Error(`${path}: HTTP ${res.status}`);
   const body = binary ? Buffer.from(await res.arrayBuffer()) : await res.text();
   await writeFile(file, body);
   return body;
 }
-
-// --- object literal parser (JSON plus `template` strings, bare keys, !0 / !1) -------------
-function parseLiteral(src, start) {
-  let i = start;
-  const BS = '\\';
-  const ws = () => { while (/\s/.test(src[i])) i++; };
-  const str = () => {
-    const q = src[i++];
-    let s = '';
-    while (src[i] !== q) {
-      if (src[i] === BS) { s += JSON.parse('"' + src[i] + src[i + 1] + '"'); i += 2; continue; }
-      if (q === '`' && src[i] === '$' && src[i + 1] === '{') throw new Error(`template expression at ${i}`);
-      s += src[i++];
-    }
-    i++;
-    return s;
-  };
-  const val = () => {
-    ws();
-    const c = src[i];
-    if (c === '{') {
-      i++; const o = {}; ws();
-      if (src[i] === '}') { i++; return o; }
-      for (;;) {
-        ws();
-        let k;
-        if (src[i] === '`' || src[i] === '"') k = str();
-        else { k = /^[A-Za-z_$0-9]+/.exec(src.slice(i, i + 80))?.[0]; if (!k) throw new Error(`key at ${i}`); i += k.length; }
-        ws(); if (src[i++] !== ':') throw new Error(`colon at ${i}`);
-        o[k] = val(); ws();
-        if (src[i] === ',') { i++; continue; }
-        if (src[i] === '}') { i++; return o; }
-        throw new Error(`object at ${i}: ${src.slice(i, i + 40)}`);
-      }
-    }
-    if (c === '[') {
-      i++; const a = []; ws();
-      if (src[i] === ']') { i++; return a; }
-      for (;;) {
-        a.push(val()); ws();
-        if (src[i] === ',') { i++; continue; }
-        if (src[i] === ']') { i++; return a; }
-        throw new Error(`array at ${i}`);
-      }
-    }
-    if (c === '`' || c === '"') return str();
-    for (const [lit, v] of [['!0', true], ['!1', false], ['null', null], ['void 0', null]]) {
-      if (src.startsWith(lit, i)) { i += lit.length; return v; }
-    }
-    const m = /^-?(\d+\.?\d*|\.\d+)(e[+-]?\d+)?/.exec(src.slice(i, i + 40));
-    if (m) { i += m[0].length; return Number(m[0]); }
-    throw new Error(`value at ${i}: ${src.slice(i, i + 60)}`);
-  };
-  return val();
-}
-
 // --- fish id matching (same normalisation as the Python scraper) ---------------------------
 const norm = s => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/['’]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 
@@ -141,6 +89,23 @@ async function main() {
   }
   const missing = ours.filter(f => !used.has(f.id)).map(f => f.id);
 
+  // 4. Czech names from the fish pages; the wiki falls back to the English name when it has none
+  const decode = s => s.replace(/&amp;/g, '&').replace(/&#39;|&apos;/g, "'").replace(/&quot;/g, '"').replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+  let done = 0;
+  for (const f of db.fish) {
+    const html = await get(`/wiki/fish/${f.id}`, { lang: 'cs' });
+    if (!/<main lang="cs"/.test(html)) throw new Error(`/wiki/fish/${f.id}: not served in Czech`);
+    const h1 = /<h1[^>]*>([^<]+)/.exec(html)?.[1]?.trim();
+    if (!h1) throw new Error(`/wiki/fish/${f.id}: no <h1>`);
+    f.name_cs = decode(h1);
+    if (++done % 50 === 0) console.log(`  cs names: ${done}/${db.fish.length}`);
+  }
+  const ourById = new Map(ours.map(f => [f.id, f]));
+  const csRows = db.fish.filter(f => f.fishdex_id).map(f => ({ f, o: ourById.get(f.fishdex_id) }));
+  const csNew = csRows.filter(({ f, o }) => o.names.cs === o.names.en && f.name_cs !== f.name);
+  const csDiff = csRows.filter(({ f, o }) => o.names.cs !== o.names.en && f.name_cs !== f.name && f.name_cs !== o.names.cs);
+  const csNone = csRows.filter(({ f }) => f.name_cs === f.name);
+
   const out = {
     source: `${BASE}/wiki`,
     bundle,
@@ -159,7 +124,8 @@ Vygenerováno ${out.fetched_at} skriptem \`scraper/fishao_net.mjs\`. Soubor se p
 
 Oficiální wiki (${out.source}) je **hlavní zdroj** pro výskyt (oblasti, místa, zóny Palm Islandu), raritu,
 vzácnost v rámci hvězd, návnady, čas, sezónu, délky, chov a odemykání. České názvy a světové rekordy
-zůstávají z fishao.cz / fishaowiki (\`data/report.md\`).
+zůstávají z fishao.cz / fishaowiki (\`data/report.md\`); český název z fishao.net (\`name_cs\`, ze stránky
+ryby v češtině) doplní jen rybu, která v archivu český název neměla (tam je kopie anglického).
 
 Data jsou objektový literál v \`${bundle}\`; čte se jako text, nespouští se.
 
@@ -178,6 +144,13 @@ Data jsou objektový literál v \`${bundle}\`; čte se jako text, nespouští se
 | id | název | ryb |
 |---|---|---|
 ${db.locations.map(l => `| ${l.id} | ${l.name} | ${count(f => f.locs.includes(l.id))} |`).join('\n')}
+
+## České názvy (fishao.net)
+
+- doplněné, v archivu jen anglický název (${csNew.length}): ${csNew.map(({ f }) => `${f.name} → **${f.name_cs}**`).join(', ') || '—'}
+- fishao.net český název nemá, ukazuje anglický (${csNone.length}): ${csNone.map(({ f }) => f.name).join(', ') || '—'}
+- jiný než náš z archivu, ponechán náš (${csDiff.length}):
+${csDiff.map(({ f, o }) => `  - \`${o.id}\`: náš **${o.names.cs}**, fishao.net ${f.name_cs}`).join('\n') || '  —'}
 
 ## Palm Island — zóny (13 × 13, „.“ = pevnina)
 

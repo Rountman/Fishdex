@@ -8,7 +8,7 @@ import { CARD_HELP_ID } from './components/FishCard';
 import { FishDetail } from './components/FishDetail';
 import { FishGrid } from './components/FishGrid';
 import { Filters } from './components/Filters';
-import { PalmMap } from './components/PalmMap';
+import { ZoneMap } from './components/ZoneMap';
 import { Footer } from './components/Footer';
 import { ITEM_HELP_ID } from './components/FurnitureCard';
 import { FurnitureFilters } from './components/FurnitureFilters';
@@ -20,6 +20,7 @@ import { Overview } from './components/Overview';
 import { TimersView } from './components/TimersView';
 import { Toast, type ToastData } from './components/Toast';
 import { AREAS, COLLECTIONS, FISH, FISH_IDS, FURNITURE, FURNITURE_IDS } from './data';
+import { isZonedArea } from './data/types';
 import { MOBILE, useMediaQuery } from './hooks/useMediaQuery';
 import { fishName, itemName } from './i18n/format';
 import { I18nProvider } from './i18n/I18n';
@@ -257,7 +258,7 @@ export default function App() {
                     onDismiss={() => setPrefs({ hintDismissed: true })}
                   />
                 )}
-                {filters.area === 'palm-island' && <PalmMap facets={facets} spot={filters.spot} onSelect={selectArea} />}
+                {isZonedArea(filters.area) && <ZoneMap key={filters.area} area={filters.area} facets={facets} spot={filters.spot} onSelect={selectArea} />}
                 <FishGrid
                   fish={visible} progress={p.progress} query={filters.q} areaName={areaName}
                   onToggle={onToggle} onOpen={setOpenId} onReset={() => setFilters(EMPTY_FILTERS)}

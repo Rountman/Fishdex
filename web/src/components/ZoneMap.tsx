@@ -1,15 +1,14 @@
 import type { CSSProperties } from 'react';
 import zoneGrid from '../data/palmZones.json';
-import { ZONES, type Zone } from '../data/types';
+import { ZONES, type Zone, type ZonedArea } from '../data/types';
 import type { Spot } from '../i18n/dictionaries';
 import { useI18n } from '../i18n/context';
 import type { Facets, Tally } from '../state/filters';
-import styles from './PalmMap.module.css';
+import styles from './ZoneMap.module.css';
 
-const AREA = 'palm-island';
 const EMPTY: Tally = { total: 0, caught: 0, glow: 0, bred: 0 };
 const spotOf = (z: Zone): Spot => `Zone ${z}`;
-const zoneValue = (z: Zone) => `${AREA}:${spotOf(z)}`;
+const zoneValue = (area: ZonedArea, z: Zone) => `${area}:${spotOf(z)}`;
 
 // ---- geometry: the official 13x13 grid over a square map, viewBox 0 0 12.5 12.5 like fishao.net
 type Shape = { zone: Zone; fill: string; edge: string; label: { x: number; y: number } };
@@ -53,27 +52,29 @@ const SHAPES = shapes(zoneGrid as string[]);
 const MAP_SRC = `${import.meta.env.BASE_URL}maps/palm-island.webp`;
 
 type Props = {
+  /** Palm Island or the Moray tournament: both are fished on this map with the same zones. */
+  area: ZonedArea;
   facets: Facets;
   /** '' or '<area>:<Spot>' */
   spot: string;
-  /** Same values as the area filter: 'palm-island' = whole island, 'palm-island:Zone A' = one zone. */
+  /** Same values as the area filter: '<area>' = the whole area, '<area>:Zone A' = one zone. */
   onSelect: (value: string) => void;
 };
 
 /** Official Palm Island map with our zone layer; the list beside it is the keyboard / screen reader control. */
-export function PalmMap({ facets, spot, onSelect }: Props) {
+export function ZoneMap({ area, facets, spot, onSelect }: Props) {
   const { t } = useI18n();
-  const selected = ZONES.find(z => spot === zoneValue(z)) ?? null;
-  const tally = (z: Zone) => facets.spots.get(zoneValue(z)) ?? EMPTY;
-  const pick = (z: Zone) => onSelect(z === selected ? AREA : zoneValue(z));
+  const selected = ZONES.find(z => spot === zoneValue(area, z)) ?? null;
+  const tally = (z: Zone) => facets.spots.get(zoneValue(area, z)) ?? EMPTY;
+  const pick = (z: Zone) => onSelect(z === selected ? area : zoneValue(area, z));
   const done = (x: Tally) => x.total > 0 && x.caught === x.total;
 
   return (
     <details className={styles.map} open>
-      <summary className={styles.summary}>{t.mapTitle}</summary>
+      <summary className={styles.summary}>{t.mapTitle(area)}</summary>
       <div className={styles.body}>
         <div className={styles.chart}>
-          <img src={MAP_SRC} alt={t.mapAlt} width={1000} height={1000} />
+          <img src={MAP_SRC} alt={t.mapAlt(area)} width={1000} height={1000} />
           <svg viewBox="0 0 12.5 12.5" aria-hidden="true" data-selection={selected !== null}>
             {SHAPES.map(s => {
               const x = tally(s.zone);
@@ -92,7 +93,7 @@ export function PalmMap({ facets, spot, onSelect }: Props) {
           </svg>
         </div>
         <div className={styles.side}>
-          <p className={styles.hint}>{t.mapHint}</p>
+          <p className={styles.hint}>{t.mapHint(area)}</p>
           <ul className={styles.legend}>
             {ZONES.map(z => {
               const x = tally(z);
@@ -110,8 +111,8 @@ export function PalmMap({ facets, spot, onSelect }: Props) {
               );
             })}
           </ul>
-          {selected && <button type="button" className="link" onClick={() => onSelect(AREA)}>{t.mapAll}</button>}
-          <p className={styles.credit}>{t.mapCredit}</p>
+          {selected && <button type="button" className="link" onClick={() => onSelect(area)}>{t.mapAll(area)}</button>}
+          <p className={styles.credit}>{t.mapCredit(area)}</p>
         </div>
       </div>
     </details>

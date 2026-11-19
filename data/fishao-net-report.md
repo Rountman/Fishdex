@@ -1,10 +1,11 @@
 # fishao.net — report
 
-Vygenerováno 2026-11-17 skriptem `scraper/fishao_net.mjs`. Soubor se přepisuje při každém běhu — needitovat ručně.
+Vygenerováno 2026-11-19 skriptem `scraper/fishao_net.mjs`. Soubor se přepisuje při každém běhu — needitovat ručně.
 
 Oficiální wiki (https://www.fishao.net/wiki) je **hlavní zdroj** pro výskyt (oblasti, místa, zóny Palm Islandu), raritu,
 vzácnost v rámci hvězd, návnady, čas, sezónu, délky, chov a odemykání. České názvy a světové rekordy
-zůstávají z fishao.cz / fishaowiki (`data/report.md`).
+zůstávají z fishao.cz / fishaowiki (`data/report.md`); český název z fishao.net (`name_cs`, ze stránky
+ryby v češtině) doplní jen rybu, která v archivu český název neměla (tam je kopie anglického).
 
 Data jsou objektový literál v `/_app/immutable/chunks/DwFZ_zyP.js`; čte se jako text, nespouští se.
 
@@ -46,6 +47,18 @@ Data jsou objektový literál v `/_app/immutable/chunks/DwFZ_zyP.js`; čte se ja
 | 203 | Race tournament | 14 |
 | 204 | Moray tournament | 18 |
 | 300 | Home backyard | 83 |
+
+## České názvy (fishao.net)
+
+- doplněné, v archivu jen anglický název (5): Bluestripe Pipefish → **Jehlice modropruhá**, Sulawesi Coelacanth → **Celakant ze Sulawesi**, African Mottled Eel → **Úhoř africký skvrnitý**, Blue Panchax → **Panchax modrý**, Crocodile-tooth Pipefish → **Jehlice krokodýlozubá**
+- fishao.net český název nemá, ukazuje anglický (47): Gyrodus, Acanthodes, Antiarchi, Dunkleosteus, Xiphactinus, Titanichthys, Thelodus, Osteolepis, Pteraspis, Platysomus, Cheirolepis, Materpiscis, Macropoma, Leedsichthys, Hyneria, Helicoprion, Megalodon, Arandaspis, Aspidorhynchus, Cladoselache, Cheiracanthus, Cobelodus, Coccosteus, Dapedium, Drepanaspis, Enchodus, Gyrosteus, Moythomasia, Orthacanthus, Pharyngolepis, Pikaia, Saurichthys, Semionotus, Stethacanthus, Xenacanthus, Salpa Maggiore, Parachaenichthys charcoti, Carcharocles chubutensis, Cretoxyrhina, Deltoptychius, Ischnacanthus, Ctenurella, Astraspis, Boreaspis, Dartmuthia, Doryaspis arctica, Doryaspis nathorsti
+- jiný než náš z archivu, ponechán náš (6):
+  - `midas-cichlid`: náš **Kančík citronový**, fishao.net Kančík citrónový
+  - `hairy-pufferfish`: náš **Čtverzubec baileiy**, fishao.net Čtverzubec baileyi
+  - `horn-shark`: náš **Různozubec francisův**, fishao.net Různozubec Francisův
+  - `barbeled-houndshark`: náš **Vousatec smithův**, fishao.net Vousatec Smithův
+  - `blue-dot-jawfish`: náš **Studnář Rosenblattův**, fishao.net Studnař Rosenblattův
+  - `chinstrap-jawfish`: náš **Studnář řemínkový**, fishao.net Studnař řemínkový
 
 ## Palm Island — zóny (13 × 13, „.“ = pevnina)
 

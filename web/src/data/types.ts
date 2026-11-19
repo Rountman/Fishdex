@@ -9,6 +9,13 @@ export type Schedule = Window[] | 'always' | null;
 /** Palm Island fishing zones (fishao.net zone grid, see palmZones.json). */
 export const ZONES = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'] as const;
 export type Zone = typeof ZONES[number];
+/**
+ * Areas fished on the Palm Island map with its zones A–H: the island itself (zones from fishao.net)
+ * and the Moray tournament (zones from fishao-tracker.cz). Their spots are "Zone A" … "Zone H".
+ */
+export const ZONED_AREAS = ['palm-island', 'moray-tournament'] as const;
+export type ZonedArea = typeof ZONED_AREAS[number];
+export const isZonedArea = (id: string): id is ZonedArea => (ZONED_AREAS as readonly string[]).includes(id);
 
 /** How a fish becomes catchable (fishao.net), besides being in its area. */
 export type Unlock =
@@ -28,7 +35,10 @@ export type Fish = {
    * with a spot in an area bites only there, never in the open area (fishao.net).
    */
   spots: Record<string, Spot[]>;
-  /** Palm Island zones (all eight when the source lists none); `spots["palm-island"]` holds the same as "Zone X". */
+  /**
+   * Zones in its zoned area (all eight when the source lists none); `spots[area]` holds the same as "Zone X".
+   * A fish is in at most one zoned area (checked by the build).
+   */
   zones?: Zone[];
   time: Schedule;
   season: Schedule;

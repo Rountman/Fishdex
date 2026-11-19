@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { AREAS, FISH } from '../data';
+import { ZONED_AREAS } from '../data/types';
 import { emptyProgress, type Progress } from '../progress/schema';
 import { activeFilterCount, applyFilters, bitesAtHour, facets, locationPatch, EMPTY_FILTERS, inSeasonMonth, parseFilters, parseSort, serializeFilters, serializeSort, sortFish, type Filters } from './filters';
 import { buildIndex, fold, matches, nearlyEqual } from './search';
@@ -162,12 +163,13 @@ describe('applyFilters', () => {
   });
 
   it('areas with fish outside their spots stay selectable', () => {
-    expect(AREAS.filter(a => !a.open).map(a => a.id).sort()).toEqual(['club', 'palm-island']);
+    expect(AREAS.filter(a => !a.open).map(a => a.id).sort()).toEqual(['club', 'moray-tournament', 'palm-island']);
   });
 
   it.each([
     ['palm-island:Zone E', 38, 6],       // the other 32 bite in other zones too
     ['palm-island:Zone H', 33, 6],
+    ['moray-tournament:Zone D', 7, 1],   // only the zebra moray
     ['seagull-harbor:Boat', 26, 26],
     ['club:Fresh Water Pond', 31, 31],
   ])('"only here" at %s: %i → %i fish', (spot, all, only) => {
@@ -183,11 +185,20 @@ describe('applyFilters', () => {
   it('Palm Island zones follow the official grid and are the island\'s spots', () => {
     const palm = FISH.filter(f => f.areas.includes('palm-island'));
     expect(palm.every(f => f.zones?.length)).toBe(true);
-    expect(FISH.filter(f => !f.areas.includes('palm-island')).some(f => f.zones)).toBe(false);
+    expect(FISH.filter(f => !ZONED_AREAS.some(a => f.areas.includes(a))).some(f => f.zones)).toBe(false);
     expect(palm.filter(f => f.zones!.includes('A'))).toHaveLength(39);
     expect(palm.filter(f => f.zones!.length === 8).map(f => f.id)).toContain('hogfish');
     for (const f of palm) expect(f.spots['palm-island']).toEqual(f.zones!.map(z => `Zone ${z}`));
     expect(AREAS.find(a => a.id === 'palm-island')!.spots).toEqual(['Zone A', 'Zone B', 'Zone C', 'Zone D', 'Zone E', 'Zone F', 'Zone G', 'Zone H']);
+  });
+
+  it('Moray tournament zones come from fishao-tracker.cz', () => {
+    const moray = FISH.filter(f => f.areas.includes('moray-tournament'));
+    expect(moray).toHaveLength(18);
+    for (const f of moray) expect(f.spots['moray-tournament']).toEqual(f.zones!.map(z => `Zone ${z}`));
+    const zones = Object.fromEntries(moray.map(f => [f.id, f.zones!.join('')]));
+    expect(zones).toMatchObject({ 'zebra-moray': 'D', 'viper-moray': 'G', 'paint-spotted-moray': 'ABCDFH', 'salpa-maggiore': 'E' });
+    expect(AREAS.find(a => a.id === 'moray-tournament')!.spots).toEqual(['Zone A', 'Zone B', 'Zone C', 'Zone D', 'Zone E', 'Zone F', 'Zone G', 'Zone H']);
   });
 
   it('rarity and the "×n rarer" factor come from fishao.net', () => {
