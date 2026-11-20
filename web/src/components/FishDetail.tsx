@@ -1,5 +1,5 @@
 import { useId } from 'react';
-import { COLLECTIONS, fishImage, isBackyard } from '../data';
+import { COLLECTIONS, fishImage, isBackyard, isClub } from '../data';
 import type { Fish, Unlock } from '../data/types';
 import { altName, baitLabel, fishName, fmtNum, fmtPrice, fmtRecord, fmtSeason, fmtSize, fmtTime, fruitLabel, itemName } from '../i18n/format';
 import { useI18n } from '../i18n/context';
@@ -83,6 +83,11 @@ function Body({ fish, state, areaName, zoneName, onToggle, titleId, onClose, bre
         {isBackyard(fish) && (
           <button type="button" className={`toggle ${styles.wide}`} aria-pressed={!!state.bred} onClick={() => onToggle(fish.id, 'bred')}>
             <span className="box" aria-hidden="true" />{t.tBred}
+          </button>
+        )}
+        {isClub(fish) && (
+          <button type="button" className={`toggle ${styles.wide}`} aria-pressed={!!state.unlocked} onClick={() => onToggle(fish.id, 'unlocked')}>
+            <span className="box" aria-hidden="true" />{t.tUnlocked}
           </button>
         )}
       </div>

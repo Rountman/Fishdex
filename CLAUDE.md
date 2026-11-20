@@ -85,6 +85,8 @@ prototypes/    # schválené mockupy a styleguide (fáze 1–2), DECISIONS.md
 - Ryby z Backyard (`areas` obsahuje `backyard`) mají navíc třetí nezávislý stav
   `bred` = „mám za domem“ (ikonka domku na kartě, přepínač v detailu).
   Ostatní ryby ho nemají.
+- Ryby z Clubu (`areas` obsahuje `club`) mají obdobně nezávislý stav `unlocked` = „odemčeno v klubu“
+  (ikonka otevřeného zámku na kartě, přepínač v detailu, filtr „Odemčeno: mám / nemám“ při vybraném Clubu, URL `unl=`).
 - Ovládání karty ryby:
   - klik → přepne `caught`
   - Shift+klik nebo klik na ikonku záře → přepne `caughtGlowing`
@@ -182,9 +184,9 @@ prototypes/    # schválené mockupy a styleguide (fáze 1–2), DECISIONS.md
 
 - Progres je per prohlížeč a zařízení, nesynchronizuje se. Každý
   návštěvník vidí jen svůj.
-- Schéma: `fishdex:progress:v2` → `{ version, updatedAt, fish: { [id]: { caught, caughtGlowing, bred?, caughtAt? } }, furniture: { [id]: { owned, ownedAt? } } }`.
+- Schéma: `fishdex:progress:v2` → `{ version, updatedAt, fish: { [id]: { caught, caughtGlowing, bred?, unlocked?, caughtAt? } }, furniture: { [id]: { owned, ownedAt? } } }`.
   v1 (bez `furniture`) se migruje, klíč v1 zůstává jako záloha.
-  `bred` jen u ryb z Backyard.
+  `bred` jen u ryb z Backyard, `unlocked` jen u ryb z Clubu.
   Ukládej jen ryby s aspoň jedním `true`.
 - Při změně schématu přidej migraci z předchozí verze, nikdy data tiše nezahazuj.
 - Pokud localStorage není dostupný (anonymní režim, blokace), web musí

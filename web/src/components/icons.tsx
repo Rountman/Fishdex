@@ -15,6 +15,15 @@ export const HouseIcon = () => (
   </svg>
 );
 
+/** Open padlock: shackle lifted out of the right socket. */
+export const UnlockIcon = () => (
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <rect x="5" y="11" width="14" height="9.5" rx="1.5" />
+    <path d="M8.5 11V7.5a3.5 3.5 0 0 1 6.8-1.2" />
+    <path d="M12 14.5v2.5" />
+  </svg>
+);
+
 export const SearchIcon = () => (
   <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" /><path d="M13 13l4.5 4.5" /></svg>
 );

@@ -63,6 +63,22 @@ describe('toggle', () => {
     expect(p.fish['fire-eel']).toBeUndefined();
   });
 
+  it('toggles the club unlock state', () => {
+    let p = toggle(emptyProgress(T0), 'achilles-tang', 'unlocked', T1);
+    expect(p.fish['achilles-tang']).toEqual({ caught: false, caughtGlowing: false, unlocked: true });
+    p = toggle(p, 'achilles-tang', 'caught', T2);
+    expect(p.fish['achilles-tang']).toMatchObject({ caught: true, unlocked: true });
+    p = toggle(toggle(p, 'achilles-tang', 'caught', T2), 'achilles-tang', 'unlocked', T2);
+    expect(p.fish['achilles-tang']).toBeUndefined();
+  });
+
+  it('keeps the unlock through storage and merge', () => {
+    const stored = migrate(JSON.parse(JSON.stringify(toggle(emptyProgress(T0), 'achilles-tang', 'unlocked', T1))));
+    expect(stored.ok && stored.progress.fish['achilles-tang']).toEqual({ caught: false, caughtGlowing: false, unlocked: true });
+    const m = merge(toggle(emptyProgress(T0), 'achilles-tang', 'caught', T1), toggle(emptyProgress(T0), 'achilles-tang', 'unlocked', T1), T2);
+    expect(m.fish['achilles-tang']).toMatchObject({ caught: true, unlocked: true });
+  });
+
   it('does not mutate the input', () => {
     const before = emptyProgress(T0);
     toggle(before, 'eel', 'caught', T1);
@@ -247,7 +263,7 @@ describe('import', () => {
 
   it('totals count only fish present in the data', () => {
     const p = doc({ eel: { caught: true, caughtGlowing: true }, 'gone-fish': { caught: true, caughtGlowing: false } });
-    expect(totals(p, known)).toEqual({ caught: 1, caughtGlowing: 1, bred: 0 });
+    expect(totals(p, known)).toEqual({ caught: 1, caughtGlowing: 1, bred: 0, unlocked: 0 });
   });
 });
 

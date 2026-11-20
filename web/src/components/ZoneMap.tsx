@@ -6,7 +6,7 @@ import { useI18n } from '../i18n/context';
 import type { Facets, Tally } from '../state/filters';
 import styles from './ZoneMap.module.css';
 
-const EMPTY: Tally = { total: 0, caught: 0, glow: 0, bred: 0 };
+const EMPTY: Tally = { total: 0, caught: 0, glow: 0, bred: 0, unlocked: 0 };
 const spotOf = (z: Zone): Spot => `Zone ${z}`;
 const zoneValue = (area: ZonedArea, z: Zone) => `${area}:${spotOf(z)}`;
 

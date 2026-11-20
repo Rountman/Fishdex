@@ -14,7 +14,7 @@ type Props = {
   onBack: () => void;
 };
 
-const EMPTY: Tally = { total: 0, caught: 0, glow: 0, bred: 0 };
+const EMPTY: Tally = { total: 0, caught: 0, glow: 0, bred: 0, unlocked: 0 };
 
 const Cell = ({ n, of, kind }: { n: number; of: number; kind?: 'glow' | 'bred' }) => (
   <td>

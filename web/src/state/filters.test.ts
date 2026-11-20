@@ -92,6 +92,25 @@ describe('applyFilters', () => {
     expect(run({ area: '', bred: 'yes' }, p)).toHaveLength(FISH.length);
   });
 
+  it('club "odemčeno" only applies with the Club area', () => {
+    const p: Progress = { ...emptyProgress(), fish: { 'achilles-tang': { caught: false, caughtGlowing: false, unlocked: true } } };
+    const club = FISH.filter(f => f.areas.includes('club'));
+    expect(ids(run({ area: 'club', unlocked: 'yes' }, p))).toEqual(['achilles-tang']);
+    expect(run({ area: 'club', unlocked: 'no' }, p)).toHaveLength(club.length - 1);
+    expect(run({ area: '', unlocked: 'yes' }, p)).toHaveLength(FISH.length);
+    expect(facets(FISH, { ...EMPTY_FILTERS }, p, index).areas.get('club')?.unlocked).toBe(1);
+  });
+
+  it('"odemčeno" lives in the URL only with the Club area', () => {
+    expect(parseFilters(new URLSearchParams('area=club&unl=no'), areaIds).unlocked).toBe('no');
+    expect(parseFilters(new URLSearchParams('area=laketown&unl=yes'), areaIds).unlocked).toBe('');
+    expect(parseFilters(new URLSearchParams('area=club&unl=maybe'), areaIds).unlocked).toBe('');
+    expect(serializeFilters({ ...EMPTY_FILTERS, area: 'club', unlocked: 'yes' }).unl).toBe('yes');
+    expect(serializeFilters({ ...EMPTY_FILTERS, area: 'backyard', unlocked: 'yes' }).unl).toBeNull();
+    expect(activeFilterCount({ ...EMPTY_FILTERS, area: 'club', unlocked: 'yes' })).toBe(2);
+    expect(locationPatch('club').unlocked).toBe('');
+  });
+
   it('hour filter hides unknown times', () => {
     const atNoon = run({ hour: 12 });
     expect(ids(atNoon)).not.toContain('flathead-catfish'); // time: null
@@ -157,7 +176,7 @@ describe('applyFilters', () => {
     const shared = FISH.find(f => f.spots['palm-island']?.length === 8)!;
     const p: Progress = { ...emptyProgress(), fish: { [shared.id]: { caught: true, caughtGlowing: false } } };
     const c = facets(FISH, EMPTY_FILTERS, p, index);
-    expect(c.areas.get('palm-island')).toEqual({ total: 84, caught: 1, glow: 0, bred: 0 });
+    expect(c.areas.get('palm-island')).toEqual({ total: 84, caught: 1, glow: 0, bred: 0, unlocked: 0 });
     expect(c.spots.get('palm-island:Zone H')).toMatchObject({ total: 33, caught: 1 });
     expect(c.areas.get('club')?.total).toBe(80);
   });
@@ -251,9 +270,9 @@ describe('applyFilters', () => {
   });
 
   it('picking a spot sets its area, picking an area clears the spot', () => {
-    expect(locationPatch('cool-mountain:Raft')).toEqual({ area: 'cool-mountain', spot: 'cool-mountain:Raft', spotOnly: false, bred: '', breeder: null });
-    expect(locationPatch('club')).toEqual({ area: 'club', spot: '', spotOnly: false, bred: '', breeder: null });
-    expect(locationPatch('')).toEqual({ area: '', spot: '', spotOnly: false, bred: '', breeder: null });
+    expect(locationPatch('cool-mountain:Raft')).toEqual({ area: 'cool-mountain', spot: 'cool-mountain:Raft', spotOnly: false, bred: '', unlocked: '', breeder: null });
+    expect(locationPatch('club')).toEqual({ area: 'club', spot: '', spotOnly: false, bred: '', unlocked: '', breeder: null });
+    expect(locationPatch('')).toEqual({ area: '', spot: '', spotOnly: false, bred: '', unlocked: '', breeder: null });
   });
 
   it('combines with search', () => {
@@ -284,7 +303,7 @@ describe('URL round trip', () => {
   it('serializes and parses back', () => {
     const f: Filters = {
       q: 'stika', area: 'backyard', spot: '', spotOnly: false, rarity: new Set([5, 4]), bait: new Set(['Fish', 'Insects']),
-      status: 'uncaught', bred: 'no', breeder: 7, hour: 22, month: 12, sizeMin: 10, sizeMax: 50,
+      status: 'uncaught', bred: 'no', unlocked: '', breeder: 7, hour: 22, month: 12, sizeMin: 10, sizeMax: 50,
     };
     const params = new URLSearchParams(Object.entries(serializeFilters(f)).filter(([, v]) => v) as [string, string][]);
     expect(params.toString()).toBe('q=stika&area=backyard&rarity=4%2C5&bait=Fish%2CInsects&status=uncaught&bred=no&breeder=7&hour=22&month=12&sizemin=10&sizemax=50');
@@ -328,7 +347,7 @@ describe('facets (counts next to filter options)', () => {
     const c = fx({});
     expect(c.all.total).toBe(FISH.length);
     expect(c.areas.get('pirate-cave')?.total).toBe(7);
-    expect(c.spots.get('cool-mountain:Raft')).toEqual({ total: 10, caught: 1, glow: 0, bred: 0 });
+    expect(c.spots.get('cool-mountain:Raft')).toEqual({ total: 10, caught: 1, glow: 0, bred: 0, unlocked: 0 });
     expect(c.bait.get('Insects')).toBe(337);
     expect([1, 2, 3, 4, 5].map(r => c.rarity.get(r))).toEqual([48, 102, 153, 150, 162]);
     expect(c.status).toEqual({ all: FISH.length, uncaught: FISH.length - 2, caught: 2, noglow: FISH.length - 1 });

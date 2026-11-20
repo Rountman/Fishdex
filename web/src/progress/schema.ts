@@ -1,5 +1,5 @@
 // Progress document stored in localStorage and in backup files.
-// CLAUDE.md: `fishdex:progress:v2` → { version, updatedAt, fish: { [id]: { caught, caughtGlowing, bred?, caughtAt? } },
+// CLAUDE.md: `fishdex:progress:v2` → { version, updatedAt, fish: { [id]: { caught, caughtGlowing, bred?, unlocked?, caughtAt? } },
 //                                     furniture: { [id]: { owned, ownedAt? } } }
 // v1 had no `furniture`.
 
@@ -12,6 +12,8 @@ export type FishProgress = {
   caughtGlowing: boolean;
   /** "Mám za domem" – only for Backyard fish. */
   bred?: boolean;
+  /** "Odemčeno" – only for Club fish (unlocked in the club for club points or fishcoins). */
+  unlocked?: boolean;
   /** ISO date-time of the first time the fish was marked caught. */
   caughtAt?: string;
 };
@@ -31,7 +33,7 @@ export type Progress = {
   furniture: Record<string, FurnitureProgress>;
 };
 
-export type ProgressField = 'caught' | 'caughtGlowing' | 'bred';
+export type ProgressField = 'caught' | 'caughtGlowing' | 'bred' | 'unlocked';
 
 export const emptyProgress = (now = new Date()): Progress => ({
   version: SCHEMA_VERSION,
@@ -57,7 +59,7 @@ export type MigrateResult =
 const isRecord = (v: unknown): v is Record<string, unknown> =>
   typeof v === 'object' && v !== null && !Array.isArray(v);
 
-export const hasAny = (s: FishProgress) => s.caught || s.caughtGlowing || s.bred === true;
+export const hasAny = (s: FishProgress) => s.caught || s.caughtGlowing || s.bred === true || s.unlocked === true;
 
 /** Keeps only well-formed entries with at least one `true`. */
 function normalizeFish(raw: Record<string, unknown>): Record<string, FishProgress> {
@@ -66,6 +68,7 @@ function normalizeFish(raw: Record<string, unknown>): Record<string, FishProgres
     if (!isRecord(v)) continue;
     const s: FishProgress = { caught: v.caught === true, caughtGlowing: v.caughtGlowing === true };
     if (v.bred === true) s.bred = true;
+    if (v.unlocked === true) s.unlocked = true;
     if (s.caught && typeof v.caughtAt === 'string' && !Number.isNaN(Date.parse(v.caughtAt))) s.caughtAt = v.caughtAt;
     if (hasAny(s)) out[id] = s;
   }

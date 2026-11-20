@@ -23,6 +23,7 @@ export function toggle(p: Progress, id: string, field: ProgressField, now = new 
     else delete next.caughtAt;
   }
   if (field === 'bred' && !next.bred) delete next.bred;
+  if (field === 'unlocked' && !next.unlocked) delete next.unlocked;
   return withFish(p, id, next, now);
 }
 
@@ -75,6 +76,7 @@ export function merge(current: Progress, incoming: Progress, now = new Date()): 
     const c = current.fish[id] ?? NONE;
     const m: FishProgress = { caught: c.caught || s.caught, caughtGlowing: c.caughtGlowing || s.caughtGlowing };
     if (c.bred || s.bred) m.bred = true;
+    if (c.unlocked || s.unlocked) m.unlocked = true;
     if (m.caught) {
       const at = earliest(c.caught ? c.caughtAt : undefined, s.caught ? s.caughtAt : undefined);
       if (at) m.caughtAt = at;
@@ -142,17 +144,18 @@ export function exportFileName(now = new Date()) {
   return `fishdex-progress-${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}.json`;
 }
 
-export type Totals = { caught: number; caughtGlowing: number; bred: number };
+export type Totals = { caught: number; caughtGlowing: number; bred: number; unlocked: number };
 
 /** Counts only fish present in the data (unknown ids stay stored but are not counted). */
 export function totals(p: Progress, ids: Iterable<string>): Totals {
-  const t: Totals = { caught: 0, caughtGlowing: 0, bred: 0 };
+  const t: Totals = { caught: 0, caughtGlowing: 0, bred: 0, unlocked: 0 };
   for (const id of ids) {
     const s = p.fish[id];
     if (!s) continue;
     if (s.caught) t.caught++;
     if (s.caughtGlowing) t.caughtGlowing++;
     if (s.bred) t.bred++;
+    if (s.unlocked) t.unlocked++;
   }
   return t;
 }

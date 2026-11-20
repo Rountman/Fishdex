@@ -40,6 +40,7 @@ const cs = {
   spotOnly: 'Jen odsud',
   spotOnlyNote: 'Jen ryby, které nechytíš na jiném místě této oblasti.',
   yard: 'Za domem', yardHave: 'Mám', yardNot: 'Nemám',
+  unlockedLabel: 'Odemčeno',
   more: 'Čas a sezóna',
   hour: 'Chytá se v',
   hourAny: 'Kdykoliv',
@@ -73,6 +74,8 @@ const cs = {
   cardHelp: 'Klik nebo Enter přepne ulovení, Shift+klik nebo Shift+Enter zářivou, dlouhý stisk na dotykové obrazovce zářivou.',
   glowAria: (n: string) => `${n}: zářivá varianta`,
   bredAria: (n: string) => `${n}: mám za domem`,
+  unlockedNote: 'Odemčeno',
+  unlockedAria: (n: string) => `${n}: odemčeno v klubu`,
   rarityAria: (r: number) => `rarita ${r} z 5`,
   unsure: 'Nejisté: zdroje se liší',
   rarer: (n: number, r: number) => `${n}× vzácnější než ostatní ${r}★ ryby`,
@@ -97,7 +100,7 @@ const cs = {
   sellSpoken: (min: number, max: number) => `výkup přibližně ${min} až ${max} fishbucks`,
   anyTime: 'Kdykoliv', allYear: 'Celý rok',
   overnight: 'přes půlnoc',
-  tCaught: 'Ulovena', tGlow: 'Zářivá ulovena', tBred: 'Mám za domem', close: 'Zavřít',
+  tCaught: 'Ulovena', tGlow: 'Zářivá ulovena', tBred: 'Mám za domem', tUnlocked: 'Odemčeno v klubu', close: 'Zavřít',
   emptyTitle: 'Na téhle stránce nic.',
   emptyQuery: (q: string) => `Hledání „${q}“ nenašlo žádnou rybu.`,
   emptyFilters: 'Žádná ryba neodpovídá zvoleným filtrům.',
@@ -108,6 +111,7 @@ const cs = {
   toast: (n: string, field: string, on: boolean) =>
     field === 'caught' ? `${n}: ${on ? 'zapsána jako ulovená' : 'ulovení smazáno'}`
       : field === 'bred' ? `${n}: ${on ? 'zapsána za domem' : 'odebrána ze zápisu za domem'}`
+      : field === 'unlocked' ? `${n}: ${on ? 'zapsána jako odemčená' : 'odemčení smazáno'}`
         : `${n}: ${on ? 'zapsána zářivá' : 'zářivá smazána'}`,
   undo: 'Vrátit',
   ovTitle: 'Přehled oblastí', ovBack: 'Zpět na ryby',
@@ -341,6 +345,7 @@ const en: Strings = {
   spotOnly: 'Only here',
   spotOnlyNote: 'Only fish you cannot catch at another spot of this area.',
   yard: 'Backyard', yardHave: 'Have', yardNot: 'Don’t have',
+  unlockedLabel: 'Unlocked',
   more: 'Time and season',
   hour: 'Bites at',
   hourAny: 'Any time',
@@ -374,6 +379,8 @@ const en: Strings = {
   cardHelp: 'Click or Enter toggles caught, Shift+click or Shift+Enter glowing, long press on touch screens glowing.',
   glowAria: n => `${n}: glowing variant`,
   bredAria: n => `${n}: in my backyard`,
+  unlockedNote: 'Unlocked',
+  unlockedAria: n => `${n}: unlocked in the club`,
   rarityAria: r => `rarity ${r} of 5`,
   unsure: 'Uncertain: sources disagree',
   rarer: (n, r) => `${n}× rarer than other ${r}★ fish`,
@@ -398,7 +405,7 @@ const en: Strings = {
   sellSpoken: (min, max) => `sells for about ${min} to ${max} fishbucks`,
   anyTime: 'Any time', allYear: 'All year',
   overnight: 'past midnight',
-  tCaught: 'Caught', tGlow: 'Glowing caught', tBred: 'In my backyard', close: 'Close',
+  tCaught: 'Caught', tGlow: 'Glowing caught', tBred: 'In my backyard', tUnlocked: 'Unlocked in the club', close: 'Close',
   emptyTitle: 'Nothing on this page.',
   emptyQuery: q => `No fish matches “${q}”.`,
   emptyFilters: 'No fish matches the selected filters.',
@@ -409,6 +416,7 @@ const en: Strings = {
   toast: (n, field, on) =>
     field === 'caught' ? `${n}: ${on ? 'marked caught' : 'unmarked'}`
       : field === 'bred' ? `${n}: ${on ? 'marked in backyard' : 'removed from backyard'}`
+      : field === 'unlocked' ? `${n}: ${on ? 'marked unlocked' : 'unlock removed'}`
         : `${n}: ${on ? 'glowing marked' : 'glowing unmarked'}`,
   undo: 'Undo',
   ovTitle: 'Area overview', ovBack: 'Back to fish',

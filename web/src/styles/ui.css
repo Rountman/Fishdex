@@ -40,6 +40,7 @@
 .icon-btn--bred .pond { opacity: 0; }
 .icon-btn--bred[aria-pressed="true"] { background: var(--color-ink); color: var(--color-on-ink); border-color: var(--color-ink); }
 .icon-btn--bred[aria-pressed="true"] .pond { opacity: 1; }
+.icon-btn--unlocked[aria-pressed="true"] { background: var(--color-ink); color: var(--color-on-ink); border-color: var(--color-ink); }
 .icon-btn--close { width: 40px; height: 40px; border-color: var(--color-ink-faint); background: none; color: var(--color-ink); font-size: 22px; line-height: 1; }
 .icon-btn--close:hover { border-color: var(--color-ink); }
 

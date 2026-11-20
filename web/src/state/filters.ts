@@ -38,6 +38,7 @@ export type Filters = {
   bait: ReadonlySet<Bait>;      // empty = any; otherwise fish takes at least one
   status: Status;
   bred: Bred;                   // only applies while area = backyard
+  unlocked: Bred;               // "Odemčeno: mám / nemám", only applies while area = club
   breeder: number | null;       // Chovatelé entry no.: only that player's backyard fish (area = backyard)
   hour: number | null;          // 0–23: catchable during that hour
   month: number | null;         // 1–12: in season during that month
@@ -46,7 +47,7 @@ export type Filters = {
 };
 
 export const EMPTY_FILTERS: Filters = {
-  q: '', area: '', spot: '', spotOnly: false, rarity: new Set(), bait: new Set(), status: 'all', bred: '', breeder: null, hour: null, month: null, sizeMin: null, sizeMax: null,
+  q: '', area: '', spot: '', spotOnly: false, rarity: new Set(), bait: new Set(), status: 'all', bred: '', unlocked: '', breeder: null, hour: null, month: null, sizeMin: null, sizeMax: null,
 };
 
 const STATUSES: Status[] = ['all', 'uncaught', 'caught', 'noglow'];
@@ -62,6 +63,7 @@ export function parseFilters(params: URLSearchParams, areaIds: ReadonlySet<strin
   const area = params.get('area') ?? '';
   const status = params.get('status') as Status;
   const bred = params.get('bred');
+  const unl = params.get('unl');
   const spot = parseSpot(params.get('spot'), areaIds);
   return {
     q: params.get('q') ?? '',
@@ -72,6 +74,7 @@ export function parseFilters(params: URLSearchParams, areaIds: ReadonlySet<strin
     bait: new Set((params.get('bait') ?? '').split(',').filter((b): b is Bait => b in BAITS)),
     status: STATUSES.includes(status) ? status : 'all',
     bred: area === 'backyard' && (bred === 'yes' || bred === 'no') ? bred : '',
+    unlocked: area === 'club' && (unl === 'yes' || unl === 'no') ? unl : '',
     breeder: area === 'backyard' ? int(params.get('breeder'), 1, 999999999) : null,
     hour: int(params.get('hour'), 0, 23),
     month: int(params.get('month'), 1, 12),
@@ -91,6 +94,7 @@ export function serializeFilters(f: Filters): Record<string, string | null> {
     bait: f.bait.size ? [...f.bait].join(',') : null,
     status: f.status === 'all' ? null : f.status,
     bred: f.area === 'backyard' && f.bred ? f.bred : null,
+    unl: f.area === 'club' && f.unlocked ? f.unlocked : null,
     breeder: f.area === 'backyard' && f.breeder !== null ? String(f.breeder) : null,
     hour: f.hour === null ? null : String(f.hour),
     month: f.month === null ? null : String(f.month),
@@ -112,7 +116,7 @@ function parseSpot(v: string | null, areaIds: ReadonlySet<string>) {
 
 /** Picking an area (or "all") clears the spot; picking '<area>:<Spot>' sets both. */
 export const locationPatch = (value: string): Partial<Filters> =>
-  value.includes(':') ? { area: splitSpot(value).area, spot: value, spotOnly: false, bred: '', breeder: null } : { area: value, spot: '', spotOnly: false, bred: '', breeder: null };
+  value.includes(':') ? { area: splitSpot(value).area, spot: value, spotOnly: false, bred: '', unlocked: '', breeder: null } : { area: value, spot: '', spotOnly: false, bred: '', unlocked: '', breeder: null };
 
 /** Areas without open water (Palm Island, Club): picking one shows every fish of all its spots. */
 const HEADING_AREAS: ReadonlySet<string> = new Set(AREAS.filter(a => !a.open).map(a => a.id));
@@ -172,6 +176,8 @@ function predicate(f: Filters, progress: Progress, index: SearchIndex, skip?: Fa
       if (spot && f.spotOnly && !onlyAtSpot(x, spot.area)) return false;
       if (f.area === 'backyard' && f.bred === 'yes' && !s.bred) return false;
       if (f.area === 'backyard' && f.bred === 'no' && s.bred) return false;
+      if (f.area === 'club' && f.unlocked === 'yes' && !s.unlocked) return false;
+      if (f.area === 'club' && f.unlocked === 'no' && s.unlocked) return false;
       if (f.area === 'backyard' && f.breeder !== null && breederFish && !breederFish.has(x.id)) return false;
     }
     if (skip !== 'rarity' && f.rarity.size && !f.rarity.has(x.rarity)) return false;
@@ -198,8 +204,8 @@ export function applyFilters(fish: readonly Fish[], f: Filters, progress: Progre
   return fish.filter(predicate(f, progress, index, undefined, breederFish));
 }
 
-export type Tally = { total: number; caught: number; glow: number; bred: number };
-const tally = (): Tally => ({ total: 0, caught: 0, glow: 0, bred: 0 });
+export type Tally = { total: number; caught: number; glow: number; bred: number; unlocked: number };
+const tally = (): Tally => ({ total: 0, caught: 0, glow: 0, bred: 0, unlocked: 0 });
 
 export type Facets = {
   /** Fish matching every filter except area / spot ("Všechny oblasti"). */
@@ -228,6 +234,7 @@ export function facets(fish: readonly Fish[], f: Filters, progress: Progress, in
     if (s.caught) t.caught++;
     if (s.caughtGlowing) t.glow++;
     if (s.bred) t.bred++;
+    if (s.unlocked) t.unlocked++;
   };
   const selected = f.spot ? splitSpot(f.spot) : null;
   const loc = predicate(f, progress, index, 'location'), rar = predicate(f, progress, index, 'rarity', breederFish);
@@ -239,6 +246,7 @@ export function facets(fish: readonly Fish[], f: Filters, progress: Progress, in
       if (s.caught) out.all.caught++;
       if (s.caughtGlowing) out.all.glow++;
       if (s.bred) out.all.bred++;
+      if (s.unlocked) out.all.unlocked++;
       for (const a of x.areas) if (inArea(x, a)) add(out.areas, a, s);
       for (const [a, list] of Object.entries(x.spots)) for (const sp of list) add(out.spots, `${a}:${sp}`, s);
       if (selected && x.spots[selected.area]?.includes(selected.spot) && onlyAtSpot(x, selected.area)) out.spotOnly++;
@@ -253,5 +261,5 @@ export function facets(fish: readonly Fish[], f: Filters, progress: Progress, in
 /** Number of active filters, search excluded (shown on the mobile "Filtry (n)" button). */
 export const activeFilterCount = (f: Filters) =>
   (f.area ? 1 : 0) + (f.spot ? 1 : 0) + (f.spot && f.spotOnly ? 1 : 0) + f.rarity.size + f.bait.size + (f.status !== 'all' ? 1 : 0) +
-  (f.area === 'backyard' && f.bred ? 1 : 0) + (f.area === 'backyard' && f.breeder !== null ? 1 : 0) + (f.hour !== null ? 1 : 0) + (f.month !== null ? 1 : 0) +
+  (f.area === 'backyard' && f.bred ? 1 : 0) + (f.area === 'backyard' && f.breeder !== null ? 1 : 0) + (f.area === 'club' && f.unlocked ? 1 : 0) + (f.hour !== null ? 1 : 0) + (f.month !== null ? 1 : 0) +
   (f.sizeMin !== null || f.sizeMax !== null ? 1 : 0);

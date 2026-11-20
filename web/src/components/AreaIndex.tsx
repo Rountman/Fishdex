@@ -15,7 +15,7 @@ type Props = {
   onSelect: (value: string) => void;
 };
 
-const EMPTY: Tally = { total: 0, caught: 0, glow: 0, bred: 0 };
+const EMPTY: Tally = { total: 0, caught: 0, glow: 0, bred: 0, unlocked: 0 };
 
 const Count = ({ tally }: { tally: Tally }) => (
   <>
@@ -59,8 +59,10 @@ export function AreaIndex({ areas, facets, area, spot, onSelect }: Props) {
                   <li key={a.id}>
                     <Row
                       label={a.name} tally={tally} pressed={area === a.id && !spot} onClick={() => onSelect(a.id)}
-                      extra={kind === 'backyard' && (
+                      extra={kind === 'backyard' ? (
                         <span className={styles.bred}>{t.bredNote} {tally.bred}<span className="of">/{tally.total}</span></span>
+                      ) : a.id === 'club' && (
+                        <span className={styles.bred}>{t.unlockedLabel} {tally.unlocked}<span className="of">/{tally.total}</span></span>
                       )}
                     />
                     {a.spots.length > 0 && (

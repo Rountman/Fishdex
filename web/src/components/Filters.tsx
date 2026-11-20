@@ -35,7 +35,7 @@ const sizeValue = (v: string) => (/^\d+$/.test(v) && Number(v) <= SIZE_LIMIT ? N
 
 function Controls({ filters: f, facets, areas, mobile, onChange, sort, onSort, breeders }: Pick<Props, 'filters' | 'facets' | 'areas' | 'mobile' | 'onChange' | 'sort' | 'onSort' | 'breeders'>) {
   const { lang, t } = useI18n();
-  const ids = { sort: useId(), rarity: useId(), status: useId(), bait: useId(), yard: useId(), breeder: useId(), area: useId(), hour: useId(), month: useId(), size: useId() };
+  const ids = { sort: useId(), rarity: useId(), status: useId(), bait: useId(), yard: useId(), unlocked: useId(), breeder: useId(), area: useId(), hour: useId(), month: useId(), size: useId() };
   const statusLabel: Record<Status, string> = { all: t.statusAll, uncaught: t.uncaught, caught: t.caught, noglow: t.noglow };
   const toggleRarity = (r: number) => {
     const next = new Set(f.rarity);
@@ -127,6 +127,16 @@ function Controls({ filters: f, facets, areas, mobile, onChange, sort, onSort, b
           ))}
         </div>
       )}
+      {f.area === 'club' && (
+        <div className={styles.row} role="group" aria-labelledby={ids.unlocked}>
+          <span className={styles.label} id={ids.unlocked}>{t.unlockedLabel}</span>
+          {(['', 'yes', 'no'] as const).map(v => (
+            <button key={v} type="button" className="chip" aria-pressed={f.unlocked === v} onClick={() => onChange({ unlocked: v })}>
+              {v === '' ? t.statusAll : v === 'yes' ? t.yardHave : t.yardNot}
+            </button>
+          ))}
+        </div>
+      )}
       {f.area === 'backyard' && (breeders?.length || f.breeder !== null) ? (
         <div className={styles.row}>
           <label className={styles.label} htmlFor={ids.breeder}>{t.breederLabel}</label>
@@ -168,7 +178,7 @@ function ActiveChips({ filters: f, areas, onChange, breeders }: Pick<Props, 'fil
   const area = areas.find(a => a.id === f.area);
   if (f.area) {
     const name = area?.name ?? f.area;
-    chips.push({ key: 'area', label: name, text: name, clear: { area: '', spot: '', spotOnly: false, bred: '', breeder: null } });
+    chips.push({ key: 'area', label: name, text: name, clear: { area: '', spot: '', spotOnly: false, bred: '', unlocked: '', breeder: null } });
   }
   if (f.spot) {
     const { area, spot } = splitSpot(f.spot);
@@ -191,6 +201,10 @@ function ActiveChips({ filters: f, areas, onChange, breeders }: Pick<Props, 'fil
   if (f.area === 'backyard' && f.bred) {
     const l = `${t.yard}: ${f.bred === 'yes' ? t.yardHave : t.yardNot}`;
     chips.push({ key: 'bred', label: l, text: l, clear: { bred: '' } });
+  }
+  if (f.area === 'club' && f.unlocked) {
+    const l = `${t.unlockedLabel}: ${f.unlocked === 'yes' ? t.yardHave : t.yardNot}`;
+    chips.push({ key: 'unlocked', label: l, text: l, clear: { unlocked: '' } });
   }
   if (f.area === 'backyard' && f.breeder !== null) {
     const l = `${t.breederLabel}: ${breeders?.find(b => b.no === f.breeder)?.nick ?? t.breederNo(f.breeder)}`;

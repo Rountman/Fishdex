@@ -24,3 +24,5 @@ export const furnitureImage = (id: string) => `${import.meta.env.BASE_URL}furnit
 export const badgeImage = (collectionId: string) => `${import.meta.env.BASE_URL}furniture/sets/${collectionId}.webp`;
 
 export const isBackyard = (f: Fish) => f.areas.includes('backyard');
+/** Club fish are unlocked one by one (club points / fishcoins): the "Odemčeno" state. */
+export const isClub = (f: Fish) => f.areas.includes('club');

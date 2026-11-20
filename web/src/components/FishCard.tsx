@@ -1,10 +1,10 @@
 import { memo, useRef, useState, type KeyboardEvent, type MouseEvent, type PointerEvent } from 'react';
-import { fishImage, isBackyard } from '../data';
+import { fishImage, isBackyard, isClub } from '../data';
 import { isZonedArea, type Fish } from '../data/types';
 import { baitLabel, fishName, fmtPrice, fmtRecord, fmtSeason, fmtSize, fmtTime, spotLabel } from '../i18n/format';
 import { useI18n } from '../i18n/context';
 import type { FishProgress, ProgressField } from '../progress/schema';
-import { CalendarIcon, ClockIcon, CoinIcon, GlowIcon, HouseIcon } from './icons';
+import { CalendarIcon, ClockIcon, CoinIcon, GlowIcon, HouseIcon, UnlockIcon } from './icons';
 import { Stars } from './Stars';
 import styles from './FishCard.module.css';
 
@@ -72,6 +72,7 @@ function FishCardImpl({ fish, state, areaName, onToggle, onOpen, priority }: Pro
   };
 
   const yard = isBackyard(fish);
+  const club = isClub(fish);
   const cls = pressing ? `${styles.card} ${styles.pressing}` : styles.card;
 
   return (
@@ -129,6 +130,7 @@ function FishCardImpl({ fish, state, areaName, onToggle, onOpen, priority }: Pro
           {fish.areas.length > 1 && <span className="of"> +{fish.areas.length - 1}</span>}
         </p>
         {yard && state.bred && <p className={styles.bred}>{t.bredNote}</p>}
+        {club && state.unlocked && <p className={styles.bred}>{t.unlockedNote}</p>}
       </div>
       <button
         type="button" className={`icon-btn icon-btn--glow ${styles.glow}`}
@@ -141,6 +143,13 @@ function FishCardImpl({ fish, state, areaName, onToggle, onOpen, priority }: Pro
           aria-pressed={!!state.bred} aria-label={t.bredAria(name)}
           onClick={() => onToggle(fish.id, 'bred')}
         ><HouseIcon /></button>
+      )}
+      {club && (
+        <button
+          type="button" className={`icon-btn icon-btn--unlocked ${styles.bredBtn}`}
+          aria-pressed={!!state.unlocked} aria-label={t.unlockedAria(name)}
+          onClick={() => onToggle(fish.id, 'unlocked')}
+        ><UnlockIcon /></button>
       )}
       <button type="button" className={`link link--note ${styles.open}`} onClick={() => onOpen(fish.id)}>
         {t.open}<span className="visually-hidden">{t.openFor(name)}</span>
