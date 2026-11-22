@@ -15,18 +15,18 @@
 .count { font-size: var(--fs-sm); font-variant-numeric: tabular-nums; }
 .list button[data-done="true"] .count::after { content: " ✓"; color: var(--color-stamp); font-weight: 700; }
 .bar { grid-column: 1 / -1; height: 2px; margin-top: 4px; background: color-mix(in oklch, var(--color-ink) 12%, transparent); }
-.bred { grid-column: 1 / -1; margin-top: 3px; font-size: 12px; color: var(--color-ink-soft); }
+.bred { grid-column: 1 / -1; margin-top: 3px; font-size: var(--fs-xs); color: var(--color-ink-soft); }
 .list button[aria-pressed="true"] .bred { color: inherit; }
 .all { margin-bottom: var(--space-2); padding-bottom: var(--space-2); border-bottom: 1.5px solid color-mix(in oklch, var(--color-ink) 25%, transparent); }
 .all .name { font: var(--fw-name) 16px/1.2 var(--font-display); }
 
-@media (max-width: 760px) {
-  .index { margin-top: var(--space-6); }
+@media (pointer: coarse) {
+  .list button { min-height: var(--tap-min); align-content: center; }
 }
 
 /* spots: full entries nested under their area */
 .spots { list-style: none; margin: 0 0 var(--space-1); padding: 0 0 0 var(--space-4); border-left: 1.5px solid color-mix(in oklch, var(--color-ink) 18%, transparent); margin-left: var(--space-2); }
 .sub { padding-top: 3px !important; padding-bottom: 4px !important; }
-.sub .name { font: italic var(--fw-regular) 15px/1.2 var(--font-display); }
+.sub .name { font: italic var(--fw-regular) var(--fs-body)/1.2 var(--font-display); }
 /* nothing left under the other filters: still clickable, visibly quieter */
 .list button[data-empty="true"]:not([aria-pressed="true"]) .name { color: var(--color-ink-faint); }

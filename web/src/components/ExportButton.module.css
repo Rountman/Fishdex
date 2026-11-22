@@ -7,7 +7,11 @@
   background: var(--color-ink); color: var(--color-on-ink);
   font-size: var(--fs-ui); font-weight: var(--fw-strong);
   box-shadow: var(--shadow-pop);
+  min-height: var(--tap-min);
+  transition: translate var(--dur-panel) var(--ease-out), opacity var(--dur-panel) var(--ease-out);
 }
+/* out of the way while scrolling down; keyboard focus always brings it back */
+.fab[data-hidden="true"]:not(:focus-visible) { translate: 0 calc(100% + var(--space-6)); opacity: 0; pointer-events: none; }
 .fab:hover { background: var(--color-paper-top); color: var(--color-ink); }
 .fab svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 .short { display: none; }

@@ -92,3 +92,19 @@
 /* native <dialog> base */
 dialog { color: var(--color-ink); }
 dialog::backdrop { background: var(--color-backdrop); }
+
+/*
+ * Touch screens: every control gets a hit area of at least --tap-min.
+ * Mouse keeps the compact journal density; the visual mark stays the same
+ * size where enlarging it would crowd the card (see FishCard.module.css).
+ */
+@media (pointer: coarse) {
+  .btn, .chip, .toggle { min-height: var(--tap-min); }
+  /* text links often sit inside a sentence: grow the hit area, not the line */
+  .link { position: relative; }
+  .link::after {
+    content: ""; position: absolute; left: -4px; right: -4px; top: 50%;
+    height: max(100%, var(--tap-min)); translate: 0 -50%;
+  }
+  .icon-btn--close { width: var(--tap-min); height: var(--tap-min); }
+}

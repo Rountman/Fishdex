@@ -33,10 +33,68 @@ const STATUSES: Status[] = ['all', 'uncaught', 'caught', 'noglow'];
 /** Empty or not a whole number = no limit. */
 const sizeValue = (v: string) => (/^\d+$/.test(v) && Number(v) <= SIZE_LIMIT ? Number(v) : null);
 
-function Controls({ filters: f, facets, areas, mobile, onChange, sort, onSort, breeders }: Pick<Props, 'filters' | 'facets' | 'areas' | 'mobile' | 'onChange' | 'sort' | 'onSort' | 'breeders'>) {
-  const { lang, t } = useI18n();
-  const ids = { sort: useId(), rarity: useId(), status: useId(), bait: useId(), yard: useId(), unlocked: useId(), breeder: useId(), area: useId(), hour: useId(), month: useId(), size: useId() };
+type RowProps = Pick<Props, 'filters' | 'facets' | 'onChange'>;
+
+/** Vše / Chybí / Ulovené / Chybí zářivá: one tap, the most used filter. */
+function StatusRow({ filters: f, facets, onChange }: RowProps) {
+  const { t } = useI18n();
+  const id = useId();
   const statusLabel: Record<Status, string> = { all: t.statusAll, uncaught: t.uncaught, caught: t.caught, noglow: t.noglow };
+  return (
+    <div className={styles.row} role="group" aria-labelledby={id}>
+      <span className={styles.label} id={id}>{t.status}</span>
+      {STATUSES.map(s => (
+        <button key={s} type="button" className="chip" aria-pressed={f.status === s} onClick={() => onChange({ status: s })}>
+          {statusLabel[s]}<span className={styles.n}>{facets.status[s]}</span>
+        </button>
+      ))}
+    </div>
+  );
+}
+
+function AreaRow({ filters: f, facets, areas, onChange }: RowProps & Pick<Props, 'areas'>) {
+  const { lang, t } = useI18n();
+  const id = useId();
+  return (
+    <div className={styles.row}>
+      <label className={styles.label} htmlFor={id}>{t.area}</label>
+      {/* areas and, right under each, its spots as full entries */}
+      <select id={id} className={styles.select} value={f.spot || f.area}
+        aria-describedby={f.spot ? `${id}-note` : undefined} onChange={e => onChange(locationPatch(e.target.value))}>
+        <option value="">{t.allAreas} ({facets.all.total})</option>
+        {(['area', 'tournament', 'backyard'] as const).map(kind => (
+          <optgroup key={kind} label={t.kinds[kind]}>
+            {areas.filter(a => a.kind === kind).flatMap(a => [
+              <option key={a.id} value={a.id}>{a.name} ({facets.areas.get(a.id)?.total ?? 0})</option>,
+              ...a.spots.map(sp => {
+                const v = `${a.id}:${sp}`;
+                return <option key={v} value={v}>{a.name} › {spotLabel(sp, lang).text} ({facets.spots.get(v)?.total ?? 0})</option>;
+              }),
+            ])}
+          </optgroup>
+        ))}
+      </select>
+      {/* only where some fish of the spot also sit at another spot of the area (Palm Island) */}
+      {f.spot && (f.spotOnly || facets.spotOnly < (facets.spots.get(f.spot)?.total ?? 0)) && (
+        <button type="button" className="chip" aria-pressed={f.spotOnly} onClick={() => onChange({ spotOnly: !f.spotOnly })}>
+          {t.spotOnly}<span className={styles.n}>{facets.spotOnly}</span>
+        </button>
+      )}
+      {f.spot && (
+        <p className={styles.spotNote} id={`${id}-note`}>
+          {f.spotOnly ? t.spotOnlyNote : areas.find(a => a.id === f.area)?.open === false ? t.spotNoteShared : t.spotNote}
+        </p>
+      )}
+    </div>
+  );
+}
+
+function Controls({ filters: f, facets, areas, mobile, onChange, sort, onSort, breeders, quick }: Pick<Props, 'filters' | 'facets' | 'areas' | 'mobile' | 'onChange' | 'sort' | 'onSort' | 'breeders'> & {
+  /** Phone: status and area already sit above the cards, the sheet holds the rest. */
+  quick?: boolean;
+}) {
+  const { t } = useI18n();
+  const ids = { sort: useId(), rarity: useId(), bait: useId(), yard: useId(), unlocked: useId(), breeder: useId(), hour: useId(), month: useId(), size: useId() };
   const toggleRarity = (r: number) => {
     const next = new Set(f.rarity);
     if (next.has(r)) next.delete(r); else next.add(r);
@@ -62,44 +120,8 @@ function Controls({ filters: f, facets, areas, mobile, onChange, sort, onSort, b
           </button>
         ))}
       </div>
-      <div className={styles.row} role="group" aria-labelledby={ids.status}>
-        <span className={styles.label} id={ids.status}>{t.status}</span>
-        {STATUSES.map(s => (
-          <button key={s} type="button" className="chip" aria-pressed={f.status === s} onClick={() => onChange({ status: s })}>
-            {statusLabel[s]}<span className={styles.n}>{facets.status[s]}</span>
-          </button>
-        ))}
-      </div>
-      <div className={styles.row}>
-        <label className={styles.label} htmlFor={ids.area}>{t.area}</label>
-        {/* areas and, right under each, its spots as full entries */}
-        <select id={ids.area} className={styles.select} value={f.spot || f.area}
-          aria-describedby={f.spot ? `${ids.area}-note` : undefined} onChange={e => onChange(locationPatch(e.target.value))}>
-          <option value="">{t.allAreas} ({facets.all.total})</option>
-          {(['area', 'tournament', 'backyard'] as const).map(kind => (
-            <optgroup key={kind} label={t.kinds[kind]}>
-              {areas.filter(a => a.kind === kind).flatMap(a => [
-                <option key={a.id} value={a.id}>{a.name} ({facets.areas.get(a.id)?.total ?? 0})</option>,
-                ...a.spots.map(sp => {
-                  const v = `${a.id}:${sp}`;
-                  return <option key={v} value={v}>{a.name} › {spotLabel(sp, lang).text} ({facets.spots.get(v)?.total ?? 0})</option>;
-                }),
-              ])}
-            </optgroup>
-          ))}
-        </select>
-        {/* only where some fish of the spot also sit at another spot of the area (Palm Island) */}
-        {f.spot && (f.spotOnly || facets.spotOnly < (facets.spots.get(f.spot)?.total ?? 0)) && (
-          <button type="button" className="chip" aria-pressed={f.spotOnly} onClick={() => onChange({ spotOnly: !f.spotOnly })}>
-            {t.spotOnly}<span className={styles.n}>{facets.spotOnly}</span>
-          </button>
-        )}
-        {f.spot && (
-          <p className={styles.spotNote} id={`${ids.area}-note`}>
-            {f.spotOnly ? t.spotOnlyNote : areas.find(a => a.id === f.area)?.open === false ? t.spotNoteShared : t.spotNote}
-          </p>
-        )}
-      </div>
+      {!quick && <StatusRow filters={f} facets={facets} onChange={onChange} />}
+      {!quick && <AreaRow filters={f} facets={facets} areas={areas} onChange={onChange} />}
       <div className={`${styles.row} ${styles.baitRow}`}>
         <span className={styles.label} id={ids.bait}>{t.bait}</span>
         <BaitPicker selected={f.bait} counts={facets.bait} onChange={bait => onChange({ bait })} labelId={ids.bait} inline={mobile} />
@@ -235,7 +257,10 @@ export function Filters(props: Props) {
   const searchId = useId();
   const sheetTitle = useId();
   const sheet = useModal(mobile && sheetOpen, () => onSheet(false));
-  const n = activeFilterCount(f);
+  // phone: the button counts what is inside the sheet (status and area sit outside it)
+  const n = activeFilterCount(f) - (mobile
+    ? (f.area ? 1 : 0) + (f.spot ? 1 : 0) + (f.spot && f.spotOnly ? 1 : 0) + (f.status !== 'all' ? 1 : 0)
+    : 0);
 
   return (
     <div className={styles.controls}>
@@ -254,6 +279,12 @@ export function Filters(props: Props) {
       </div>
 
       {!mobile && <div className={styles.inline}><Controls {...props} /></div>}
+      {mobile && (
+        <div className={styles.quick}>
+          <StatusRow filters={f} facets={props.facets} onChange={onChange} />
+          <AreaRow filters={f} facets={props.facets} areas={props.areas} onChange={onChange} />
+        </div>
+      )}
 
       {mobile && (
         <dialog ref={sheet} className={styles.sheet} aria-labelledby={sheetTitle}>
@@ -261,7 +292,7 @@ export function Filters(props: Props) {
             <h2 id={sheetTitle}>{t.filters}</h2>
             <button type="button" className="icon-btn icon-btn--close" aria-label={t.close} onClick={() => onSheet(false)}>×</button>
           </div>
-          <div className={styles.sheetBody}><Controls {...props} /></div>
+          <div className={styles.sheetBody}><Controls {...props} quick /></div>
           <div className={styles.sheetFoot}>
             <button type="button" className="btn" onClick={() => onSheet(false)}>{t.showN(shown)}</button>
           </div>

@@ -114,7 +114,7 @@ function FishCardImpl({ fish, state, areaName, onToggle, onOpen, priority }: Pro
         )}
         {/* real windows only: "always" / "all year" and unknown stay off the card (all of it is in the detail) */}
         {Array.isArray(fish.time) && (
-          <p className={styles.time}>
+          <p className={`${styles.time} ${styles.clock}`}>
             <ClockIcon /><span className="visually-hidden">{t.when}: </span>
             {fmtTime(fish.time, lang).text}
           </p>

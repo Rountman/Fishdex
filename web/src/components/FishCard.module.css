@@ -51,16 +51,18 @@
 .len { color: var(--color-ink-soft); white-space: nowrap; }
 .time {
   display: flex; align-items: center; gap: 5px; margin: 3px 0 0;
-  font-size: var(--fs-sm); font-variant-numeric: tabular-nums; color: var(--color-ink);
+  font-size: var(--fs-sm); color: var(--color-ink);
 }
+/* clock times line up; dates keep proportional dots and dashes ("1. 7.–31. 8.") */
+.clock { font-variant-numeric: tabular-nums; }
 .price {
   display: flex; align-items: center; gap: 5px; margin: 3px 0 0;
   font-size: var(--fs-sm); font-variant-numeric: tabular-nums; color: var(--color-ink-soft); white-space: nowrap;
 }
 .price svg, .time svg { width: 13px; height: 13px; flex: none; fill: none; stroke: var(--color-ink-soft); stroke-width: 1.5; stroke-linecap: round; }
-.bait :global(.unsure), .time :global(.unsure) { width: 16px; height: 16px; margin-left: 2px; font-size: 11px; }
+.bait :global(.unsure), .time :global(.unsure) { width: 16px; height: 16px; margin-left: 2px; font-size: var(--fs-xs); }
 .where { margin: 2px 0 0; padding-right: 60px; font-size: var(--fs-sm); color: var(--color-ink-soft); }
-.bred { margin: var(--space-1) 0 0; font: italic var(--fw-regular) 15px/1.1 var(--font-display); }
+.bred { margin: var(--space-1) 0 0; font: italic var(--fw-regular) var(--fs-body)/1.1 var(--font-display); }
 .bred::before { content: "✓ "; }
 
 .glow, .bredBtn { position: absolute; right: var(--space-2); z-index: var(--z-card-control); }
@@ -78,9 +80,28 @@
 @media (max-width: 760px) {
   .card { padding: var(--space-2) var(--space-2) var(--space-3); contain-intrinsic-size: auto 250px; }
   .name { font-size: 16px; }
-  .bait, .meta, .where, .time, .price { font-size: 12px; }
+  /* 13 px floor for data on the card (was 12) */
+  .bait, .meta, .where, .time, .price { font-size: var(--fs-sm); }
   .meta { flex-direction: column; gap: 0; }
   .glow { top: var(--space-1); right: var(--space-1); }
   .bredBtn { top: 40px; right: var(--space-1); }
   .stamp { font-size: 13px; padding: 1px 6px 0; }
+}
+
+/*
+ * Touch: the round controls keep their 32 px mark but get a 44 px hit area,
+ * and the second one moves down so the two hit areas stay --tap-gap apart.
+ * "Zápis" grows to a full 44 px target in the card corner.
+ */
+@media (pointer: coarse) {
+  .glow::after, .bredBtn::after {
+    content: ""; position: absolute; inset: calc((var(--tap-min) - 32px) / -2); border-radius: var(--radius-round);
+  }
+  .bredBtn { top: calc(var(--space-1) + 32px + var(--tap-min) - 32px + var(--tap-gap)); }
+  .open {
+    right: 0; bottom: 0; min-height: var(--tap-min); min-width: var(--tap-min);
+    display: inline-flex; align-items: center; justify-content: center; padding: 0 var(--space-3);
+  }
+  .open::after { content: none; }
+  .where { padding-right: 72px; }
 }

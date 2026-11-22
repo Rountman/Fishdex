@@ -109,3 +109,26 @@ seznam je v `prototypes/screens.js`, screenshoty v `prototypes/screens/1b/`.
 - **Počty u filtrů podle ostatních filtrů** (facety): oblasti, místa, rarity, stavy a návnady
   ukazují, kolik ryb by daly s ostatními aktivními filtry (vlastní skupina se nepočítá).
   Prázdné volby jsou zešedlé, ale jdou vybrat. Hlavička a přehled oblastí zůstávají globální.
+
+# UX refresh (větev `ux-refresh`)
+
+Audit podle pravidel mobile-design a ui-ux-pro-max (dotykové cíle, priorita obsahu, plovoucí
+prvky). Data, klíče a schéma v localStorage, URL parametry ani model ovládání karty se nemění.
+
+- **Dotykové cíle 44 px** (`--tap-min`, `--tap-gap` v tokens.css), jen pro `pointer: coarse`:
+  myš si nechává hustotu deníku. Kulatá tlačítka na kartě zůstávají vizuálně 32 px, plochu
+  zvětšuje `::after`; domek/zámek se na dotyku posouvá níž, aby mezi plochami bylo 8 px.
+  „Zápis“ je na dotyku celý roh karty 44 px. Textové odkazy rostou pseudoprvkem, ne řádkem.
+- **Přehled oblastí znovu z hlavičky**: celé počítadlo (ulovené / zářivé) je tlačítko
+  s „Po oblastech →“. Na mobilu se obsah deníku nevykresluje (byl až pod 615 kartami),
+  progres po oblastech nese přehled. Na mobilu přehled ukazuje i záložky.
+- **Mobil: Nastavení v jednom menu** (jazyk, časové pásmo, režim, záloha); podtitul a
+  procenta v hlavičce se na mobilu skrývají (stav nese pruh).
+- **Mobil: rychlé filtry nad kartami**: Stav (2 × 2 segmenty) a Oblast jsou mimo panel,
+  v panelu zbytek. Tlačítko „Filtry (n)“ počítá jen filtry v panelu.
+- **Tlačítko Záloha už není vždy vidět** (dřív „vždy viditelný export“): nad mřížkou karet
+  vždy zakrylo roh některé karty. Ukáže se při scrollu nahoru a na konci stránky; nahoře je
+  „Záloha“ v hlavičce / Nastavení. Fokus z klávesnice ho vždy zobrazí.
+- **Toast ukazuje stav deníku**: „Dánio duhové: zapsána jako ulovená · 5/615“.
+- **Čitelnost**: texty na kartě na mobilu 13 px (bylo 12), sezónní data bez `tabular-nums`
+  (tečky a pomlčky měly pevnou šířku), pevné px velikosti nahrazeny tokeny, kde existují.

@@ -12,11 +12,12 @@
   flex: none; border: 1.5px solid currentColor; background: none; color: inherit; border-radius: var(--radius-control);
   padding: 4px var(--space-3); font-weight: 700;
 }
+@media (pointer: coarse) { .toast button { min-height: var(--tap-min); min-width: var(--tap-min); } }
 .toast button:hover { background: var(--color-on-ink); color: var(--color-ink); }
 .toast button:focus-visible { outline-color: var(--color-on-ink); }
 
 @media (max-width: 760px) {
   /* above the pinned export button */
-  .region { bottom: calc(var(--space-3) + 48px); width: calc(100vw - 24px); }
+  .region { bottom: calc(var(--space-3) + var(--tap-min) + var(--space-2)); width: calc(100vw - 24px); }
   .toast { justify-content: space-between; }
 }

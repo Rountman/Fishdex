@@ -91,6 +91,11 @@
   --gutter: var(--space-7);           /* page side padding, desktop */
   --card-min: 176px;                  /* grid column minimum */
 
+  /* ---------- touch ---------- */
+  /* minimum hit area on touch screens (WCAG 2.5.5 / Apple HIG); the visual mark can stay smaller */
+  --tap-min: 44px;
+  --tap-gap: 8px;                     /* minimum space between neighbouring hit areas */
+
   /* ---------- radii ---------- */
   --radius-slip: 2px;      /* cards, specimen frames: paper is nearly square */
   --radius-control: 3px;   /* buttons, inputs, dialogs, toast */

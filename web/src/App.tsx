@@ -121,10 +121,19 @@ export default function App() {
   const showToast = useCallback((text: string, undo?: () => void) => setToast({ id: ++toastId.current, text, undo }), []);
   const clearToast = useCallback(() => setToast(null), []);
   const { toggle, restore } = p;
+  // read inside the handler, so the cards (memo) keep a stable onToggle
+  const sumRef = useRef({ caught: 0, caughtGlowing: 0 });
   const onToggle = useCallback((id: string, field: ProgressField) => {
     const prev = toggle(id, field);
     const fish = FISH_BY_ID.get(id)!;
-    showToast(STRINGS[lang].toast(fishName(fish, lang), field, !prev[field]), () => restore(id, prev));
+    const s = STRINGS[lang];
+    let text = s.toast(fishName(fish, lang), field, !prev[field]);
+    // caught / glowing: the toast shows where the journal stands now
+    if (field === 'caught' || field === 'caughtGlowing') {
+      const n = sumRef.current[field] + (prev[field] ? -1 : 1);
+      text += ` · ${s.toastTally(field, n, FISH.length)}`;
+    }
+    showToast(text, () => restore(id, prev));
   }, [toggle, restore, showToast, lang]);
   const { toggleItem, restoreItem } = p;
   const onToggleItem = useCallback((id: string) => {
@@ -159,6 +168,7 @@ export default function App() {
   }, [setTimer, showToast, lang]);
 
   const sum = totals(p.progress, FISH_IDS);
+  useEffect(() => { sumRef.current = sum; });
   const visible = useMemo(() => sortFish(applyFilters(fish, filters, p.progress, INDEX, breederFish), sort, lang), [fish, filters, p.progress, sort, lang, breederFish]);
   // counts next to filter options follow the other active filters
   const facets = useMemo(() => countFacets(fish, filters, p.progress, INDEX, breederFish), [fish, filters, p.progress, breederFish]);
@@ -235,13 +245,20 @@ export default function App() {
             tab={tab} onTab={switchTab}
             furniture={{ owned: ownedCount(p.progress, FURNITURE_IDS), total: FURNITURE.length, setsDone, sets: SET_COUNT }}
             zone={prefs.zone} onZone={z => setPrefs({ zone: z })} zoneAt={openedAt}
+            overview={tab === 'fish' && view === 'progress'} mobile={mobile}
+            onOverview={() => {
+              setView(v => (v === 'progress' ? 'grid' : 'progress'));
+              setSheetOpen(false);
+              window.scrollTo({ top: 0 });
+            }}
           />
           {notice && <StorageNotice kind={notice} onBackup={() => setBackupOpen(true)} />}
 
           {tab === 'furniture' && (
             <FurnitureIndex collections={COLLECTIONS} facets={fFacets} selected={ffilters.collection} onSelect={selectCollection} />
           )}
-          {tab === 'fish' && (view === 'grid' || mobile) && (
+          {/* phone: the index would land under all 615 cards; the overview (tally) carries it there */}
+          {tab === 'fish' && view === 'grid' && !mobile && (
             <AreaIndex areas={AREAS} facets={facets} area={filters.area} spot={filters.spot} onSelect={selectArea} />
           )}
 

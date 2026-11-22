@@ -15,7 +15,7 @@
 .search:focus-within { border-color: var(--color-focus); box-shadow: 0 2px 0 var(--color-focus); }
 
 .row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); }
-.label { font: italic var(--fw-regular) 16px/1 var(--font-display); color: var(--color-ink-soft); min-width: 64px; }
+.label { font: italic var(--fw-regular) var(--fs-note)/1 var(--font-display); color: var(--color-ink-soft); min-width: 64px; }
 .select {
   min-width: 150px; padding: 4px var(--space-2); border: 1.5px solid var(--color-ink-faint); border-radius: var(--radius-control);
   background: var(--color-slip); font-size: var(--fs-ui);
@@ -55,7 +55,7 @@
 }
 
 .more summary {
-  display: inline-block; cursor: pointer; font: italic var(--fw-regular) 16px/1 var(--font-display); color: var(--color-ink-soft);
+  display: inline-block; cursor: pointer; font: italic var(--fw-regular) var(--fs-note)/1 var(--font-display); color: var(--color-ink-soft);
   text-decoration: underline dotted 1px; text-underline-offset: 4px;
 }
 .more summary:hover { color: var(--color-ink); }
@@ -73,7 +73,7 @@
 
 .activeRow { display: flex; align-items: center; gap: var(--space-3); min-height: 30px; }
 .active { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); }
-.active :global(.stars) { font-size: 11px; }
+.active :global(.stars) { font-size: var(--fs-xs); }
 .count { margin-left: auto; font-size: var(--fs-sm); color: var(--color-ink-faint); font-variant-numeric: tabular-nums; white-space: nowrap; }
 
 .filtersBtn {
@@ -102,18 +102,31 @@
 .sheetBody .label { flex-basis: 100%; }
 .sheetBody :global(.chip) { padding: 6px var(--space-3); }
 .sheetBody .baitList { columns: 1; }
-.sheetBody .check { padding: 8px var(--space-1); font-size: 15px; }
-.sheetBody .select { width: 100%; padding: var(--space-2); font-size: 15px; }
+.sheetBody .check { min-height: var(--tap-min); padding: var(--space-2) var(--space-1); font-size: var(--fs-body); }
+.sheetBody .select { width: 100%; min-height: var(--tap-min); padding: var(--space-2); font-size: var(--fs-body); }
 .sheetBody .moreBody { display: grid; }
-.sheetBody .sizeInput { padding: var(--space-2); font-size: 16px; }
+.sheetBody .sizeInput { min-height: var(--tap-min); padding: var(--space-2); font-size: 16px; }
 .sheetFoot {
   position: sticky; bottom: 0; margin-top: auto; padding: var(--space-3) var(--space-4) var(--space-4);
   background: var(--color-slip); border-top: 1px solid color-mix(in oklch, var(--color-ink) 15%, transparent);
 }
-.sheetFoot :global(.btn) { width: 100%; padding: var(--space-3); font-size: 15px; }
+.sheetFoot :global(.btn) { width: 100%; padding: var(--space-3); font-size: var(--fs-body); }
+
+/* phone: the two most used filters stay above the cards */
+.quick { display: grid; gap: var(--space-2); }
+.quick .row:first-child .label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+/* status: 2 × 2 equal segments, no ragged wrap */
+.quick .row:first-child { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-2); }
+.quick .row:first-child :global(.chip) { justify-content: center; }
+/* the visible "Oblast" label is redundant next to "Všechny oblasti (615)" */
+.quick .row:last-child > .label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.quick .label { min-width: 0; }
+.quick .select { flex: 1; min-width: 0; min-height: var(--tap-min); font-size: var(--fs-body); }
 
 @media (max-width: 760px) {
+  .search { min-height: var(--tap-min); }
   .search input { font-size: 17px; }
+  .filtersBtn { min-height: var(--tap-min); }
   .activeRow { flex-wrap: wrap; }
   .count { margin-left: 0; }
 }
