@@ -9,7 +9,7 @@ const VERSION = 1;
 export type TimerId = 'meat' | 'bob' | 'factory';
 /** `wholeDays`: counts game days (midnight UTC), the hour of collecting does not matter. */
 export const TIMERS: readonly { id: TimerId; periodMs: number; wholeDays?: true }[] = [
-  { id: 'meat', periodMs: 10 * DAY, wholeDays: true },
+  { id: 'meat', periodMs: 10 * DAY },
   { id: 'bob', periodMs: 7 * DAY, wholeDays: true },
   { id: 'factory', periodMs: 2 * DAY },
 ];

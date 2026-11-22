@@ -38,7 +38,7 @@ describe('whole game days', () => {
 
 describe('periods', () => {
   it('meat 10 days, Bob 7 days, factory 2 days', () => {
-    expect(TIMERS.map(t => [t.id, t.periodMs / DAY, !!t.wholeDays])).toEqual([['meat', 10, true], ['bob', 7, true], ['factory', 2, false]]);
+    expect(TIMERS.map(t => [t.id, t.periodMs / DAY, !!t.wholeDays])).toEqual([['meat', 10, false], ['bob', 7, true], ['factory', 2, false]]);
   });
 });
 
