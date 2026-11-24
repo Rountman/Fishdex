@@ -121,7 +121,7 @@
   .tally b { font-size: var(--fs-h3); }
   /* the label goes under the number and "Porovnat" under the name: the nickname needs the width */
   .tally > span:not(:global(.bar)) { display: block; }
-  .acts { margin-left: 0; }
+  .acts { display: flex; margin-left: 0; }
   .openGo { display: block; margin: 4px 0 2px; }
   .tally :global(.bar) { width: 64px; margin-left: auto; }
   .strip, .nothing { grid-column: 1 / -1; }
