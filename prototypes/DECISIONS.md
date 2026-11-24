@@ -138,4 +138,6 @@ prvky). Data, klíče a schéma v localStorage, URL parametry ani model ovládá
 - **Nábytek na mobilu** (chyba): obsah kolekcí měl `grid-area: index`, kterou mobilní mřížka nemá, takže
   prohlížeč přidal sloupec a na karty zbylo 99 px z 375. Na mobilu se obsah kolekcí nevykresluje (jako u ryb),
   Stav (3 segmenty) a Kolekce jsou nad kartami, zbytek v panelu. „Filtry (n)“ počítá jen filtry v panelu.
-- **Porovnání s jiným hráčem**: návrh `prototypes/d-porovnani/`, **čeká na schválení**.
+- **Porovnání s jiným hráčem**: `prototypes/d-porovnani/` (schváleno). Záložka Chovatelé → Hráči, klik na hráče
+  otevře porovnání, pruh ryb za domem pod řádkem zůstal. Úlovky se zveřejňují jen se zvláštním zaškrtnutím.
+  Oproti mockupu: skóre všech oblastí i s jejich místy, na mobilu rozbalovací seznam místo výběru.

@@ -51,7 +51,7 @@ prototypes/    # schválené mockupy a styleguide (fáze 1–2), DECISIONS.md
 - Animace: Motion (framer-motion) pro UI, GSAP jen pro scroll efekty.
 - Bez backendu. Stav chycených ryb v `localStorage` (vše v try/catch),
   plus export/import do JSON souboru, ať uživatel nepřijde o progres.
-  **Jediná výjimka:** veřejný chov v záložce Chovatelé (Cloudflare Worker + D1 ve `worker/`,
+  **Jediná výjimka:** registr hráčů v záložce Hráči (Cloudflare Worker + D1 ve `worker/`,
   viz sekce níže). Vše ostatní funguje bez přihlášení i bez dostupného serveru.
 - Hosting: **GitHub Pages** (viz sekce níže).
 
@@ -141,12 +141,20 @@ prototypes/    # schválené mockupy a styleguide (fáze 1–2), DECISIONS.md
 - Filtry: Skrýt chycené (`chide=1`) a Oblast (`carea=`); URL `tab=current`. Klik na řádek otevře detail.
 - Mockup: `prototypes/b-aktualni/`.
 
-## Záložka Chovatelé (jediná část s backendem)
+## Záložka Hráči (dřív Chovatelé, jediná část s backendem)
 
-- Veřejný registr toho, co hráči chovají za domem (`bred`). Nic jiného se nezveřejňuje.
-  URL `tab=breeders`. Záložka je jen seznam hráčů (nejvíc ryb nahoře) + lístek Můj zápis, žádné filtry ani hlavička.
+- Veřejný registr toho, co hráči chovají za domem (`bred`), a **jen se zvláštním zaškrtnutím** v Můj zápis
+  (výchozí vypnuto) i ulovených a zářivých ryb. Nic jiného se nezveřejňuje. Vypnutí úlovky na serveru smaže.
+  URL `tab=breeders`. Záložka je jen seznam hráčů (nejvíc ulovených nahoře, bez zveřejněných úlovků až za nimi podle
+  chovu) + lístek Můj zápis, žádné filtry ani hlavička. Klik na hráče otevře porovnání (viz níže).
   Pruh ryb u hráče je jedno tlačítko: rozbalí pod řádkem jeho ryby jako karty z mřížky (FishGrid, tvoje stavy, detail);
   žádné přesměrování. Filtr Chovatel v Ryby › Backyard (`area=backyard&breeder=<č. zápisu>`) zůstává.
+- **Porovnání** (`vs=<č. zápisu>&vwhat=caught|glow|bred&varea=<oblast nebo oblast:Místo>`, `CompareView`,
+  logika `breeders/compare.ts`): můj deník (vždy z localStorage, i bez přihlášení) proti zveřejněnému. Přepínač
+  Ulovené / Zářivé / Za domem, pruh jen ty / oba / jen on / nikdo, dvojstránka, od nejvzácnějších. **Po oblastech:**
+  skóre všech oblastí, turnajů i jejich míst stejnými pravidly jako obsah deníku (`facets`), klik filtruje; na mobilu
+  rozbalovací. Hráč bez zveřejněných úlovků: jen Za domem. Odkaz na vlastní zápis jen řekne, ať ho pošleš kámošovi.
+  Mockup: `prototypes/d-porovnani/`.
 - Přihlášení přes Discord OAuth, scope jen `identify`. Zobrazuje se **avatar z Discordu a Fishao přezdívka**,
   nikdy Discord jméno. Přezdívka 3–20 znaků, unikátní bez ohledu na velikost písmen, nepředvyplňuje se.
 - Zveřejnění je opt-in (tlačítko). Po zveřejnění se změny `bred` (detail, import) synchronizují samy
@@ -155,16 +163,18 @@ prototypes/    # schválené mockupy a styleguide (fáze 1–2), DECISIONS.md
   s ostatními filtry („on má, já ne“ = Chovatel + Za domem: nemám). Dokud se registr nenačte, nezužuje nic.
 - Detail ryby z Backyardu: řádek Chovatelé se jmény hráčů (max. 6 + „a N dalších“), jméno = filtr Chovatel.
 - Backend `worker/` (Cloudflare Worker + D1): `GET /breeders`, `/auth/login|callback`, `GET|PUT|DELETE /me`,
-  `POST /breeders/:id/report`, `/admin/*`. Server přijme jen ID ryb z Backyardu (`worker/src/backyard.json`
-  generuje `build-data.ts` z `data/`), CORS jen Pages + localhost, rate limit zápisů a nahlášení.
+  `GET /breeders/:id/catches`, `POST /breeders/:id/report`, `/admin/*`. Seznam nese jen počty úlovků (`counts`), samotné
+  ryby se stahují po jednom hráči. Server přijme jen ID ryb z Backyardu (`worker/src/backyard.json`) a u úlovků jen známé
+  ryby (`worker/src/fish.json`; oba generuje `build-data.ts` z `data/`), CORS jen Pages + localhost, rate limit zápisů a nahlášení.
 - Moderace: nahlášení, po 3 nahlášeních od různých účtů se zápis sám skryje; admin (`ADMIN_IDS` ve Workeru)
   skryje / obnoví / smaže / zabanuje přímo v záložce.
-- Uložené na serveru: Discord id, hash avataru, přezdívka, ID ryb, časy. Popsané v patičce („Co ukládáme“).
+- Uložené na serveru: Discord id, hash avataru, přezdívka, ID ryb za domem, časy a (opt-in) ID ulovených a zářivých. Popsané v patičce („Co ukládáme“).
 - localStorage: `fishdex:session:v1` (token, mimo export), `fishdex:breeders:v1` (zveřejněno, fronta změn).
   `fishdex:progress:v2` se kvůli tomu nemění. Bez dostupného API nefunguje jen tahle záložka.
 - Client Secret Discordu jen ve `wrangler secret`, nikdy v repu ani v kódu webu. API URL přes `VITE_API_URL`.
 - Sync: posílá se, jen když server drží to, co tento prohlížeč naposledy poslal (`planSync`); jinak (nové
   zařízení, změna jinde) ukáže volbu „Převzít z registru“ / „Poslat tento deník“, nikdy nepřepíše sám.
+  Úlovky mají stejné pravidlo zvlášť (`planCatches`): „Doplnit z registru“ jen přidává, nikdy neodškrtne.
 - Lokálně bez Cloudflare: `worker/test/dev-server.ts --seed` (stejná aplikace nad node:sqlite, falešný Discord),
   web s `VITE_API_URL=http://localhost:8787`. Bez `VITE_API_URL` záložka jen řekne, že registr není zapnutý.
 - Mockup: `prototypes/c-chovatele/`.
