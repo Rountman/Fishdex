@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fishdex · mockup Porovnání</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400..900;1,400..900&family=Schibsted+Grotesk:wght@400..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../web/src/styles/tokens.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!--
+  Mockup porovnání deníků („já proti hráči“). Ryby a oblasti: skutečné web/src/data/*.json.
+  Hráči a jejich úlovky jsou UKÁZKOVÍ (náhodně vygenerovaní), server je zatím neukládá.
+  Spouštět přes lokální server z kořene repa: /prototypes/d-porovnani/
+  URL: ?vs=<č. hráče>&what=caught|glow|bred&area=<id>&me=some|none&theme=dark   (bez vs = seznam hráčů)
+-->
+<header class="mast">
+  <div><h1>Fishdex</h1><p class="sub">Rybářský deník Fishao</p></div>
+  <nav class="tabs" aria-label="Záložky">
+    <a href="#">Ryby</a><a href="#">Aktuální</a><a href="#">Nábytek</a><a href="#">Timery</a><a href="?" aria-current="page">Hráči</a>
+  </nav>
+</header>
+<main class="page" id="main"></main>
+<div class="mockbar" role="region" aria-label="Ovládání mockupu">
+  <strong>Mockup</strong>
+  <label>Můj deník <select id="m-me"><option value="some">rozepsaný</option><option value="none">prázdný</option></select></label>
+  <label>Režim <select id="m-theme"><option value="light">denní</option><option value="dark">noční</option></select></label>
+</div>
+<div class="toast" id="toast" role="status" hidden></div>
+<script type="module" src="app.js"></script>
+</body>
+</html>

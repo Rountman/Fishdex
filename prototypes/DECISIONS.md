@@ -132,3 +132,10 @@ prvky). Data, klíče a schéma v localStorage, URL parametry ani model ovládá
 - **Toast ukazuje stav deníku**: „Dánio duhové: zapsána jako ulovená · 5/615“.
 - **Čitelnost**: texty na kartě na mobilu 13 px (bylo 12), sezónní data bez `tabular-nums`
   (tečky a pomlčky měly pevnou šířku), pevné px velikosti nahrazeny tokeny, kde existují.
+
+# Zpětná vazba hráčů
+
+- **Nábytek na mobilu** (chyba): obsah kolekcí měl `grid-area: index`, kterou mobilní mřížka nemá, takže
+  prohlížeč přidal sloupec a na karty zbylo 99 px z 375. Na mobilu se obsah kolekcí nevykresluje (jako u ryb),
+  Stav (3 segmenty) a Kolekce jsou nad kartami, zbytek v panelu. „Filtry (n)“ počítá jen filtry v panelu.
+- **Porovnání s jiným hráčem**: návrh `prototypes/d-porovnani/`, **čeká na schválení**.
