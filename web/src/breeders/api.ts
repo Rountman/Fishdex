@@ -4,17 +4,21 @@
 export const API_URL = ((import.meta.env.VITE_API_URL as string | undefined) ?? '').replace(/\/+$/, '');
 
 export type Hidden = 'admin' | 'reports' | null;
+/** Published caught and glowing fish, both sorted. */
+export type Catches = { caught: string[]; glowing: string[] };
 export type Entry = {
   no: number;
   nick: string;
   avatar: string | null;
   fish: string[];
   updatedAt: number;
+  /** null (or missing from an older API) = this player does not publish catches. */
+  counts?: { caught: number; glowing: number } | null;
   /** Only for admins (and for your own entry). */
   hidden?: Hidden;
   reports?: number;
 };
-export type MyEntry = Entry & { hidden: Hidden };
+export type MyEntry = Entry & { hidden: Hidden; catches?: Catches | null };
 export type Me = { id: string; admin: boolean; banned: boolean; avatar: string | null; entry: MyEntry | null };
 export type ModAction = 'hide' | 'restore' | 'ban' | 'delete';
 
@@ -58,7 +62,8 @@ async function call<T>(method: string, path: string, token?: string | null, body
 export const api = {
   list: (token?: string | null) => call<{ entries: Entry[] }>('GET', '/breeders', token).then(r => r.entries),
   me: (token: string) => call<Me>('GET', '/me', token),
-  put: (token: string, body: { nick?: string; fish?: string[] }) => call<{ entry: MyEntry }>('PUT', '/me', token, body).then(r => r.entry),
+  put: (token: string, body: { nick?: string; fish?: string[]; catches?: Catches | null }) => call<{ entry: MyEntry }>('PUT', '/me', token, body).then(r => r.entry),
+  catches: (no: number, token?: string | null) => call<Catches>('GET', `/breeders/${no}/catches`, token),
   remove: (token: string) => call<unknown>('DELETE', '/me', token),
   logout: (token: string) => call<unknown>('POST', '/auth/logout', token),
   report: (token: string, no: number) => call<unknown>('POST', `/breeders/${no}/report`, token),

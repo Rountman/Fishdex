@@ -50,6 +50,14 @@ export function setBred(p: Progress, ids: Iterable<string>, scope: Iterable<stri
   return { ...p, updatedAt: now.toISOString(), fish };
 }
 
+/** Chovatelé "take from the register": checks the listed catches, never unchecks anything. */
+export function addCatches(p: Progress, caught: Iterable<string>, glowing: Iterable<string>, now = new Date()): Progress {
+  const fish = { ...p.fish };
+  for (const id of caught) if (!fish[id]?.caught) fish[id] = { ...(fish[id] ?? NONE), caught: true, caughtAt: now.toISOString() };
+  for (const id of glowing) if (!fish[id]?.caughtGlowing) fish[id] = { ...(fish[id] ?? NONE), caughtGlowing: true };
+  return { ...p, updatedAt: now.toISOString(), fish };
+}
+
 function withItem(p: Progress, id: string, next: FurnitureProgress, now: Date): Progress {
   const furniture = { ...p.furniture };
   if (next.owned) furniture[id] = next;

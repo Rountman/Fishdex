@@ -15,6 +15,10 @@ type Props = {
   /** The journal grid (same cards as an area) for these fish, shown under an opened player. */
   renderFish: (ids: string[]) => ReactNode;
   onToast: (text: string) => void;
+  /** Opens the comparison with this player. */
+  onCompare: (no: number) => void;
+  /** Number of all fish. */
+  total: number;
   mobile: boolean;
 };
 
@@ -31,14 +35,14 @@ function useAgo() {
   };
 }
 
-function Avatar({ src, nick, big }: { src: string | null; nick: string; big?: boolean }) {
+export function Avatar({ src, nick, big }: { src: string | null; nick: string; big?: boolean }) {
   const [broken, setBroken] = useState(false);
   const cls = `${styles.avatar} ${big ? styles.avatarBig : ''}`;
   if (!src || broken) return <span className={`${cls} ${styles.avatarNone}`} aria-hidden="true">{nick ? [...nick][0].toUpperCase() : '◌'}</span>;
   return <img className={cls} src={src} alt="" width={48} height={48} loading="lazy" referrerPolicy="no-referrer" onError={() => setBroken(true)} />;
 }
 
-export function BreedersView({ b, backyard, renderFish, onToast, mobile }: Props) {
+export function BreedersView({ b, onToast, ...list }: Props) {
   const { t } = useI18n();
   const { ensureList } = b;
   useEffect(() => { ensureList(); }, [ensureList]);
@@ -53,7 +57,7 @@ export function BreedersView({ b, backyard, renderFish, onToast, mobile }: Props
   }
   return (
     <div className={styles.layout}>
-      <Register b={b} backyard={backyard} renderFish={renderFish} onToast={onToast} mobile={mobile} />
+      <Register b={b} onToast={onToast} {...list} />
       <aside className={styles.me} aria-labelledby="br-me-title">
         <MySlip b={b} onToast={onToast} />
       </aside>
@@ -62,7 +66,7 @@ export function BreedersView({ b, backyard, renderFish, onToast, mobile }: Props
 }
 
 // ---- the register: just the players, most fish first ------------------------------
-function Register({ b, backyard, renderFish, onToast, mobile }: Props) {
+function Register({ b, backyard, renderFish, onToast, onCompare, total, mobile }: Props) {
   const { t } = useI18n();
   const byId = useMemo(() => new Map(backyard.map(f => [f.id, f])), [backyard]);
   const shown = useMemo(() => sortEntries(b.entries ?? []), [b.entries]);
@@ -79,8 +83,8 @@ function Register({ b, backyard, renderFish, onToast, mobile }: Props) {
       ) : (
         <ol className={styles.entries}>
           {shown.map(e => (
-            <EntryRow key={e.no} e={e} b={b} byId={byId} total={backyard.length} limit={mobile ? 6 : 14}
-              renderFish={renderFish} onToast={onToast} />
+            <EntryRow key={e.no} e={e} b={b} byId={byId} total={total} limit={mobile ? 6 : 14}
+              renderFish={renderFish} onToast={onToast} onCompare={onCompare} />
           ))}
         </ol>
       )}
@@ -90,10 +94,10 @@ function Register({ b, backyard, renderFish, onToast, mobile }: Props) {
 
 type RowProps = {
   e: Entry; b: BreedersApi; byId: Map<string, Fish>; total: number; limit: number;
-  renderFish: (ids: string[]) => ReactNode; onToast: (text: string) => void;
+  renderFish: (ids: string[]) => ReactNode; onToast: (text: string) => void; onCompare: (no: number) => void;
 };
 
-function EntryRow({ e, b, byId, total, limit, renderFish, onToast }: RowProps) {
+function EntryRow({ e, b, byId, total, limit, renderFish, onToast, onCompare }: RowProps) {
   const { lang, t } = useI18n();
   const ago = useAgo();
   const [open, setOpen] = useState(false);
@@ -102,6 +106,8 @@ function EntryRow({ e, b, byId, total, limit, renderFish, onToast }: RowProps) {
   const mine = b.me?.entry?.no === e.no;
   const admin = !!b.me?.admin;
   const hidden = e.hidden ?? null;
+  const counts = e.counts ?? null;
+  const [n, of] = counts ? [counts.caught, total] : [fish.length, byId.size];
 
   const report = async () => {
     if (!b.token) { onToast(t.br.reportLogin); return; }
@@ -120,11 +126,22 @@ function EntryRow({ e, b, byId, total, limit, renderFish, onToast }: RowProps) {
       <Avatar src={e.avatar} nick={e.nick} />
       <div className={styles.who}>
         <h3 className={styles.nick}>
-          {e.nick}
+          {mine ? e.nick : (
+            // one link for the whole top of the row (stretched in CSS)
+            <a className={styles.open} href={`?tab=breeders&vs=${e.no}`} aria-label={t.cmp.openAria(e.nick)}
+              onClick={ev => {
+                if (ev.metaKey || ev.ctrlKey || ev.shiftKey) return;
+                ev.preventDefault();
+                onCompare(e.no);
+              }}>
+              {e.nick}<span className={styles.openGo}>{t.cmp.open}</span>
+            </a>
+          )}
           {mine && <span className={styles.mineTag}>{t.br.mine}</span>}
           {hidden && <span className={styles.hiddenTag}> ({t.br.hiddenTag})</span>}
         </h3>
         <p className={styles.meta}>
+          {counts && <>{t.cmp.rowGlow(counts.glowing)} · {t.cmp.rowBred(fish.length)} · </>}
           {t.br.updated(ago(e.updatedAt))}
           {admin && (e.reports ?? 0) > 0 && <span className={styles.flag}> · {t.br.reportsTag(e.reports!)}</span>}
           <span className={styles.acts}>
@@ -141,8 +158,8 @@ function EntryRow({ e, b, byId, total, limit, renderFish, onToast }: RowProps) {
         </p>
       </div>
       <p className={styles.tally}>
-        <b>{fish.length}</b> <span>{t.br.of(total)}</span>
-        <span className="bar bar--bred" aria-hidden="true"><span style={{ width: `${(fish.length / total) * 100}%` }} /></span>
+        <b>{n}</b> <span>{counts ? t.cmp.ofCaught(of) : t.cmp.ofBred(of)}</span>
+        <span className={`bar ${counts ? '' : 'bar--bred'}`} aria-hidden="true"><span style={{ width: `${of ? Math.min(1, n / of) * 100 : 0}%` }} /></span>
       </p>
       {fish.length ? (
         // the whole strip opens this player's fish as full cards right under the row
@@ -174,6 +191,7 @@ function MySlip({ b, onToast }: { b: BreedersApi; onToast: (text: string) => voi
   const [draft, setDraft] = useState<string | null>(null);
   const nick = draft ?? entry?.nick ?? '';
   const setNick = setDraft;
+  const [share, setShare] = useState(false);
   const nickId = useId();
   const errId = useId();
 
@@ -234,9 +252,13 @@ function MySlip({ b, onToast }: { b: BreedersApi; onToast: (text: string) => voi
     return (
       <div className={styles.slip}>
         {title}{who}
-        <form onSubmit={async ev => { ev.preventDefault(); if (await b.publish(nick)) { setDraft(null); onToast(t.br.published); } }}>
+        <form onSubmit={async ev => { ev.preventDefault(); if (await b.publish(nick, share)) { setDraft(null); onToast(t.br.published); } }}>
           {nickField}
           <p className={styles.preview}>{t.br.preview(n)}</p>
+          <label className={styles.share}>
+            <input type="checkbox" checked={share} onChange={ev => setShare(ev.target.checked)} />
+            <span>{t.cmp.share}<small>{t.cmp.sharePreview(b.localCatches.caught.length, b.localCatches.glowing.length)}</small></span>
+          </label>
           {otherError && <p className={styles.err} role="alert">{otherError}</p>}
           <button type="submit" className="btn" disabled={b.busy}>{t.br.publish}</button>
         </form>
@@ -245,7 +267,8 @@ function MySlip({ b, onToast }: { b: BreedersApi; onToast: (text: string) => voi
     );
   }
 
-  const status = b.plan.kind === 'conflict' ? null
+  const shared = !!entry.catches;
+  const status = b.plan.kind === 'conflict' || b.catchesPlan.kind === 'conflict' ? null
     : b.sync === 'error' ? <p className={`${styles.status} ${styles.bad}`}><i aria-hidden="true" />{t.br.statusError}</p>
       : b.sync === 'waiting' || b.sync === 'sending' ? <p className={`${styles.status} ${styles.wait}`}><i aria-hidden="true" />{t.br.statusWaiting}</p>
         : <p className={`${styles.status} ${styles.ok}`}><i aria-hidden="true" />{t.br.statusOk(entry.fish.length)} · {ago(entry.updatedAt)}</p>;
@@ -262,7 +285,24 @@ function MySlip({ b, onToast }: { b: BreedersApi; onToast: (text: string) => voi
           <button type="button" className="btn btn--quiet" disabled={b.busy} onClick={() => void b.resolveConflict('local')}>{t.br.useLocal}</button>
         </div>
       )}
+      {b.catchesPlan.kind === 'conflict' && (
+        <div className={styles.conflict} role="group" aria-label={t.cmp.conflictTitle}>
+          <p><strong>{t.cmp.conflictTitle}</strong><br />{t.cmp.conflict(
+            b.catchesPlan.server.caught.length, b.catchesPlan.server.glowing.length,
+            b.catchesPlan.local.caught.length, b.catchesPlan.local.glowing.length)}</p>
+          <button type="button" className="btn" disabled={b.busy} onClick={() => void b.resolveCatches('add')}>{t.cmp.useAdd}</button>
+          <button type="button" className="btn btn--quiet" disabled={b.busy} onClick={() => void b.resolveCatches('local')}>{t.cmp.useLocal}</button>
+        </div>
+      )}
       <div aria-live="polite">{status}</div>
+      <label className={styles.share}>
+        <input type="checkbox" checked={shared} disabled={b.busy}
+          onChange={async ev => {
+            const on = ev.target.checked;
+            if (await b.shareCatches(on)) onToast(on ? t.cmp.shareOn : t.cmp.shareOff);
+          }} />
+        <span>{t.cmp.share}<small>{shared ? t.cmp.sharedNow(entry.counts?.caught ?? 0, entry.counts?.glowing ?? 0) : t.cmp.sharePreview(b.localCatches.caught.length, b.localCatches.glowing.length)}</small></span>
+      </label>
       <form onSubmit={async ev => { ev.preventDefault(); if (await b.saveNick(nick)) { setDraft(null); onToast(t.br.nickSaved); } }}>
         {nickField}
         {otherError && <p className={styles.err} role="alert">{otherError}</p>}

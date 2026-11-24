@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
-import { fishState, itemState, merge, replace, restore, restoreItem, setBred, toggle, toggleOwned } from './progress';
+import { addCatches, fishState, itemState, merge, replace, restore, restoreItem, setBred, toggle, toggleOwned } from './progress';
 import type { FishProgress, FurnitureProgress, Progress, ProgressField } from './schema';
 import { createProgressStore, type LoadResult, type ProgressStore } from './storage';
 
@@ -18,6 +18,8 @@ export type ProgressApi = {
   importReplace: (incoming: Progress) => void;
   /** `bred` becomes exactly `ids` among the backyard fish `scope` (Chovatelé: take the register version). */
   setBred: (ids: readonly string[], scope: readonly string[]) => void;
+  /** Adds published catches (another device); never unchecks anything. */
+  addCatches: (caught: readonly string[], glowing: readonly string[]) => void;
 };
 
 export function useProgress(store?: ProgressStore): ProgressApi {
@@ -57,5 +59,6 @@ export function useProgress(store?: ProgressStore): ProgressApi {
     importMerge: (incoming: Progress) => setProgress(p => merge(p, incoming)),
     importReplace: (incoming: Progress) => setProgress(() => replace(incoming)),
     setBred: (ids: readonly string[], scope: readonly string[]) => setProgress(p => setBred(p, ids, scope)),
+    addCatches: (caught: readonly string[], glowing: readonly string[]) => setProgress(p => addCatches(p, caught, glowing)),
   }), [progress, toggleFish, toggleItem, initial, backend]);
 }

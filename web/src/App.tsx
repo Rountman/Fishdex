@@ -3,6 +3,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { AreaIndex } from './components/AreaIndex';
 import { BackupDialog } from './components/BackupDialog';
 import { BreedersView } from './components/BreedersView';
+import { CompareView } from './components/CompareView';
 import { CurrentView } from './components/CurrentView';
 import { ExportButton } from './components/ExportButton';
 import { CARD_HELP_ID } from './components/FishCard';
@@ -21,6 +22,8 @@ import { Overview } from './components/Overview';
 import { TimersView } from './components/TimersView';
 import { Toast, type ToastData } from './components/Toast';
 import { AREAS, COLLECTIONS, FISH, FISH_IDS, FURNITURE, FURNITURE_IDS, isBackyard } from './data';
+import { areaScores, journalOf, split, WHATS, type What } from './breeders/compare';
+import type { Catches } from './breeders/api';
 import { useBreeders } from './breeders/useBreeders';
 import { isZonedArea } from './data/types';
 import { MOBILE, useMediaQuery } from './hooks/useMediaQuery';
@@ -61,6 +64,11 @@ const SET_COUNT = COLLECTIONS.filter(c => c.kind === 'set').length;
 const BACKYARD_FISH = FISH.filter(isBackyard);
 const BACKYARD_LIST = BACKYARD_FISH.map(f => f.id);
 const BACKYARD_IDS: ReadonlySet<string> = new Set(BACKYARD_LIST);
+const parseVs = (v: string | null) => (v && /^\d{1,9}$/.test(v) ? Number(v) : null);
+const parseWhat = (v: string | null): What | null => ((WHATS as readonly string[]).includes(v ?? '') ? v as What : null);
+/** '' = all, an area id or '<area>:<Spot>' from the data. */
+const parsePlace = (v: string | null) =>
+  (v && AREAS.some(a => a.id === v || a.spots.some(s => `${a.id}:${s}` === v)) ? v : '');
 const parseTab = (v: string | null): Tab => ((TABS as readonly string[]).includes(v ?? '') ? v as Tab : 'fish');
 
 export default function App() {
@@ -89,6 +97,10 @@ export default function App() {
   const [fsort, setFSort] = useState<FurnitureSort>(() => parseFurnitureSort(readParams()));
   const [curArea, setCurArea] = useState(() => { const a = readParams().get('carea'); return a && AREA_IDS.has(a) ? a : ''; });
   const [curHide, setCurHide] = useState(() => readParams().get('chide') === '1');
+  // Hráči: who I compare with (entry number), what (null = whatever the player publishes) and where
+  const [vs, setVs] = useState(() => parseVs(readParams().get('vs')));
+  const [vsWhat, setVsWhat] = useState(() => parseWhat(readParams().get('vwhat')));
+  const [vsArea, setVsArea] = useState(() => parsePlace(readParams().get('varea')));
   const [view, setView] = useState<View>(() => (readParams().get('view') === 'progress' ? 'progress' : 'grid'));
   const [openId, setOpenId] = useState<string | null>(() => {
     const id = readParams().get('fish');
@@ -103,8 +115,10 @@ export default function App() {
       ...serializeFilters(filters), sort: serializeSort(sort), view: view === 'progress' ? 'progress' : null, fish: openId,
       tab: tab === 'fish' ? null : tab, ...serializeFurnitureFilters(ffilters), fsort: serializeFurnitureSort(fsort),
       carea: curArea || null, chide: curHide ? '1' : null,
+      vs: tab === 'breeders' && vs !== null ? String(vs) : null,
+      vwhat: tab === 'breeders' && vs !== null ? vsWhat : null, varea: tab === 'breeders' && vs !== null ? vsArea : null,
     });
-  }, [filters, sort, view, openId, tab, ffilters, fsort, curArea, curHide]);
+  }, [filters, sort, view, openId, tab, ffilters, fsort, curArea, curHide, vs, vsWhat, vsArea]);
 
   useEffect(() => { document.documentElement.lang = lang; }, [lang]);
   useEffect(() => {
@@ -141,10 +155,10 @@ export default function App() {
     showToast(STRINGS[lang].toastOwned(itemName(ITEM_BY_ID.get(id)!, lang), !prev.owned), () => restoreItem(id, prev));
   }, [toggleItem, restoreItem, showToast, lang]);
 
-  // ---- Chovatelé: public register, the only part with a backend
-  const { setBred } = p;
+  // ---- Hráči: public register, the only part with a backend
+  const { setBred, addCatches } = p;
   const breeders = useBreeders({
-    progress: p.progress, backyard: BACKYARD_IDS, setBred: useCallback((ids: readonly string[]) => setBred(ids, BACKYARD_LIST), [setBred]),
+    progress: p.progress, backyard: BACKYARD_IDS, known: FISH_IDS, addCatches, setBred: useCallback((ids: readonly string[]) => setBred(ids, BACKYARD_LIST), [setBred]),
   });
   // Ryby › Backyard › Chovatel: one player's backyard fish (register loaded on demand)
   const { ensureList, entries: breederEntries } = breeders;
@@ -206,6 +220,8 @@ export default function App() {
   };
 
   const switchTab = (next: Tab) => {
+    // the tab itself leads back to the list of players
+    setVs(null);
     if (next === tab) return;
     setTab(next);
     setView('grid');
@@ -215,6 +231,26 @@ export default function App() {
   const selectCollection = (id: string) => {
     changeFFilters({ collection: id });
     window.scrollTo({ top: 0 });
+  };
+
+  const compareWith = (no: number | null) => {
+    setVs(no);
+    setVsWhat(null);
+    setVsArea('');
+    window.scrollTo({ top: 0 });
+  };
+  /** Both sides counted with the journal's own rules (areas, spots); my side is the local progress. */
+  const compare = (bred: readonly string[], catches: Catches | null, what: What, place: string) => {
+    const theirs = journalOf(bred.filter(id => BACKYARD_IDS.has(id)), catches);
+    const base = what === 'bred' ? BACKYARD_FISH : FISH;
+    const pool = place && what !== 'bred' ? applyFilters(base, { ...EMPTY_FILTERS, ...locationPatch(place) }, p.progress, INDEX) : base;
+    const rarestFirst = sortFish(pool, 'rarity', lang).reverse();
+    const theirFacets = countFacets(FISH, EMPTY_FILTERS, theirs, INDEX);
+    return {
+      split: split(rarestFirst, p.progress, theirs, what),
+      all: split(base, p.progress, theirs, what),
+      areas: what === 'bred' ? [] : areaScores(AREAS, overall, theirFacets, what),
+    };
   };
 
   const notice = !p.persistent ? 'off' : p.status.blocked ? 'blocked' : p.status.recovered ? 'recovered' : null;
@@ -266,8 +302,13 @@ export default function App() {
           <main className={styles.log} id="ryby" tabIndex={-1}>
             <p id={CARD_HELP_ID} className="visually-hidden">{t.cardHelp}</p>
             <p id={ITEM_HELP_ID} className="visually-hidden">{t.itemHelp}</p>
-            {tab === 'breeders' ? (
-              <BreedersView
+            {tab === 'breeders' && vs !== null && breeders.enabled ? (
+              <CompareView
+                key={vs} no={vs} b={breeders} compare={compare} what={vsWhat} place={vsArea} areaName={areaName} mobile={mobile}
+                onWhat={setVsWhat} onPlace={setVsArea} onBack={() => compareWith(null)} onOpen={setOpenId}
+              />
+            ) : tab === 'breeders' ? (
+              <BreedersView onCompare={compareWith} total={FISH.length}
                 b={breeders} backyard={backyardSorted} onToast={text => showToast(text)} mobile={mobile}
                 renderFish={ids => (
                   <FishGrid

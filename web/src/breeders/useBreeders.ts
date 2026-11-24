@@ -1,10 +1,12 @@
-// Chovatelé state: Discord session, my entry, the public register and the auto-sync of "mám za domem".
+// Hráči state: Discord session, my entry, the public register and the auto-sync of "mám za domem"
+// and (when the player turned it on) of caught and glowing fish.
 // Anonymous visitors never touch the API until they open the tab or a backyard fish detail.
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { Progress } from '../progress/schema';
-import { api, API_URL, ApiError, type Entry, type Me, type ModAction, type MyEntry } from './api';
+import { api, API_URL, ApiError, type Catches, type Entry, type Me, type ModAction, type MyEntry } from './api';
 import {
-  bredIds, breederCounts, loadMemory, loadSession, planSync, readAuthFragment, saveMemory, saveSession, type SyncMemory,
+  bredIds, breederCounts, catchesIn, loadMemory, loadSession, planCatches, planSync, readAuthFragment, sameCatches, sameList,
+  saveMemory, saveSession, type SyncMemory,
 } from './local';
 
 export const SYNC_DELAY = 2000;
@@ -31,11 +33,15 @@ const AUTH_AT_LOAD = (() => {
 type Options = {
   progress: Progress;
   backyard: ReadonlySet<string>;
+  /** Every fish the data knows. */
+  known: ReadonlySet<string>;
   /** Takes the register's list into the journal (conflict: "use the register"). */
   setBred: (ids: readonly string[]) => void;
+  /** Adds the register's catches to the journal, never unchecks (same conflict, catches). */
+  addCatches: (caught: readonly string[], glowing: readonly string[]) => void;
 };
 
-export function useBreeders({ progress, backyard, setBred }: Options) {
+export function useBreeders({ progress, backyard, known, setBred, addCatches }: Options) {
   const enabled = API_URL !== '';
   const [token, setToken] = useState<string | null>(() => {
     if (!enabled) return null;
@@ -59,7 +65,10 @@ export function useBreeders({ progress, backyard, setBred }: Options) {
   const tokenRef = useRef(token);
   useEffect(() => { tokenRef.current = token; }, [token]);
 
-  const setMemory = useCallback((m: SyncMemory | null) => { setMemoryState(m); saveMemory(m); }, []);
+  // the latest value for answers that arrive after a later change
+  const memoryRef = useRef(memory);
+  const setMemory = useCallback((m: SyncMemory | null) => { memoryRef.current = m; setMemoryState(m); saveMemory(m); }, []);
+  const rememberedFor = useCallback((owner: string): SyncMemory => (memoryRef.current?.owner === owner ? { ...memoryRef.current } : { owner }), []);
 
   const signOutLocally = useCallback(() => {
     saveSession(null);
@@ -109,30 +118,52 @@ export function useBreeders({ progress, backyard, setBred }: Options) {
   const local = useMemo(() => bredIds(progress, backyard), [progress, backyard]);
   const plan = useMemo(() => planSync(me, memory, local), [me, memory, local]);
 
-  const accept = useCallback((entry: MyEntry, owner: string) => {
+  const localCatches = useMemo(() => catchesIn(progress, known), [progress, known]);
+  const catchesPlan = useMemo(() => planCatches(me, memory, localCatches), [me, memory, localCatches]);
+
+  /**
+   * Takes the server's answer. Only the lists in `sent` are remembered as coming from this browser:
+   * remembering the other one would turn its unresolved conflict into a silent overwrite.
+   */
+  const accept = useCallback((entry: MyEntry, owner: string, sent: { fish?: boolean; catches?: boolean }) => {
     setMe(m => (m ? { ...m, entry } : m));
-    setMemory({ owner, sent: entry.fish });
+    const next = rememberedFor(owner);
+    if (sent.fish) next.sent = entry.fish;
+    if (sent.catches) {
+      if (entry.catches) next.catches = entry.catches;
+      else delete next.catches;
+    }
+    setMemory(next);
     upsertMine(entry);
-  }, [setMemory, upsertMine]);
+  }, [rememberedFor, setMemory, upsertMine]);
 
   // a matching register means this browser is in sync from now on (mirrors it to localStorage)
   useEffect(() => {
-    if (plan.kind === 'synced' && me?.entry && (memory?.owner !== me.id || memory.sent.join() !== me.entry.fish.join())) {
-      // oxlint-disable-next-line react/set-state-in-effect -- keeps the stored copy in step with the server
-      setMemory({ owner: me.id, sent: me.entry.fish });
-    }
-  }, [plan.kind, me, memory, setMemory]);
+    if (!me?.entry) return;
+    const base: SyncMemory = memory?.owner === me.id ? memory : { owner: me.id };
+    const next = { ...base };
+    const { fish, catches } = me.entry;
+    if (plan.kind === 'synced' && !(base.sent && sameList(base.sent, fish))) next.sent = fish;
+    if (catchesPlan.kind === 'synced' && catches && !(base.catches && sameCatches(base.catches, catches))) next.catches = catches;
+    // oxlint-disable-next-line react/set-state-in-effect -- keeps the stored copy in step with the server
+    if (next.sent !== base.sent || next.catches !== base.catches) setMemory(next);
+  }, [plan.kind, catchesPlan.kind, me, memory, setMemory]);
 
-  const sendKey = plan.kind === 'send' ? plan.fish.join(',') : null;
+  const sendKey = useMemo(() => {
+    const body: { fish?: string[]; catches?: Catches } = {};
+    if (plan.kind === 'send') body.fish = plan.fish;
+    if (catchesPlan.kind === 'send') body.catches = catchesPlan.catches;
+    return body.fish || body.catches ? JSON.stringify(body) : null;
+  }, [plan, catchesPlan]);
   useEffect(() => {
     if (sendKey === null || !token || !me) return;
-    const fish = sendKey ? sendKey.split(',') : [];
+    const body = JSON.parse(sendKey) as { fish?: string[]; catches?: Catches };
     let live = true;
     const timer = window.setTimeout(async () => {
       setSending(true);
       try {
-        const entry = await api.put(token, { fish });
-        if (live) { accept(entry, me.id); setSendFailed(false); }
+        const entry = await api.put(token, body);
+        if (live) { accept(entry, me.id, { fish: !!body.fish, catches: !!body.catches }); setSendFailed(false); }
       } catch (e) {
         if (!live) return;
         if (e instanceof ApiError && e.status === 401) { signOutLocally(); return; }
@@ -180,14 +211,20 @@ export function useBreeders({ progress, backyard, setBred }: Options) {
     setActionError(null);
   }, [signOutLocally]);
 
-  const publish = useCallback((nick: string) => run(async t => {
+  const publish = useCallback((nick: string, withCatches: boolean) => run(async t => {
     if (!me) return;
-    accept(await api.put(t, { nick, fish: local }), me.id);
-  }), [run, me, local, accept]);
+    accept(await api.put(t, { nick, fish: local, ...(withCatches ? { catches: localCatches } : {}) }), me.id, { fish: true, catches: withCatches });
+  }), [run, me, local, localCatches, accept]);
+
+  /** Turns publishing of caught and glowing fish on, or off (the server deletes them). */
+  const shareCatches = useCallback((on: boolean) => run(async t => {
+    if (!me) return;
+    accept(await api.put(t, { catches: on ? localCatches : null }), me.id, { catches: true });
+  }), [run, me, localCatches, accept]);
 
   const saveNick = useCallback((nick: string) => run(async t => {
     if (!me) return;
-    accept(await api.put(t, { nick }), me.id);
+    accept(await api.put(t, { nick }), me.id, {});
   }), [run, me, accept]);
 
   const removeEntry = useCallback(() => run(async t => {
@@ -202,11 +239,23 @@ export function useBreeders({ progress, backyard, setBred }: Options) {
     if (plan.kind !== 'conflict' || !me) return Promise.resolve(false);
     if (keep === 'register') {
       setBred(plan.server);
-      setMemory({ owner: me.id, sent: plan.server });
+      setMemory({ ...rememberedFor(me.id), sent: plan.server });
       return Promise.resolve(true);
     }
-    return run(async t => { accept(await api.put(t, { fish: plan.local }), me.id); });
-  }, [plan, me, setBred, setMemory, run, accept]);
+    return run(async t => { accept(await api.put(t, { fish: plan.local }), me.id, { fish: true }); });
+  }, [plan, me, setBred, rememberedFor, setMemory, run, accept]);
+
+  /** 'add' = fill the journal from the register (then both are sent as one list), 'local' = send this journal. */
+  const resolveCatches = useCallback((keep: 'add' | 'local') => {
+    if (catchesPlan.kind !== 'conflict' || !me) return Promise.resolve(false);
+    if (keep === 'add') {
+      const { caught, glowing } = catchesPlan.server;
+      addCatches(caught, glowing);
+      setMemory({ ...rememberedFor(me.id), catches: catchesPlan.server });
+      return Promise.resolve(true);
+    }
+    return run(async t => { accept(await api.put(t, { catches: catchesPlan.local }), me.id, { catches: true }); });
+  }, [catchesPlan, me, addCatches, rememberedFor, setMemory, run, accept]);
 
   const report = useCallback((no: number) => run(async t => { await api.report(t, no); }), [run]);
   const moderate = useCallback((no: number, action: ModAction) => run(async t => {
@@ -217,10 +266,10 @@ export function useBreeders({ progress, backyard, setBred }: Options) {
   const counts = useMemo(() => (entries ? breederCounts(entries) : null), [entries]);
 
   return {
-    enabled, token, me, meState, entries, listState, counts, local, plan, sync, busy, actionError, authError,
+    enabled, token, me, meState, entries, listState, counts, local, localCatches, plan, catchesPlan, sync, busy, actionError, authError,
     ensureList, reloadList: loadList,
     retryMe: () => { setMeFailed(false); setMeTick(n => n + 1); },
-    login, logout, publish, saveNick, removeEntry, resolveConflict, report, moderate,
+    login, logout, publish, shareCatches, saveNick, removeEntry, resolveConflict, resolveCatches, report, moderate,
     clearErrors: () => { setActionError(null); setAuthError(null); },
   };
 }

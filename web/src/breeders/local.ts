@@ -2,14 +2,14 @@
 // logic around the register. Same storage rules as progress: every access guarded.
 import type { Progress } from '../progress/schema';
 import { browserStorage } from '../progress/storage';
-import type { Entry, Me } from './api';
+import type { Catches, Entry, Me } from './api';
 
 /** Bearer token from the Discord login. Never exported with the progress backup. */
 export const SESSION_KEY = 'fishdex:session:v1';
-/** { version, owner, sent }: the fish list last confirmed by the server for `owner` (Discord id). */
+/** { version, owner, sent?, catches? }: the lists last confirmed by the server for `owner` (Discord id). */
 export const BREEDERS_KEY = 'fishdex:breeders:v1';
 
-export type SyncMemory = { owner: string; sent: string[] };
+export type SyncMemory = { owner: string; sent?: string[]; catches?: Catches };
 
 export function loadSession(): string | null {
   try {
@@ -34,9 +34,14 @@ export function loadMemory(): SyncMemory | null {
   try {
     const raw = browserStorage()?.getItem(BREEDERS_KEY);
     if (!raw) return null;
-    const v = JSON.parse(raw) as { version?: number; owner?: unknown; sent?: unknown };
-    if (v.version !== 1 || typeof v.owner !== 'string' || !Array.isArray(v.sent)) return null;
-    return { owner: v.owner, sent: v.sent.filter((x): x is string => typeof x === 'string') };
+    const v = JSON.parse(raw) as { version?: number; owner?: unknown; sent?: unknown; catches?: { caught?: unknown; glowing?: unknown } | null };
+    if (v.version !== 1 || typeof v.owner !== 'string') return null;
+    const ids = (x: unknown) => (Array.isArray(x) ? x.filter((i): i is string => typeof i === 'string') : undefined);
+    const m: SyncMemory = { owner: v.owner };
+    const sent = ids(v.sent), caught = ids(v.catches?.caught), glowing = ids(v.catches?.glowing);
+    if (sent) m.sent = sent;
+    if (caught && glowing) m.catches = { caught, glowing };
+    return m;
   } catch {
     return null;
   }
@@ -55,7 +60,16 @@ export function bredIds(p: Progress, backyard: ReadonlySet<string>): string[] {
   return Object.entries(p.fish).filter(([id, s]) => s.bred && backyard.has(id)).map(([id]) => id).sort();
 }
 
+/** Caught and glowing fish the data knows, sorted (the shape the server stores). */
+export function catchesIn(p: Progress, known: ReadonlySet<string>): Catches {
+  const pick = (field: 'caught' | 'caughtGlowing') =>
+    Object.entries(p.fish).filter(([id, s]) => s[field] && known.has(id)).map(([id]) => id).sort();
+  return { caught: pick('caught'), glowing: pick('caughtGlowing') };
+}
+
 export const sameList = (a: readonly string[], b: readonly string[]) => a.length === b.length && a.every((x, i) => x === b[i]);
+
+export const sameCatches = (a: Catches, b: Catches) => sameList(a.caught, b.caught) && sameList(a.glowing, b.glowing);
 
 export type SyncPlan =
   | { kind: 'off' }                                         // not logged in, nothing published, or banned
@@ -71,8 +85,23 @@ export function planSync(me: Me | null, memory: SyncMemory | null, local: readon
   if (!me?.entry || me.banned) return { kind: 'off' };
   const server = me.entry.fish;
   if (sameList(server, local)) return { kind: 'synced' };
-  if (memory?.owner === me.id && sameList(memory.sent, server)) return { kind: 'send', fish: [...local] };
+  if (memory?.owner === me.id && memory.sent && sameList(memory.sent, server)) return { kind: 'send', fish: [...local] };
   return { kind: 'conflict', server, local: [...local] };
+}
+
+export type CatchesPlan =
+  | { kind: 'off' }                                      // catches not published
+  | { kind: 'synced' }
+  | { kind: 'send'; catches: Catches }
+  | { kind: 'conflict'; server: Catches; local: Catches };
+
+/** The same rule for published catches: never overwrite what this browser did not send itself. */
+export function planCatches(me: Me | null, memory: SyncMemory | null, local: Catches): CatchesPlan {
+  const server = me?.entry?.catches;
+  if (!me || !server || me.banned) return { kind: 'off' };
+  if (sameCatches(server, local)) return { kind: 'synced' };
+  if (memory?.owner === me.id && memory.catches && sameCatches(memory.catches, server)) return { kind: 'send', catches: local };
+  return { kind: 'conflict', server, local };
 }
 
 /** `#session=…` / `#auth_error=…` left by the login redirect. */
@@ -92,6 +121,6 @@ export function breederCounts(entries: readonly Entry[]): Map<string, number> {
   return m;
 }
 
-/** Register order: most backyard fish first, then by entry number. */
+/** Register order: most caught fish first (players who don't publish catches last), then most backyard fish, then entry number. */
 export const sortEntries = (entries: readonly Entry[]): Entry[] =>
-  [...entries].sort((a, b) => b.fish.length - a.fish.length || a.no - b.no);
+  [...entries].sort((a, b) => (b.counts?.caught ?? -1) - (a.counts?.caught ?? -1) || b.fish.length - a.fish.length || a.no - b.no);

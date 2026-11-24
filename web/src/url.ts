@@ -1,5 +1,5 @@
 // UI state lives in the query string (GitHub Pages has no SPA fallback, so no paths).
-// ?fish=<id> opens the detail; filters use q, area, rarity, bait, status, bred, unl, view; tab=current|furniture|timers|breeders (current: carea, chide; breeders: bq, bfish, bsort).
+// ?fish=<id> opens the detail; filters use q, area, rarity, bait, status, bred, unl, view; tab=current|furniture|timers|breeders (current: carea, chide; breeders: vs, vwhat, varea).
 
 export function readParams(): URLSearchParams {
   return new URLSearchParams(window.location.search);
