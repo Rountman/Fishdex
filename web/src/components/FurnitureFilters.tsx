@@ -40,10 +40,46 @@ function toggled<T>(set: ReadonlySet<T>, v: T): Set<T> {
 
 type ControlProps = Pick<Props, 'filters' | 'facets' | 'collections' | 'onChange' | 'sort' | 'onSort' | 'priceBounds'>;
 
-function Controls({ filters: f, facets, collections, onChange, sort, onSort, priceBounds }: ControlProps) {
+function StatusRow({ filters: f, facets, onChange }: Pick<Props, 'filters' | 'facets' | 'onChange'>) {
+  const { t } = useI18n();
+  const id = useId();
+  const label: Record<OwnStatus, string> = { all: t.statusAll, missing: t.fMissing, owned: t.fOwned };
+  return (
+    <div className={styles.row} role="group" aria-labelledby={id}>
+      <span className={styles.label} id={id}>{t.status}</span>
+      {STATUSES.map(s => (
+        <button key={s} type="button" className="chip" aria-pressed={f.status === s} onClick={() => onChange({ status: s })}>
+          {label[s]}<span className={styles.n}>{facets.status[s]}</span>
+        </button>
+      ))}
+    </div>
+  );
+}
+
+function CollectionRow({ filters: f, facets, collections, onChange }: Pick<Props, 'filters' | 'facets' | 'collections' | 'onChange'>) {
   const { lang, t } = useI18n();
-  const ids = { sort: useId(), set: useId(), type: useId(), rarity: useId(), status: useId(), price: useId() };
-  const statusLabel: Record<OwnStatus, string> = { all: t.statusAll, missing: t.fMissing, owned: t.fOwned };
+  const id = useId();
+  return (
+    <div className={styles.row}>
+      <label className={styles.label} htmlFor={id}>{t.fIndexTitle}</label>
+      <select id={id} className={styles.select} value={f.collection} onChange={e => onChange({ collection: e.target.value })}>
+        <option value="">{t.fAll} ({facets.all.total})</option>
+        {(['set', 'loose'] as const).map(kind => (
+          <optgroup key={kind} label={t.fKinds[kind]}>
+            {collections.filter(c => (kind === 'set') === (c.kind === 'set')).map(c => (
+              <option key={c.id} value={c.id}>{c.names[lang]} ({facets.collections.get(c.id)?.total ?? 0})</option>
+            ))}
+          </optgroup>
+        ))}
+      </select>
+    </div>
+  );
+}
+
+/** `quick`: status and collection sit above the cards, not here (phone). */
+function Controls({ filters: f, facets, collections, onChange, sort, onSort, priceBounds, quick }: ControlProps & { quick?: boolean }) {
+  const { t } = useI18n();
+  const ids = { sort: useId(), type: useId(), rarity: useId(), price: useId() };
   const sortLabel: Record<FurnitureSort, string> = { default: t.fSortDefault, 'price-asc': t.fSortAsc, 'price-desc': t.fSortDesc };
   return (
     <>
@@ -53,19 +89,7 @@ function Controls({ filters: f, facets, collections, onChange, sort, onSort, pri
           <button key={s} type="button" className="chip" aria-pressed={sort === s} onClick={() => onSort(s)}>{sortLabel[s]}</button>
         ))}
       </div>
-      <div className={styles.row}>
-        <label className={styles.label} htmlFor={ids.set}>{t.fIndexTitle}</label>
-        <select id={ids.set} className={styles.select} value={f.collection} onChange={e => onChange({ collection: e.target.value })}>
-          <option value="">{t.fAll} ({facets.all.total})</option>
-          {(['set', 'loose'] as const).map(kind => (
-            <optgroup key={kind} label={t.fKinds[kind]}>
-              {collections.filter(c => (kind === 'set') === (c.kind === 'set')).map(c => (
-                <option key={c.id} value={c.id}>{c.names[lang]} ({facets.collections.get(c.id)?.total ?? 0})</option>
-              ))}
-            </optgroup>
-          ))}
-        </select>
-      </div>
+      {!quick && <CollectionRow filters={f} facets={facets} collections={collections} onChange={onChange} />}
       <div className={styles.row} role="group" aria-labelledby={ids.type}>
         <span className={styles.label} id={ids.type}>{t.fType}</span>
         {FURNITURE_TYPES.map(ty => (
@@ -82,14 +106,7 @@ function Controls({ filters: f, facets, collections, onChange, sort, onSort, pri
           </button>
         ))}
       </div>
-      <div className={styles.row} role="group" aria-labelledby={ids.status}>
-        <span className={styles.label} id={ids.status}>{t.status}</span>
-        {STATUSES.map(s => (
-          <button key={s} type="button" className="chip" aria-pressed={f.status === s} onClick={() => onChange({ status: s })}>
-            {statusLabel[s]}<span className={styles.n}>{facets.status[s]}</span>
-          </button>
-        ))}
-      </div>
+      {!quick && <StatusRow filters={f} facets={facets} onChange={onChange} />}
       <div className={styles.row} role="group" aria-labelledby={ids.price}>
         <span className={styles.label} id={ids.price}>{t.fPrice}</span>
         <label className={styles.sizeField}>{t.sizeFrom}
@@ -169,12 +186,19 @@ export function FurnitureFilters(props: Props) {
       {!mobile && <div className={styles.inline}><Controls {...props} /></div>}
 
       {mobile && (
+        <div className={`${styles.quick} ${styles.quick3}`}>
+          <StatusRow filters={f} facets={props.facets} onChange={onChange} />
+          <CollectionRow filters={f} facets={props.facets} collections={props.collections} onChange={onChange} />
+        </div>
+      )}
+
+      {mobile && (
         <dialog ref={sheet} className={styles.sheet} aria-labelledby={sheetTitle}>
           <div className={styles.sheetBar}>
             <h2 id={sheetTitle}>{t.filters}</h2>
             <button type="button" className="icon-btn icon-btn--close" aria-label={t.close} onClick={() => onSheet(false)}>×</button>
           </div>
-          <div className={styles.sheetBody}><Controls {...props} /></div>
+          <div className={styles.sheetBody}><Controls {...props} quick /></div>
           <div className={styles.sheetFoot}>
             <button type="button" className="btn" onClick={() => onSheet(false)}>{t.fShowN(shown)}</button>
           </div>

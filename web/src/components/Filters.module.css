@@ -118,6 +118,9 @@
 /* status: 2 × 2 equal segments, no ragged wrap */
 .quick .row:first-child { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-2); }
 .quick .row:first-child :global(.chip) { justify-content: center; }
+/* furniture has three statuses */
+.quick3 .row:first-child { grid-template-columns: repeat(3, 1fr); }
+.quick3 .row:first-child :global(.chip) { padding-inline: var(--space-2); }
 /* the visible "Oblast" label is redundant next to "Všechny oblasti (615)" */
 .quick .row:last-child > .label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .quick .label { min-width: 0; }

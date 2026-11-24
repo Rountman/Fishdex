@@ -254,7 +254,8 @@ export default function App() {
           />
           {notice && <StorageNotice kind={notice} onBackup={() => setBackupOpen(true)} />}
 
-          {tab === 'furniture' && (
+          {/* phone: no column for the index; the filters above the cards pick the collection */}
+          {tab === 'furniture' && !mobile && (
             <FurnitureIndex collections={COLLECTIONS} facets={fFacets} selected={ffilters.collection} onSelect={selectCollection} />
           )}
           {/* phone: the index would land under all 615 cards; the overview (tally) carries it there */}

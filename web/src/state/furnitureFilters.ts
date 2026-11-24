@@ -138,6 +138,6 @@ export function furnitureFacets(items: readonly FurnitureItem[], f: FurnitureFil
   return out;
 }
 
-/** Number of active filters, search and collection excluded (mobile "Filtry (n)"). */
+/** Active filters inside the mobile panel ("Filtry (n)"): status and collection have their own rows above the cards. */
 export const activeFurnitureFilterCount = (f: FurnitureFilters) =>
-  f.type.size + f.rarity.size + (f.status !== 'all' ? 1 : 0) + (f.priceMin !== null || f.priceMax !== null ? 1 : 0);
+  f.type.size + f.rarity.size + (f.priceMin !== null || f.priceMax !== null ? 1 : 0);
