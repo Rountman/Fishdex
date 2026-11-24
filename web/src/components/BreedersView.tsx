@@ -126,19 +126,19 @@ function EntryRow({ e, b, byId, total, limit, renderFish, onToast, onCompare }: 
       <Avatar src={e.avatar} nick={e.nick} />
       <div className={styles.who}>
         <h3 className={styles.nick}>
-          {mine ? e.nick : (
-            // one link for the whole top of the row (stretched in CSS)
-            <a className={styles.open} href={`?tab=breeders&vs=${e.no}`} aria-label={t.cmp.openAria(e.nick)}
+          {e.nick}
+          {mine && <span className={styles.mineTag}>{t.br.mine}</span>}
+          {hidden && <span className={styles.hiddenTag}> ({t.br.hiddenTag})</span>}
+          {!mine && (
+            <a className={`link ${styles.open}`} href={`?tab=breeders&vs=${e.no}`} aria-label={t.cmp.openAria(e.nick)}
               onClick={ev => {
                 if (ev.metaKey || ev.ctrlKey || ev.shiftKey) return;
                 ev.preventDefault();
                 onCompare(e.no);
               }}>
-              {e.nick}<span className={styles.openGo}>{t.cmp.open}</span>
+              {t.cmp.open}
             </a>
           )}
-          {mine && <span className={styles.mineTag}>{t.br.mine}</span>}
-          {hidden && <span className={styles.hiddenTag}> ({t.br.hiddenTag})</span>}
         </h3>
         <p className={styles.meta}>
           {counts && <>{t.cmp.rowGlow(counts.glowing)} · {t.cmp.rowBred(fish.length)} · </>}

@@ -146,7 +146,7 @@ prototypes/    # schválené mockupy a styleguide (fáze 1–2), DECISIONS.md
 - Veřejný registr toho, co hráči chovají za domem (`bred`), a **jen se zvláštním zaškrtnutím** v Můj zápis
   (výchozí vypnuto) i ulovených a zářivých ryb. Nic jiného se nezveřejňuje. Vypnutí úlovky na serveru smaže.
   URL `tab=breeders`. Záložka je jen seznam hráčů (nejvíc ulovených nahoře, bez zveřejněných úlovků až za nimi podle
-  chovu) + lístek Můj zápis, žádné filtry ani hlavička. Klik na hráče otevře porovnání (viz níže).
+  chovu) + lístek Můj zápis, žádné filtry ani hlavička. Odkaz „Porovnat →“ u přezdívky (jen on, ne celý řádek) otevře porovnání (viz níže).
   Pruh ryb u hráče je jedno tlačítko: rozbalí pod řádkem jeho ryby jako karty z mřížky (FishGrid, tvoje stavy, detail);
   žádné přesměrování. Filtr Chovatel v Ryby › Backyard (`area=backyard&breeder=<č. zápisu>`) zůstává.
 - **Porovnání** (`vs=<č. zápisu>&vwhat=caught|glow|bred&varea=<oblast nebo oblast:Místo>`, `CompareView`,

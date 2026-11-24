@@ -26,15 +26,7 @@
 .no { color: var(--color-ink-faint); font: var(--fw-strong) var(--fs-xs)/1 var(--font-text); font-variant-numeric: tabular-nums; letter-spacing: 0.04em; }
 .who { min-width: 0; }
 .nick { margin: 0; font: var(--fw-name) var(--fs-h4)/1.2 var(--font-display); overflow-wrap: anywhere; }
-/* the whole top of the row opens the comparison; the other controls sit above it */
-.open { color: inherit; text-decoration: none; }
-.open::after { content: ""; position: absolute; inset: 0; }
-.open:hover .openGo { text-decoration: underline; text-underline-offset: 3px; }
-.open:focus-visible { outline: none; }
-.open:focus-visible::after { outline: 2px solid var(--color-focus); outline-offset: 2px; }
-.openGo { margin-left: 10px; color: var(--color-ink-soft); font: var(--fw-strong) var(--fs-sm)/1 var(--font-text); white-space: nowrap; }
-.entry:has(.open:hover) { background: var(--color-paper-deep); }
-.entry .acts, .entry .strip, .entry .panel { position: relative; z-index: 1; }
+.nick .open { margin-left: 10px; padding: 0; font: var(--fw-strong) var(--fs-sm)/1 var(--font-text); white-space: nowrap; }
 .mineTag {
   margin-left: 10px; padding: 1px 5px; border: 1.5px solid var(--color-stamp); color: var(--color-stamp);
   font: 700 10px/1.4 var(--font-text); letter-spacing: 0.1em; text-transform: uppercase; vertical-align: 3px; white-space: nowrap;
@@ -122,7 +114,7 @@
   /* the label goes under the number and "Porovnat" under the name: the nickname needs the width */
   .tally > span:not(:global(.bar)) { display: block; }
   .acts { display: flex; margin-left: 0; }
-  .openGo { display: block; margin: 4px 0 2px; }
+  .nick .open { display: block; width: fit-content; margin: 4px 0 2px; }
   .tally :global(.bar) { width: 64px; margin-left: auto; }
   .strip, .nothing { grid-column: 1 / -1; }
   .entry[data-mine]::before { left: -8px; }
