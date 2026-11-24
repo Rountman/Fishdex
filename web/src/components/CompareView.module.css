@@ -84,6 +84,7 @@
 @media (max-width: 1100px) {
   .spread { grid-template-columns: 200px minmax(0, 1fr); gap: var(--space-5); }
   .book .leaf { padding: var(--space-4); }
+  .book .name { font-size: var(--fs-sm); }
 }
 @media (max-width: 760px) {
   .duel { align-items: start; gap: var(--space-2); margin-bottom: 14px; }
