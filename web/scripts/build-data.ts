@@ -471,6 +471,8 @@ async function main() {
   // (CI checks it is up to date)
   const backyard = fish.filter(f => f.areas.includes('backyard')).map(f => f.id).sort();
   await writeFile(join(REPO, 'worker', 'src', 'backyard.json'), JSON.stringify(backyard, null, 1) + '\n');
+  // and, for comparing journals, only fish the game has
+  await writeFile(join(REPO, 'worker', 'src', 'fish.json'), JSON.stringify(fish.map(f => f.id).sort(), null, 1) + '\n');
   // official Palm Island map (1000x1000 webp, ~90 kB), the zone grid is drawn over it
   await mkdir(OUT_MAPS, { recursive: true });
   await copyFile(join(REPO, 'images', 'maps', 'palm-island.webp'), join(OUT_MAPS, 'palm-island.webp'));

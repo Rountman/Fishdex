@@ -1,7 +1,7 @@
-# fishdex-api — backend záložky Chovatelé
+# fishdex-api — backend záložky Hráči
 
-Cloudflare Worker + D1. Jediná část Fishdexu se serverem: veřejný registr chovu za domem,
-přihlášení přes Discord (`identify`). Pravidla viz `CLAUDE.md` › Záložka Chovatelé.
+Cloudflare Worker + D1. Jediná část Fishdexu se serverem: veřejný registr chovu za domem a (opt-in)
+úlovků pro porovnání deníků, přihlášení přes Discord (`identify`). Pravidla viz `CLAUDE.md` › Záložka Hráči.
 
 ## Lokálně (bez Cloudflare a Discordu)
 

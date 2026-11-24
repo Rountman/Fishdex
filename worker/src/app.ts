@@ -1,8 +1,11 @@
 // Fishdex API for the Chovatelé tab. Plain fetch handler, no framework; everything that touches
 // the outside world (database, Discord, clock) comes in through `Deps`, so tests run it in Node.
 import BACKYARD_LIST from './backyard.json';
-import { cleanFish, cleanNick, nickKey } from './validate';
+import FISH_LIST from './fish.json';
+import { cleanCatches, cleanFish, cleanNick, nickKey, type Catches } from './validate';
 
+/** Every fish of the game: what can be published as caught / glowing. */
+export const ALL_FISH: ReadonlySet<string> = new Set(FISH_LIST as string[]);
 export const BACKYARD: ReadonlySet<string> = new Set(BACKYARD_LIST as string[]);
 
 // ---- the D1 subset we use (node:sqlite implements it in tests) ------------
@@ -28,7 +31,8 @@ export const STATE_TTL = 10 * 60e3;
 export const WRITE_INTERVAL = 3e3;
 export const REPORT_LIMIT = 10;          // per reporter per 24 h
 export const AUTO_HIDE_REPORTS = 3;
-const MAX_BODY = 16 * 1024;
+/** Two full lists of all fish are about 22 kB. */
+const MAX_BODY = 64 * 1024;
 
 const DISCORD_AUTHORIZE = 'https://discord.com/oauth2/authorize';
 const DISCORD_TOKEN = 'https://discord.com/api/oauth2/token';
@@ -38,6 +42,8 @@ type Hidden = 'admin' | 'reports' | null;
 type Row = {
   no: number; discord_id: string; nick: string; fish: string; hidden: number;
   updated_at: number; avatar: string | null; reports: number;
+  /** Sizes of the published lists, null = catches not published. */
+  caught_n: number | null; glowing_n: number | null;
 };
 type User = { discord_id: string; avatar: string | null; banned: number; last_write_at: number };
 
@@ -61,11 +67,15 @@ const hiddenOf = (r: Pick<Row, 'hidden' | 'reports'>): Hidden =>
   r.hidden ? 'admin' : r.reports >= AUTO_HIDE_REPORTS ? 'reports' : null;
 
 function entryOf(r: Row) {
-  return { no: r.no, nick: r.nick, avatar: avatarUrl(r.discord_id, r.avatar), fish: JSON.parse(r.fish) as string[], updatedAt: r.updated_at };
+  return {
+    no: r.no, nick: r.nick, avatar: avatarUrl(r.discord_id, r.avatar), fish: JSON.parse(r.fish) as string[], updatedAt: r.updated_at,
+    counts: r.caught_n === null ? null : { caught: r.caught_n, glowing: r.glowing_n ?? 0 },
+  };
 }
 
 const ROW_SQL = `
   SELECT b.no, b.discord_id, b.nick, b.fish, b.hidden, b.updated_at, u.avatar,
+         json_array_length(b.catches, '$.caught') AS caught_n, json_array_length(b.catches, '$.glowing') AS glowing_n,
          (SELECT COUNT(*) FROM reports r WHERE r.target_id = b.discord_id) AS reports
   FROM breeders b JOIN users u ON u.discord_id = b.discord_id`;
 
@@ -123,8 +133,14 @@ export function createApp(deps: Deps) {
   const rowByUser = (id: string) => db.prepare(`${ROW_SQL} WHERE b.discord_id = ?`).bind(id).first<Row>();
   const rowByNo = (no: number) => db.prepare(`${ROW_SQL} WHERE b.no = ?`).bind(no).first<Row>();
 
-  function myEntry(r: Row | null) {
-    return r ? { ...entryOf(r), hidden: hiddenOf(r) } : null;
+  /** The lists themselves never travel with the register, only one player at a time. */
+  async function catchesOf(discordId: string): Promise<Catches | null> {
+    const r = await db.prepare('SELECT catches FROM breeders WHERE discord_id = ?').bind(discordId).first<{ catches: string | null }>();
+    return r?.catches ? JSON.parse(r.catches) as Catches : null;
+  }
+
+  async function myEntry(r: Row | null) {
+    return r ? { ...entryOf(r), hidden: hiddenOf(r), catches: await catchesOf(r.discord_id) } : null;
   }
 
   function returnUrl(raw: string | null): URL {
@@ -220,7 +236,7 @@ export function createApp(deps: Deps) {
       admin: config.adminIds.has(u.discord_id),
       banned: !!u.banned,
       avatar: avatarUrl(u.discord_id, u.avatar),
-      entry: myEntry(await rowByUser(u.discord_id)),
+      entry: await myEntry(await rowByUser(u.discord_id)),
     });
   }
 
@@ -242,6 +258,14 @@ export function createApp(deps: Deps) {
       if (!clean) throw new HttpError(400, 'fish_invalid');
       fish = clean;
     }
+    // null = stop publishing (the stored lists are deleted), missing = leave as it is
+    let catches = existing ? await catchesOf(u.discord_id) : null;
+    if (body.catches === null) catches = null;
+    else if (body.catches !== undefined) {
+      catches = cleanCatches(body.catches, ALL_FISH);
+      if (!catches) throw new HttpError(400, 'catches_invalid');
+    }
+    const catchesJson = catches && JSON.stringify(catches);
 
     const t = now();
     const wait = u.last_write_at + WRITE_INTERVAL - t;
@@ -254,10 +278,10 @@ export function createApp(deps: Deps) {
     const renamed = !!existing && existing.nick !== nick;
     const stmts = [
       existing
-        ? db.prepare(`UPDATE breeders SET nick = ?, nick_key = ?, fish = ?, updated_at = ?, hidden = CASE WHEN ? THEN 0 ELSE hidden END
-                      WHERE discord_id = ?`).bind(nick, key, JSON.stringify(fish), t, renamed ? 1 : 0, u.discord_id)
-        : db.prepare(`INSERT INTO breeders (discord_id, nick, nick_key, fish, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?)`)
-          .bind(u.discord_id, nick, key, JSON.stringify(fish), t, t),
+        ? db.prepare(`UPDATE breeders SET nick = ?, nick_key = ?, fish = ?, catches = ?, updated_at = ?, hidden = CASE WHEN ? THEN 0 ELSE hidden END
+                      WHERE discord_id = ?`).bind(nick, key, JSON.stringify(fish), catchesJson, t, renamed ? 1 : 0, u.discord_id)
+        : db.prepare(`INSERT INTO breeders (discord_id, nick, nick_key, fish, catches, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?)`)
+          .bind(u.discord_id, nick, key, JSON.stringify(fish), catchesJson, t, t),
       db.prepare('UPDATE users SET last_write_at = ? WHERE discord_id = ?').bind(t, u.discord_id),
     ];
     // a new nickname gets a clean slate (the mockup: "change it and the entry shows again")
@@ -268,7 +292,7 @@ export function createApp(deps: Deps) {
       if (String(e).includes('UNIQUE')) throw new HttpError(409, 'nick_taken');
       throw e;
     }
-    return json(req, { entry: myEntry(await rowByUser(u.discord_id)) });
+    return json(req, { entry: await myEntry(await rowByUser(u.discord_id)) });
   }
 
   async function deleteMe(req: Request) {
@@ -286,6 +310,18 @@ export function createApp(deps: Deps) {
     const r = await rowByNo(Number(no));
     if (!r) throw new HttpError(404, 'not_found');
     return r;
+  }
+
+  /** One player's published catches, for comparing journals. Hidden entries look like missing ones. */
+  async function catches(req: Request, no: string) {
+    const viewer = await session(req);
+    const r = await target(no);
+    const admin = !!viewer && config.adminIds.has(viewer.discord_id);
+    if (hiddenOf(r) && !admin && viewer?.discord_id !== r.discord_id) throw new HttpError(404, 'not_found');
+    const c = await catchesOf(r.discord_id);
+    if (!c) throw new HttpError(404, 'not_published');
+    // never cached: after "stop publishing" nobody should still get the lists
+    return json(req, c);
   }
 
   async function report(req: Request, no: string) {
@@ -336,6 +372,8 @@ export function createApp(deps: Deps) {
     }
     let p = /^\/breeders\/(\d{1,9})\/report$/.exec(path);
     if (p && m === 'POST') return report(req, p[1]);
+    p = /^\/breeders\/(\d{1,9})\/catches$/.exec(path);
+    if (p && m === 'GET') return catches(req, p[1]);
     p = /^\/admin\/breeders\/(\d{1,9})(?:\/(hide|restore|ban))?$/.exec(path);
     if (p && m === 'POST' && p[2]) return moderate(req, p[1], p[2]);
     if (p && m === 'DELETE' && !p[2]) return moderate(req, p[1], 'delete');

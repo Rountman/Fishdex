@@ -3,7 +3,7 @@
 //   GET /dev/as?id=<discord id>   who the next "Přihlásit přes Discord" logs in as (default 100…01)
 //   --seed                        fills the register with sample players
 import { createServer } from 'node:http';
-import { BACKYARD, createApp } from '../src/app';
+import { ALL_FISH, BACKYARD, createApp } from '../src/app';
 import { memoryDb } from './sqlite';
 
 const PORT = Number(process.env.PORT ?? 8787);
@@ -44,8 +44,11 @@ async function seed() {
     const back = await fakeLogin(new URL(`http://localhost:${PORT}/auth/login?return=${encodeURIComponent('http://localhost:5173/')}`));
     const token = new URL(back.headers.get('Location')!).hash.replace('#session=', '');
     const pick = fish.filter((_, k) => (k * 7 + i * 3) % 83 < n).slice(0, n);
+    // every third player keeps their catches private
+    const caught = [...ALL_FISH].filter((_, k) => (k * 31 + i * 17) % 100 < 70 - i * 5);
+    const catches = i % 3 ? { caught, glowing: caught.filter((_, k) => k % 6 === 0) } : undefined;
     await app(new Request(`http://localhost:${PORT}/me`, {
-      method: 'PUT', headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ nick, fish: pick }),
+      method: 'PUT', headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ nick, fish: pick, catches }),
     }));
   }
   nextUser = '100000000000000001';

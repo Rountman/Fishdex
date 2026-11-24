@@ -17,7 +17,17 @@ export function cleanNick(raw: unknown): string | null {
 /** Uniqueness ignores case. */
 export const nickKey = (nick: string) => nick.toLowerCase();
 
-/** Unique sorted ids, or null when anything is not a backyard fish. */
+export type Catches = { caught: string[]; glowing: string[] };
+
+/** Both lists unique and sorted, or null when the shape or any id is wrong. */
+export function cleanCatches(raw: unknown, allowed: ReadonlySet<string>): Catches | null {
+  if (!raw || typeof raw !== 'object') return null;
+  const { caught, glowing } = raw as Record<string, unknown>;
+  const c = cleanFish(caught, allowed), g = cleanFish(glowing, allowed);
+  return c && g ? { caught: c, glowing: g } : null;
+}
+
+/** Unique sorted ids, or null when anything is not an allowed fish. */
 export function cleanFish(raw: unknown, allowed: ReadonlySet<string>): string[] | null {
   if (!Array.isArray(raw) || raw.length > allowed.size * 2) return null;
   const out = new Set<string>();

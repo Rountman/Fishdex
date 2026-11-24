@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from 'vitest';
-import { AUTO_HIDE_REPORTS, BACKYARD, createApp, REPORT_LIMIT, SESSION_TTL, STATE_TTL, WRITE_INTERVAL } from '../src/app';
+import { ALL_FISH, AUTO_HIDE_REPORTS, BACKYARD, createApp, REPORT_LIMIT, SESSION_TTL, STATE_TTL, WRITE_INTERVAL } from '../src/app';
 import { cleanFish, cleanNick } from '../src/validate';
 import { memoryDb } from './sqlite';
 
@@ -236,7 +236,7 @@ describe('register and moderation', () => {
     expect(res.headers.get('Vary')).toBe('Origin, Authorization');
     const list = (await res.json() as { entries: unknown[] }).entries;
     expect(list).toEqual([{
-      no: 1, nick: 'Ošklivé_jméno', fish: [F1, F2].sort(), updatedAt: clock,
+      no: 1, nick: 'Ošklivé_jméno', fish: [F1, F2].sort(), updatedAt: clock, counts: null,
       avatar: `https://cdn.discordapp.com/avatars/600000000000000001/${AVATAR}.png?size=96`,
     }]);
     expect(JSON.stringify(list)).not.toContain('never-shown');
@@ -307,6 +307,70 @@ describe('register and moderation', () => {
   it('cannot ban an admin', async () => {
     await publish(admin, 'Moderátor');
     expect((await req('POST', '/admin/breeders/2/ban', { token: admin })).status).toBe(400);
+  });
+});
+
+describe('published catches', () => {
+  const [A, B] = [...ALL_FISH].filter(id => !BACKYARD.has(id));
+  let owner: string;
+  const put = (body: unknown, token = owner) => { clock += WRITE_INTERVAL; return req('PUT', '/me', { token, body }); };
+  beforeEach(async () => {
+    owner = await login('910000000000000001');
+    await publish(owner, 'KaprKrál', [F1]);
+  });
+
+  it('are off until the player turns them on', async () => {
+    expect(await entries()).toMatchObject([{ counts: null }]);
+    const res = await req('GET', '/breeders/1/catches');
+    expect(res.status).toBe(404);
+    expect(await res.json()).toEqual({ error: 'not_published' });
+  });
+
+  it('are public once on: counts in the register, lists one player at a time', async () => {
+    const { entry } = await (await put({ catches: { caught: [B, A, A], glowing: [B] } })).json() as { entry: Record<string, unknown> };
+    expect(entry).toMatchObject({ fish: [F1], counts: { caught: 2, glowing: 1 }, catches: { caught: [A, B].sort(), glowing: [B] } });
+    const [listed] = await entries();
+    expect(listed).toMatchObject({ counts: { caught: 2, glowing: 1 } });
+    expect(listed).not.toHaveProperty('catches');
+    const res = await req('GET', '/breeders/1/catches');
+    expect(await res.json()).toEqual({ caught: [A, B].sort(), glowing: [B] });
+    expect(res.headers.get('Cache-Control')).toBe('no-store');
+  });
+
+  it('stay when only the backyard or the nickname changes', async () => {
+    await put({ catches: { caught: [A], glowing: [] } });
+    await put({ fish: [F2] });
+    await put({ nick: 'KaprCísař' });
+    expect(await (await req('GET', '/breeders/1/catches')).json()).toEqual({ caught: [A], glowing: [] });
+  });
+
+  it('are deleted when turned off and when the entry is deleted', async () => {
+    await put({ catches: { caught: [A], glowing: [] } });
+    await put({ catches: null });
+    expect((await req('GET', '/breeders/1/catches')).status).toBe(404);
+    expect((db.raw.prepare('SELECT catches FROM breeders').get() as { catches: unknown }).catches).toBeNull();
+
+    await put({ catches: { caught: [A], glowing: [] } });
+    await req('DELETE', '/me', { token: owner });
+    expect((await req('GET', '/breeders/1/catches')).status).toBe(404);
+  });
+
+  it('refuse unknown fish and wrong shapes, accept every fish of the game', async () => {
+    for (const bad of [{ caught: ['nope'], glowing: [] }, { caught: [A] }, [], 'x', 1]) {
+      expect(await (await put({ catches: bad })).json()).toEqual({ error: 'catches_invalid' });
+    }
+    const all = [...ALL_FISH];
+    expect((await put({ fish: [...BACKYARD], catches: { caught: all, glowing: all } })).status).toBe(200);
+  });
+
+  it('of a hidden entry are only for its owner and admins', async () => {
+    await put({ catches: { caught: [A], glowing: [] } });
+    const admin = await login(ADMIN);
+    await req('POST', '/admin/breeders/1/hide', { token: admin });
+    expect((await req('GET', '/breeders/1/catches')).status).toBe(404);
+    expect((await req('GET', '/breeders/1/catches', { token: await login('910000000000000002') })).status).toBe(404);
+    expect((await req('GET', '/breeders/1/catches', { token: owner })).status).toBe(200);
+    expect((await req('GET', '/breeders/1/catches', { token: admin })).status).toBe(200);
   });
 });
 

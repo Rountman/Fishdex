@@ -40,10 +40,10 @@ jobs:
         env:
           BASE_PATH: /${{ github.event.repository.name }}/
 
-      # the Chovatelé API only accepts backyard fish; its committed list must match the data
-      - name: Backyard list for the worker is up to date
+      # the API only accepts known fish ids; its committed lists must match the data
+      - name: Fish lists for the worker are up to date
         working-directory: .
-        run: git diff --exit-code worker/src/backyard.json
+        run: git diff --exit-code worker/src/backyard.json worker/src/fish.json
 
       - uses: actions/configure-pages@v6
 
